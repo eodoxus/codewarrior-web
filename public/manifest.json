@@ -1,0 +1,15 @@
+{
+  "short_name": "Jaygordo.com",
+  "name": "Jason Gordon | PHP & Javascript developer, software architect and engineering manager",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#172C42",
+  "background_color": "#ffffff"
+}
