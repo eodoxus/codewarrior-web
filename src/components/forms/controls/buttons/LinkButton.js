@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styles from "./LinkButton.css";
+import styles from "./LinkButton.scss";
 import cx from "classnames";
 
 class LinkButton extends Component {

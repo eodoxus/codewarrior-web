@@ -1,0 +1,87 @@
+@import "../../scss/lib.scss";
+
+$color-header-background: #2c3e50;
+$color-buttons: #edf0a8;
+$header-element-spacing: 20px;
+$avatar-size: 75px;
+
+.header {
+  border-bottom: 1px solid #cfcfcf;
+  color: $color-font-inverse;
+  background-color: $color-header-background;
+  display: flex;
+}
+
+.selfie {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: $header-element-spacing;
+
+  .frame {
+    width: $avatar-size;
+    height: $avatar-size;
+    background: $color-app-background;
+    padding: 3px;
+    cursor: pointer;
+    border: 1px solid #dce4ec;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s;
+    position: relative;
+    top: 10px;
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.messaging {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .title {
+    font-size: 170%;
+    margin: 0;
+
+    a {
+      color: $color-font-inverse;
+    }
+  }
+
+  .subtitle {
+    font-size: 100%;
+    margin: 0;
+  }
+}
+
+.contactIcons {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: right;
+  padding-right: $header-element-spacing;
+  margin: 0;
+
+  a,
+  a:hover {
+    background-color: $color-buttons;
+    border-color: $color-buttons;
+    color: $color-header-background;
+    margin-right: 2px;
+  }
+
+  a:hover i {
+    color: #5d6a77;
+  }
+}
+
+.contactInfo {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}

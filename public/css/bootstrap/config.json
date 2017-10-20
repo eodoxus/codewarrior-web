@@ -382,6 +382,7 @@
     "@hr-border": "@gray-lighter"
   },
   "css": [
+    "type.less",
     "grid.less",
     "tables.less",
     "forms.less",
@@ -391,5 +392,5 @@
     "input-groups.less"
   ],
   "js": [],
-  "customizerUrl": "https://getbootstrap.com/docs/3.3/customize/?id=cfe1237a050f4effe5c17ef1964ef5b6"
+  "customizerUrl": "https://getbootstrap.com/docs/3.3/customize/?id=20d9cd4cef8ab777f4b0e5cee887f54c"
 }
