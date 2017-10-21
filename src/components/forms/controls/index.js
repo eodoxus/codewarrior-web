@@ -1,6 +1,5 @@
 import LinkButton from "./buttons/LinkButton";
 
-const Controls = {
+export default {
   LinkButton
 };
-export default Controls;

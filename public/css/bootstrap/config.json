@@ -383,7 +383,6 @@
   },
   "css": [
     "type.less",
-    "grid.less",
     "tables.less",
     "forms.less",
     "buttons.less",
@@ -392,5 +391,5 @@
     "input-groups.less"
   ],
   "js": [],
-  "customizerUrl": "https://getbootstrap.com/docs/3.3/customize/?id=20d9cd4cef8ab777f4b0e5cee887f54c"
+  "customizerUrl": "https://getbootstrap.com/docs/3.3/customize/?id=ded0e7db9374f747a07d6c915483c293"
 }

@@ -1,6 +1,5 @@
 import Header from "./Header";
 
-const Layout = {
+export default {
   Header
 };
-export default Layout;

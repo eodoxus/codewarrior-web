@@ -3,7 +3,7 @@ import { LinkButton } from "../forms/controls/buttons";
 import styles from "./Header.scss";
 import cx from "classnames";
 
-class Header extends Component {
+export default class Header extends Component {
   render() {
     return (
       <header className={cx(styles.header, "header")}>
@@ -14,9 +14,9 @@ class Header extends Component {
         </div>
         <div className={styles.messaging}>
           <h1 className={styles.title}>
-            <a href={this.props.url}>Jason Gordon</a>
+            <a href={this.props.url}>{this.props.name}</a>
           </h1>
-          <h2 className={styles.subtitle}>one line at a time</h2>
+          <h2 className={styles.subtitle}>{this.props.slogan}</h2>
         </div>
         <p className={styles.contactIcons}>
           <LinkButton
@@ -48,5 +48,3 @@ class Header extends Component {
     );
   }
 }
-
-export default Header;

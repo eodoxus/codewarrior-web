@@ -1,15 +1,22 @@
 import React, { Component } from "react";
 import Layout from "./components/layout";
+import { AppModel } from "./data";
 
 class App extends Component {
-  static SITE_URL = "/";
+  model = new AppModel();
+
+  componentDidMount() {
+    this.model.load().then(() => this.forceUpdate());
+  }
 
   render() {
     return (
       <Layout.Header
-        email="jason.m.gordon@gmail.com"
-        phone="+1 714-614-8144"
-        url={App.SITE_URL}
+        email={this.model.email}
+        name={this.model.name}
+        phone={this.model.phone}
+        slogan={this.model.slogan}
+        url={this.model.home}
       />
     );
   }
