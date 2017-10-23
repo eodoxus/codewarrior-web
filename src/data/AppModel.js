@@ -3,15 +3,8 @@ import DataModel from "./DataModel";
 export default class AppModel extends DataModel {
   static ENDPOINT = "site";
 
-  avatar = "";
-  email = "...";
-  name = "...";
-  phone = "...";
-  slogan = "...";
-  home = "/";
-
-  constructor() {
-    super(AppModel.ENDPOINT);
+  constructor(data) {
+    super(data, AppModel.ENDPOINT);
   }
 
   load() {

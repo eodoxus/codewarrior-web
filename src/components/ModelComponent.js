@@ -4,8 +4,9 @@ export default class ModelComponent extends Component {
   // instantiate DataModel and assign it to this.model in constructor
   model;
 
-  componentDidMount() {
-    this.loadModel().then(() => this.setState({ model: this.model }));
+  async componentDidMount() {
+    await this.loadModel();
+    this.setState({ model: this.model });
   }
 
   loadModel() {

@@ -6,7 +6,10 @@ import { AppModel } from "./data";
 export default class App extends ModelComponent {
   constructor() {
     super();
-    this.model = new AppModel();
+
+    this.model = new AppModel({
+      name: "..."
+    });
   }
 
   render() {

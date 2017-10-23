@@ -1,6 +1,7 @@
 @import "../../lib/lib.scss";
 
 $color-buttons: #edf0a8;
+$color-buttons--active: #d0d380;
 $header-element-spacing: 20px;
 $avatar-size: 75px;
 
@@ -71,15 +72,19 @@ $avatar-size: 75px;
   }
 
   a,
-  a:hover {
+  a:hover,
+  a:focus,
+  a:active:hover {
     background-color: $color-buttons;
     border-color: $color-buttons;
     color: $color-app-header;
     margin-right: 2px;
   }
 
-  a:active {
-    background-color: red;
+  a:active:hover {
+    background-color: $color-buttons--active;
+    border-color: $color-buttons--active;
+    color: #5d6a77;
   }
 
   a:hover i {

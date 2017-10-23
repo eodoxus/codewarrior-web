@@ -9,7 +9,8 @@ export default class DataModel {
   static API_URL = "api";
   static client = client;
 
-  constructor(endpoint) {
+  constructor(data, endpoint) {
+    Object.assign(this, data);
     this.url = BASE_URL + "/" + DataModel.API_URL + "/" + endpoint;
   }
 
