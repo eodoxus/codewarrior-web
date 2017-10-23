@@ -1,25 +1,27 @@
-import React, { Component } from "react";
+import React from "react";
+import ModelComponent from "./components/ModelComponent";
 import Layout from "./components/layout";
 import { AppModel } from "./data";
 
-class App extends Component {
-  model = new AppModel();
-
-  componentDidMount() {
-    this.model.load().then(() => this.forceUpdate());
+export default class App extends ModelComponent {
+  constructor() {
+    super();
+    this.model = new AppModel();
   }
 
   render() {
     return (
-      <Layout.Header
-        email={this.model.email}
-        name={this.model.name}
-        phone={this.model.phone}
-        slogan={this.model.slogan}
-        url={this.model.home}
-      />
+      <div className="app">
+        <Layout.Header
+          email={this.model.email}
+          name={this.model.name}
+          phone={this.model.phone}
+          portrait={this.model.avatar}
+          slogan={this.model.slogan}
+          url={this.model.home}
+        />
+        <Layout.Footer copy={this.model.footer} />
+      </div>
     );
   }
 }
-
-export default App;

@@ -1,14 +1,16 @@
 import * as q from "q";
 import RestClient from "../lib/RestClient";
 
+const BASE_URL =
+  process.env.NODE_ENV === "development" ? process.env.REACT_APP_BASE_URL : "";
 let client = new RestClient();
 
 export default class DataModel {
+  static API_URL = "api";
   static client = client;
-  static apiUrl = "api";
 
   constructor(endpoint) {
-    this.url = window.baseUrl + "/" + DataModel.apiUrl + "/" + endpoint;
+    this.url = BASE_URL + "/" + DataModel.API_URL + "/" + endpoint;
   }
 
   save() {

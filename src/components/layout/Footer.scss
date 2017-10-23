@@ -1,0 +1,15 @@
+@import "../../lib/lib.scss";
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ccc;
+  border-top: 1px solid #999;
+  color: $color-app-header;
+}

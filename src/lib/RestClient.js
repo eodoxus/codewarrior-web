@@ -1,8 +1,20 @@
 import "whatwg-fetch";
 
 export default class RestClient {
-  get(url) {
-    return fetch(url)
+  delete(url, id, configOverrides = {}) {
+    let config = Object.assign(configOverrides, {
+      method: "DELETE"
+    });
+    return fetch(url, fetchConfig(config))
+      .then(response => validate(response))
+      .catch(e => {
+        console.error("REST PUT failed", this.url, e);
+        throw e;
+      });
+  }
+
+  get(url, configOverrides = {}) {
+    return fetch(url, fetchConfig(configOverrides))
       .then(response => validate(response))
       .catch(e => {
         console.error("REST GET failed", this.url, e);
@@ -10,11 +22,42 @@ export default class RestClient {
       });
   }
 
-  put(url, data) {}
+  post(url, data, configOverrides = {}) {
+    let config = Object.assign(configOverrides, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    return fetch(url, fetchConfig(config))
+      .then(response => validate(response))
+      .catch(e => {
+        console.error("REST POST failed", this.url, e);
+        throw e;
+      });
+  }
 
-  post(url, data) {}
+  put(url, data, configOverrides = {}) {
+    let config = Object.assign(configOverrides, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    return fetch(url, fetchConfig(config))
+      .then(response => validate(response))
+      .catch(e => {
+        console.error("REST PUT failed", this.url, e);
+        throw e;
+      });
+  }
+}
 
-  delete(url, id) {}
+function fetchConfig(overrides) {
+  let defaults = {
+    credentials: "same-origin"
+  };
+  return Object.assign(defaults, overrides);
 }
 
 function validate(response) {

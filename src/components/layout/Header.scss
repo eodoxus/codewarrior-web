@@ -1,6 +1,5 @@
-@import "../../scss/lib.scss";
+@import "../../lib/lib.scss";
 
-$color-header-background: #2c3e50;
 $color-buttons: #edf0a8;
 $header-element-spacing: 20px;
 $avatar-size: 75px;
@@ -8,7 +7,7 @@ $avatar-size: 75px;
 .header {
   border-bottom: 1px solid #cfcfcf;
   color: $color-font-inverse;
-  background-color: $color-header-background;
+  background-color: $color-app-header;
   display: flex;
 }
 
@@ -67,12 +66,20 @@ $avatar-size: 75px;
   padding-right: $header-element-spacing;
   margin: 0;
 
+  .phone {
+    display: none;
+  }
+
   a,
   a:hover {
     background-color: $color-buttons;
     border-color: $color-buttons;
-    color: $color-header-background;
+    color: $color-app-header;
     margin-right: 2px;
+  }
+
+  a:active {
+    background-color: red;
   }
 
   a:hover i {
@@ -84,4 +91,33 @@ $avatar-size: 75px;
   flex: 1;
   display: flex;
   align-items: center;
+}
+
+@media screen and (max-width: 480px) {
+  .messaging {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .selfie {
+    justify-content: center;
+    margin-right: 0;
+  }
+
+  .contactIcons {
+    .phone {
+      display: block;
+    }
+  }
+
+  .contactInfo {
+    display: none;
+  }
+
+  .contactIcons {
+    a {
+      padding: 10px 15px;
+    }
+  }
 }
