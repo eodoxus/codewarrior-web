@@ -8,6 +8,6 @@ export default class AppModel extends DataModel {
   }
 
   load() {
-    return DataModel.client.get(this.url).then(data => this.loadJson(data));
+    return DataModel.client.get(this.$url).then(data => this.absorbData(data));
   }
 }

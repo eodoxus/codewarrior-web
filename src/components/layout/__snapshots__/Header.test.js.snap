@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> matches expected snapshot 1`] = `
+<header
+  className="header"
+>
+  <div
+    className={undefined}
+  >
+    <a
+      className={undefined}
+      href="/"
+    >
+      <img
+        alt="test portrait"
+        src="poo"
+      />
+    </a>
+  </div>
+  <div
+    className={undefined}
+  >
+    <h1
+      className={undefined}
+    >
+      <a
+        href="/"
+      >
+        test
+      </a>
+    </h1>
+    <h2
+      className={undefined}
+    >
+      herro
+    </h2>
+  </div>
+  <p
+    className={undefined}
+  >
+    <a
+      className="btn-sm btn btn-default"
+      href="https://facebook.com/eodoxus"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <i
+        className="fa fa-facebook"
+      />
+    </a>
+    <a
+      className="btn-sm btn btn-default"
+      href="https://www.linkedin.com/in/jasongordon"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <i
+        className="fa fa-linkedin"
+      />
+    </a>
+    <a
+      className="btn-sm btn btn-default"
+      href="https://github.com/eodoxus"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <i
+        className="fa fa-github"
+      />
+    </a>
+    <span
+      className={undefined}
+    >
+      <a
+        className="btn-sm btn btn-default"
+        href="tel:2234"
+        rel="noopener noreferrer"
+        target="_top"
+      >
+        <i
+          className="fa fa-phone"
+        />
+      </a>
+    </span>
+    <a
+      className="btn-sm btn btn-default"
+      href="mailto:poody"
+      rel="noopener noreferrer"
+      target="_top"
+    >
+      <i
+        className="fa fa-envelope"
+      />
+    </a>
+  </p>
+  <p
+    className={undefined}
+  >
+    poody
+     
+    <br />
+    2234
+  </p>
+</header>
+`;

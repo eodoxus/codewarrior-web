@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> matches expected snapshot 1`] = `
+<div
+  className="app"
+>
+  <header
+    className="header"
+  >
+    <div
+      className={undefined}
+    >
+      <a
+        className={undefined}
+        href={undefined}
+      >
+        <img
+          alt="... portrait"
+          src={undefined}
+        />
+      </a>
+    </div>
+    <div
+      className={undefined}
+    >
+      <h1
+        className={undefined}
+      >
+        <a
+          href={undefined}
+        >
+          ...
+        </a>
+      </h1>
+      <h2
+        className={undefined}
+      />
+    </div>
+    <p
+      className={undefined}
+    >
+      <a
+        className="btn-sm btn btn-default"
+        href="https://facebook.com/eodoxus"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <i
+          className="fa fa-facebook"
+        />
+      </a>
+      <a
+        className="btn-sm btn btn-default"
+        href="https://www.linkedin.com/in/jasongordon"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <i
+          className="fa fa-linkedin"
+        />
+      </a>
+      <a
+        className="btn-sm btn btn-default"
+        href="https://github.com/eodoxus"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <i
+          className="fa fa-github"
+        />
+      </a>
+      <span
+        className={undefined}
+      >
+        <a
+          className="btn-sm btn btn-default"
+          href="tel:undefined"
+          rel="noopener noreferrer"
+          target="_top"
+        >
+          <i
+            className="fa fa-phone"
+          />
+        </a>
+      </span>
+      <a
+        className="btn-sm btn btn-default"
+        href="mailto:undefined"
+        rel="noopener noreferrer"
+        target="_top"
+      >
+        <i
+          className="fa fa-envelope"
+        />
+      </a>
+    </p>
+    <p
+      className={undefined}
+    >
+       
+      <br />
+    </p>
+  </header>
+  <footer
+    className="footer"
+  >
+    
+  </footer>
+</div>
+`;

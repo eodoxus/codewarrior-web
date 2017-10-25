@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Buttons <LinkButton /> defaults size and target props to "sm" and "_blank", respectively 1`] = `
+<a
+  className="btn-sm btn btn-default"
+  href="somewhere.com"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <i
+    className="fa fa-test"
+  />
+</a>
+`;
+
+exports[`Buttons <LinkButton /> matches expected snapshot 1`] = `
+<a
+  className="btn-med btn btn-default"
+  href="somewhere.com"
+  rel="noopener noreferrer"
+  target="_top"
+>
+  <i
+    className="fa fa-test"
+  />
+</a>
+`;

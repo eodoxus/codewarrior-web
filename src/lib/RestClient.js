@@ -1,55 +1,53 @@
 import "whatwg-fetch";
 
 export default class RestClient {
-  delete(url, id, configOverrides = {}) {
-    let config = Object.assign(configOverrides, {
-      method: "DELETE"
-    });
-    return fetch(url, fetchConfig(config))
-      .then(response => validate(response))
-      .catch(e => {
-        console.error("REST PUT failed", this.url, e);
-        throw e;
-      });
+  get(url, config = {}) {
+    return executeRequest(url, config);
   }
 
-  get(url, configOverrides = {}) {
-    return fetch(url, fetchConfig(configOverrides))
-      .then(response => validate(response))
-      .catch(e => {
-        console.error("REST GET failed", this.url, e);
-        throw e;
-      });
+  put(url, data, config = {}) {
+    return executeRequest(
+      url,
+      Object.assign(config, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+    );
   }
 
-  post(url, data, configOverrides = {}) {
-    let config = Object.assign(configOverrides, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    return fetch(url, fetchConfig(config))
-      .then(response => validate(response))
-      .catch(e => {
-        console.error("REST POST failed", this.url, e);
-        throw e;
-      });
+  post(url, data, config = {}) {
+    return executeRequest(
+      url,
+      Object.assign(config, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+    );
   }
 
-  put(url, data, configOverrides = {}) {
-    let config = Object.assign(configOverrides, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    return fetch(url, fetchConfig(config))
-      .then(response => validate(response))
-      .catch(e => {
-        console.error("REST PUT failed", this.url, e);
-        throw e;
-      });
+  delete(url, id, config = {}) {
+    return executeRequest(
+      url,
+      Object.assign(config, {
+        method: "DELETE"
+      })
+    );
+  }
+}
+
+async function executeRequest(url, config) {
+  try {
+    let response = await fetch(url, fetchConfig(config));
+    return validate(response);
+  } catch (e) {
+    console.error(`REST ${config.method || "GET"} failed`, url, e);
+    throw e;
   }
 }
 
