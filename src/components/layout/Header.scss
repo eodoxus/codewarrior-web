@@ -1,11 +1,14 @@
 @import "../../lib/lib.scss";
 
-$color-buttons: #edf0a8;
-$color-buttons--active: #d0d380;
 $header-element-spacing: 20px;
 $avatar-size: 75px;
 
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
   border-bottom: 1px solid #cfcfcf;
   color: $color-font-inverse;
   background-color: $color-app-header;
@@ -72,7 +75,6 @@ $avatar-size: 75px;
   }
 
   a,
-  a:hover,
   a:focus,
   a:active:hover {
     background-color: $color-buttons;
@@ -81,9 +83,14 @@ $avatar-size: 75px;
     margin-right: 2px;
   }
 
+  a:hover {
+    background-color: $color-buttons--hover;
+    border-color: $color-buttons--hover;
+  }
+
   a:active:hover {
-    background-color: $color-buttons--active;
-    border-color: $color-buttons--active;
+    background-color: $color-buttons--pressed;
+    border-color: $color-buttons--pressed;
     color: #5d6a77;
   }
 

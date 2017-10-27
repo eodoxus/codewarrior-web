@@ -7,7 +7,8 @@ export default class AppModel extends DataModel {
     super(data, AppModel.ENDPOINT);
   }
 
-  load() {
-    return DataModel.client.get(this.$url).then(data => this.absorbData(data));
+  async load() {
+    let data = await DataModel.client.get(this.$url);
+    return this.absorbData(data);
   }
 }

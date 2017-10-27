@@ -2,7 +2,7 @@
 
 exports[`<App /> matches expected snapshot 1`] = `
 <div
-  className="app"
+  className={undefined}
 >
   <header
     className="header"
@@ -101,6 +101,14 @@ exports[`<App /> matches expected snapshot 1`] = `
       <br />
     </p>
   </header>
+  <div
+    className={undefined}
+    onClick={[Function]}
+  >
+    <span>
+      Home Scene
+    </span>
+  </div>
   <footer
     className="footer"
   >

@@ -1,4 +1,3 @@
-import * as q from "q";
 import * as _ from "lodash";
 import RestClient from "../lib/RestClient";
 
@@ -11,36 +10,39 @@ export default class DataModel {
   static client = client;
 
   constructor(data, endpoint) {
-    this.absorbData(data).$url =
-      BASE_URL + "/" + DataModel.API_URL + "/" + endpoint;
+    this.$url = BASE_URL + "/" + DataModel.API_URL + "/" + endpoint;
+    this.absorbData(data);
   }
 
-  load() {
+  async load() {
     if (this.id) {
-      return client
-        .get(`${this.$url}/${this.id}`)
-        .then(data => this.absorbData(data));
+      let data = await client.get(`${this.$url}/${this.id}`);
+      return this.absorbData(data);
     }
-    return q.when(this);
+    return this;
   }
 
-  delete() {
+  async delete() {
     if (this.id) {
-      return client.delete(`${this.$url}/${this.id}`).then(() => this);
+      await client.delete(`${this.$url}/${this.id}`);
     }
-    return q.when(this);
+    return this;
   }
 
-  save() {
-    let method = this.id ? "put" : "post";
-    return client[method](this.$url, this.toJson()).then(data =>
-      this.absorbData(data)
-    );
+  async save() {
+    let method = this.id ? "put" : "post",
+      data = await client[method](this.$url, this.toJson());
+    this.absorbData(data);
+    return this;
   }
 
   absorbData(data) {
     Object.assign(this, data);
     return this;
+  }
+
+  isLoaded() {
+    return this.$isLoaded;
   }
 
   toJson() {

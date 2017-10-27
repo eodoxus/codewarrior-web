@@ -1,29 +1,38 @@
-import React from "react";
-import ModelComponent from "./components/ModelComponent";
+import React, { Component } from "react";
 import Layout from "./components/layout";
+import styles from "./App.scss";
 import { AppModel } from "./data";
+import Game from "./game";
 
-export default class App extends ModelComponent {
+const DEFAULT_ROUTE = "home";
+
+export default class App extends Component {
   constructor() {
     super();
+    this.state = {
+      name: "...",
+      route: DEFAULT_ROUTE
+    };
+  }
 
-    this.model = new AppModel({
-      name: "..."
-    });
+  async componentDidMount() {
+    let model = await new AppModel().load();
+    this.setState(model.toPojo());
   }
 
   render() {
     return (
-      <div className="app">
+      <div className={styles.app}>
         <Layout.Header
-          email={this.model.email}
-          name={this.model.name}
-          phone={this.model.phone}
-          portrait={this.model.avatar}
-          slogan={this.model.slogan}
-          url={this.model.home}
+          email={this.state.email}
+          name={this.state.name}
+          phone={this.state.phone}
+          portrait={this.state.avatar}
+          slogan={this.state.slogan}
+          url={this.state.home}
         />
-        <Layout.Footer copy={this.model.footer} />
+        <Game.SceneDirector scene={this.state.route} />
+        <Layout.Footer copy={this.state.footer} />
       </div>
     );
   }
