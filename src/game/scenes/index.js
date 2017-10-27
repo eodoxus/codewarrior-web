@@ -1,5 +1,5 @@
 import HomeScene from "./home/HomeScene";
 
-export const Scenes = {
+export default {
   HomeScene
 };

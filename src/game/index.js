@@ -1,7 +1,11 @@
-import Scene from "./Scene";
-import SceneDirector from "./SceneDirector";
+import Components from "./components";
+import engine from "./engine";
+import Scenes from "./scenes";
+import sprites from "./sprites";
 
 export default {
-  Scene,
-  SceneDirector
+  Components,
+  engine,
+  Scenes,
+  sprites
 };

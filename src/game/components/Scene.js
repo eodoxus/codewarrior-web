@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import styles from "./Scene.scss";
 
-const TILE_SIZE = 32;
-
 export default class Scene extends Component {
+  static TILE_SIZE = 8;
+
   constructor(props) {
     super(props);
     this.state = {

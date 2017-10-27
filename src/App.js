@@ -31,7 +31,7 @@ export default class App extends Component {
           slogan={this.state.slogan}
           url={this.state.home}
         />
-        <Game.SceneDirector scene={this.state.route} />
+        <Game.Components.SceneDirector scene={this.state.route} />
         <Layout.Footer copy={this.state.footer} />
       </div>
     );

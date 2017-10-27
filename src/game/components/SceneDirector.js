@@ -1,8 +1,8 @@
 import * as _ from "lodash";
 import React, { Component } from "react";
 import styles from "./SceneDirector.scss";
-import Indicators from "../components/indicators";
-import { Scenes } from "./scenes";
+import Indicators from "../../components/indicators";
+import Scenes from "../scenes";
 
 export default class SceneDirector extends Component {
   constructor(props) {
