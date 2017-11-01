@@ -9,7 +9,7 @@ export default class DataModel {
   static client = client;
 
   constructor(data, endpoint) {
-    this.$url = Url.BASE + "/" + DataModel.API_URL + "/" + endpoint;
+    this.$url = Url.BASE + DataModel.API_URL + "/" + endpoint;
     this.absorbData(data);
   }
 

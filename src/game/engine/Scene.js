@@ -78,17 +78,31 @@ export default class Scene extends Component {
 
   _handleCollisions(sprite) {
     let position = sprite.getPosition();
-    if (position.x >= this.props.size.width - sprite.size.width) {
-      position.x = this.props.size.width;
+    const sceneBoundary = {
+      min: {
+        x: 0,
+        y: 0
+      },
+      max: {
+        x: this.props.size.width - sprite.size.width * sprite.scale,
+        y: this.props.size.height - sprite.size.height * sprite.scale
+      }
+    };
+    if (position.x >= sceneBoundary.max.x) {
+      sprite.direction.x *= -1;
+      position.x = sceneBoundary.max.x;
     }
-    if (position.x <= sprite.size.width) {
-      position.x = 0;
+    if (position.x <= sceneBoundary.min.x) {
+      sprite.direction.x *= -1;
+      position.x = sceneBoundary.min.x;
     }
-    if (position.y >= this.props.size.height - sprite.size.height) {
-      position.y = this.props.size.height;
+    if (position.y >= sceneBoundary.max.y) {
+      sprite.direction.y *= -1;
+      position.y = sceneBoundary.max.y;
     }
-    if (position.y <= sprite.size.height) {
-      position.y = 0;
+    if (position.y <= sceneBoundary.min.y) {
+      sprite.direction.y *= -1;
+      position.y = sceneBoundary.min.y;
     }
     sprite.setPosition(position);
   }

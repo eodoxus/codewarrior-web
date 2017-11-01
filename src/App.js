@@ -44,7 +44,7 @@ export default class App extends Component {
     if (this.state.isLoading) {
       return <Indicators.Loader />;
     }
-    const heroPosition = new Game.Point(400, 400);
+    const heroPosition = new Game.Point(100, 50);
     const hero = new Game.Entities.Hero(heroPosition);
     return <Game.SceneDirector scene={this.state.route} sprites={[hero]} />;
   }

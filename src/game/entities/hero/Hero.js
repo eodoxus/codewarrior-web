@@ -24,14 +24,15 @@ const STATES = {
 export default class Hero extends Sprite {
   constructor(position) {
     super(position);
-    this.direction = new Vector(0, -1); // Down
-    this.state = STATES.WALKING;
     this.initFromConfig(config);
+    this.state = STATES.WALKING;
+    this.direction = new Vector(0, -1); // Down
   }
 
   load() {
     super.load();
     this.updateCurrentAnimation();
+    this.velocity = 100;
     this.getAnimation().start();
   }
 
@@ -68,7 +69,7 @@ export default class Hero extends Sprite {
     return ANIMATIONS.WALKING.UP;
   }
 
-  update(dt) {
+  randomWalk(dt) {
     if (this._dt + dt > 2000) {
       const randX = Math.random();
       const randY = Math.random();
@@ -87,13 +88,13 @@ export default class Hero extends Sprite {
         this.direction.y = 1;
         this.direction.x = 0;
       }
-      //this.direction.x *= 10;
-      //this.direction.y *= 10;
       this._dt = 0;
     }
+  }
+
+  update(dt) {
+    this.randomWalk(dt);
     this.updateCurrentAnimation();
-    this.position.x += this.direction.x;
-    this.position.y += this.direction.y * -1;
     super.update(dt);
   }
 }

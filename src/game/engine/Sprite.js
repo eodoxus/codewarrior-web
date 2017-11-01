@@ -1,6 +1,7 @@
 import AnimationCollection from "./AnimationCollection";
 import Point from "./Point";
 import Size from "./Size";
+import Vector from "./Vector";
 
 export default class Sprite {
   animations;
@@ -11,6 +12,7 @@ export default class Sprite {
   size;
   scale;
   state;
+  velocity;
 
   _dt = 0;
 
@@ -27,11 +29,13 @@ export default class Sprite {
   }
 
   initFromConfig(config) {
-    this.id = config.id || this.id;
-    this.scale = config.scale || 1;
     this.animations.config = config.animations || {};
+    this.id = config.id || this.id;
+    this.direction = new Vector(0, 0);
+    this.scale = config.scale || 1;
     this.size.height = config.height || this.size.height;
     this.size.width = config.width || this.size.width;
+    this.velocity = config.velocity || 1;
   }
 
   load() {
@@ -78,6 +82,14 @@ export default class Sprite {
     return this.animations.get(this.curAnimation);
   }
 
+  getDirection() {
+    return this.direction;
+  }
+
+  setDirection(direction) {
+    this.direction = direction;
+  }
+
   removeAnimation(name) {
     this.animations.forEach((animation, iDx) => {
       if (animation.name === name) {
@@ -89,5 +101,9 @@ export default class Sprite {
   update(dt) {
     this.getAnimation().update(dt);
     this._dt += dt;
+    const direction = this.direction.normalize();
+    const positionDiff = this.velocity * dt / 1000;
+    this.position.x += direction.x * positionDiff;
+    this.position.y += -direction.y * positionDiff;
   }
 }

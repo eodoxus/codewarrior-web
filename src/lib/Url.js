@@ -4,8 +4,8 @@ export default class Url {
     : "/";
 
   static PUBLIC = process.env.NODE_ENV === "development"
-    ? "/"
+    ? ""
     : process.env.PUBLIC_URL;
 
-  static ANIMATIONS = Url.PUBLIC + "animations/";
+  static ANIMATIONS = Url.PUBLIC + "/animations/";
 }
