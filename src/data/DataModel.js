@@ -1,8 +1,7 @@
 import * as _ from "lodash";
 import RestClient from "../lib/RestClient";
+import Url from "../lib/Url";
 
-const BASE_URL =
-  process.env.NODE_ENV === "development" ? process.env.REACT_APP_BASE_URL : "";
 const client = new RestClient();
 
 export default class DataModel {
@@ -10,7 +9,7 @@ export default class DataModel {
   static client = client;
 
   constructor(data, endpoint) {
-    this.$url = BASE_URL + "/" + DataModel.API_URL + "/" + endpoint;
+    this.$url = Url.BASE + "/" + DataModel.API_URL + "/" + endpoint;
     this.absorbData(data);
   }
 

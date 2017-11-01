@@ -1,4 +1,4 @@
-export default class Point {
+export default class Vector {
   x;
   y;
   constructor(x, y) {

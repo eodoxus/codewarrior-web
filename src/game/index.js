@@ -1,11 +1,9 @@
-import Components from "./components";
-import engine from "./engine";
-import Scenes from "./scenes";
-import sprites from "./sprites";
+import Entities from "./entities";
+import Point from "./engine/Point";
+import SceneDirector from "./engine/SceneDirector";
 
 export default {
-  Components,
-  engine,
-  Scenes,
-  sprites
+  Entities,
+  Point,
+  SceneDirector
 };

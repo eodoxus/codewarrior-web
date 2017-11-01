@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Indicators from "./components/indicators";
 import Layout from "./components/layout";
 import styles from "./App.scss";
 import { AppModel } from "./data";
@@ -10,6 +11,7 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
+      isLoading: true,
       name: "...",
       route: DEFAULT_ROUTE
     };
@@ -18,6 +20,7 @@ export default class App extends Component {
   async componentDidMount() {
     let model = await new AppModel().load();
     this.setState(model.toPojo());
+    this.setState({ isLoading: false });
   }
 
   render() {
@@ -31,9 +34,18 @@ export default class App extends Component {
           slogan={this.state.slogan}
           url={this.state.home}
         />
-        <Game.Components.SceneDirector scene={this.state.route} />
+        <div className={styles.content}>{this.renderGame()}</div>
         <Layout.Footer copy={this.state.footer} />
       </div>
     );
+  }
+
+  renderGame() {
+    if (this.state.isLoading) {
+      return <Indicators.Loader />;
+    }
+    const heroPosition = new Game.Point(400, 400);
+    const hero = new Game.Entities.Hero(heroPosition);
+    return <Game.SceneDirector scene={this.state.route} sprites={[hero]} />;
   }
 }

@@ -1,8 +1,8 @@
-import Scene from "../../components/Scene";
+import Scene from "../../engine/Scene";
 
 export default class HomeScene extends Scene {
   constructor(props) {
     super(props);
-    this.state.name = "Home Scene";
+    this.state.name = "home-scene";
   }
 }

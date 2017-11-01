@@ -1,0 +1,44 @@
+@import "../../lib/lib.scss";
+
+$dimension-loader--sm: 20px;
+$dimension-loader--med: 40px;
+$dimension-loader--lg: 80px;
+
+.loader {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    path:last-child {
+      fill: $color-app-header;
+    }
+  }
+}
+
+.loader--sm {
+  svg {
+    width: $dimension-loader--sm;
+    height: $dimension-loader--sm;
+  }
+}
+
+.loader--med {
+  svg {
+    width: $dimension-loader--med;
+    height: $dimension-loader--med;
+  }
+}
+
+.loader--lg {
+  svg {
+    width: $dimension-loader--lg;
+    height: $dimension-loader--lg;
+  }
+}
