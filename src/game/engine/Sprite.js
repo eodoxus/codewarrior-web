@@ -1,5 +1,4 @@
 import AnimationCollection from "./AnimationCollection";
-import Point from "./Point";
 import Size from "./Size";
 import Vector from "./Vector";
 
@@ -17,30 +16,25 @@ export default class Sprite {
   _dt = 0;
 
   constructor(
-    position = new Point(0, 0),
+    position = new Vector(0, 0),
     size = new Size(100, 100),
     scale = 1
   ) {
-    this.animations = [];
-    this.animations.config = {};
     this.position = position;
     this.size = size;
     this.scale = scale;
   }
 
   initFromConfig(config) {
-    this.animations.config = config.animations || {};
+    this.animations = new AnimationCollection(config.animations || {});
     this.id = config.id || this.id;
     this.direction = new Vector(0, 0);
     this.scale = config.scale || 1;
-    this.size.height = config.height || this.size.height;
-    this.size.width = config.width || this.size.width;
+    this.size = new Size(
+      config.height || this.size.height,
+      config.width || this.size.width
+    );
     this.velocity = config.velocity || 1;
-  }
-
-  load() {
-    this.animations = new AnimationCollection(this.animations.config);
-    return this.animations.load();
   }
 
   getPosition() {
@@ -60,10 +54,7 @@ export default class Sprite {
   }
 
   getSize() {
-    return {
-      height: this.size.height * this.scale,
-      width: this.size.width * this.scale
-    };
+    return Size.scale(this.size, this.scale);
   }
 
   setSize(s) {

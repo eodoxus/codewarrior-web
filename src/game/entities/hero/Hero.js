@@ -27,12 +27,8 @@ export default class Hero extends Sprite {
     this.initFromConfig(config);
     this.state = STATES.WALKING;
     this.direction = new Vector(0, -1); // Down
-  }
-
-  load() {
-    super.load();
-    this.updateCurrentAnimation();
     this.velocity = 100;
+    this.updateCurrentAnimation();
     this.getAnimation().start();
   }
 

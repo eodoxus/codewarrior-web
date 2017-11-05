@@ -1,9 +1,9 @@
 import Entities from "./entities";
-import Point from "./engine/Point";
+import Vector from "./engine/Vector";
 import SceneDirector from "./engine/SceneDirector";
 
 export default {
   Entities,
-  Point,
+  Vector,
   SceneDirector
 };

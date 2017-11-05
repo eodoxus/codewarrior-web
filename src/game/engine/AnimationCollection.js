@@ -10,21 +10,11 @@ export default class AnimationCollection {
     this.config = config;
     this.url = config.image;
     this.data = config.data;
+    this.parse(this.data);
   }
 
   get(animationName) {
     return this.animations[animationName] || {};
-  }
-
-  load() {
-    return new Promise(resolve => {
-      const image = new Image();
-      image.onload = () => {
-        resolve();
-      };
-      image.src = this.url;
-      this.parse(this.data);
-    });
   }
 
   parse(data) {

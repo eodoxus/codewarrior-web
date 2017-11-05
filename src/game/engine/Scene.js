@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import * as q from "q";
 import Indicators from "../../components/indicators";
 import SpriteFrame from "./SpriteFrame";
-import styles from "./Scene.scss";
+import SpriteCache from "./SpriteCache";
 
 export default class Scene extends Component {
   static TILE_SIZE = 8;
@@ -15,16 +14,11 @@ export default class Scene extends Component {
       name: "base-scene",
       isLoading: true
     };
-    this.sprites = this.props.sprites;
-    this.load();
+    this.sprites = this.props.sprites || [];
   }
 
-  async load() {
-    let promises = [];
-    this.sprites.forEach(sprite => {
-      promises.push(sprite.load());
-    });
-    await q.all(promises);
+  async componentWillMount() {
+    await SpriteCache.fetch(this.sprites);
     this.setState({ isLoading: false });
   }
 
@@ -38,7 +32,7 @@ export default class Scene extends Component {
     }
     return (
       <div
-        className={styles.scene}
+        className="scene"
         style={this._getPositionStyle(this.props.position, this.props.size)}
       >
         {this.renderSprites()}
@@ -52,7 +46,7 @@ export default class Scene extends Component {
       this._handleCollisions(sprite);
       return (
         <div
-          className={styles.sprite}
+          className="sprite"
           style={this._getPositionStyle(sprite.getPosition(), sprite.getSize())}
           key={sprite.id}
         >
