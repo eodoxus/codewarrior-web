@@ -24,10 +24,10 @@ const STATES = {
 export default class Hero extends Sprite {
   constructor(position) {
     super(position);
+    this.config = config;
     this.initFromConfig(config);
     this.state = STATES.WALKING;
-    this.direction = new Vector(0, -1); // Down
-    this.velocity = 100;
+    this.velocity = new Vector(0, this.config.walkingVelocity); // Down
     this.updateCurrentAnimation();
     this.getAnimation().start();
   }
@@ -46,20 +46,22 @@ export default class Hero extends Sprite {
   }
 
   getWalkingAnimation() {
-    if (this.direction.y < 0) {
-      if (this.direction.x > 0) {
+    if (this.velocity.y > 0) {
+      if (this.velocity.x > 0) {
         return ANIMATIONS.WALKING.DOWN_RIGHT;
-      } else if (this.direction.x < 0) {
+      } else if (this.velocity.x < 0) {
         return ANIMATIONS.WALKING.DOWN_LEFT;
       }
       return ANIMATIONS.WALKING.DOWN;
     }
 
-    if (this.direction.y === 0) {
-      if (this.direction.x > 0) {
+    if (this.velocity.y === 0) {
+      if (this.velocity.x > 0) {
         return ANIMATIONS.WALKING.RIGHT;
+      } else if (this.velocity.x < 0) {
+        return ANIMATIONS.WALKING.LEFT;
       }
-      return ANIMATIONS.WALKING.LEFT;
+      return ANIMATIONS.WALKING.DOWN;
     }
 
     return ANIMATIONS.WALKING.UP;
@@ -67,22 +69,22 @@ export default class Hero extends Sprite {
 
   randomWalk(dt) {
     if (this._dt + dt > 2000) {
+      this.velocity = new Vector(
+        this.config.walkingVelocity,
+        this.config.walkingVelocity
+      );
+
       const randX = Math.random();
       const randY = Math.random();
       if (randX < 0.3) {
-        this.direction.x = -1;
+        this.velocity.x *= -1;
       } else if (randX < 0.6) {
-        this.direction.x = 0;
-      } else {
-        this.direction.x = 1;
+        this.velocity.x = 0;
       }
       if (randY < 0.3) {
-        this.direction.y = -1;
+        this.velocity.y *= -1;
       } else if (randY < 0.6) {
-        this.direction.y = 0;
-      } else {
-        this.direction.y = 1;
-        this.direction.x = 0;
+        this.velocity.y = 0;
       }
       this._dt = 0;
     }
@@ -90,7 +92,9 @@ export default class Hero extends Sprite {
 
   update(dt) {
     this.randomWalk(dt);
-    this.updateCurrentAnimation();
+    if (this.velocity.magnitude() !== 0) {
+      this.updateCurrentAnimation();
+    }
     super.update(dt);
   }
 }

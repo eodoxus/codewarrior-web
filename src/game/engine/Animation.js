@@ -35,6 +35,10 @@ export default class Animation {
     this.running = false;
   }
 
+  reset() {
+    this.curFrame = 0;
+  }
+
   update(dt) {
     this._dt += dt;
     if (this._dt > this.speed) {

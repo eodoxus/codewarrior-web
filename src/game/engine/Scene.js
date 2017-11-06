@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Indicators from "../../components/indicators";
 import SpriteFrame from "./SpriteFrame";
 import SpriteCache from "./SpriteCache";
+import Vector from "./Vector";
 
 export default class Scene extends Component {
   static TILE_SIZE = 8;
@@ -55,9 +56,22 @@ export default class Scene extends Component {
             frame={sprite.getFrame()}
             scale={sprite.getScale()}
           />
+          {this.renderDebug(sprite)}
         </div>
       );
     });
+  }
+
+  renderDebug(sprite) {
+    if (this.props.debug) {
+      return (
+        <div class="sprite-debug">
+          <p>acceleration: {sprite.acceleration.render()}</p>
+          <p>position: {sprite.position.render()}</p>
+          <p>velocity: {sprite.velocity.render()}</p>
+        </div>
+      );
+    }
   }
 
   _getPositionStyle(position, size) {
@@ -83,19 +97,19 @@ export default class Scene extends Component {
       }
     };
     if (position.x >= sceneBoundary.max.x) {
-      sprite.direction.x *= -1;
+      sprite.getVelocity().multiply(new Vector(-1, 1));
       position.x = sceneBoundary.max.x;
     }
     if (position.x <= sceneBoundary.min.x) {
-      sprite.direction.x *= -1;
+      sprite.getVelocity().multiply(new Vector(-1, 1));
       position.x = sceneBoundary.min.x;
     }
     if (position.y >= sceneBoundary.max.y) {
-      sprite.direction.y *= -1;
+      sprite.getVelocity().multiply(new Vector(1, -1));
       position.y = sceneBoundary.max.y;
     }
     if (position.y <= sceneBoundary.min.y) {
-      sprite.direction.y *= -1;
+      sprite.getVelocity().multiply(new Vector(1, -1));
       position.y = sceneBoundary.min.y;
     }
     sprite.setPosition(position);

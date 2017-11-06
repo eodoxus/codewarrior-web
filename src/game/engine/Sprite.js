@@ -1,11 +1,12 @@
 import AnimationCollection from "./AnimationCollection";
 import Size from "./Size";
+import Time from "./Time";
 import Vector from "./Vector";
 
 export default class Sprite {
+  acceleration;
   animations;
   curAnimation = 0;
-  direction;
   id = "sprite";
   position;
   size;
@@ -26,15 +27,15 @@ export default class Sprite {
   }
 
   initFromConfig(config) {
+    this.acceleration = new Vector();
     this.animations = new AnimationCollection(config.animations || {});
     this.id = config.id || this.id;
-    this.direction = new Vector(0, 0);
+    this.velocity = new Vector();
     this.scale = config.scale || 1;
     this.size = new Size(
       config.height || this.size.height,
       config.width || this.size.width
     );
-    this.velocity = config.velocity || 1;
   }
 
   getPosition() {
@@ -61,6 +62,14 @@ export default class Sprite {
     this.size = s;
   }
 
+  getVelocity() {
+    return this.velocity;
+  }
+
+  setVelocity(v) {
+    this.velocity = v;
+  }
+
   getFrame() {
     return this.getAnimation().getFrame();
   }
@@ -73,14 +82,6 @@ export default class Sprite {
     return this.animations.get(this.curAnimation);
   }
 
-  getDirection() {
-    return this.direction;
-  }
-
-  setDirection(direction) {
-    this.direction = direction;
-  }
-
   removeAnimation(name) {
     this.animations.forEach((animation, iDx) => {
       if (animation.name === name) {
@@ -90,11 +91,14 @@ export default class Sprite {
   }
 
   update(dt) {
-    this.getAnimation().update(dt);
+    if (this.velocity.magnitude() === 0) {
+      this.getAnimation().reset();
+    } else {
+      this.getAnimation().update(dt);
+    }
     this._dt += dt;
-    const direction = this.direction.normalize();
-    const positionDiff = this.velocity * dt / 1000;
-    this.position.x += direction.x * positionDiff;
-    this.position.y += -direction.y * positionDiff;
+    const frameInterval = dt / Time.SECOND;
+    const velocity = Vector.multiply(this.velocity, frameInterval);
+    this.position.add(velocity);
   }
 }

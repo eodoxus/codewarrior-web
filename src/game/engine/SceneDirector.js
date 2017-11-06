@@ -55,6 +55,7 @@ export default class SceneDirector extends Component {
           }}
           sprites={this.props.sprites}
           dt={this.state.dt}
+          debug={this.state.debug}
         />
       </div>
     );
