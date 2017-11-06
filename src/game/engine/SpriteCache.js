@@ -1,9 +1,9 @@
 export default class SpriteCache {
-  static fetch(sprites) {
-    return Promise.all(
+  static async fetch(sprites) {
+    await Promise.all(
       sprites.map(sprite => {
         if (sprite.animations) {
-          return _loadImage(sprite.animations.url);
+          return requestImage(sprite.animations.url);
         }
         return Promise.resolve();
       })
@@ -11,7 +11,7 @@ export default class SpriteCache {
   }
 }
 
-function _loadImage(url) {
+function requestImage(url) {
   return new Promise(resolve => {
     const image = new Image();
     image.onload = () => {

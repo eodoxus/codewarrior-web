@@ -29,20 +29,34 @@ export default class Hero extends Sprite {
     this.state = STATES.WALKING;
     this.velocity = new Vector(0, this.config.walkingVelocity); // Down
     this.updateCurrentAnimation();
-    this.getAnimation().start();
+  }
+
+  getStateAnimationName() {
+    switch (this.state) {
+      case STATES.PICKING_UP:
+        return ANIMATIONS.PICKING_UP;
+      case STATES.READING:
+        return ANIMATIONS.READING;
+      case STATES.WALKING:
+        return this.getWalkingAnimation();
+      default:
+        return ANIMATIONS.WALKING.DOWN;
+    }
   }
 
   updateCurrentAnimation() {
-    switch (this.state) {
-      case STATES.PICKING_UP:
-        return (this.curAnimation = ANIMATIONS.PICKING_UP);
-      case STATES.READING:
-        return (this.curAnimation = ANIMATIONS.READING);
-      case STATES.WALKING:
-        return (this.curAnimation = this.getWalkingAnimation());
-      default:
-        return (this.curAnimation = ANIMATIONS.WALKING.DOWN);
+    const nextAnimation = this.getStateAnimationName();
+    if (!this.curAnimation) {
+      this.curAnimation = nextAnimation;
     }
+
+    if (nextAnimation !== this.curAnimation) {
+      this.getAnimation()
+        .stop()
+        .reset();
+      this.curAnimation = nextAnimation;
+    }
+    this.getAnimation().start();
   }
 
   getWalkingAnimation() {

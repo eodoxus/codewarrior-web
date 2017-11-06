@@ -7,7 +7,7 @@ export default class Animation {
   url;
   width;
 
-  _running = false;
+  _isRunning = false;
   _dt = 0;
 
   constructor(name, url, width, height, speed, frames = []) {
@@ -21,6 +21,7 @@ export default class Animation {
 
   addFrame(frame) {
     this.frames.push(frame);
+    return this;
   }
 
   getFrame() {
@@ -28,18 +29,24 @@ export default class Animation {
   }
 
   start() {
-    this.running = true;
+    this._isRunning = true;
+    return this;
   }
 
   stop() {
-    this.running = false;
+    this._isRunning = false;
+    return this;
   }
 
   reset() {
     this.curFrame = 0;
+    return this;
   }
 
   update(dt) {
+    if (!this._isRunning) {
+      return;
+    }
     this._dt += dt;
     if (this._dt > this.speed) {
       this.curFrame++;
@@ -48,5 +55,6 @@ export default class Animation {
       }
       this._dt = 0;
     }
+    return this;
   }
 }
