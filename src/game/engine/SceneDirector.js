@@ -1,17 +1,17 @@
 import * as _ from "lodash";
 import React, { Component } from "react";
 import styles from "./SceneDirector.scss";
+import Entities from "../entities";
 import Scenes from "../scenes";
-
-const HEADER_HEIGHT = 76;
-const FOOTER_HEIGHT = 40;
-const FPS = 60;
+import Time from "./Time";
+import Vector from "./Vector";
 
 export default class SceneDirector extends Component {
   constructor(props) {
     super(props);
     this.state = Object.assign(this._getSceneDimensions(), {
-      dt: 0
+      dt: 0,
+      sprites: this.props.sprites || [initHero()]
     });
     this.lastTime = Date.now();
   }
@@ -23,18 +23,27 @@ export default class SceneDirector extends Component {
   };
 
   componentDidMount() {
-    this._updateWindowDimensions();
-    this.interval = setInterval(() => {
-      const now = Date.now();
-      this.setState({ dt: now - this.lastTime });
-      this.lastTime = now;
-    }, 1000 / FPS);
-    window.addEventListener("resize", () => this._updateWindowDimensions());
+    this.frameRateInterval = setInterval(
+      () => this.updateScene(),
+      Time.getFPSInterval()
+    );
+    this.updateSceneSize();
+    window.addEventListener("resize", () => this.updateSceneSize());
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
-    window.removeEventListener("resize", () => this._updateWindowDimensions());
+    clearInterval(this.frameRateInterval);
+    window.removeEventListener("resize", () => this.updateSceneSize());
+  }
+
+  updateScene() {
+    const now = Date.now();
+    this.setState({ dt: now - this.lastTime });
+    this.lastTime = now;
+  }
+
+  updateSceneSize() {
+    this.setState(this._getSceneDimensions());
   }
 
   render() {
@@ -53,7 +62,7 @@ export default class SceneDirector extends Component {
             width: this.state.sceneWidth,
             height: this.state.sceneHeight
           }}
-          sprites={this.props.sprites}
+          sprites={this.state.sprites}
           dt={this.state.dt}
           debug={this.state.debug}
         />
@@ -64,13 +73,20 @@ export default class SceneDirector extends Component {
   _getSceneDimensions() {
     return {
       sceneWidth: window.innerWidth,
-      sceneHeight: window.innerHeight - HEADER_HEIGHT - FOOTER_HEIGHT,
+      sceneHeight: window.innerHeight - this.props.top - this.props.bottom,
       sceneTop: 0,
       sceneLeft: 0
     };
   }
+}
 
-  _updateWindowDimensions() {
-    this.setState(this._getSceneDimensions());
-  }
+SceneDirector.defaultProps = {
+  top: 0,
+  bottom: 0,
+  scene: "home"
+};
+
+function initHero() {
+  const heroPosition = new Vector(100, 50);
+  return new Entities.Hero(heroPosition);
 }

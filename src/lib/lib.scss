@@ -6,7 +6,12 @@ $color-buttons--hover: #f8fabf;
 $color-buttons--pressed: #d7da90;
 $color-font-inverse: #fff;
 $color-footer: #ccc;
+$color-error--border: red;
+$color-error--background: rgb(250, 156, 156);
 
 // Layout Dimensions
 $dimension-footer--height: 40px;
 $dimension-header--height: 76px;
+
+// Spacing
+$gutter-sm: 20px;

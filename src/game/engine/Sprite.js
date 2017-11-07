@@ -6,7 +6,7 @@ import Vector from "./Vector";
 export default class Sprite {
   acceleration;
   animations;
-  curAnimation = 0;
+  curAnimation;
   id = "sprite";
   position;
   size;
@@ -16,11 +16,7 @@ export default class Sprite {
 
   _dt = 0;
 
-  constructor(
-    position = new Vector(0, 0),
-    size = new Size(100, 100),
-    scale = 1
-  ) {
+  constructor(position = new Vector(), size = new Size(100, 100), scale = 1) {
     this.position = position;
     this.size = size;
     this.scale = scale;
@@ -33,8 +29,8 @@ export default class Sprite {
     this.velocity = new Vector();
     this.scale = config.scale || 1;
     this.size = new Size(
-      config.height || this.size.height,
-      config.width || this.size.width
+      config.width || this.size.width,
+      config.height || this.size.height
     );
   }
 
@@ -79,26 +75,29 @@ export default class Sprite {
   }
 
   getAnimation() {
-    return this.animations.get(this.curAnimation);
+    return this.animations && this.animations.get(this.curAnimation);
+  }
+
+  setAnimation(name) {
+    this.curAnimation = name;
   }
 
   removeAnimation(name) {
-    this.animations.forEach((animation, iDx) => {
-      if (animation.name === name) {
-        this.animations.splice(iDx, 1);
-      }
-    });
+    this.animations.remove(name);
   }
 
   update(dt) {
-    if (this.velocity.magnitude() === 0) {
-      this.getAnimation().reset();
+    const animation = this.getAnimation();
+    if (!this.velocity || this.velocity.magnitude() === 0) {
+      animation && animation.reset();
     } else {
-      this.getAnimation().update(dt);
+      animation && animation.update(dt);
     }
     this._dt += dt;
-    const frameInterval = dt / Time.SECOND;
-    const velocity = Vector.multiply(this.velocity, frameInterval);
-    this.position.add(velocity);
+    if (this.velocity) {
+      const frameInterval = dt / Time.SECOND;
+      const velocity = Vector.multiply(this.velocity, frameInterval);
+      this.position.add(velocity);
+    }
   }
 }

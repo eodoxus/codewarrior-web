@@ -12,18 +12,20 @@ export default class AnimationCollection {
     this.animations = parse(config);
   }
 
-  get(animationName) {
-    if (!this.animations[animationName]) {
-      throw new Error(
-        `Animation ${animationName} doesn't exist in the collection`
-      );
+  get(name) {
+    if (!this.animations[name]) {
+      throw new Error(`Animation ${name} doesn't exist in the collection`);
     }
-    return this.animations[animationName];
+    return this.animations[name];
+  }
+
+  remove(name) {
+    delete this.animations[name];
   }
 }
 
 function parse(config) {
-  const animations = [];
+  const animations = {};
   Object.keys(config.data.frames).forEach(key => {
     const frame = config.data.frames[key].frame;
     const name = key.substring(0, key.lastIndexOf("/")).replace("/", "_");

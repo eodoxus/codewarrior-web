@@ -6,6 +6,8 @@ import { AppModel } from "./data";
 import Game from "./game";
 
 const DEFAULT_ROUTE = "home";
+const HEADER_HEIGHT = 76;
+const FOOTER_HEIGHT = 40;
 
 export default class App extends Component {
   constructor() {
@@ -17,13 +19,25 @@ export default class App extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidCatch(error, info) {
+    this.setState({
+      hasError: true,
+      error: error
+    });
+  }
+
+  async componentWillMount() {
     let model = await new AppModel().load();
     this.setState(model.toPojo());
-    this.setState({ isLoading: false });
+    if (!this.state.hasError) {
+      this.setState({ isLoading: false });
+    }
   }
 
   render() {
+    const content = this.state.hasError
+      ? this.renderError()
+      : this.renderGame();
     return (
       <div className={styles.app}>
         <Layout.Header
@@ -34,18 +48,26 @@ export default class App extends Component {
           slogan={this.state.slogan}
           url={this.state.home}
         />
-        <div className={styles.content}>{this.renderGame()}</div>
+        <div className={styles.content}>{content}</div>
         <Layout.Footer copy={this.state.footer} />
       </div>
     );
+  }
+
+  renderError() {
+    return <div className={styles.error}>{this.state.error.message}</div>;
   }
 
   renderGame() {
     if (this.state.isLoading) {
       return <Indicators.Loader />;
     }
-    const heroPosition = new Game.Vector(100, 50);
-    const hero = new Game.Entities.Hero(heroPosition);
-    return <Game.SceneDirector scene={this.state.route} sprites={[hero]} />;
+    return (
+      <Game.SceneDirector
+        scene={this.state.route}
+        top={HEADER_HEIGHT}
+        bottom={FOOTER_HEIGHT}
+      />
+    );
   }
 }

@@ -49,4 +49,13 @@ describe("AnimationCollection", () => {
       }
     });
   });
+
+  describe("remove", () => {
+    it("removes an animation by name", () => {
+      const animationName = "walking_up";
+      expect(collection.animations[animationName]).toBeDefined();
+      collection.remove(animationName);
+      expect(collection.animations[animationName]).toBeUndefined();
+    });
+  });
 });
