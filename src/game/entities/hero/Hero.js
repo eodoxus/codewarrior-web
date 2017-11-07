@@ -11,7 +11,9 @@ const ANIMATIONS = {
     DOWN_RIGHT: "walking_downRight",
     LEFT: "walking_left",
     RIGHT: "walking_right",
-    UP: "walking_up"
+    UP: "walking_up",
+    UP_LEFT: "walking_upLeft",
+    UP_RIGHT: "walking_upRight"
   }
 };
 
@@ -76,6 +78,12 @@ export default class Hero extends Sprite {
         return ANIMATIONS.WALKING.LEFT;
       }
       return ANIMATIONS.WALKING.DOWN;
+    }
+
+    if (this.velocity.x > 0) {
+      return ANIMATIONS.WALKING.UP_RIGHT;
+    } else if (this.velocity.x < 0) {
+      return ANIMATIONS.WALKING.UP_LEFT;
     }
 
     return ANIMATIONS.WALKING.UP;

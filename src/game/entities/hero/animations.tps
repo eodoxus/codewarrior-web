@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.5.0</string>
         <key>fileName</key>
-        <string>/Users/jgordon/Projects/Jaygo/jaygordo.com/codewarrior/src/game/entities/hero/walking.tps</string>
+        <string>/Users/jgordon/Projects/Jaygo/jaygordo.com/codewarrior/src/game/entities/hero/animations.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -199,44 +199,38 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">images/walking_01.png</key>
-            <key type="filename">images/walking_02.png</key>
-            <key type="filename">images/walking_03.png</key>
-            <key type="filename">images/walking_04.png</key>
-            <key type="filename">images/walking_05.png</key>
-            <key type="filename">images/walking_06.png</key>
-            <key type="filename">images/walking_07.png</key>
-            <key type="filename">images/walking_08.png</key>
-            <key type="filename">images/walking_09.png</key>
-            <key type="filename">images/walking_10.png</key>
-            <key type="filename">images/walking_12.png</key>
-            <key type="filename">images/walking_13.png</key>
-            <key type="filename">images/walking_14.png</key>
-            <key type="filename">images/walking_15.png</key>
-            <key type="filename">images/walking_16.png</key>
-            <key type="filename">images/walking_17.png</key>
-            <key type="filename">images/walking_18.png</key>
-            <key type="filename">images/walking_19.png</key>
-            <key type="filename">images/walking_20.png</key>
-            <key type="filename">images/walking_21.png</key>
-            <key type="filename">images/walking_23.png</key>
-            <key type="filename">images/walking_24.png</key>
-            <key type="filename">images/walking_25.png</key>
-            <key type="filename">images/walking_26.png</key>
-            <key type="filename">images/walking_27.png</key>
-            <key type="filename">images/walking_28.png</key>
-            <key type="filename">images/walking_29.png</key>
-            <key type="filename">images/walking_30.png</key>
-            <key type="filename">images/walking_31.png</key>
-            <key type="filename">images/walking_32.png</key>
-            <key type="filename">images/walking_33.png</key>
-            <key type="filename">images/walking_34.png</key>
-            <key type="filename">images/walking_35.png</key>
-            <key type="filename">images/walking_36.png</key>
-            <key type="filename">images/walking_37.png</key>
-            <key type="filename">images/walking_38.png</key>
-            <key type="filename">images/walking_39.png</key>
-            <key type="filename">images/walking_40.png</key>
+            <key type="filename">animations/pickingUp/01.png</key>
+            <key type="filename">animations/reading/01.png</key>
+            <key type="filename">animations/walking/downLeft/01.png</key>
+            <key type="filename">animations/walking/downLeft/02.png</key>
+            <key type="filename">animations/walking/left/01.png</key>
+            <key type="filename">animations/walking/left/02.png</key>
+            <key type="filename">animations/walking/left/03.png</key>
+            <key type="filename">animations/walking/left/04.png</key>
+            <key type="filename">animations/walking/left/05.png</key>
+            <key type="filename">animations/walking/left/06.png</key>
+            <key type="filename">animations/walking/left/07.png</key>
+            <key type="filename">animations/walking/left/08.png</key>
+            <key type="filename">animations/walking/right/01.png</key>
+            <key type="filename">animations/walking/right/02.png</key>
+            <key type="filename">animations/walking/right/03.png</key>
+            <key type="filename">animations/walking/right/04.png</key>
+            <key type="filename">animations/walking/right/05.png</key>
+            <key type="filename">animations/walking/right/06.png</key>
+            <key type="filename">animations/walking/right/07.png</key>
+            <key type="filename">animations/walking/right/08.png</key>
+            <key type="filename">animations/walking/up/01.png</key>
+            <key type="filename">animations/walking/up/02.png</key>
+            <key type="filename">animations/walking/up/03.png</key>
+            <key type="filename">animations/walking/up/04.png</key>
+            <key type="filename">animations/walking/up/05.png</key>
+            <key type="filename">animations/walking/up/06.png</key>
+            <key type="filename">animations/walking/up/07.png</key>
+            <key type="filename">animations/walking/up/08.png</key>
+            <key type="filename">animations/walking/upLeft/01.png</key>
+            <key type="filename">animations/walking/upLeft/02.png</key>
+            <key type="filename">animations/walking/upRight/01.png</key>
+            <key type="filename">animations/walking/upRight/02.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -249,31 +243,16 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">images/walking_11.png</key>
-            <key type="filename">images/walking_22.png</key>
-            <key type="filename">images/walking_41.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>5,8,10,16</rect>
-                <key>scale9Paddings</key>
-                <rect>5,8,10,16</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">images/walking_42.png</key>
-            <key type="filename">images/walking_43.png</key>
-            <key type="filename">images/walking_44.png</key>
-            <key type="filename">images/walking_45.png</key>
-            <key type="filename">images/walking_46.png</key>
-            <key type="filename">images/walking_47.png</key>
-            <key type="filename">images/walking_48.png</key>
-            <key type="filename">images/walking_49.png</key>
-            <key type="filename">images/walking_50.png</key>
-            <key type="filename">images/walking_51.png</key>
+            <key type="filename">animations/walking/down/01.png</key>
+            <key type="filename">animations/walking/down/02.png</key>
+            <key type="filename">animations/walking/down/03.png</key>
+            <key type="filename">animations/walking/down/04.png</key>
+            <key type="filename">animations/walking/down/05.png</key>
+            <key type="filename">animations/walking/down/06.png</key>
+            <key type="filename">animations/walking/down/07.png</key>
+            <key type="filename">animations/walking/down/08.png</key>
+            <key type="filename">animations/walking/downRight/01.png</key>
+            <key type="filename">animations/walking/downRight/02.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -286,7 +265,22 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">images/walking_52.png</key>
+            <key type="filename">animations/walking/downLeft/03.png</key>
+            <key type="filename">animations/walking/upLeft/03.png</key>
+            <key type="filename">animations/walking/upRight/03.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>5,8,10,16</rect>
+                <key>scale9Paddings</key>
+                <rect>5,8,10,16</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">animations/walking/downRight/03.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -302,58 +296,7 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>images/walking_01.png</filename>
-            <filename>images/walking_02.png</filename>
-            <filename>images/walking_03.png</filename>
-            <filename>images/walking_04.png</filename>
-            <filename>images/walking_05.png</filename>
-            <filename>images/walking_06.png</filename>
-            <filename>images/walking_07.png</filename>
-            <filename>images/walking_08.png</filename>
-            <filename>images/walking_09.png</filename>
-            <filename>images/walking_10.png</filename>
-            <filename>images/walking_11.png</filename>
-            <filename>images/walking_12.png</filename>
-            <filename>images/walking_13.png</filename>
-            <filename>images/walking_14.png</filename>
-            <filename>images/walking_15.png</filename>
-            <filename>images/walking_16.png</filename>
-            <filename>images/walking_17.png</filename>
-            <filename>images/walking_18.png</filename>
-            <filename>images/walking_19.png</filename>
-            <filename>images/walking_20.png</filename>
-            <filename>images/walking_21.png</filename>
-            <filename>images/walking_22.png</filename>
-            <filename>images/walking_23.png</filename>
-            <filename>images/walking_24.png</filename>
-            <filename>images/walking_25.png</filename>
-            <filename>images/walking_26.png</filename>
-            <filename>images/walking_27.png</filename>
-            <filename>images/walking_28.png</filename>
-            <filename>images/walking_29.png</filename>
-            <filename>images/walking_30.png</filename>
-            <filename>images/walking_31.png</filename>
-            <filename>images/walking_32.png</filename>
-            <filename>images/walking_33.png</filename>
-            <filename>images/walking_34.png</filename>
-            <filename>images/walking_35.png</filename>
-            <filename>images/walking_36.png</filename>
-            <filename>images/walking_37.png</filename>
-            <filename>images/walking_38.png</filename>
-            <filename>images/walking_39.png</filename>
-            <filename>images/walking_40.png</filename>
-            <filename>images/walking_41.png</filename>
-            <filename>images/walking_42.png</filename>
-            <filename>images/walking_43.png</filename>
-            <filename>images/walking_44.png</filename>
-            <filename>images/walking_45.png</filename>
-            <filename>images/walking_46.png</filename>
-            <filename>images/walking_47.png</filename>
-            <filename>images/walking_48.png</filename>
-            <filename>images/walking_49.png</filename>
-            <filename>images/walking_50.png</filename>
-            <filename>images/walking_51.png</filename>
-            <filename>images/walking_52.png</filename>
+            <filename>animations</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
