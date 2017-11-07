@@ -88,7 +88,12 @@ export default class Vector {
   }
 
   normalize() {
-    this.divide(this.magnitude());
+    const magnitude = this.magnitude();
+    if (magnitude !== 0) {
+      this.divide(magnitude);
+      this.x = Math.abs(this.x);
+      this.y = Math.abs(this.y);
+    }
     return this;
   }
 

@@ -5,4 +5,8 @@ export default class Time {
   static getFPSInterval() {
     return Time.SECOND / Time.FPS;
   }
+
+  static toSeconds(ms) {
+    return ms / Time.SECOND;
+  }
 }

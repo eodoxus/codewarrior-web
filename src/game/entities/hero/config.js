@@ -6,7 +6,7 @@ export default {
   width: 24,
   height: 32,
   scale: 2.5,
-  walkingVelocity: 100,
+  walkingVelocity: 120,
   runningVelocity: 200,
   animations: {
     image: Url.ANIMATIONS + animationData.meta.image,

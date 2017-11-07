@@ -95,8 +95,8 @@ export default class Sprite {
     }
     this._dt += dt;
     if (this.velocity) {
-      const frameInterval = dt / Time.SECOND;
-      const velocity = Vector.multiply(this.velocity, frameInterval);
+      const velocity = Vector.multiply(this.velocity, Time.toSeconds(dt));
+      velocity.multiply(Vector.normalize(this.velocity));
       this.position.add(velocity);
     }
   }
