@@ -20,7 +20,8 @@ const ANIMATIONS = {
 const STATES = {
   PICKING_UP: 0,
   READING: 1,
-  WALKING: 2
+  RUNNING: 2,
+  WALKING: 3
 };
 
 export default class Hero extends Sprite {
@@ -40,6 +41,7 @@ export default class Hero extends Sprite {
       case STATES.READING:
         return ANIMATIONS.READING;
       case STATES.WALKING:
+      case STATES.RUNNING:
         return this.getWalkingAnimation();
       default:
         return ANIMATIONS.WALKING.DOWN;
@@ -58,7 +60,7 @@ export default class Hero extends Sprite {
         .reset();
       this.curAnimation = nextAnimation;
     }
-    this.getAnimation().start();
+    this.getAnimation().start(this.state === STATES.WALKING ? 2 : 1.5);
   }
 
   getWalkingAnimation() {
@@ -89,15 +91,23 @@ export default class Hero extends Sprite {
     return ANIMATIONS.WALKING.UP;
   }
 
+  getWalkingVelocity() {
+    const v = new Vector(1, 1);
+    v.multiply(
+      this.state === STATES.WALKING
+        ? this.config.walkingVelocity
+        : this.config.runningVelocity
+    );
+    return v;
+  }
+
   randomWalk(dt) {
     if (this._dt + dt > 2000) {
-      this.velocity = new Vector(
-        this.config.walkingVelocity,
-        this.config.walkingVelocity
-      );
-
       const randX = Math.random();
       const randY = Math.random();
+      this.state = randX >= 0.5 ? STATES.RUNNING : STATES.WALKING;
+      this.velocity = this.getWalkingVelocity();
+
       if (randX < 0.3) {
         this.velocity.x *= -1;
       } else if (randX < 0.6) {
@@ -108,6 +118,7 @@ export default class Hero extends Sprite {
       } else if (randY < 0.6) {
         this.velocity.y = 0;
       }
+
       this._dt = 0;
     }
   }

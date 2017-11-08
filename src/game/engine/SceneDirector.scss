@@ -1,6 +1,6 @@
 @import "../../lib/lib.scss";
 
-.container {
+.scene {
   position: absolute;
   top: 0;
   right: 0;
@@ -8,4 +8,12 @@
   left: 0;
   display: flex;
   flex-direction: column;
+
+  canvas {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
 }

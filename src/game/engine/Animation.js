@@ -3,19 +3,20 @@ export default class Animation {
   frames;
   height;
   name;
-  speed;
+  delay;
   url;
   width;
 
-  _isRunning = false;
   _dt = 0;
+  _isRunning = false;
+  _speed = 1;
 
-  constructor(name, url, width, height, speed, frames = []) {
+  constructor(name, url, width, height, delay, frames = []) {
     this.name = name;
     this.url = url;
     this.width = width;
     this.height = height;
-    this.speed = speed;
+    this.delay = delay;
     this.frames = frames;
   }
 
@@ -28,7 +29,8 @@ export default class Animation {
     return this.frames[this.curFrame];
   }
 
-  start() {
+  start(speed = 1) {
+    this._speed = speed;
     this._isRunning = true;
     return this;
   }
@@ -48,7 +50,7 @@ export default class Animation {
       return;
     }
     this._dt += dt;
-    if (this._dt > this.speed) {
+    if (this._dt > this.delay * this._speed) {
       this.curFrame++;
       if (this.curFrame === this.frames.length) {
         this.curFrame = 0;

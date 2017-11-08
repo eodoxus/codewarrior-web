@@ -7,10 +7,10 @@ export default {
   height: 32,
   scale: 2.5,
   walkingVelocity: 120,
-  runningVelocity: 200,
+  runningVelocity: 240,
   animations: {
     image: Url.ANIMATIONS + animationData.meta.image,
     data: animationData,
-    speed: 50
+    delay: 30
   }
 };

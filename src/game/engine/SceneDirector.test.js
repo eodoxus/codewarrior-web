@@ -27,7 +27,7 @@ describe("<SceneDirector />", () => {
 
   it("initializes hero", () => {
     const ctrl = getController();
-    const hero = ctrl.state.sprites[0];
+    const hero = ctrl.scene.getSprites()[0];
     expect(hero.id).toEqual("hero");
     expect(hero.curAnimation).toBeDefined();
     expect(hero.position).toBeDefined();
@@ -38,31 +38,28 @@ describe("<SceneDirector />", () => {
     SceneDirector.prototype.updateSceneSize = jest.fn();
     const ctrl = getController();
     global.innerWidth = 500;
+    global.innerHeight = 600;
     global.dispatchEvent(new Event("resize"));
-    expect(SceneDirector.prototype.updateSceneSize).toHaveBeenCalled();
+    ctrl.updateScene();
+    const size = ctrl.scene.getSize();
+    expect(size.width).toBe(500);
+    expect(size.height).toBe(600);
   });
 
   it("starts update loop", () => {
-    const ctrl = getController();
-    expect(ctrl.frameRateInterval).toBeDefined();
-  });
-
-  it("runs update loop once every 'frame interval'", () => {
     const updateSpy = (SceneDirector.prototype.updateScene = jest.fn());
     const ctrl = getController();
-    const dt = Time.getFPSInterval();
-    expect(setInterval.mock.calls.length).toBe(1);
-    jest.runTimersToTime(dt - 1);
-    expect(updateSpy).not.toHaveBeenCalled();
-    jest.runTimersToTime(dt);
-    expect(updateSpy).toHaveBeenCalled();
+    jest.runTimersToTime(1);
+    expect(updateSpy).toHaveBeenCalledTimes(1);
   });
 
-  it("stops resize handling and update loop on unmount", () => {
-    global.removeEventListener = jest.fn();
+  it("runs update loop once every frame", () => {
+    const updateSpy = (SceneDirector.prototype.updateScene = jest.fn());
     const ctrl = getController();
-    ctrl.componentWillUnmount();
-    expect(global.clearInterval).toHaveBeenCalledWith(ctrl.frameRateInterval);
-    expect(global.removeEventListener).toHaveBeenCalled();
+    expect(updateSpy).not.toHaveBeenCalled();
+    jest.runTimersToTime(10);
+    expect(updateSpy).toHaveBeenCalledTimes(1);
+    jest.runTimersToTime(30);
+    expect(updateSpy).toHaveBeenCalledTimes(3);
   });
 });

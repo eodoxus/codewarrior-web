@@ -23,7 +23,7 @@ describe("AnimationCollection", () => {
       expect(animation.url).toBeDefined();
       expect(animation.width).toBeDefined();
       expect(animation.height).toBeDefined();
-      expect(animation.speed).toBeDefined();
+      expect(animation.delay).toBeDefined();
       expect(animation.frames).toBeDefined();
       expect(animation.frames.length).toBeDefined();
       expect(frame.name).toBeDefined();

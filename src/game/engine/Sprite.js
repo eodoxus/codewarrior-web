@@ -1,5 +1,7 @@
+import React from "react";
 import AnimationCollection from "./AnimationCollection";
 import Size from "./Size";
+import SpriteCache from "./SpriteCache";
 import Time from "./Time";
 import Vector from "./Vector";
 
@@ -66,10 +68,6 @@ export default class Sprite {
     this.velocity = v;
   }
 
-  getFrame() {
-    return this.getAnimation().getFrame();
-  }
-
   addAnimation(animation) {
     this.animations.push(animation);
   }
@@ -84,6 +82,41 @@ export default class Sprite {
 
   removeAnimation(name) {
     this.animations.remove(name);
+  }
+
+  renderDebug() {
+    return (
+      <div
+        className="sprite-debug"
+        key={this.id}
+        style={{
+          top: this.position.y + this.size.height * this.scale,
+          left: this.position.x + this.size.width * this.scale
+        }}
+      >
+        acceleration: {this.acceleration.render()}
+        <br />
+        position: {this.position.render()}
+        <br />
+        velocity: {this.velocity.render()}
+      </div>
+    );
+  }
+
+  render(context) {
+    const animation = this.getAnimation();
+    const frame = animation.getFrame();
+    context.drawImage(
+      SpriteCache.get(animation.url),
+      frame.x, // source
+      frame.y,
+      frame.width,
+      frame.height,
+      this.position.x, // dest
+      this.position.y,
+      frame.width * this.scale,
+      frame.height * this.scale
+    );
   }
 
   update(dt) {

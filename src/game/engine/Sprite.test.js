@@ -64,18 +64,6 @@ describe("Sprite", () => {
     });
   });
 
-  describe("getFrame", () => {
-    it("returns the current frame", () => {
-      let collection = new AnimationCollection(config.animations);
-      const animationNames = Object.keys(collection.animations);
-      sprite.initFromConfig(config);
-      sprite.curAnimation = animationNames[1];
-      const frame = sprite.getFrame();
-      const animation = collection.animations[sprite.curAnimation];
-      expect(frame.name).toEqual(animation.frames[0].name);
-    });
-  });
-
   describe("removeAnimation", () => {
     it("removes an animation by name", () => {
       let collection = new AnimationCollection(config.animations);

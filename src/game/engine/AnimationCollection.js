@@ -35,7 +35,7 @@ function parse(config) {
         config.image,
         config.data.meta.size.w,
         config.data.meta.size.h,
-        config.speed
+        config.delay
       );
     }
     animations[name].addFrame({
