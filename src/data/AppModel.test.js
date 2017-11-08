@@ -1,4 +1,3 @@
-import * as q from "q";
 import AppModel from "./AppModel";
 import DataModel from "./DataModel";
 
@@ -10,7 +9,7 @@ const mockResponse = {
 };
 const RestClient = DataModel.client;
 RestClient.get = jest.fn().mockImplementation(() => {
-  return q.when(mockResponse);
+  return Promise.resolve(mockResponse);
 });
 
 beforeEach(() => {

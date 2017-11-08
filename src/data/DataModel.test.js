@@ -1,4 +1,3 @@
-import * as q from "q";
 import DataModel from "./DataModel";
 
 const data = {
@@ -9,7 +8,7 @@ const data = {
 };
 const jsonRepresentation = '{"id":"test","nested":{"name":"nestedName"}}';
 const mockRequest = jest.fn().mockImplementation(() => {
-  return q.when();
+  return Promise.resolve();
 });
 const RestClient = DataModel.client;
 RestClient.get = mockRequest;
@@ -58,7 +57,7 @@ describe("load", () => {
 
   it(`assigns all properties from response data to the object`, () => {
     RestClient.get.mockReturnValue(
-      q.when({
+      Promise.resolve({
         id: "testUpdated",
         nested: {
           name: "nestedNameUpdated"
@@ -77,7 +76,7 @@ describe("load", () => {
     beforeEach(() => {
       model = new DataModel(data, "endpoint");
       RestClient.delete = jest.fn().mockImplementation(() => {
-        return q.when();
+        return Promise.resolve();
       });
     });
 
@@ -125,7 +124,7 @@ describe("load", () => {
     it("updates object with reponse data on create", () => {
       delete model.id;
       RestClient.post.mockReturnValue(
-        q.when({
+        Promise.resolve({
           id: "testUpdated",
           nested: {
             name: "nestedNameUpdated"
@@ -142,7 +141,7 @@ describe("load", () => {
 
     it("updates object with reponse data on update", () => {
       RestClient.put.mockReturnValue(
-        q.when({
+        Promise.resolve({
           id: "testUpdated",
           nested: {
             name: "nestedNameUpdated"
