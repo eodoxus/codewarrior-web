@@ -1,11 +1,7 @@
 @import "./lib/lib.scss";
 
 .app {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  @include fill-container;
 
   .content {
     position: absolute;
@@ -22,6 +18,24 @@
       background: $color-error--background;
       color: $color-font-inverse;
       margin: $gutter-sm;
+    }
+  }
+
+  .game {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -240px;
+    margin-left: -320px;
+
+    .border {
+      position: absolute;
+      top: -14px;
+      left: -14px;
+      background-size: 100%;
+      width: 668px;
+      height: 500px;
+      z-index: 2;
     }
   }
 }

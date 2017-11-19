@@ -1,11 +1,19 @@
 export default class Scene {
-  static TILE_SIZE = 8;
-
+  backgroundImage;
+  map;
   size;
   sprites;
 
   constructor(sprites) {
     this.sprites = sprites;
+  }
+
+  getBackgroundImage() {
+    return this.backgroundImage;
+  }
+
+  getMap() {
+    return this.map;
   }
 
   getSprites() {
@@ -26,8 +34,11 @@ export default class Scene {
     console.log("scene click", x, y);
   }
 
-  render(context) {
-    this.sprites.forEach(sprite => sprite.render(context));
+  render() {
+    if (this.map) {
+      this.map.render();
+    }
+    this.sprites.forEach(sprite => sprite.render());
   }
 
   renderDebug() {

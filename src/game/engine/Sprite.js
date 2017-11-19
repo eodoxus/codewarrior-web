@@ -1,7 +1,8 @@
 import React from "react";
 import AnimationCollection from "./AnimationCollection";
+import Screen from "./Screen";
 import Size from "./Size";
-import SpriteCache from "./SpriteCache";
+import TextureCache from "./TextureCache";
 import Time from "./Time";
 import Vector from "./Vector";
 
@@ -12,16 +13,14 @@ export default class Sprite {
   id = "sprite";
   position;
   size;
-  scale;
   state;
   velocity;
 
   _dt = 0;
 
-  constructor(position = new Vector(), size = new Size(100, 100), scale = 1) {
+  constructor(position = new Vector(), size = new Size(100, 100)) {
     this.position = position;
     this.size = size;
-    this.scale = scale;
   }
 
   initFromConfig(config) {
@@ -29,7 +28,6 @@ export default class Sprite {
     this.animations = new AnimationCollection(config.animations || {});
     this.id = config.id || this.id;
     this.velocity = new Vector();
-    this.scale = config.scale || 1;
     this.size = new Size(
       config.width || this.size.width,
       config.height || this.size.height
@@ -44,16 +42,8 @@ export default class Sprite {
     this.position = p;
   }
 
-  getScale() {
-    return this.scale;
-  }
-
-  setScale(s) {
-    this.scale = s;
-  }
-
   getSize() {
-    return Size.scale(this.size, this.scale);
+    return this.size;
   }
 
   setSize(s) {
@@ -90,8 +80,8 @@ export default class Sprite {
         className="sprite-debug"
         key={this.id}
         style={{
-          top: this.position.y + this.size.height * this.scale,
-          left: this.position.x + this.size.width * this.scale
+          top: this.position.y + this.size.height,
+          left: this.position.x + this.size.width
         }}
       >
         acceleration: {this.acceleration.render()}
@@ -103,19 +93,15 @@ export default class Sprite {
     );
   }
 
-  render(context) {
+  render() {
     const animation = this.getAnimation();
     const frame = animation.getFrame();
-    context.drawImage(
-      SpriteCache.get(animation.url),
-      frame.x, // source
-      frame.y,
-      frame.width,
-      frame.height,
-      this.position.x, // dest
-      this.position.y,
-      frame.width * this.scale,
-      frame.height * this.scale
+    const size = new Size(frame.width, frame.height);
+    Screen.drawTexture(
+      TextureCache.get(animation.url),
+      size,
+      new Vector(frame.x, frame.y),
+      this.position
     );
   }
 

@@ -30,7 +30,6 @@ describe("Sprite", () => {
     expect(sprite.position.y).toBeDefined();
     expect(sprite.size.width).toBeDefined();
     expect(sprite.size.height).toBeDefined();
-    expect(typeof sprite.scale).toBe("number");
   });
 
   it("initializes position and size to passed in properties", () => {
@@ -39,7 +38,6 @@ describe("Sprite", () => {
     expect(sprite.position.y).toBe(2);
     expect(sprite.size.width).toBe(3);
     expect(sprite.size.height).toBe(4);
-    expect(sprite.scale).toBe(5);
   });
 
   describe("initFromConfig", () => {
@@ -50,17 +48,8 @@ describe("Sprite", () => {
       expect(sprite.animations.animations).toBeDefined();
       expect(sprite.id).toBe(config.id);
       expect(sprite.velocity).toBeDefined();
-      expect(sprite.scale).toBe(config.scale);
       expect(sprite.size.height).toBe(config.height);
       expect(sprite.size.width).toBe(config.width);
-    });
-  });
-
-  describe("getSize", () => {
-    it("returns the size with scale applied", () => {
-      sprite.setSize(new Size(2, 4));
-      sprite.setScale(2);
-      expect(sprite.getSize()).toEqual(new Size(4, 8));
     });
   });
 

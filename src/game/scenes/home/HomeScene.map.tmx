@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="21">
+ <tileset firstgid="1" name="overworld" tilewidth="8" tileheight="8" tilecount="8645">
+  <image source="../../../../public/maps/overworld.png" width="760" height="728"/>
+ </tileset>
+ <layer name="background" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztwwENAAAMw6DOv+kLOSSsmqqq+uIBEw4DAQ==
+  </data>
+ </layer>
+ <layer name="tiles" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJy11slPE2EYx/GnM7SlC/+AwRZF/wg3MO4bHiRxxS4CV9eLRIuAHl2ubmAEBBc8ugFdBK+uR3c9qBHUgyauGL+TdjKl7bRjmL7JJy9T3vf9vc9M+7YTDpFJTDlFrigiV3ENu0VkD/ZiH/bjAI4z9gRO4hQ+4TO+ONLzhnAdhdplxcj4yPgJrOPv9Whyibzj+j0+4D7jH+AhHuExnkh6zmRW7gbmNmAjvKqID361cL6b1yvhwVolna3vZ4T8lfSrsBprlPxaGxRjv3puqZrN2gD3exD9qHGLzEI/a1zCAAYLZA0p05/RkIWazZqTel1QUYE28lXWqIATLjU/y5d1//TcmbQOMjvd5v+3M6tQC5AdLJJf7hYju92G/JBHJIwIotiFZrSg1WM+z67642QkkEQKdzGGcdwrkm9X/dVekdkIIIgazMFc1HrTY+bx+Z3vmD7PrvoPkXEYMbTjCDrQiS6v+Ty76n9KxjM8xwu8xCu8xpsi+bUzrP9t5n4u8IksxCIsxhLUoR5LfcXXsKP+02ScwVmcw3l0owcXSuRr9Yc4W8Jqfh+xeOZ8J+MHfuIXfuMPpvDXQv1xchJqfp+0mL/ZL7IFW7EN27EDTdjpL11/oydNGOvwG9dRi/k3mHMTt3AbdzCMEYwWye/KvP+1rBDjwoggmtlDyqYzfxnPYDlW5DwL/fOvZcXJTCCJlN+ov7HI+ZXdCp0vertIbi/6cvJjWfVXV3GGIYBglVH/10pr+UfJPmaSb7bHQFa+lqP5ltNrrN6D/92jVv+w9n3F749mbMq87/Q+O9+uPWithaxWjLJmHevXY4zrXn6L9TnL34+7jNxu9KCNc9rB64qr/P1Br5H7D5t8syw=
+  </data>
+ </layer>
+ <layer name="skulls" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAroA4oFGBhKBAbO/ktAuy8PoP0j3f+jYBSMgsEBAHfuBZk=
+  </data>
+ </layer>
+ <layer name="stumps" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztxrENACAIAMFvYRHZfwrdygHoNSF/1cFMO+BE/ysrobJfkiRJ+ukCsMAEDQ==
+  </data>
+ </layer>
+ <objectgroup name="objects" visible="0">
+  <object id="3" name="woodcutters_house" type="doorway" x="21" y="152" width="20" height="16.5"/>
+  <object id="4" name="cave" type="doorway" x="29" y="24.5" width="21.5" height="14.5"/>
+  <object id="5" name="transition_up" type="transition" x="177.5" y="-1.5" width="38" height="8.5">
+   <properties>
+    <property name="transition" value="LakeScene"/>
+   </properties>
+  </object>
+  <object id="6" name="transition_right" x="247.5" y="97" width="9" height="30">
+   <properties>
+    <property name="transition" value="BossScene"/>
+   </properties>
+  </object>
+  <object id="20" name="spawn_hero" type="spawn_hero" x="113" y="143.5" height="1"/>
+ </objectgroup>
+ <objectgroup name="collidable" visible="0">
+  <object id="1" x="12.5" y="113.5" width="47.5" height="27.5"/>
+  <object id="2" x="49" y="143.5" width="12" height="17"/>
+  <object id="7" x="201.5" y="136" width="21" height="16.5"/>
+  <object id="14" x="175" y="1.5">
+   <polyline points="0,0 -8.5,7 -22.5,8 -34,16.5 -36.5,21 -45.5,25.5 -51.5,28.5 -72,30 -76.5,27 -84.5,25.5 -90.5,32.5 -101.5,36 -113.5,36.5 -119,29 -122,18 -148,18 -148.5,28 -160,32.5 -166,39.5 -164.5,163.5 -149,178 53,178.5 71,164.5 73,128.5 86.5,128.5 85.5,88.5 76,93 75,32 71,19 61.5,9 43.5,-0.5 43.5,-11.5 82.5,-0.5 81,191.5 -175,190.5 -174,-2 0,0"/>
+  </object>
+  <object id="16" x="167.5" y="57">
+   <polyline points="0,0 -8,0.5 -13.5,3.5 -29,19.5 -29,28.5 -31,39 -25,49 -24,56.5 -20,65 -7.5,65.5 -1,71.5 4.5,71.5 9.5,65.5 17.5,66 21,66 23,56.5 26,50.5 28.5,44.5 32.5,31 30.5,18 12,1"/>
+  </object>
+  <object id="17" x="166.5" y="9.5" width="50.5" height="14.5"/>
+  <object id="18" x="231.5" y="96" width="16.5" height="32"/>
+ </objectgroup>
+</map>

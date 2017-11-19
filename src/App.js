@@ -4,10 +4,9 @@ import Layout from "./components/layout";
 import styles from "./App.scss";
 import { AppModel } from "./data";
 import Game from "./game";
+import Url from "./lib/Url";
 
 const DEFAULT_ROUTE = "home";
-const HEADER_HEIGHT = 76;
-const FOOTER_HEIGHT = 40;
 
 export default class App extends Component {
   constructor() {
@@ -63,11 +62,20 @@ export default class App extends Component {
       return <Indicators.Loader />;
     }
     return (
-      <Game.SceneDirector
-        scene={this.state.route}
-        top={HEADER_HEIGHT}
-        bottom={FOOTER_HEIGHT}
-      />
+      <div className={styles.game}>
+        <div
+          className={styles.border}
+          style={{
+            backgroundImage: `url(${Url.PUBLIC}/images/game-border.png)`
+          }}
+        />
+        <Game.SceneDirector
+          scene={this.state.route}
+          width="640"
+          height="480"
+          scale="2.5"
+        />
+      </div>
     );
   }
 }

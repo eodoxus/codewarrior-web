@@ -4,25 +4,31 @@ import styles from "./SceneDirector.scss";
 import Entities from "../entities";
 import Indicators from "../../components/indicators";
 import Scenes from "../scenes";
+import Screen from "./Screen";
 import Size from "./Size";
-import SpriteCache from "./SpriteCache";
-import Time from "./Time";
+import TextureCache from "./TextureCache";
 import Vector from "./Vector";
 
 const DEBUG = false;
 
 export default class SceneDirector extends Component {
+  lastTime;
+  hero;
+  scene;
+  dt;
+
   constructor(props) {
     super(props);
-    this.state = {
-      debug: DEBUG,
-      dt: 0,
-      isLoading: true
-    };
     this.lastTime = Date.now();
     this.hero = createHero();
     this.scene = createScene(this.props.scene, this.hero);
-    this._dt = 0;
+    this.dt = 0;
+
+    this.state = {
+      debug: DEBUG,
+      dt: this.dt,
+      isLoading: true
+    };
   }
 
   onClick = e => {
@@ -32,31 +38,37 @@ export default class SceneDirector extends Component {
   };
 
   async componentDidMount() {
-    await SpriteCache.fetch(this.scene.getSprites());
+    await loadSceneAssets(this.scene);
     this.setState({ isLoading: false });
     this.updateScene();
   }
 
   updateScene() {
+    if (!this.canvas) {
+      return;
+    }
+
+    if (!Screen.isReady()) {
+      Screen.init(this.canvas);
+    }
+
     const now = Date.now();
     const dt = now - this.lastTime;
-    const width = window.innerWidth;
-    const height = window.innerHeight - this.props.top - this.props.bottom;
-    this.scene.setSize(new Size(width, height));
+    this.lastTime = now;
+
+    const size = new Size(this.props.width, this.props.height);
+    this.scene.setSize(size);
+    Screen.setSize(size);
+    Screen.scale(this.props.scale);
+
     this.scene.update(dt);
-    if (this.canvas) {
-      const context = this.canvas.getContext("2d");
-      this.canvas.width = width;
-      this.canvas.height = height;
-      if (context) {
-        context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.scene.render(context);
-      }
-    }
-    this.lastTime = Date.now();
+
+    Screen.clear();
+    Screen.setDrawingSurface(this.canvas);
+    this.scene.render();
 
     if (this.state.debug) {
-      this.setState({ dt: this._dt });
+      this.setState({ dt: this.dt });
     }
 
     window.requestAnimationFrame(() => this.updateScene());
@@ -77,8 +89,9 @@ export default class SceneDirector extends Component {
 }
 
 SceneDirector.defaultProps = {
-  top: 0,
-  bottom: 0
+  width: 0,
+  height: 0,
+  scale: 1
 };
 
 function createHero() {
@@ -93,4 +106,21 @@ function createScene(name, hero) {
     throw Error(`SceneDirector does not support the "${sceneName}" scene.`);
   }
   return new Scenes[sceneClass]([hero]);
+}
+
+function loadSceneAssets(scene) {
+  const textures = [];
+  scene.getSprites().forEach(sprite => {
+    if (sprite.animations) {
+      textures.push(sprite.animations.url);
+    }
+  });
+  const map = scene.getMap();
+  if (map) {
+    const tilesetTexture = map.getTilesetTexture();
+    if (tilesetTexture) {
+      textures.push(tilesetTexture);
+    }
+  }
+  return TextureCache.fetch(textures);
 }

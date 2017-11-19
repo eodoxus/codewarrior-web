@@ -3,8 +3,8 @@ export default class Size {
     return new Size(size.width * factor, size.height * factor);
   }
 
-  height;
   width;
+  height;
 
   constructor(width, height) {
     this.height = height;
@@ -12,7 +12,8 @@ export default class Size {
   }
 
   scale(factor) {
-    this.height *= factor;
     this.width *= factor;
+    this.height *= factor;
+    return this;
   }
 }
