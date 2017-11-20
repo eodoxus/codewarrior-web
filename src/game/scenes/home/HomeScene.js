@@ -1,21 +1,24 @@
 import Scene from "../../engine/Scene";
-import Screen from "../../engine/Screen";
+import Graphics from "../../engine/Graphics";
 import TiledMap from "../../engine/map/TiledMap";
 import Vector from "../../engine/Vector";
 
 import mapConfig from "./HomeScene.map.json";
 
 export default class HomeScene extends Scene {
+  hero;
   map;
 
   constructor(sprites) {
     super(sprites);
+    this.hero = this.sprites[0];
     this.map = new TiledMap("HomeScene", mapConfig);
+    this.hero.setPosition(this.map.getHeroSpawnPoint());
   }
 
   handleCollisions(sprite) {
     let position = sprite.getPosition();
-    const scale = Screen.getScale();
+    const scale = Graphics.getScale();
     const sceneBoundary = {
       min: {
         x: 0,

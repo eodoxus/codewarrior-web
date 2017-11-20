@@ -4,6 +4,8 @@ import renderer from "react-test-renderer";
 import App from "./App";
 import { AppModel } from "./data";
 
+jest.mock("./game/engine/Graphics");
+
 describe("<App />", () => {
   beforeEach(function() {
     let model = new AppModel({

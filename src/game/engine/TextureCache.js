@@ -17,6 +17,10 @@ export default class TextureCache {
     image.src = data;
     TextureCache.images[name] = image;
   }
+
+  static purge() {
+    TextureCache.images = {};
+  }
 }
 
 function cacheImage(url) {

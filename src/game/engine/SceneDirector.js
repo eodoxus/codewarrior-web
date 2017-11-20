@@ -4,7 +4,7 @@ import styles from "./SceneDirector.scss";
 import Entities from "../entities";
 import Indicators from "../../components/indicators";
 import Scenes from "../scenes";
-import Screen from "./Screen";
+import Graphics from "./Graphics";
 import Size from "./Size";
 import TextureCache from "./TextureCache";
 import Vector from "./Vector";
@@ -48,8 +48,8 @@ export default class SceneDirector extends Component {
       return;
     }
 
-    if (!Screen.isReady()) {
-      Screen.init(this.canvas);
+    if (!Graphics.isReady()) {
+      Graphics.init(this.canvas);
     }
 
     const now = Date.now();
@@ -58,13 +58,13 @@ export default class SceneDirector extends Component {
 
     const size = new Size(this.props.width, this.props.height);
     this.scene.setSize(size);
-    Screen.setSize(size);
-    Screen.scale(this.props.scale);
+    Graphics.setSize(size);
+    Graphics.scale(this.props.scale);
 
     this.scene.update(dt);
 
-    Screen.clear();
-    Screen.setDrawingSurface(this.canvas);
+    Graphics.clear();
+    Graphics.setDrawingSurface(this.canvas);
     this.scene.render();
 
     if (this.state.debug) {

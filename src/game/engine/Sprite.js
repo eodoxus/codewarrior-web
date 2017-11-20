@@ -1,6 +1,6 @@
 import React from "react";
 import AnimationCollection from "./AnimationCollection";
-import Screen from "./Screen";
+import Graphics from "./Graphics";
 import Size from "./Size";
 import TextureCache from "./TextureCache";
 import Time from "./Time";
@@ -97,7 +97,7 @@ export default class Sprite {
     const animation = this.getAnimation();
     const frame = animation.getFrame();
     const size = new Size(frame.width, frame.height);
-    Screen.drawTexture(
+    Graphics.drawTexture(
       TextureCache.get(animation.url),
       size,
       new Vector(frame.x, frame.y),

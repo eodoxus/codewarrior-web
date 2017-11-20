@@ -1,50 +1,54 @@
-export default class Screen {
+export default class Graphics {
   static _renderer;
   static _scale = 1;
 
   static init(surface) {
-    Screen._renderer = new CanvasRenderer(surface);
+    Graphics._renderer = new CanvasRenderer(surface);
   }
 
   static isReady() {
-    return !!Screen._renderer;
+    return !!Graphics._renderer;
   }
 
   static clear() {
-    Screen._renderer.clear();
+    Graphics._renderer.clear();
   }
 
   static openBuffer() {
-    Screen._renderer.openBuffer();
+    Graphics._renderer.openBuffer();
   }
 
   static drawBuffer() {
-    Screen._renderer.drawBuffer();
+    Graphics._renderer.drawBuffer();
   }
 
   static closeBuffer() {
-    return Screen._renderer.closeBuffer();
+    return Graphics._renderer.closeBuffer();
   }
 
   static drawTexture(tex, size, sPos, dPos) {
-    Screen._renderer.drawTexture(tex, size, sPos, dPos);
+    Graphics._renderer.drawTexture(tex, size, sPos, dPos);
   }
 
   static setDrawingSurface(surface) {
-    Screen._renderer.setSurface(surface);
+    Graphics._renderer.setSurface(surface);
   }
 
   static setSize(size) {
-    Screen._renderer.setSize(size);
+    Graphics._renderer.setSize(size);
   }
 
   static scale(factor) {
-    Screen._scale = 1 / factor;
-    Screen._renderer.scale(factor);
+    Graphics._scale = 1 / factor;
+    Graphics._renderer.scale(factor);
   }
 
   static getScale() {
-    return Screen._scale;
+    return Graphics._scale;
+  }
+
+  static colorize(rect, color) {
+    Graphics._renderer.colorize(rect, color);
   }
 }
 
@@ -105,5 +109,10 @@ class CanvasRenderer {
 
   scale(factor) {
     this.context.scale(factor, factor);
+  }
+
+  colorize(rect, color) {
+    this.context.fillStyle = color;
+    this.context.fillRect(rect.x, rect.y, rect.width, rect.height);
   }
 }

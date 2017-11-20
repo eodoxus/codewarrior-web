@@ -1,9 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import renderer from "react-test-renderer";
+import Graphics from "./Graphics";
 import Time from "./Time";
 import SceneDirector from "./SceneDirector";
+import TextureCache from "./TextureCache";
 
+jest.mock("./Graphics");
 jest.useFakeTimers();
 
 function getController() {
@@ -20,8 +23,9 @@ describe("<SceneDirector />", () => {
     const ctrl = getController();
     expect(ctrl.props).toEqual({
       scene: "home",
-      top: 0,
-      bottom: 0
+      width: 0,
+      height: 0,
+      scale: 1
     });
   });
 
@@ -34,32 +38,21 @@ describe("<SceneDirector />", () => {
     expect(hero.animations).toBeDefined();
   });
 
-  it("handles window resize", () => {
-    SceneDirector.prototype.updateSceneSize = jest.fn();
+  it("starts update loop", async () => {
+    const p = Promise.resolve();
+    TextureCache.fetch = () => p;
     const ctrl = getController();
-    global.innerWidth = 500;
-    global.innerHeight = 600;
-    global.dispatchEvent(new Event("resize"));
-    ctrl.updateScene();
-    const size = ctrl.scene.getSize();
-    expect(size.width).toBe(500);
-    expect(size.height).toBe(600);
+    ctrl.updateScene = jest.fn();
+    await p;
+    expect(ctrl.updateScene).toHaveBeenCalledTimes(1);
   });
 
-  it("starts update loop", () => {
-    const updateSpy = (SceneDirector.prototype.updateScene = jest.fn());
+  it("runs update loop once every frame", async () => {
+    window.requestAnimationFrame = jest.fn();
+    const p = Promise.resolve();
+    TextureCache.fetch = () => p;
     const ctrl = getController();
-    jest.runTimersToTime(1);
-    expect(updateSpy).toHaveBeenCalledTimes(1);
-  });
-
-  it("runs update loop once every frame", () => {
-    const updateSpy = (SceneDirector.prototype.updateScene = jest.fn());
-    const ctrl = getController();
-    expect(updateSpy).not.toHaveBeenCalled();
-    jest.runTimersToTime(10);
-    expect(updateSpy).toHaveBeenCalledTimes(1);
-    jest.runTimersToTime(30);
-    expect(updateSpy).toHaveBeenCalledTimes(3);
+    await p;
+    expect(window.requestAnimationFrame).toHaveBeenCalledTimes(1);
   });
 });
