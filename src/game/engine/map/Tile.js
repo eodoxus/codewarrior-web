@@ -1,8 +1,23 @@
+import Vector from "../Vector";
+import Size from "../Size";
+
 export default class Tile {
   static OBJECT_TYPE_COLLECTABLE = "collectable";
+  static OBJECT_TYPE_COLLIDABLE = "collidable";
   static OBJECT_TYPE_DOORWAY = "doorway";
   static OBJECT_TYPE_SPAWN_HERO = "spawn_hero";
   static OBJECT_TYPE_TRANSITION = "transition";
+
+  static getOrigin(position, size) {
+    return Vector.add(
+      position,
+      new Vector(Math.floor(size.width / 2), Math.floor(size.height / 2))
+    );
+  }
+
+  static point(position) {
+    return new Tile(position, new Size(1, 1));
+  }
 
   gid;
   position;

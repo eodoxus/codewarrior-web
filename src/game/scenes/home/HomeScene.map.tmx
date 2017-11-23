@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="21">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="29">
  <tileset firstgid="1" name="overworld" tilewidth="8" tileheight="8" tilecount="8645">
   <image source="../../../../public/maps/overworld.png" width="760" height="728"/>
  </tileset>
@@ -14,11 +14,17 @@
   </data>
  </layer>
  <layer name="skulls" width="32" height="24">
+  <properties>
+   <property name="collidable" value="true"/>
+  </properties>
   <data encoding="base64" compression="zlib">
    eJxjYBgFo2AUjIJRMAroA4oFGBhKBAbO/ktAuy8PoP0j3f+jYBSMgsEBAHfuBZk=
   </data>
  </layer>
  <layer name="stumps" width="32" height="24">
+  <properties>
+   <property name="collidable" value="true"/>
+  </properties>
   <data encoding="base64" compression="zlib">
    eJztxrENACAIAMFvYRHZfwrdygHoNSF/1cFMO+BE/ysrobJfkiRJ+ukCsMAEDQ==
   </data>
@@ -37,10 +43,21 @@
    </properties>
   </object>
   <object id="20" name="spawn_hero" type="spawn_hero" x="160" y="142.5" height="1"/>
+  <object id="27" name="collision_stumps" type="collidable" x="168.333" y="-1" width="54.6667" height="24.3333">
+   <properties>
+    <property name="layer" value="stumps"/>
+   </properties>
+  </object>
+  <object id="28" name="collision_skulls" type="collidable" x="232" y="96" width="24.3333" height="31.6667">
+   <properties>
+    <property name="collidable" value="true"/>
+    <property name="layer" value="skulls"/>
+   </properties>
+  </object>
  </objectgroup>
- <layer name="collidable" width="32" height="24" visible="0">
+ <layer name="collidable" width="32" height="24">
   <data encoding="base64" compression="zlib">
-   eJzllVEKwDAIQ/3p/a+8/5FidMksNCAUKj61YldELIMhOTg7dnZ217zjZ73o9qoqJoaDi+KzOarlijvFr/ZLye/Mh4rfndHb+UHcO/jv3ahQpXa0m7/ut2k+ipX5qflVuf8XxDmZn/mr9QeD4U/kwLz9DfYAhQUGUA==
+   eJzllFEOABAMQ/fj/ld2gaIbHbIm+yH6GhvNzJqgkBQclp2RwaOVh5I98mcz7nCRP5vxtFS+t/je+zrJ33mLKjY7X1X5Ruz/wJ9liJ7z9uY2H3lFzqj/XA9bNRuv8tG6Ulkchp+dgel9heo/uwYU
   </data>
  </layer>
 </map>

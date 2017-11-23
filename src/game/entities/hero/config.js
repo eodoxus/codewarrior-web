@@ -5,8 +5,8 @@ export default {
   id: "hero",
   width: 24,
   height: 32,
-  walkingVelocity: 50,
-  runningVelocity: 100,
+  walkingVelocity: 60,
+  runningVelocity: 120,
   animations: {
     image: Url.ANIMATIONS + animationData.meta.image,
     data: animationData,

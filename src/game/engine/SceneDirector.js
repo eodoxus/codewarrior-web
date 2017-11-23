@@ -34,7 +34,12 @@ export default class SceneDirector extends Component {
     e.preventDefault();
     e.stopPropagation();
     const position = toSceneCoordinateSpace(e);
-    this.scene.onClick(position);
+    if (this.hero.intersects(position)) {
+      // TODO: handle click on hero
+      console.log("hero clicked");
+    } else {
+      this.scene.onClick(position);
+    }
   };
 
   async componentDidMount() {
@@ -50,6 +55,7 @@ export default class SceneDirector extends Component {
 
     if (!Graphics.isReady()) {
       Graphics.init(this.canvas);
+      Graphics.debug = DEBUG;
     }
 
     const now = Date.now();
@@ -80,7 +86,11 @@ export default class SceneDirector extends Component {
     }
     const debug = this.state.debug ? this.scene.renderDebug() : null;
     return (
-      <div className={styles.scene} ref="container" onClick={this.onClick}>
+      <div
+        className={styles.scene}
+        ref={container => (this.container = container)}
+        onClick={this.onClick}
+      >
         <canvas ref={canvas => (this.canvas = canvas)} />
         {debug}
       </div>

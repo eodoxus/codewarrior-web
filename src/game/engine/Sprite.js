@@ -1,5 +1,6 @@
 import Graphics from "./Graphics";
 import Size from "./Size";
+import Tile from "./map/Tile";
 
 export default class Sprite {
   id = "sprite";
@@ -36,7 +37,14 @@ export default class Sprite {
       texture.getImage(),
       texture.getSize(),
       texture.getPosition(),
-      position
+      position,
+      Graphics.debug ? 0.5 : 1.0
     );
+
+    if (Graphics.debug) {
+      const size = this.getSize();
+      Graphics.drawRect(position, size);
+      Graphics.drawPoint(Tile.getOrigin(position, size));
+    }
   }
 }

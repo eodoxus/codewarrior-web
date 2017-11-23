@@ -1,4 +1,8 @@
+import Size from "./Size";
+
 export default class Graphics {
+  static debug = false;
+
   static _renderer;
   static _scale = 1;
 
@@ -26,8 +30,16 @@ export default class Graphics {
     return Graphics._renderer.closeBuffer();
   }
 
-  static drawTexture(tex, size, sPos, dPos) {
-    Graphics._renderer.drawTexture(tex, size, sPos, dPos);
+  static drawRect(position, size) {
+    Graphics._renderer.drawRect(position, size);
+  }
+
+  static drawPoint(position) {
+    Graphics._renderer.drawRect(position, new Size(1, 1));
+  }
+
+  static drawTexture(tex, size, sPos, dPos, alpha = 1.0) {
+    Graphics._renderer.drawTexture(tex, size, sPos, dPos, alpha);
   }
 
   static setDrawingSurface(surface) {
@@ -66,7 +78,13 @@ class CanvasRenderer {
     this.context.clearRect(0, 0, this.size.width, this.size.height);
   }
 
-  drawTexture(tex, size, sPos, dPos) {
+  drawRect(position, size) {
+    this.context.rect(position.x, position.y, size.width, size.height);
+    this.context.stroke();
+  }
+
+  drawTexture(tex, size, sPos, dPos, alpha) {
+    this.context.globalAlpha = alpha;
     this.context.drawImage(
       tex,
       sPos.x,
@@ -78,6 +96,7 @@ class CanvasRenderer {
       size.width,
       size.height
     );
+    this.context.globalAlpha = 1.0;
   }
 
   openBuffer() {
@@ -112,7 +131,9 @@ class CanvasRenderer {
   }
 
   colorize(rect, color) {
+    this.context.globalAlpha = 0.2;
     this.context.fillStyle = color;
     this.context.fillRect(rect.x, rect.y, rect.width, rect.height);
+    this.context.globalAlpha = 1.0;
   }
 }

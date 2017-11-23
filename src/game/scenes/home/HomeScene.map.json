@@ -33,6 +33,10 @@
          "height":24,
          "name":"skulls",
          "opacity":1,
+         "properties":
+            {
+             "collidable":"true"
+            },
          "type":"tilelayer",
          "visible":true,
          "width":32,
@@ -46,6 +50,10 @@
          "height":24,
          "name":"stumps",
          "opacity":1,
+         "properties":
+            {
+             "collidable":"true"
+            },
          "type":"tilelayer",
          "visible":true,
          "width":32,
@@ -131,6 +139,37 @@
                  "width":0,
                  "x":160,
                  "y":142.5
+                }, 
+                {
+                 "height":24.3333333333333,
+                 "id":27,
+                 "name":"collision_stumps",
+                 "properties":
+                    {
+                     "layer":"stumps"
+                    },
+                 "rotation":0,
+                 "type":"collidable",
+                 "visible":true,
+                 "width":54.6666666666667,
+                 "x":168.333333333333,
+                 "y":-1
+                }, 
+                {
+                 "height":31.6666666666667,
+                 "id":28,
+                 "name":"collision_skulls",
+                 "properties":
+                    {
+                     "collidable":"true",
+                     "layer":"skulls"
+                    },
+                 "rotation":0,
+                 "type":"collidable",
+                 "visible":true,
+                 "width":24.3333333333333,
+                 "x":232,
+                 "y":96
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -141,18 +180,18 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzllVEKwDAIQ\/3p\/a+8\/5FidMksNCAUKj61YldELIMhOTg7dnZ217zjZ73o9qoqJoaDi+KzOarlijvFr\/ZLye\/Mh4rfndHb+UHcO\/jv3ahQpXa0m7\/ut2k+ipX5qflVuf8XxDmZn\/mr9QeD4U\/kwLz9DfYAhQUGUA==",
+         "data":"eJzllFEOABAMQ\/fj\/ld2gaIbHbIm+yH6GhvNzJqgkBQclp2RwaOVh5I98mcz7nCRP5vxtFS+t\/je+zrJ33mLKjY7X1X5Ruz\/wJ9liJ7z9uY2H3lFzqj\/XA9bNRuv8tG6Ulkchp+dgel9heo\/uwYU",
          "encoding":"base64",
          "height":24,
          "name":"collidable",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":32,
          "x":0,
          "y":0
         }],
- "nextobjectid":21,
+ "nextobjectid":29,
  "orientation":"orthogonal",
  "properties":
     {

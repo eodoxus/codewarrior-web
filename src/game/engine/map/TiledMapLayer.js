@@ -5,6 +5,7 @@ export default class TiledMapLayer {
 
   id;
   name;
+  size;
   tiles;
 
   constructor(id, name, size, tiles = []) {
@@ -12,6 +13,10 @@ export default class TiledMapLayer {
     this.name = name;
     this.size = size;
     this.tiles = tiles;
+  }
+
+  addTile(tile) {
+    this.tiles.push(tile);
   }
 
   getId() {
@@ -22,10 +27,8 @@ export default class TiledMapLayer {
     return this.name;
   }
 
-  getTileAt(position) {}
-
-  addTile(tile) {
-    this.tiles.push(tile);
+  getSize() {
+    return this.size;
   }
 
   getTiles() {

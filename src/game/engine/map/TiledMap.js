@@ -35,12 +35,12 @@ export default class TiledMap {
   }
 
   getTileAt(position) {
-    const inTile = new Tile(position, this.getTileSize());
+    const point = Tile.point(position);
     for (let iDx = this.layers.length - 1; iDx >= 0; iDx--) {
       const tiles = this.layers[iDx].getTiles();
       for (let jDx = 0; jDx < tiles.length; jDx++) {
         const tile = tiles[jDx];
-        if (tile.intersects(inTile)) {
+        if (tile.intersects(point)) {
           return tile;
         }
       }
@@ -82,15 +82,32 @@ export default class TiledMap {
       tile.getPosition()
     );
 
+    if (Graphics.debug) {
+      this.renderTileDebug(tile);
+    }
+  }
+
+  renderTileDebug(tile) {
+    Graphics.drawPoint(Tile.getOrigin(tile.getPosition(), this.getTileSize()));
+    //Graphics.drawRect(tile.getPosition(), this.getTileSize());
+
     if (!tile.isWalkable()) {
-      //Graphics.colorize(tile.getRect(), "red");
+      Graphics.colorize(tile.getRect(), "red");
     }
     if (tile.isDoorway()) {
-      //Graphics.colorize(tile.getRect(), "blue");
+      Graphics.colorize(tile.getRect(), "blue");
     }
     if (tile.isTransition()) {
-      //Graphics.colorize(tile.getRect(), "green");
+      Graphics.colorize(tile.getRect(), "green");
     }
+  }
+
+  toTileCoord(position) {
+    const x = Math.floor(position.x / this.getTileSize().width);
+    const y = Math.floor(
+      (this.tileset.size.height - position.y) / this.getTileSize().height
+    );
+    return new Vector(x, y);
   }
 }
 
@@ -187,7 +204,7 @@ function parseTileProperties(tile, collidableTiles, objects) {
   });
 
   objects.forEach(object => {
-    if (object.type === Tile.OBJECT_TYPE_SPAWN_HERO) {
+    if (object.type === Tile.OBJECT_TYPE_SPAWN_HERO && !this.heroSpawnPoint) {
       this.heroSpawnPoint = new Vector(object.x, object.y);
       return;
     }
@@ -198,14 +215,20 @@ function parseTileProperties(tile, collidableTiles, objects) {
     );
     if (tile.intersects(objectTile)) {
       switch (object.type) {
+        case Tile.OBJECT_TYPE_COLLECTABLE:
+          properties.isCollectable = true;
+          break;
+        case Tile.OBJECT_TYPE_COLLIDABLE:
+          properties.isCollidable = true;
+          if (object.properties.layer) {
+            properties.layer = object.properties.layer;
+          }
+          break;
         case Tile.OBJECT_TYPE_DOORWAY:
           properties.isDoorway = true;
           break;
         case Tile.OBJECT_TYPE_TRANSITION:
           properties.isTransition = true;
-          break;
-        case Tile.OBJECT_TYPE_COLLECTABLE:
-          properties.isCollectable = true;
           break;
         default:
           break;

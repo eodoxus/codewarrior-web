@@ -33,6 +33,11 @@ export default class App extends Component {
     }
   }
 
+  onBorderClick = e => {
+    e.currentTarget = this.sceneDirector.container;
+    this.sceneDirector && this.sceneDirector.onClick(e);
+  };
+
   render() {
     const content = this.state.hasError
       ? this.renderError()
@@ -68,12 +73,14 @@ export default class App extends Component {
           style={{
             backgroundImage: `url(${Url.PUBLIC}/images/game-border.png)`
           }}
+          onClick={this.onBorderClick}
         />
         <Game.SceneDirector
           scene={this.state.route}
           width="640"
           height="480"
           scale="2.5"
+          ref={sceneDirector => (this.sceneDirector = sceneDirector)}
         />
       </div>
     );

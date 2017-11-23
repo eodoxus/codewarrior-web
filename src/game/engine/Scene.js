@@ -1,7 +1,9 @@
+import Graphics from "./Graphics";
 import TextureCache from "./TextureCache";
 import TiledMap from "./map/TiledMap";
 
 export default class Scene {
+  clickedTile;
   name;
   hero;
   map;
@@ -12,7 +14,8 @@ export default class Scene {
     this.hero = hero;
     this.entities = entities;
     this.map = new TiledMap(this.getName(), this.getMapConfig());
-    this.hero.setPosition(this.map.getHeroSpawnPoint());
+    this.hero.setMap(this.map);
+    hero.setPosition(this.map.getHeroSpawnPoint());
     this.entities.unshift(hero);
   }
 
@@ -65,14 +68,20 @@ export default class Scene {
     return TextureCache.fetch(textures);
   }
 
-  onClick(position) {}
+  onClick(position) {
+    this.clickedTile = this.map.getTileAt(position);
+    if (this.clickedTile && this.clickedTile.isWalkable()) {
+      this.hero.walkTo(this.clickedTile);
+    }
+  }
 
   render() {
     if (this.map) {
       this.map.render();
-    }
-    if (this.hero) {
-      this.hero.render();
+
+      if (this.clickedTile && Graphics.debug) {
+        Graphics.colorize(this.clickedTile.getRect(), "black");
+      }
     }
     this.entities.forEach(entity => entity.render());
   }

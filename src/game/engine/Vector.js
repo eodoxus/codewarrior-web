@@ -87,6 +87,13 @@ export default class Vector {
     return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
   }
 
+  diff(v) {
+    return new Vector(
+      Math.abs(Math.abs(this.x) - Math.abs(v.x)),
+      Math.abs(Math.abs(this.y) - Math.abs(v.y))
+    );
+  }
+
   normalize() {
     const magnitude = this.magnitude();
     if (magnitude !== 0) {
