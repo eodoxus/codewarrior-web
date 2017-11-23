@@ -31,11 +31,8 @@ describe("<SceneDirector />", () => {
 
   it("initializes hero", () => {
     const ctrl = getController();
-    const hero = ctrl.scene.getSprites()[0];
-    expect(hero.id).toEqual("hero");
-    expect(hero.curAnimation).toBeDefined();
+    const hero = ctrl.scene.getEntities()[0];
     expect(hero.position).toBeDefined();
-    expect(hero.animations).toBeDefined();
   });
 
   it("starts update loop", async () => {

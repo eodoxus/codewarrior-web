@@ -29,6 +29,10 @@ export default class Animation {
     return this.frames[this.curFrame];
   }
 
+  getUrl() {
+    return this.url;
+  }
+
   start(speed = 1) {
     this._speed = speed;
     this._isRunning = true;

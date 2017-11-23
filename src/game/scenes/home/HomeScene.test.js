@@ -8,7 +8,6 @@ const mockHero = {
 
 describe("HomeScene", () => {
   it("instantiates without crashing", () => {
-    const sprites = [mockHero];
-    const scene = new HomeScene(sprites);
+    const scene = new HomeScene(mockHero);
   });
 });

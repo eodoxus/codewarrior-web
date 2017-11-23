@@ -6,7 +6,6 @@ import Indicators from "../../components/indicators";
 import Scenes from "../scenes";
 import Graphics from "./Graphics";
 import Size from "./Size";
-import TextureCache from "./TextureCache";
 import Vector from "./Vector";
 
 const DEBUG = false;
@@ -20,7 +19,7 @@ export default class SceneDirector extends Component {
   constructor(props) {
     super(props);
     this.lastTime = Date.now();
-    this.hero = createHero();
+    this.hero = new Entities.Hero();
     this.scene = createScene(this.props.scene, this.hero);
     this.dt = 0;
 
@@ -34,11 +33,12 @@ export default class SceneDirector extends Component {
   onClick = e => {
     e.preventDefault();
     e.stopPropagation();
-    this.scene.onClick(e.clientX, e.clientY);
+    const position = toSceneCoordinateSpace(e);
+    this.scene.onClick(position);
   };
 
   async componentDidMount() {
-    await loadSceneAssets(this.scene);
+    await this.scene.loadAssets();
     this.setState({ isLoading: false });
     this.updateScene();
   }
@@ -94,33 +94,22 @@ SceneDirector.defaultProps = {
   scale: 1
 };
 
-function createHero() {
-  const heroPosition = new Vector(100, 50);
-  return new Entities.Hero(heroPosition);
-}
-
 function createScene(name, hero) {
   let sceneName = _.upperFirst(name);
   let sceneClass = sceneName + "Scene";
   if (!Scenes[sceneClass]) {
     throw Error(`SceneDirector does not support the "${sceneName}" scene.`);
   }
-  return new Scenes[sceneClass]([hero]);
+  return new Scenes[sceneClass](hero);
 }
 
-function loadSceneAssets(scene) {
-  const textures = [];
-  scene.getSprites().forEach(sprite => {
-    if (sprite.animations) {
-      textures.push(sprite.animations.url);
-    }
-  });
-  const map = scene.getMap();
-  if (map) {
-    const tilesetTexture = map.getTilesetTexture();
-    if (tilesetTexture) {
-      textures.push(tilesetTexture);
-    }
-  }
-  return TextureCache.fetch(textures);
+function toSceneCoordinateSpace(e) {
+  const sceneBoundingRect = e.currentTarget.getBoundingClientRect();
+  const sceneOriginOffset = new Vector(
+    sceneBoundingRect.x,
+    sceneBoundingRect.y
+  );
+  return new Vector(e.clientX, e.clientY)
+    .subtract(sceneOriginOffset)
+    .multiply(Graphics.getScale());
 }

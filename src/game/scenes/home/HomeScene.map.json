@@ -1,174 +1,183 @@
-{
-  "height": 24,
-  "layers": [
-    {
-      "compression": "zlib",
-      "data": "eJxjZGBgYBzFo3gUj+JRPIpH8YjEnzlQ8UDYj409ikfxKKYdBgA4IAjd",
-      "encoding": "base64",
-      "height": 24,
-      "name": "background",
-      "opacity": 1,
-      "type": "tilelayer",
-      "visible": true,
-      "width": 32,
-      "x": 0,
-      "y": 0
-    },
-    {
-      "compression": "zlib",
-      "data":
-        "eJy11slPE2EYx/GnM7SlC/+AwRZF/wg3MO4bHiRxxS4CV9eLRIuAHl2ubmAEBJd6dAO6CF5d8OiuBzWCetDEFfU7aZsObacdw/RNPnnb6fu+v/eZMi+dsIlMYsouckURuYpr2C0ie7AX+7AfB3CcsSdwEqfwEZ/w2ZaaF8V1FGqXlWzGB8ZPYB2v16PJIfKW9+/wHvcZ/wAP8QjjeCypOZO63A3MbcBGuFURD7xq4Xwn1yvhwlollZ3ZzzD5K+lXYTXWKPm1NijZ/WZyS9Vs1Aa434PoR41TZBb6WeMSBjBYICuqTP+OoiZqNmp26nVARQXayFdZowJ2ONT8LI/u/mVyZ9I6yOx0Gn9uZVah5iPbXyS/3C1CdrsF+QGXSBAhhLELzWhBq8t4nlX1x8iII4Ek7mIUY7hXJN+q+qvdIrPhgx81mIO5qHWnxszj+Z1vmz7PqvoPkXEYEbTjCDrQiS638Tyr6n9CxlM8w3O8wEu8wusi+bUzrP9N+n4u8IgsxCIsxhLUoR5LPcXXsKL+02ScwVmcw3l0owcXSuRr9Qc4W4Jqfh8yeeZ8I+M7fuAnfuE3pvDHRP0xcuJqfp8wmb/ZK7IFW7EN27EDTdjpLV1/I8/oX22fjLVB8aauhU3m32D8TdzCbdzBEIYxUiS/K/33r2UFGBdECOF0ftKiM38ZtS3HipzvIvP8a1kxMuNIIKmrv7HI+aVvhc6XTLtIbi/6cvIjuvqrqzjD4IO/Klv/l0pz+UfJPmaQb7RHny5fy9F8zek1Zu/B/+5Rq39I+3/F749mbHKlsjK9Pt+qPWithaxWjLBmHevXY5T3vfwW67OXvx9zZHO70YM2zmkb1xVH+fuD7mzuPxw9s4w=",
-      "encoding": "base64",
-      "height": 24,
-      "name": "map",
-      "opacity": 1,
-      "type": "tilelayer",
-      "visible": true,
-      "width": 32,
-      "x": 0,
-      "y": 0
-    },
-    {
-      "compression": "zlib",
-      "data":
-        "eJxjYBgFo2AUjIJRMAroA4oFGBhKBAbO/ktAuy8PoP0j3f+jYBSMgsEBAHfuBZk=",
-      "encoding": "base64",
-      "height": 24,
-      "name": "skulls",
-      "opacity": 1,
-      "type": "tilelayer",
-      "visible": true,
-      "width": 32,
-      "x": 0,
-      "y": 0
-    },
-    {
-      "compression": "zlib",
-      "data":
-        "eJztxrENACAIAMFvYRHZfwrdygHoNSF/1cFMO+BE/ysrobJfkiRJ+ukCsMAEDQ==",
-      "encoding": "base64",
-      "height": 24,
-      "name": "stumps",
-      "opacity": 1,
-      "type": "tilelayer",
-      "visible": true,
-      "width": 32,
-      "x": 0,
-      "y": 0
-    },
-    {
-      "draworder": "topdown",
-      "height": 0,
-      "name": "objects",
-      "objects": [
+{ "height":24,
+ "layers":[
         {
-          "height": 16.5,
-          "id": 3,
-          "name": "woodcutters_house",
-          "properties": {},
-          "rotation": 0,
-          "type": "doorway",
-          "visible": true,
-          "width": 20,
-          "x": 21,
-          "y": 149
-        },
+         "compression":"zlib",
+         "data":"eJxjZGBgYBzFo3gUj+JRPIpH8YjEnzlQ8UDYj409ikfxKKYdBgA4IAjd",
+         "encoding":"base64",
+         "height":24,
+         "name":"background",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":32,
+         "x":0,
+         "y":0
+        }, 
         {
-          "height": 14.5,
-          "id": 4,
-          "name": "cave",
-          "properties": {},
-          "rotation": 0,
-          "type": "doorway",
-          "visible": true,
-          "width": 23.6666666666667,
-          "x": 29,
-          "y": 24.5
-        },
+         "compression":"zlib",
+         "data":"eJy11slPE2EYx\/GnM7SlC\/+AwRZF\/wg3MO4bHiRxxS4CV9eLRIuAHl2ubmAEBJd6dAO6CF5d8OiuBzWCetDEFfU7aZsObacdw\/RNPnnb6fu+v\/eZMi+dsIlMYsouckURuYpr2C0ie7AX+7AfB3CcsSdwEqfwEZ\/w2ZaaF8V1FGqXlWzGB8ZPYB2v16PJIfKW9+\/wHvcZ\/wAP8QjjeCypOZO63A3MbcBGuFURD7xq4Xwn1yvhwlollZ3ZzzD5K+lXYTXWKPm1NijZ\/WZyS9Vs1Aa434PoR41TZBb6WeMSBjBYICuqTP+OoiZqNmp26nVARQXayFdZowJ2ONT8LI\/u\/mVyZ9I6yOx0Gn9uZVah5iPbXyS\/3C1CdrsF+QGXSBAhhLELzWhBq8t4nlX1x8iII4Ek7mIUY7hXJN+q+qvdIrPhgx81mIO5qHWnxszj+Z1vmz7PqvoPkXEYEbTjCDrQiS638Tyr6n9CxlM8w3O8wEu8wusi+bUzrP9N+n4u8IgsxCIsxhLUoR5LPcXXsKL+02ScwVmcw3l0owcXSuRr9Qc4W4Jqfh8yeeZ8I+M7fuAnfuE3pvDHRP0xcuJqfp8wmb\/ZK7IFW7EN27EDTdjpLV1\/I8\/oX22fjLVB8aauhU3m32D8TdzCbdzBEIYxUiS\/K\/33r2UFGBdECOF0ftKiM38ZtS3HipzvIvP8a1kxMuNIIKmrv7HI+aVvhc6XTLtIbi\/6cvIjuvqrqzjD4IO\/Klv\/l0pz+UfJPmaQb7RHny5fy9F8zek1Zu\/B\/+5Rq39I+3\/F749mbHKlsjK9Pt+qPWithaxWjLBmHevXY5T3vfwW67OXvx9zZHO70YM2zmkb1xVH+fuD7mzuPxw9s4w=",
+         "encoding":"base64",
+         "height":24,
+         "name":"map",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":32,
+         "x":0,
+         "y":0
+        }, 
         {
-          "height": 8.5,
-          "id": 5,
-          "name": "transition_up",
-          "properties": {
-            "transition": "LakeScene"
-          },
-          "rotation": 0,
-          "type": "transition",
-          "visible": true,
-          "width": 39.8333333333333,
-          "x": 175.666666666667,
-          "y": -1.5
-        },
+         "compression":"zlib",
+         "data":"eJxjYBgFo2AUjIJRMAroA4oFGBhKBAbO\/ktAuy8PoP0j3f+jYBSMgsEBAHfuBZk=",
+         "encoding":"base64",
+         "height":24,
+         "name":"skulls",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":32,
+         "x":0,
+         "y":0
+        }, 
         {
-          "height": 30,
-          "id": 6,
-          "name": "transition_right",
-          "properties": {
-            "transition": "BossScene"
-          },
-          "rotation": 0,
-          "type": "transition",
-          "visible": true,
-          "width": 9,
-          "x": 247.5,
-          "y": 97
-        },
+         "compression":"zlib",
+         "data":"eJztxrENACAIAMFvYRHZfwrdygHoNSF\/1cFMO+BE\/ysrobJfkiRJ+ukCsMAEDQ==",
+         "encoding":"base64",
+         "height":24,
+         "name":"stumps",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":32,
+         "x":0,
+         "y":0
+        }, 
         {
-          "height": 1,
-          "id": 20,
-          "name": "spawn_hero",
-          "properties": {},
-          "rotation": 0,
-          "type": "spawn_hero",
-          "visible": true,
-          "width": 0,
-          "x": 113,
-          "y": 143.5
-        }
-      ],
-      "opacity": 1,
-      "type": "objectgroup",
-      "visible": false,
-      "width": 0,
-      "x": 0,
-      "y": 0
+         "draworder":"topdown",
+         "height":0,
+         "name":"objects",
+         "objects":[
+                {
+                 "height":16.5,
+                 "id":3,
+                 "name":"woodcutters_house",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"doorway",
+                 "visible":true,
+                 "width":20,
+                 "x":21,
+                 "y":149
+                }, 
+                {
+                 "height":14.5,
+                 "id":4,
+                 "name":"cave",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"doorway",
+                 "visible":true,
+                 "width":23.6667,
+                 "x":29,
+                 "y":24.5
+                }, 
+                {
+                 "height":8.5,
+                 "id":5,
+                 "name":"transition_up",
+                 "properties":
+                    {
+                     "transition":"LakeScene"
+                    },
+                 "rotation":0,
+                 "type":"transition",
+                 "visible":true,
+                 "width":39.8333,
+                 "x":175.667,
+                 "y":-1.5
+                }, 
+                {
+                 "height":30,
+                 "id":6,
+                 "name":"transition_right",
+                 "properties":
+                    {
+                     "transition":"BossScene"
+                    },
+                 "rotation":0,
+                 "type":"transition",
+                 "visible":true,
+                 "width":9,
+                 "x":247.5,
+                 "y":97
+                }, 
+                {
+                 "height":1,
+                 "id":20,
+                 "name":"spawn_hero",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"spawn_hero",
+                 "visible":true,
+                 "width":0,
+                 "x":160,
+                 "y":142.5
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":0,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "compression":"zlib",
+         "data":"eJzllVEKwDAIQ\/3p\/a+8\/5FidMksNCAUKj61YldELIMhOTg7dnZ217zjZ73o9qoqJoaDi+KzOarlijvFr\/ZLye\/Mh4rfndHb+UHcO\/jv3ahQpXa0m7\/ut2k+ipX5qflVuf8XxDmZn\/mr9QeD4U\/kwLz9DfYAhQUGUA==",
+         "encoding":"base64",
+         "height":24,
+         "name":"collidable",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":false,
+         "width":32,
+         "x":0,
+         "y":0
+        }],
+ "nextobjectid":21,
+ "orientation":"orthogonal",
+ "properties":
+    {
+
     },
-    {
-      "compression": "zlib",
-      "data":
-        "eJzllVEKwDAIQ/3p/a+8/5FidMksNCAUKj61YldELIMhOTg7dnZ217zjZ73o9qoqJoaDi+KzOarlijvFr/ZLye/Mh4rfndHb+UHcO/jv3ahQpXa0m7/ut2k+ipX5qflVuf8XxDmZn/mr9QeD4U/kwLz9DfYAhQUGUA==",
-      "encoding": "base64",
-      "height": 24,
-      "name": "collidable",
-      "opacity": 1,
-      "type": "tilelayer",
-      "visible": false,
-      "width": 32,
-      "x": 0,
-      "y": 0
-    }
-  ],
-  "nextobjectid": 21,
-  "orientation": "orthogonal",
-  "properties": {},
-  "renderorder": "right-down",
-  "tileheight": 8,
-  "tilesets": [
-    {
-      "firstgid": 1,
-      "image": "../../../../public/maps/overworld.png",
-      "imageheight": 728,
-      "imagewidth": 760,
-      "margin": 0,
-      "name": "overworld",
-      "properties": {},
-      "spacing": 0,
-      "tilecount": 8645,
-      "tileheight": 8,
-      "tilewidth": 8
-    }
-  ],
-  "tilewidth": 8,
-  "version": 1,
-  "width": 32
+ "renderorder":"right-down",
+ "tileheight":8,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "image":"..\/..\/..\/..\/public\/maps\/overworld.png",
+         "imageheight":728,
+         "imagewidth":760,
+         "margin":0,
+         "name":"overworld",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tilecount":8645,
+         "tileheight":8,
+         "tilewidth":8
+        }],
+ "tilewidth":8,
+ "version":1,
+ "width":32
 }

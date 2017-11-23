@@ -22,6 +22,10 @@ export default class AnimationCollection {
   remove(name) {
     delete this.animations[name];
   }
+
+  getUrl() {
+    return this.url;
+  }
 }
 
 function parse(config) {

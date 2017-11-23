@@ -10,10 +10,10 @@ export default class Tile {
   size;
   properties;
 
-  constructor(gid, position, size, properties = {}) {
-    this.gid = gid;
+  constructor(position, size, gid = 0, properties = {}) {
     this.position = position;
     this.size = size;
+    this.gid = gid;
     this.properties = properties;
   }
 

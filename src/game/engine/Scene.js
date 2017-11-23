@@ -1,23 +1,37 @@
+import TextureCache from "./TextureCache";
+import TiledMap from "./map/TiledMap";
+
 export default class Scene {
-  backgroundImage;
+  name;
+  hero;
   map;
   size;
-  sprites;
+  entities;
 
-  constructor(sprites) {
-    this.sprites = sprites;
+  constructor(hero, entities = []) {
+    this.hero = hero;
+    this.entities = entities;
+    this.map = new TiledMap(this.getName(), this.getMapConfig());
+    this.hero.setPosition(this.map.getHeroSpawnPoint());
+    this.entities.unshift(hero);
   }
 
-  getBackgroundImage() {
-    return this.backgroundImage;
+  getName() {
+    // Override this
+    return this.name;
   }
 
   getMap() {
     return this.map;
   }
 
-  getSprites() {
-    return this.sprites;
+  getMapConfig() {
+    // Override this
+    return {};
+  }
+
+  getEntities() {
+    return this.entities;
   }
 
   getSize(s) {
@@ -28,27 +42,49 @@ export default class Scene {
     this.size = s;
   }
 
-  handleCollisions(sprite) {}
+  handleCollisions(entity) {}
 
-  onClick(x, y) {
-    console.log("scene click", x, y);
+  loadAssets() {
+    let textures = [];
+
+    this.getEntities().forEach(object => {
+      const sprite = object.getSprite();
+      if (!sprite) {
+        return;
+      }
+      textures = textures.concat(sprite.getTextures());
+    });
+
+    if (this.map) {
+      const tilesetTexture = this.map.getTilesetTexture();
+      if (tilesetTexture) {
+        textures.push(tilesetTexture);
+      }
+    }
+
+    return TextureCache.fetch(textures);
   }
+
+  onClick(position) {}
 
   render() {
     if (this.map) {
       this.map.render();
     }
-    this.sprites.forEach(sprite => sprite.render());
+    if (this.hero) {
+      this.hero.render();
+    }
+    this.entities.forEach(entity => entity.render());
   }
 
   renderDebug() {
-    return this.sprites.map(sprite => sprite.renderDebug());
+    return this.entities.map(entity => entity.renderDebug());
   }
 
   update(dt) {
-    this.sprites.forEach(sprite => {
-      sprite.update(dt);
-      this.handleCollisions(sprite);
+    this.entities.forEach(entity => {
+      entity.update(dt);
+      this.handleCollisions(entity);
     });
   }
 }

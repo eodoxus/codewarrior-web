@@ -23,7 +23,7 @@
    eJztxrENACAIAMFvYRHZfwrdygHoNSF/1cFMO+BE/ysrobJfkiRJ+ukCsMAEDQ==
   </data>
  </layer>
- <objectgroup name="objects" visible="0">
+ <objectgroup name="objects">
   <object id="3" name="woodcutters_house" type="doorway" x="21" y="149" width="20" height="16.5"/>
   <object id="4" name="cave" type="doorway" x="29" y="24.5" width="23.6667" height="14.5"/>
   <object id="5" name="transition_up" type="transition" x="175.667" y="-1.5" width="39.8333" height="8.5">
@@ -36,7 +36,7 @@
     <property name="transition" value="BossScene"/>
    </properties>
   </object>
-  <object id="20" name="spawn_hero" type="spawn_hero" x="113" y="143.5" height="1"/>
+  <object id="20" name="spawn_hero" type="spawn_hero" x="160" y="142.5" height="1"/>
  </objectgroup>
  <layer name="collidable" width="32" height="24" visible="0">
   <data encoding="base64" compression="zlib">

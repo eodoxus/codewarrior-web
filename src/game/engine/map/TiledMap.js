@@ -11,7 +11,7 @@ export default class TiledMap {
   name;
   heroSpawnPoint;
   layers;
-  renderer;
+  tileset;
 
   constructor(name, tmxConfig) {
     this.name = name;
@@ -34,6 +34,19 @@ export default class TiledMap {
     return this.tileset.texture;
   }
 
+  getTileAt(position) {
+    const inTile = new Tile(position, this.getTileSize());
+    for (let iDx = this.layers.length - 1; iDx >= 0; iDx--) {
+      const tiles = this.layers[iDx].getTiles();
+      for (let jDx = 0; jDx < tiles.length; jDx++) {
+        const tile = tiles[jDx];
+        if (tile.intersects(inTile)) {
+          return tile;
+        }
+      }
+    }
+  }
+
   getTileSize() {
     return this.tileset.tileSize;
   }
@@ -53,7 +66,7 @@ export default class TiledMap {
       Graphics.drawTexture(texture, size, position, position);
     } else {
       Graphics.openBuffer();
-      layer.tiles.forEach(tile => {
+      layer.getTiles().forEach(tile => {
         this.renderTile(tile);
       });
       Graphics.drawBuffer();
@@ -82,6 +95,9 @@ export default class TiledMap {
 }
 
 function parseTMX(config) {
+  if (!config.tilesets) {
+    return;
+  }
   const tileset = config.tilesets[0];
   this.tileset = {
     texture: Url.PUBLIC + tileset.image.substr(tileset.image.indexOf("/maps")),
@@ -131,7 +147,7 @@ function parseTileLayers(config) {
         (gid % (mapWidth / tileWidth)) * tileWidth,
         Math.floor(gid / (mapWidth / tileWidth)) * tileWidth
       );
-      const tile = new Tile(gid, position, this.tileset.tileSize);
+      const tile = new Tile(position, this.tileset.tileSize, gid);
       tile.setTilesetPosition(tilesetPosition);
       tmLayer.addTile(tile);
     });
@@ -177,7 +193,6 @@ function parseTileProperties(tile, collidableTiles, objects) {
     }
 
     let objectTile = new Tile(
-      0,
       new Vector(object.x, object.y),
       new Size(object.width, object.height)
     );
