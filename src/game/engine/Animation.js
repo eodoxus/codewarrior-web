@@ -9,7 +9,6 @@ export default class Animation {
 
   _dt = 0;
   _isRunning = false;
-  _speed = 1;
 
   constructor(name, url, width, height, delay, frames = []) {
     this.name = name;
@@ -33,8 +32,7 @@ export default class Animation {
     return this.url;
   }
 
-  start(speed = 1) {
-    this._speed = speed;
+  start() {
     this._isRunning = true;
     return this;
   }
@@ -54,7 +52,7 @@ export default class Animation {
       return;
     }
     this._dt += dt;
-    if (this._dt > this.delay * this._speed) {
+    if (this._dt > this.delay) {
       this.curFrame++;
       if (this.curFrame === this.frames.length) {
         this.curFrame = 0;

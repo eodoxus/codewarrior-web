@@ -10,6 +10,6 @@ export default {
   animations: {
     image: Url.ANIMATIONS + animationData.meta.image,
     data: animationData,
-    delay: 30
+    delay: 60
   }
 };

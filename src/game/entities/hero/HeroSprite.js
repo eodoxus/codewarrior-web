@@ -71,6 +71,6 @@ export default class HeroSprite extends AnimatedSprite {
         .reset();
       this.curAnimation = nextAnimation;
     }
-    this.getAnimation().start(state === Hero.STATES.WALKING ? 2 : 1.5);
+    this.getAnimation().start();
   }
 }
