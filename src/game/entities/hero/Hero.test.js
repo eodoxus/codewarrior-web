@@ -40,13 +40,6 @@ describe("Hero", () => {
       expect(parent.update).toHaveBeenCalled();
     });
 
-    it("should reset animation if velocity is 0", () => {
-      const animation = hero.getSprite().getAnimation();
-      animation.reset = jest.fn();
-      hero.update();
-      expect(animation.reset).toHaveBeenCalled();
-    });
-
     it("should update animation if velocity is > 0", () => {
       hero.setVelocity(new Vector(1, 1));
       const sprite = hero.getSprite();

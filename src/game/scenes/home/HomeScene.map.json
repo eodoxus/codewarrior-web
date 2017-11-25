@@ -141,7 +141,7 @@
                  "y":142.5
                 }, 
                 {
-                 "height":24.3333333333333,
+                 "height":24.3333,
                  "id":27,
                  "name":"collision_stumps",
                  "properties":
@@ -151,12 +151,12 @@
                  "rotation":0,
                  "type":"collidable",
                  "visible":true,
-                 "width":54.6666666666667,
-                 "x":168.333333333333,
+                 "width":54.6667,
+                 "x":168.333,
                  "y":-1
                 }, 
                 {
-                 "height":31.6666666666667,
+                 "height":31.6667,
                  "id":28,
                  "name":"collision_skulls",
                  "properties":
@@ -167,7 +167,7 @@
                  "rotation":0,
                  "type":"collidable",
                  "visible":true,
-                 "width":24.3333333333333,
+                 "width":24.3333,
                  "x":232,
                  "y":96
                 }],
@@ -180,7 +180,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzllFEOABAMQ\/fj\/ld2gaIbHbIm+yH6GhvNzJqgkBQclp2RwaOVh5I98mcz7nCRP5vxtFS+t\/je+zrJ33mLKjY7X1X5Ruz\/wJ9liJ7z9uY2H3lFzqj\/XA9bNRuv8tG6Ulkchp+dgel9heo\/uwYU",
+         "data":"eJzllEkOACAIA7nw\/y\/7AYxlKRppwkVDp3FBRUQJZYnBQdkdGTw6eTDZO380Y4Zr+aMZq8XyvcX3nlclP\/MXWWz0fU3lC7Dfwa+YL9H+X\/iWV6SHPXM9bNZsepVvrTPVxUH4nRmQe59SCwNWBjw=",
          "encoding":"base64",
          "height":24,
          "name":"collidable",

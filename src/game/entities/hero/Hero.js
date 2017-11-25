@@ -59,9 +59,7 @@ export default class Hero extends Entity {
     }
 
     const animation = this.sprite.getAnimation();
-    if (this.velocity.magnitude() === 0) {
-      animation.reset();
-    } else {
+    if (this.velocity.magnitude() > 0) {
       animation.update(dt);
     }
 
@@ -74,6 +72,7 @@ export default class Hero extends Entity {
 
         if (this.velocity.magnitude() === 0) {
           this.state = Hero.STATES.STOPPED;
+          animation.reset();
         }
       }
     }
