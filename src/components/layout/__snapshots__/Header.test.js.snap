@@ -2,7 +2,7 @@
 
 exports[`<Header /> matches expected snapshot 1`] = `
 <header
-  className="header"
+  className="collapsible header"
 >
   <div
     className={undefined}

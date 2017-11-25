@@ -48,6 +48,10 @@ export default class SceneDirector extends Component {
     this.updateScene();
   }
 
+  shouldComponentUpdate() {
+    return this.state.isLoading;
+  }
+
   updateScene() {
     if (!this.canvas) {
       return;

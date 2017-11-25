@@ -4,6 +4,22 @@ body {
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.collapsible.header {
+  transition: top 1s;
+}
+
+.collapsed.header {
+  top: -85px;
+}
+
+.collapsible.footer {
+  transition: bottom 1s;
+}
+
+.collapsed.footer {
+  bottom: -40px;
+}
+
 .debug {
   position: absolute;
 }

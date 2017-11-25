@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import cx from "classnames";
 import Indicators from "./components/indicators";
 import Layout from "./components/layout";
 import styles from "./App.scss";
@@ -7,6 +8,9 @@ import Game from "./game";
 import Url from "./lib/Url";
 
 const DEFAULT_ROUTE = "home";
+const GAME_WIDTH = 640;
+const GAME_HEIGHT = 480;
+const CHROME_HEIGHT = 76 + 40; // header + footer
 
 export default class App extends Component {
   constructor() {
@@ -25,12 +29,21 @@ export default class App extends Component {
     });
   }
 
+  componentDidMount() {
+    window.addEventListener("resize", this.updateDimensions);
+  }
+
   async componentWillMount() {
     let model = await new AppModel().load();
     this.setState(model.toPojo());
     if (!this.state.hasError) {
       this.setState({ isLoading: false });
     }
+    this.updateDimensions();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDimensions);
   }
 
   onBorderClick = e => {
@@ -43,7 +56,13 @@ export default class App extends Component {
       ? this.renderError()
       : this.renderGame();
     return (
-      <div className={styles.app}>
+      <div
+        className={cx(
+          this.state.centerHorizontally ? styles.centerVertically : "",
+          this.state.centerVertically ? styles.centerVertically : "",
+          styles.app
+        )}
+      >
         <Layout.Header
           email={this.state.email}
           name={this.state.name}
@@ -51,9 +70,10 @@ export default class App extends Component {
           portrait={this.state.avatar}
           slogan={this.state.slogan}
           url={this.state.home}
+          hide={this.state.hideChrome}
         />
         <div className={styles.content}>{content}</div>
-        <Layout.Footer copy={this.state.footer} />
+        <Layout.Footer copy={this.state.footer} hide={this.state.hideChrome} />
       </div>
     );
   }
@@ -66,8 +86,9 @@ export default class App extends Component {
     if (this.state.isLoading) {
       return <Indicators.Loader />;
     }
-    return (
-      <div className={styles.game}>
+    let border;
+    if (this.state.hasBorder) {
+      border = (
         <div
           className={styles.border}
           style={{
@@ -75,14 +96,41 @@ export default class App extends Component {
           }}
           onClick={this.onBorderClick}
         />
+      );
+    }
+    return (
+      <div className={styles.game}>
+        {border}
         <Game.SceneDirector
           scene={this.state.route}
-          width="640"
-          height="480"
+          width={GAME_WIDTH}
+          height={GAME_HEIGHT}
           scale="2.5"
           ref={sceneDirector => (this.sceneDirector = sceneDirector)}
         />
       </div>
     );
   }
+
+  updateDimensions = () => {
+    const stateChanges = {
+      hasBorder: false,
+      centerHorizontally: false,
+      centerVertically: false,
+      hideChrome: false
+    };
+    if (window.innerWidth > GAME_WIDTH) {
+      stateChanges.hasBorder = true;
+      stateChanges.centerHorizontally = true;
+    }
+    if (window.innerHeight > GAME_HEIGHT) {
+      stateChanges.centerVertically = true;
+    }
+    if (window.innerHeight <= GAME_HEIGHT + CHROME_HEIGHT) {
+      stateChanges.hideChrome = true;
+    }
+    if (Object.keys(stateChanges).length) {
+      this.setState(stateChanges);
+    }
+  };
 }

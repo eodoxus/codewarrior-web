@@ -5,9 +5,9 @@
 
   .content {
     position: absolute;
-    top: $dimension-header--height;
+    top: 0;
     right: 0;
-    bottom: $dimension-footer--height;
+    bottom: 0;
     left: 0;
 
     .error {
@@ -23,10 +23,8 @@
 
   .game {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -240px;
-    margin-left: -320px;
+    top: 0;
+    left: 0;
 
     .border {
       position: absolute;
@@ -37,5 +35,24 @@
       height: 500px;
       z-index: 2;
     }
+  }
+}
+
+.centerHorizontally {
+  .game {
+    left: 50%;
+    margin-left: -320px;
+  }
+}
+
+.centerVertically {
+  .content {
+    top: $dimension-header--height;
+    bottom: $dimension-footer--height;
+  }
+
+  .game {
+    top: 50%;
+    margin-top: -240px;
   }
 }
