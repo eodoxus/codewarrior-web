@@ -5,6 +5,7 @@ import Graphics from "./Graphics";
 import Time from "./Time";
 import SceneDirector from "./SceneDirector";
 import TextureCache from "./TextureCache";
+import Vector from "./Vector";
 
 jest.mock("./Graphics");
 jest.useFakeTimers();
@@ -51,5 +52,39 @@ describe("<SceneDirector />", () => {
     const ctrl = getController();
     await p;
     expect(window.requestAnimationFrame).toHaveBeenCalledTimes(1);
+  });
+
+  describe("onClick", () => {
+    let mockEvent = {
+      preventDefault: jest.fn(),
+      stopPropagation: jest.fn(),
+      clientX: 120,
+      clientY: 240,
+      currentTarget: {
+        getBoundingClientRect: () => {
+          return {
+            x: 100,
+            y: 200
+          };
+        }
+      }
+    };
+
+    it("converts click position to scene vector space", () => {
+      const ctrl = getController();
+      ctrl.hero.intersects = jest.fn();
+      ctrl.scene.onClick = jest.fn();
+      ctrl.onClick(mockEvent);
+      expect(ctrl.scene.onClick).toHaveBeenCalledWith(new Vector(20, 40));
+    });
+
+    it("doesn't send click to scene if hero was clicked", () => {
+      const ctrl = getController();
+      ctrl.hero.intersects = jest.fn();
+      ctrl.hero.intersects.mockReturnValue(true);
+      ctrl.scene.onClick = jest.fn();
+      ctrl.onClick(mockEvent);
+      expect(ctrl.scene.onClick).not.toHaveBeenCalled();
+    });
   });
 });

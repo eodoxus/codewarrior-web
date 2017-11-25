@@ -1,4 +1,5 @@
 import React from "react";
+import PathFinder from "./map/PathFinder";
 import Time from "./Time";
 import Vector from "./Vector";
 import Tile from "./map/Tile";
@@ -8,6 +9,7 @@ export default class Entity {
 
   currentMove;
   id;
+  map;
   position;
   sprite;
   state;
@@ -16,10 +18,25 @@ export default class Entity {
   constructor(position = new Vector()) {
     this.position = position;
     this.dt = 0;
+    this.state = 0;
+    this.velocity = new Vector();
+  }
+
+  getCurrentMove() {
+    return this.currentMove;
   }
 
   getOrigin() {
     return Tile.getOrigin(this.position, this.sprite.getSize());
+  }
+
+  getMap() {
+    return this.map;
+  }
+
+  setMap(map) {
+    this.map = map;
+    this.pathFinder = new PathFinder(this.map);
   }
 
   getPosition() {
@@ -38,6 +55,10 @@ export default class Entity {
     this.sprite = s;
   }
 
+  getState() {
+    return this.state;
+  }
+
   getVelocity() {
     return this.velocity;
   }
@@ -46,8 +67,11 @@ export default class Entity {
     this.velocity = v;
   }
 
-  getVelocityForState() {
-    return Entity.DEFAULT_MOVEMENT_VELOCITY;
+  getStateVelocity() {
+    return new Vector(
+      Entity.DEFAULT_MOVEMENT_VELOCITY,
+      Entity.DEFAULT_MOVEMENT_VELOCITY
+    );
   }
 
   intersects(position) {
@@ -115,12 +139,10 @@ export default class Entity {
 
   update(dt) {
     this.dt += dt;
-    if (this.velocity) {
-      const velocity = Vector.multiply(this.velocity, Time.toSeconds(dt));
-      velocity.multiply(Vector.normalize(this.velocity));
-      this.position.add(velocity);
-      this.updateMove();
-    }
+    const velocity = Vector.multiply(this.velocity, Time.toSeconds(dt));
+    velocity.multiply(Vector.normalize(this.velocity));
+    this.position.add(velocity);
+    this.updateMove();
   }
 
   updateMove() {
@@ -155,7 +177,7 @@ export default class Entity {
   walkToNextStep() {
     const step = this.pathFinder.getNextStep();
     if (step) {
-      this.velocity = this.getVelocityForState();
+      this.velocity = this.getStateVelocity();
       this.moveTo(step);
     } else {
       this.velocity = new Vector();

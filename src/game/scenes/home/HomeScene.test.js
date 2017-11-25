@@ -3,6 +3,7 @@ import HomeScene from "./HomeScene";
 jest.mock("../../engine/Graphics");
 
 const mockHero = {
+  setMap: jest.fn(),
   setPosition: jest.fn()
 };
 

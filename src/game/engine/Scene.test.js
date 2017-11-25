@@ -1,6 +1,7 @@
 import Scene from "./Scene";
 
 const mockHero = {
+  setMap: jest.fn(),
   setPosition: jest.fn()
 };
 
