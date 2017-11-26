@@ -1,6 +1,8 @@
+import Event from "../../lib/Event";
 import Graphics from "./Graphics";
 import TextureCache from "./TextureCache";
 import TiledMap from "./map/TiledMap";
+import Hero from "../entities/hero/Hero";
 
 export default class Scene {
   clickedTile;
@@ -45,7 +47,15 @@ export default class Scene {
     this.size = s;
   }
 
-  handleCollisions(entity) {}
+  handleCollisions(entity) {
+    if (entity.id === Hero.ID) {
+      const tile = this.map.getTileAt(this.hero.getOrigin());
+      if (tile && tile.isDoorway()) {
+        this.unload();
+        Event.fire(Event.TRANSITION, tile);
+      }
+    }
+  }
 
   loadAssets() {
     let textures = [];
@@ -90,10 +100,18 @@ export default class Scene {
     return this.entities.map(entity => entity.renderDebug());
   }
 
+  shouldShowBorder() {
+    return this.showBorder;
+  }
+
   update(dt) {
     this.entities.forEach(entity => {
       entity.update(dt);
       this.handleCollisions(entity);
     });
+  }
+
+  unload() {
+    this.hero.stop();
   }
 }

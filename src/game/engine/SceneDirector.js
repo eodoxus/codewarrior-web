@@ -1,12 +1,16 @@
 import * as _ from "lodash";
 import React, { Component } from "react";
 import styles from "./SceneDirector.scss";
+import Event from "../../lib/Event";
 import Entities from "../entities";
 import Indicators from "../../components/indicators";
 import Scenes from "../scenes";
 import Graphics from "./Graphics";
 import Size from "./Size";
 import Vector from "./Vector";
+import { setTimeout } from "core-js/library/web/timers";
+import Tile from "./map/Tile";
+import Url from "../../lib/Url";
 
 const DEBUG = false;
 
@@ -42,8 +46,24 @@ export default class SceneDirector extends Component {
     }
   };
 
+  onTransition = doorway => {
+    this.setState({ isLoading: true });
+    setTimeout(() => {
+      this.scene = createScene(doorway.getProperty("to"), this.hero);
+      const spawnPosition = doorway.getProperty(Tile.OBJECT_TYPE_SPAWN_HERO);
+      if (spawnPosition) {
+        this.hero.setPosition(new Vector(spawnPosition.x, spawnPosition.y));
+      }
+      this.scene.loadAssets().then(() => {
+        this.setState({ isLoading: false });
+        this.updateScene();
+      });
+    });
+  };
+
   async componentDidMount() {
     await this.scene.loadAssets();
+    Event.on(Event.TRANSITION, this.onTransition);
     this.setState({ isLoading: false });
     this.updateScene();
   }
@@ -53,7 +73,7 @@ export default class SceneDirector extends Component {
   }
 
   updateScene() {
-    if (!this.canvas) {
+    if (this.state.isLoading) {
       return;
     }
 
@@ -89,16 +109,34 @@ export default class SceneDirector extends Component {
       return <Indicators.Loader />;
     }
     const debug = this.state.debug ? this.scene.renderDebug() : null;
+
     return (
-      <div
-        className={styles.scene}
-        ref={container => (this.container = container)}
-        onClick={this.onClick}
-      >
-        <canvas ref={canvas => (this.canvas = canvas)} />
-        {debug}
+      <div>
+        {this.renderBorder()}
+        <div
+          className={styles.scene}
+          ref={container => (this.container = container)}
+          onClick={this.onClick}
+        >
+          <canvas ref={canvas => (this.canvas = canvas)} />
+          {debug}
+        </div>
       </div>
     );
+  }
+
+  renderBorder() {
+    if (this.props.canShowBorder && this.scene.shouldShowBorder()) {
+      return (
+        <div
+          className={styles.border}
+          style={{
+            backgroundImage: `url(${Url.PUBLIC}/images/game-border.png)`
+          }}
+          onClick={this.onClick}
+        />
+      );
+    }
   }
 }
 

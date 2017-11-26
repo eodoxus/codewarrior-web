@@ -217,6 +217,7 @@ function parseTileProperties(tile, collidableTiles, objects) {
       switch (object.type) {
         case Tile.OBJECT_TYPE_COLLECTABLE:
           properties.isCollectable = true;
+          Object.assign(properties, object.properties);
           break;
         case Tile.OBJECT_TYPE_COLLIDABLE:
           properties.isCollidable = true;
@@ -226,9 +227,11 @@ function parseTileProperties(tile, collidableTiles, objects) {
           break;
         case Tile.OBJECT_TYPE_DOORWAY:
           properties.isDoorway = true;
+          Object.assign(properties, object.properties);
           break;
         case Tile.OBJECT_TYPE_TRANSITION:
           properties.isTransition = true;
+          Object.assign(properties, object.properties);
           break;
         default:
           break;

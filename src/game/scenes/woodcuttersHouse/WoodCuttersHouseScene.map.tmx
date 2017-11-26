@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="5">
+ <tileset firstgid="1" name="underworld" tilewidth="8" tileheight="8" tilecount="2116">
+  <image source="../../../../public/maps/underworld.png" width="368" height="368"/>
+ </tileset>
+ <layer name="map" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztz0FOAjEUxvGSCSsR1A3oBlDhDoIoG5UNoOIdUAE3AjcBgnobJVFvgyK69N9kJul0M3ZIVJJO8str0/Z984T4f98KYlhFXKkJrAXs9TNpHRsG+XsooIh9pZZwELDXz6RDlA3ym7jEFa6V2kI7YK+fSR3cGOQPMMRI9onSAxlD3rs7etzjIWT+WPYIke+9C5P/iCdMhHmu7pkeL3gNOf+i+XZ+O7+d385v51+e+f86f4o3vGPm+tDWSUeIFDax5fjvqHWOT3wZ5Kcj/Duy2HbtaOsjMo9xgorjv6PWXeSQj/w8v8rdGuo4dZ1p61syu+ih7/jvqPUcDVwY5P/m9w2+y5ZS
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="1" name="door" type="doorway" x="113.667" y="160.333" width="27.3333" height="17.6667">
+   <properties>
+    <property name="spawn_hero_x" value="34"/>
+    <property name="spawn_hero_y" value="168"/>
+    <property name="to" value="Home"/>
+   </properties>
+  </object>
+  <object id="2" name="spawn_hero" type="spawn_hero" x="128.333" y="149.333"/>
+  <object id="3" name="spawn_npc" type="spawn_npc" x="128" y="81">
+   <properties>
+    <property name="npc" value="WoodCutter"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="collidable" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYBh8wJGDNnjUfvLtJxUMF/spBaP2j9o/av+o/aP2j9o/FO0nti1B6/bHSLKfngAAGag/4Q==
+  </data>
+ </layer>
+</map>

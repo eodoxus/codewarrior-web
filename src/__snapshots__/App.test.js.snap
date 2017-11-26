@@ -2,10 +2,10 @@
 
 exports[`<App /> matches expected snapshot 1`] = `
 <div
-  className={undefined}
+  className=""
 >
   <header
-    className="header"
+    className="collapsible header"
   >
     <div
       className={undefined}
@@ -138,7 +138,7 @@ exports[`<App /> matches expected snapshot 1`] = `
     </div>
   </div>
   <footer
-    className="footer"
+    className="collapsible footer"
   >
     
   </footer>

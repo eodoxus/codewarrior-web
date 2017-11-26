@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="29">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="32">
  <tileset firstgid="1" name="overworld" tilewidth="8" tileheight="8" tilecount="8645">
   <image source="../../../../public/maps/overworld.png" width="760" height="728"/>
  </tileset>
@@ -30,16 +30,24 @@
   </data>
  </layer>
  <objectgroup name="objects">
-  <object id="3" name="woodcutters_house" type="doorway" x="21" y="149" width="20" height="16.5"/>
-  <object id="4" name="cave" type="doorway" x="29" y="24.5" width="23.6667" height="14.5"/>
+  <object id="3" name="woodcutters_house" type="doorway" x="25.6667" y="149.333" width="10" height="14">
+   <properties>
+    <property name="to" value="WoodCuttersHouse"/>
+   </properties>
+  </object>
+  <object id="4" name="cave" type="doorway" x="25.3333" y="17.1667" width="31" height="18.1667">
+   <properties>
+    <property name="to" value="HomeCave"/>
+   </properties>
+  </object>
   <object id="5" name="transition_up" type="transition" x="175.667" y="-1.5" width="39.8333" height="8.5">
    <properties>
-    <property name="transition" value="LakeScene"/>
+    <property name="to" value="LakeScene"/>
    </properties>
   </object>
   <object id="6" name="transition_right" type="transition" x="247.5" y="97" width="9" height="30">
    <properties>
-    <property name="transition" value="BossScene"/>
+    <property name="to" value="BossScene"/>
    </properties>
   </object>
   <object id="20" name="spawn_hero" type="spawn_hero" x="160" y="142.5" height="1"/>
@@ -57,7 +65,7 @@
  </objectgroup>
  <layer name="collidable" width="32" height="24">
   <data encoding="base64" compression="zlib">
-   eJzllEkOACAIA7nw/y/7AYxlKRppwkVDp3FBRUQJZYnBQdkdGTw6eTDZO380Y4Zr+aMZq8XyvcX3nlclP/MXWWz0fU3lC7Dfwa+YL9H+X/iWV6SHPXM9bNZsepVvrTPVxUH4nRmQe59SCwNWBjw=
+   eJzl1FEKwDAIA1B/vP+VewGhURMpNeDPSvuk23Qzc0FFUTiojfTQ7TcTtp8Ny+/kdgbTqvjqsP3sfTH9zr+ostHva6tvwPqEz5gv1f2/+NFZlT3qmZuxVbPpVT96rsyUg/iTPSDvfUsdwFQGHg==
   </data>
  </layer>
 </map>

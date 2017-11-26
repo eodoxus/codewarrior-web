@@ -12,12 +12,17 @@ export default class PathFinder {
     this.map = map;
   }
 
-  findPath(start, end) {
+  clear() {
     this.path = [];
+  }
+
+  findPath(start, end) {
     this.openSteps = [];
     this.closedSteps = [];
     const endStep = new Step(end);
     let curStep = start;
+
+    this.clear();
     insertInOpenSteps.call(this, new Step(start));
 
     do {

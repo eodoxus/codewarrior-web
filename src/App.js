@@ -5,9 +5,8 @@ import Layout from "./components/layout";
 import styles from "./App.scss";
 import { AppModel } from "./data";
 import Game from "./game";
-import Url from "./lib/Url";
 
-const DEFAULT_ROUTE = "home";
+const DEFAULT_ROUTE = "Home";
 const GAME_WIDTH = 640;
 const GAME_HEIGHT = 480;
 const CHROME_HEIGHT = 76 + 40; // header + footer
@@ -46,11 +45,6 @@ export default class App extends Component {
     window.removeEventListener("resize", this.updateDimensions);
   }
 
-  onBorderClick = e => {
-    e.currentTarget = this.sceneDirector.container;
-    this.sceneDirector && this.sceneDirector.onClick(e);
-  };
-
   render() {
     const content = this.state.hasError
       ? this.renderError()
@@ -58,7 +52,7 @@ export default class App extends Component {
     return (
       <div
         className={cx(
-          this.state.centerHorizontally ? styles.centerVertically : "",
+          this.state.centerHorizontally ? styles.centerHorizontally : "",
           this.state.centerVertically ? styles.centerVertically : "",
           styles.app
         )}
@@ -86,27 +80,15 @@ export default class App extends Component {
     if (this.state.isLoading) {
       return <Indicators.Loader />;
     }
-    let border;
-    if (this.state.hasBorder) {
-      border = (
-        <div
-          className={styles.border}
-          style={{
-            backgroundImage: `url(${Url.PUBLIC}/images/game-border.png)`
-          }}
-          onClick={this.onBorderClick}
-        />
-      );
-    }
+
     return (
       <div className={styles.game}>
-        {border}
         <Game.SceneDirector
           scene={this.state.route}
           width={GAME_WIDTH}
           height={GAME_HEIGHT}
           scale="2.5"
-          ref={sceneDirector => (this.sceneDirector = sceneDirector)}
+          canShowBorder={this.state.canShowBorder}
         />
       </div>
     );
@@ -114,13 +96,13 @@ export default class App extends Component {
 
   updateDimensions = () => {
     const stateChanges = {
-      hasBorder: false,
+      canShowBorder: false,
       centerHorizontally: false,
       centerVertically: false,
       hideChrome: false
     };
     if (window.innerWidth > GAME_WIDTH) {
-      stateChanges.hasBorder = true;
+      stateChanges.canShowBorder = true;
       stateChanges.centerHorizontally = true;
     }
     if (window.innerHeight > GAME_HEIGHT) {

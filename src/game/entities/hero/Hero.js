@@ -6,6 +6,8 @@ import Vector from "../../engine/Vector";
 import config from "./config";
 
 export default class Hero extends Entity {
+  static ID = "hero";
+
   static STATES = {
     STOPPED: 0,
     PICKING_UP: 1,
@@ -14,14 +16,9 @@ export default class Hero extends Entity {
     WALKING: 4
   };
 
-  config;
-  id = "hero";
-  pathFinder;
-  sprite;
-  state;
-
   constructor() {
     super();
+    this.id = Hero.ID;
     this.sprite = new HeroSprite(
       new Size(
         config.width || this.size.width,
@@ -49,6 +46,12 @@ export default class Hero extends Entity {
 
   setPosition(position) {
     super.setPosition(this.translateToOrigin(position));
+  }
+
+  stop() {
+    super.stop();
+    this.state = Hero.STATES.STOPPED;
+    this.sprite.getAnimation().reset();
   }
 
   update(dt) {

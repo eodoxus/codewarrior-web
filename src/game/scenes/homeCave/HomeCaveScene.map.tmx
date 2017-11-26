@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="8">
+ <tileset firstgid="1" name="underworld" tilewidth="8" tileheight="8" tilecount="2116">
+  <image source="../../../../public/maps/underworld.png" width="368" height="368"/>
+ </tileset>
+ <tileset firstgid="2117" name="items" tilewidth="8" tileheight="8" tilecount="1024">
+  <image source="../../../../public/sprites/items.png" width="256" height="256"/>
+ </tileset>
+ <layer name="map" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztz7dOxTAYhmEfRToMdBbKQu9lp7NQFnovO52FcgN0dkACbgIWYAYkersBWGCn9/JGOkNiIgVLUWBIpEe/HVv+9Anx/75ghCAUYYYZjgibvXymi0SUQn4+ClCIIsMsRonNXj7TlaJMIb8bPehFn2H2Y8BmL5/pBjGkkD+PBSxi0292gEMc4RgnOMUZzv0/7y/xxjJWHMp/wSve8I4PfOILIsiZ/C1sY8ciP52MDGQiC9nIQS7yLPJ3eWMP+w71byajBa1oQzs60IkuF/qPkzGBSUxhGjOYxZwL/VfJWLPIWeffhgv9L8i4tMi54t+1C/1VOd1fldff6+/1V+v/1/k3uMUd7gMepHW0JkQMYhGnme8Y5yOe8KyQH+8TIgGJSApIltblZFagElWa+Y5xpiAVab7f51dztwa1qAuol9bDZI5gFGOa+Y5xNqARTQr5bn7fq4Qmvg==
+  </data>
+ </layer>
+ <layer name="skull" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztzckJgEAUwNB/mlZd+nHpZ9R+XAowPQjzEfIg50RIkv6kKxE9DTSW9v+J50wLrQn/ynOjnY6E/8nzopuehL8kffUCDUQLOQ==
+  </data>
+ </layer>
+ <layer name="book" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztzccNACAQxMCjYEI/hH4IRbEtICT4eCS/bQYAZ7wzCyqq5N7/s55FVdU+/LueQ021PvwBALixAewIB2M=
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="1" name="door" type="doorway" x="113.667" y="160.333" width="27.3333" height="17.6667">
+   <properties>
+    <property name="spawn_hero_x" value="40"/>
+    <property name="spawn_hero_y" value="40"/>
+    <property name="to" value="Home"/>
+   </properties>
+  </object>
+  <object id="2" name="spawn_hero" type="spawn_hero" x="128.333" y="149.333"/>
+  <object id="4" name="collision_skull" type="collidable" x="113" y="89" width="31" height="31">
+   <properties>
+    <property name="layer" value="skull"/>
+   </properties>
+  </object>
+  <object id="6" name="book" type="collectable" x="112" y="64.6667" width="31" height="23"/>
+ </objectgroup>
+ <layer name="collidable" width="32" height="24" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJxjYBh8wJGDNnjUftLtJ9VtpJg1av/QtZ9U8VH7qWM/qWDU/lH7R+0ftZ9c+8mpZ4jVM2r/wAMAdQtKJQ==
+  </data>
+ </layer>
+</map>

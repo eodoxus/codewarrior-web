@@ -67,6 +67,21 @@ export default class Tile {
     return this.position;
   }
 
+  getProperty(name) {
+    switch (name) {
+      case Tile.OBJECT_TYPE_SPAWN_HERO:
+        if (this.properties[name + "_x"] && this.properties[name + "_y"]) {
+          return new Vector(
+            this.properties[name + "_x"],
+            this.properties[name + "_y"]
+          );
+        }
+        break;
+      default:
+        return this.properties[name];
+    }
+  }
+
   getTilesetPosition() {
     return this.tilesetPosition;
   }

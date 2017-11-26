@@ -10,6 +10,7 @@ export default class Entity {
   currentMove;
   id;
   map;
+  pathFinder;
   position;
   sprite;
   state;
@@ -26,10 +27,6 @@ export default class Entity {
     return this.currentMove;
   }
 
-  getOrigin() {
-    return Tile.getOrigin(this.position, this.sprite.getSize());
-  }
-
   getMap() {
     return this.map;
   }
@@ -37,6 +34,10 @@ export default class Entity {
   setMap(map) {
     this.map = map;
     this.pathFinder = new PathFinder(this.map);
+  }
+
+  getOrigin() {
+    return Tile.getOrigin(this.position, this.sprite.getSize());
   }
 
   getPosition() {
@@ -84,7 +85,7 @@ export default class Entity {
     position = this.translateToOrigin(position);
     //console.log("moving to", position);
     this.currentMove = {
-      distanceRemaining: this.position.diff(position),
+      distanceRemaining: this.position.distanceBetween(position),
       prev: new Vector(this.position.x, this.position.y),
       end: position
     };
@@ -129,6 +130,12 @@ export default class Entity {
     this.sprite.render(this.position);
   }
 
+  stop() {
+    delete this.currentMove;
+    this.pathFinder.clear();
+    this.velocity = new Vector();
+  }
+
   translateToOrigin(position) {
     const size = this.sprite.getSize();
     return Vector.subtract(
@@ -151,7 +158,7 @@ export default class Entity {
     }
 
     const position = new Vector(this.position.x, this.position.y);
-    const distance = this.currentMove.prev.diff(position);
+    const distance = this.currentMove.prev.distanceBetween(position);
     this.currentMove.distanceRemaining.subtract(distance);
     this.currentMove.prev = position;
 
