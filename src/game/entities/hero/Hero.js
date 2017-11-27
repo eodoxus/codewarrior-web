@@ -1,8 +1,8 @@
-import Entity from "../../engine/Entity";
+import WalkingEntity from "../../engine/WalkingEntity";
 import HeroSprite from "./HeroSprite";
 import Vector from "../../engine/Vector";
 
-export default class Hero extends Entity {
+export default class Hero extends WalkingEntity {
   static ID = "hero";
 
   static STATES = {
@@ -59,26 +59,23 @@ export default class Hero extends Entity {
   update(dt) {
     super.update(dt);
 
-    if (this.velocity.magnitude() !== 0) {
-      this.sprite.updateCurrentAnimation(this.state, this.velocity);
-    }
-
-    const animation = this.sprite.getAnimation();
-    if (this.velocity.magnitude() > 0) {
-      animation.update(dt);
-    }
-
     if (
       this.state === Hero.STATES.WALKING ||
       this.state === Hero.STATES.RUNNING
     ) {
-      if (!this.getCurrentMove()) {
-        this.walkToNextStep();
+      const speed = this.velocity.magnitude();
+      if (speed > 0) {
+        this.sprite.updateCurrentAnimation(this.state, this.velocity);
+      }
 
-        if (this.velocity.magnitude() === 0) {
-          this.state = Hero.STATES.STOPPED;
-          animation.reset();
-        }
+      const animation = this.sprite.getAnimation();
+      if (speed > 0) {
+        animation.update(dt);
+      }
+
+      if (!this.getCurrentMove() && !this.walkToNextStep()) {
+        this.state = Hero.STATES.STOPPED;
+        animation.reset();
       }
     }
   }

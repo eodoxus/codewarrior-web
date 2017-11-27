@@ -1,5 +1,4 @@
 import React from "react";
-import PathFinder from "./map/PathFinder";
 import Time from "./Time";
 import Vector from "./Vector";
 import Tile from "./map/Tile";
@@ -10,7 +9,6 @@ export default class Entity {
   currentMove;
   id;
   map;
-  pathFinder;
   position;
   sprite;
   state;
@@ -34,7 +32,6 @@ export default class Entity {
 
   setMap(map) {
     this.map = map;
-    this.pathFinder = new PathFinder(this.map);
   }
 
   getOrigin() {
@@ -59,6 +56,10 @@ export default class Entity {
 
   getState() {
     return this.state;
+  }
+
+  setState(state) {
+    this.state = state;
   }
 
   getVelocity() {
@@ -140,7 +141,6 @@ export default class Entity {
 
   stop() {
     delete this.currentMove;
-    this.pathFinder.clear();
     this.velocity = new Vector();
   }
 
@@ -183,22 +183,6 @@ export default class Entity {
 
     if (this.velocity.magnitude() === 0) {
       delete this.currentMove;
-    }
-  }
-
-  walkTo(tile) {
-    const curTile = this.map.getTileAt(this.getOrigin());
-    this.pathFinder.findPath(curTile.getPosition(), tile.getPosition());
-    this.walkToNextStep();
-  }
-
-  walkToNextStep() {
-    const step = this.pathFinder.getNextStep();
-    if (step) {
-      this.velocity = this.getStateVelocity();
-      this.moveTo(step);
-    } else {
-      this.velocity = new Vector();
     }
   }
 }

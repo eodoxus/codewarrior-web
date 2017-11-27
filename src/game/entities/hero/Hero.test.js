@@ -43,8 +43,9 @@ describe("Hero", () => {
       expect(Entity.update).toHaveBeenCalled();
     });
 
-    it("should update animation if velocity is > 0", () => {
+    it("should update animation if velocity is > 0 and hero is moving", () => {
       hero.setVelocity(new Vector(1, 1));
+      hero.setState(Hero.STATES.WALKING);
       const sprite = hero.getSprite();
       sprite.updateCurrentAnimation = jest.fn();
       const animation = sprite.getAnimation();

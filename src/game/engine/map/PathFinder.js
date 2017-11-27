@@ -10,6 +10,7 @@ export default class PathFinder {
 
   constructor(map) {
     this.map = map;
+    this.path = [];
   }
 
   clear() {
@@ -83,6 +84,10 @@ export default class PathFinder {
       this.currentStep = this.path.pop();
       return this.getCurrentStep();
     }
+  }
+
+  setMap(map) {
+    this.map = map;
   }
 }
 
