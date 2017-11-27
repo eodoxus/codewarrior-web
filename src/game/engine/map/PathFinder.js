@@ -35,7 +35,7 @@ export default class PathFinder {
 
       const adjSteps = findWalkableAdjacentTileCoords(
         this.map,
-        curStep.position
+        curStep.getPosition()
       );
 
       for (let iDx in adjSteps) {
@@ -84,6 +84,10 @@ export default class PathFinder {
       this.currentStep = this.path.pop();
       return this.getCurrentStep();
     }
+  }
+
+  getPath() {
+    return this.path;
   }
 
   setMap(map) {
