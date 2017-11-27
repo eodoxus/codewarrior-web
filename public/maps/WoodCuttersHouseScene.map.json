@@ -15,15 +15,17 @@
         }, 
         {
          "draworder":"topdown",
-         "height":24,
+         "height":0,
          "name":"objects",
          "objects":[
                 {
-                 "height":17.6666666666667,
+                 "height":17.6667,
                  "id":1,
                  "name":"door",
                  "properties":
                     {
+                     "facing_x":"0",
+                     "facing_y":"1",
                      "spawn_hero_x":"34",
                      "spawn_hero_y":"168",
                      "to":"Home"
@@ -31,9 +33,9 @@
                  "rotation":0,
                  "type":"doorway",
                  "visible":true,
-                 "width":27.3333333333333,
-                 "x":113.666666666667,
-                 "y":160.333333333333
+                 "width":27.3333,
+                 "x":113.667,
+                 "y":160.333
                 }, 
                 {
                  "height":0,
@@ -47,8 +49,8 @@
                  "type":"spawn_hero",
                  "visible":true,
                  "width":0,
-                 "x":128.333333333333,
-                 "y":149.333333333333
+                 "x":128.333,
+                 "y":149.333
                 }, 
                 {
                  "height":0,
@@ -68,7 +70,7 @@
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":32,
+         "width":0,
          "x":0,
          "y":0
         }, 

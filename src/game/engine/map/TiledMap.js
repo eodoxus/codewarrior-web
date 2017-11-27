@@ -207,7 +207,7 @@ function parseTileProperties(tile, collidableTiles, objects) {
   });
 
   objects.forEach(object => {
-    if (object.type === Tile.OBJECT_TYPE_SPAWN_HERO && !this.heroSpawnPoint) {
+    if (object.type === Tile.PROPERTY_SPAWN_HERO && !this.heroSpawnPoint) {
       this.heroSpawnPoint = new Vector(object.x, object.y);
       return;
     }

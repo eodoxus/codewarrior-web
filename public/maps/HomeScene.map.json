@@ -66,34 +66,38 @@
          "name":"objects",
          "objects":[
                 {
-                 "height":13.3333333333333,
+                 "height":13.3333,
                  "id":3,
                  "name":"woodcutters_house",
                  "properties":
                     {
+                     "facing_x":"0",
+                     "facing_y":"-1",
                      "to":"WoodCuttersHouse"
                     },
                  "rotation":0,
                  "type":"doorway",
                  "visible":true,
                  "width":10,
-                 "x":25.6666666666667,
-                 "y":149.333333333333
+                 "x":25.6667,
+                 "y":149.333
                 }, 
                 {
-                 "height":22.6666666666667,
+                 "height":22.6667,
                  "id":4,
                  "name":"cave",
                  "properties":
                     {
+                     "facing_x":"0",
+                     "facing_y":"-1",
                      "to":"HomeCave"
                     },
                  "rotation":0,
                  "type":"doorway",
                  "visible":true,
                  "width":12,
-                 "x":34.3333333333333,
-                 "y":13.6666666666667
+                 "x":34.3333,
+                 "y":13.6667
                 }, 
                 {
                  "height":8.5,

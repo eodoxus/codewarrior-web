@@ -11,6 +11,8 @@
  <objectgroup name="objects">
   <object id="1" name="door" type="doorway" x="113.667" y="160.333" width="27.3333" height="17.6667">
    <properties>
+    <property name="facing_x" value="0"/>
+    <property name="facing_y" value="1"/>
     <property name="spawn_hero_x" value="34"/>
     <property name="spawn_hero_y" value="168"/>
     <property name="to" value="Home"/>

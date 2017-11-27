@@ -50,6 +50,8 @@
                  "name":"door",
                  "properties":
                     {
+                     "facing_x":"0",
+                     "facing_y":"1",
                      "spawn_hero_x":"40",
                      "spawn_hero_y":"40",
                      "to":"Home"

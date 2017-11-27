@@ -4,7 +4,7 @@
   <image source="../../../../public/maps/underworld.png" width="368" height="368"/>
  </tileset>
  <tileset firstgid="2117" name="items" tilewidth="8" tileheight="8" tilecount="1024">
-  <image source="../../../../public/sprites/items.png" width="256" height="256"/>
+  <image source="../../../../public/sprites/items.png" width="30" height="20"/>
  </tileset>
  <layer name="map" width="32" height="24">
   <data encoding="base64" compression="zlib">
@@ -24,6 +24,8 @@
  <objectgroup name="objects">
   <object id="1" name="door" type="doorway" x="113.667" y="160.333" width="27.3333" height="17.6667">
    <properties>
+    <property name="facing_x" value="0"/>
+    <property name="facing_y" value="1"/>
     <property name="spawn_hero_x" value="40"/>
     <property name="spawn_hero_y" value="40"/>
     <property name="to" value="Home"/>

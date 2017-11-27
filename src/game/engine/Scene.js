@@ -83,11 +83,16 @@ export default class Scene {
     return this.showBorder;
   }
 
-  spawnHero(position) {
+  spawnHero(position, direction) {
     if (!position) {
       position = this.map.getHeroSpawnPoint();
     }
     this.hero.setPosition(position);
+    if (direction) {
+      this.hero
+        .getSprite()
+        .updateCurrentAnimation(Hero.STATES.WALKING, direction);
+    }
   }
 
   update(dt) {

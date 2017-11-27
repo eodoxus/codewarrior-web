@@ -5,8 +5,10 @@ export default class Tile {
   static OBJECT_TYPE_COLLECTABLE = "collectable";
   static OBJECT_TYPE_COLLIDABLE = "collidable";
   static OBJECT_TYPE_DOORWAY = "doorway";
-  static OBJECT_TYPE_SPAWN_HERO = "spawn_hero";
   static OBJECT_TYPE_TRANSITION = "transition";
+
+  static PROPERTY_FACING = "facing";
+  static PROPERTY_SPAWN_HERO = "spawn_hero";
 
   static getOrigin(position, size) {
     return Vector.add(
@@ -43,22 +45,6 @@ export default class Tile {
     );
   }
 
-  isCollectable() {
-    return this.properties.isCollectable;
-  }
-
-  isDoorway() {
-    return this.properties.isDoorway;
-  }
-
-  isTransition() {
-    return this.properties.isTransition;
-  }
-
-  isWalkable() {
-    return !this.properties.isCollidable;
-  }
-
   getGid() {
     return this.gid;
   }
@@ -69,7 +55,15 @@ export default class Tile {
 
   getProperty(name) {
     switch (name) {
-      case Tile.OBJECT_TYPE_SPAWN_HERO:
+      case Tile.PROPERTY_FACING:
+        if (this.properties[name + "_x"] && this.properties[name + "_y"]) {
+          return new Vector(
+            this.properties[name + "_x"],
+            this.properties[name + "_y"]
+          );
+        }
+        break;
+      case Tile.PROPERTY_SPAWN_HERO:
         if (this.properties[name + "_x"] && this.properties[name + "_y"]) {
           return new Vector(
             this.properties[name + "_x"],
@@ -98,6 +92,22 @@ export default class Tile {
 
   getSize() {
     return this.size;
+  }
+
+  isCollectable() {
+    return this.properties.isCollectable;
+  }
+
+  isDoorway() {
+    return this.properties.isDoorway;
+  }
+
+  isTransition() {
+    return this.properties.isTransition;
+  }
+
+  isWalkable() {
+    return !this.properties.isCollidable;
   }
 
   setProperties(properties) {
