@@ -96,7 +96,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"..\/..\/..\/..\/public\/maps\/underworld.png",
+         "image":"underworld.png",
          "imageheight":368,
          "imagewidth":368,
          "margin":0,

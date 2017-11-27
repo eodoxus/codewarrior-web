@@ -3,8 +3,13 @@ import ReactDOM from "react-dom";
 import renderer from "react-test-renderer";
 import App from "./App";
 import { AppModel } from "./data";
+import Scene from "./game/engine/Scene";
 
 jest.mock("./game/engine/Graphics");
+
+Scene.prototype.loadAssets = () => Promise.resolve();
+Scene.prototype.render = () => true;
+Scene.prototype.update = () => true;
 
 describe("<App />", () => {
   beforeEach(function() {

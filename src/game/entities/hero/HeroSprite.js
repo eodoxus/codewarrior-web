@@ -1,5 +1,6 @@
 import AnimatedSprite from "../../engine/AnimatedSprite";
 import Hero from "./Hero";
+import Size from "../../engine/Size";
 
 const ANIMATIONS = {
   PICKING_UP: "pickingUp",
@@ -17,6 +18,12 @@ const ANIMATIONS = {
 };
 
 export default class HeroSprite extends AnimatedSprite {
+  static FPS = 20;
+
+  constructor() {
+    super("hero", new Size(24, 32), HeroSprite.FPS);
+  }
+
   getStateAnimationName(state, velocity) {
     switch (state) {
       case Hero.STATES.PICKING_UP:
@@ -61,16 +68,15 @@ export default class HeroSprite extends AnimatedSprite {
 
   updateCurrentAnimation(state, velocity) {
     const nextAnimation = this.getStateAnimationName(state, velocity);
-    if (!this.curAnimation) {
-      this.curAnimation = nextAnimation;
+    if (!this.getAnimation()) {
+      this.setAnimation(nextAnimation);
     }
 
-    if (nextAnimation !== this.curAnimation) {
+    if (this.getAnimation().getName() !== nextAnimation) {
       this.getAnimation()
         .stop()
         .reset();
-      this.curAnimation = nextAnimation;
+      this.setAnimation(nextAnimation).start();
     }
-    this.getAnimation().start();
   }
 }

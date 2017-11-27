@@ -3,12 +3,17 @@ import ReactDOM from "react-dom";
 import renderer from "react-test-renderer";
 import Graphics from "./Graphics";
 import Time from "./Time";
+import Scene from "./Scene";
 import SceneDirector from "./SceneDirector";
 import TextureCache from "./TextureCache";
 import Vector from "./Vector";
 
 jest.mock("./Graphics");
 jest.useFakeTimers();
+
+Scene.prototype.loadAssets = () => Promise.resolve();
+Scene.prototype.render = () => true;
+Scene.prototype.update = () => true;
 
 function getController() {
   const div = document.createElement("div");
@@ -38,7 +43,7 @@ describe("<SceneDirector />", () => {
 
   it("starts update loop", async () => {
     const p = Promise.resolve();
-    TextureCache.fetch = () => p;
+    Scene.prototype.loadAssets = () => p;
     const ctrl = getController();
     ctrl.updateScene = jest.fn();
     await p;
@@ -48,7 +53,7 @@ describe("<SceneDirector />", () => {
   it("runs update loop once every frame", async () => {
     window.requestAnimationFrame = jest.fn();
     const p = Promise.resolve();
-    TextureCache.fetch = () => p;
+    Scene.prototype.loadAssets = () => p;
     const ctrl = getController();
     await p;
     expect(window.requestAnimationFrame).toHaveBeenCalledTimes(1);

@@ -8,4 +8,6 @@ export default class Url {
     : process.env.PUBLIC_URL;
 
   static ANIMATIONS = Url.PUBLIC + "/animations/";
+
+  static MAPS = Url.PUBLIC + "/maps/";
 }

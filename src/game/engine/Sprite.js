@@ -1,14 +1,17 @@
 import Graphics from "./Graphics";
 import Size from "./Size";
+import TextureCache from "./TextureCache";
 import Tile from "./map/Tile";
 
 export default class Sprite {
-  id = "sprite";
+  id = "sprite-changeme";
   size;
   texture;
 
-  constructor(size = new Size(100, 100)) {
+  constructor(id, size = new Size(100, 100), texture) {
+    this.id = id;
     this.size = size;
+    this.texture = texture;
   }
 
   getSize() {
@@ -27,8 +30,8 @@ export default class Sprite {
     this.texture = texture;
   }
 
-  getTextures() {
-    return [this.texture];
+  async loadAssets() {
+    await TextureCache.fetch(this.texture);
   }
 
   render(position) {

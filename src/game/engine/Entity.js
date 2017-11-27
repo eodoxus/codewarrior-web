@@ -16,7 +16,8 @@ export default class Entity {
   state;
   velocity;
 
-  constructor(position = new Vector()) {
+  constructor(id, position = new Vector()) {
+    this.id = id;
     this.position = position;
     this.dt = 0;
     this.state = 0;
@@ -81,6 +82,13 @@ export default class Entity {
     return spriteRect.intersects(point);
   }
 
+  async loadAssets() {
+    if (!this.sprite) {
+      return Promise.resolve();
+    }
+    return this.sprite.loadAssets();
+  }
+
   moveTo(position) {
     position = this.translateToOrigin(position);
     //console.log("moving to", position);
@@ -137,6 +145,9 @@ export default class Entity {
   }
 
   translateToOrigin(position) {
+    if (!this.sprite) {
+      return position;
+    }
     const size = this.sprite.getSize();
     return Vector.subtract(
       position,

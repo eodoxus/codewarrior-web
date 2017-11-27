@@ -5,11 +5,13 @@ import Size from "./Size";
 import Tile from "./map/Tile";
 
 let entity;
+const entityId = "entity-id";
+const spriteId = "sprite-id";
 
 describe("Entity", () => {
   describe("construction", () => {
     beforeEach(() => {
-      entity = new Entity();
+      entity = new Entity(entityId);
     });
 
     it("instantiates without crashing", () => {
@@ -25,16 +27,16 @@ describe("Entity", () => {
 
   describe("getOrigin", () => {
     it("should return a Vector positioned at the center of entity", () => {
-      entity = new Entity(new Vector(10, 10));
-      entity.setSprite(new Sprite(new Size(10, 20)));
+      entity = new Entity(entityId, new Vector(10, 10));
+      entity.setSprite(new Sprite(spriteId, new Size(10, 20)));
       expect(entity.getOrigin()).toEqual(new Vector(15, 20));
     });
   });
 
   describe("intersects", () => {
     beforeEach(() => {
-      entity = new Entity(new Vector(10, 10));
-      entity.setSprite(new Sprite(new Size(10, 20)));
+      entity = new Entity(entityId, new Vector(10, 10));
+      entity.setSprite(new Sprite(spriteId, new Size(10, 20)));
     });
 
     it("should return true if a point intersects the entity", () => {
@@ -49,8 +51,8 @@ describe("Entity", () => {
 
   describe("moveTo", () => {
     beforeEach(() => {
-      entity = new Entity(new Vector(10, 10));
-      entity.setSprite(new Sprite(new Size(10, 20)));
+      entity = new Entity(entityId, new Vector(10, 10));
+      entity.setSprite(new Sprite(spriteId, new Size(10, 20)));
       entity.setVelocity(entity.getStateVelocity());
     });
 
@@ -86,8 +88,8 @@ describe("Entity", () => {
 
   describe("render", () => {
     beforeEach(() => {
-      entity = new Entity(new Vector(10, 10));
-      entity.setSprite(new Sprite(new Size(10, 20)));
+      entity = new Entity(entityId, new Vector(10, 10));
+      entity.setSprite(new Sprite(spriteId, new Size(10, 20)));
       entity.getSprite().render = jest.fn();
     });
 
@@ -101,8 +103,8 @@ describe("Entity", () => {
 
   describe("translateToOrigin", () => {
     it("offsets a position to entity's origin", () => {
-      entity = new Entity(new Vector(10, 10));
-      entity.setSprite(new Sprite(new Size(10, 20)));
+      entity = new Entity(entityId, new Vector(10, 10));
+      entity.setSprite(new Sprite(spriteId, new Size(10, 20)));
       const position = entity.translateToOrigin(new Vector(20, 30));
       expect(position).toEqual(new Vector(15, 20));
     });
@@ -110,7 +112,7 @@ describe("Entity", () => {
 
   describe("update", () => {
     beforeEach(() => {
-      entity = new Entity(new Vector(10, 10));
+      entity = new Entity(entityId, new Vector(10, 10));
       entity.setVelocity(new Vector(100, 300));
     });
 
@@ -130,8 +132,8 @@ describe("Entity", () => {
 
   describe("updateMove", () => {
     beforeEach(() => {
-      entity = new Entity(new Vector(10, 10));
-      entity.setSprite(new Sprite(new Size(10, 20)));
+      entity = new Entity(entityId, new Vector(10, 10));
+      entity.setSprite(new Sprite(spriteId, new Size(10, 20)));
       entity.setVelocity(new Vector(1, 1));
       entity.getVelocity().magnitude = jest.fn();
       entity.getVelocity().magnitude.mockReturnValue(1);
@@ -188,8 +190,8 @@ describe("Entity", () => {
         getTileAt: jest.fn()
       };
       mockMap.getTileAt.mockReturnValue(new Tile(new Vector(), new Size(1, 1)));
-      entity = new Entity(new Vector(10, 10));
-      entity.setSprite(new Sprite(new Size(10, 20)));
+      entity = new Entity(entityId, new Vector(10, 10));
+      entity.setSprite(new Sprite(spriteId, new Size(10, 20)));
       entity.setMap(mockMap);
       entity.pathFinder.findPath = jest.fn();
       entity.walkToNextStep = jest.fn();
@@ -211,7 +213,7 @@ describe("Entity", () => {
 
   describe("walkToNextStep", () => {
     beforeEach(() => {
-      entity = new Entity(new Vector(10, 10));
+      entity = new Entity(entityId, new Vector(10, 10));
       entity.setMap({});
     });
 

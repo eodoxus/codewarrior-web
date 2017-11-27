@@ -9,7 +9,9 @@ jest.mock("../Graphics");
 import tmxConfig from "./__mocks__/map.json";
 let map;
 beforeEach(() => {
-  map = new TiledMap("test", tmxConfig);
+  fetch.mockResponse(JSON.stringify(tmxConfig));
+  map = new TiledMap("test");
+  map.loadAssets();
 });
 afterEach(() => {
   map = undefined;
@@ -17,15 +19,10 @@ afterEach(() => {
 
 describe("TiledMap", () => {
   it("parses tileset and layer info from TMX config file", () => {
-    const tex = map.getTilesetTexture();
-    const tileSize = map.getTileSize();
-    const spawnPoint = map.getHeroSpawnPoint();
-    const layers = map.getLayers();
-
-    expect(tex).toBe("/maps/overworld.png");
-    expect(tileSize).toEqual(new Size(8, 8));
-    expect(spawnPoint).toEqual(new Vector(113, 143.5));
-    expect(layers.length).toBe(4);
+    expect(map.getTexture()).toBe("/maps/overworld.png");
+    expect(map.getTileSize()).toEqual(new Size(8, 8));
+    expect(map.getHeroSpawnPoint()).toEqual(new Vector(160, 142.5));
+    expect(map.getLayers().length).toBe(4);
     expect(map.getName()).toBe("test");
   });
 
@@ -64,10 +61,7 @@ describe("TiledMap", () => {
   describe("renderTile", () => {
     it("uses Graphics engine to draw tile texture on screen", () => {
       Graphics.drawTexture = jest.fn();
-      const textureName = map.getTilesetTexture();
-      TextureCache.put(textureName);
-      const tex = TextureCache.get(map.getTilesetTexture());
-
+      const tex = TextureCache.get(map.getTexture());
       const tile = map.getLayers()[0].tiles[255];
       map.renderTile(tile);
       expect(Graphics.drawTexture).toHaveBeenCalledTimes(1);

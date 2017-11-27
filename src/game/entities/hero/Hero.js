@@ -1,9 +1,6 @@
-import AnimationCollection from "../../engine/AnimationCollection";
 import Entity from "../../engine/Entity";
 import HeroSprite from "./HeroSprite";
-import Size from "../../engine/Size";
 import Vector from "../../engine/Vector";
-import config from "./config";
 
 export default class Hero extends Entity {
   static ID = "hero";
@@ -16,17 +13,22 @@ export default class Hero extends Entity {
     WALKING: 4
   };
 
+  static VELOCITY = {
+    RUNNING: 140,
+    WALKING: 70
+  };
+
   constructor() {
-    super();
-    this.id = Hero.ID;
-    this.sprite = new HeroSprite(
-      new Size(
-        config.width || this.size.width,
-        config.height || this.size.height
-      ),
-      new AnimationCollection(config.animations || {})
-    );
+    super(Hero.ID);
     this.state = Hero.STATES.STOPPED;
+  }
+
+  async loadAssets() {
+    if (this.sprite) {
+      return;
+    }
+    this.sprite = new HeroSprite();
+    await this.sprite.loadAssets();
     this.sprite.updateCurrentAnimation(this.state, this.velocity);
   }
 
@@ -34,10 +36,10 @@ export default class Hero extends Entity {
     let v = 0;
     switch (this.state) {
       case Hero.STATES.WALKING:
-        v = config.walkingVelocity;
+        v = Hero.VELOCITY.WALKING;
         break;
       case Hero.STATES.RUNNING:
-        v = config.runningVelocity;
+        v = Hero.VELOCITY.RUNNING;
         break;
       default:
     }

@@ -1,6 +1,7 @@
 export default class TextureCache {
   static images = {};
   static async fetch(textures) {
+    textures = Array.isArray(textures) ? textures : [textures];
     await Promise.all(
       textures.map(texture => {
         return cacheImage(texture);

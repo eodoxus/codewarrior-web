@@ -1,5 +1,6 @@
 import * as pako from "pako";
 import Graphics from "../../engine/Graphics";
+import RestClient from "../../../lib/RestClient";
 import Size from "../Size";
 import Tile from "./Tile";
 import TiledMapLayer from "./TiledMapLayer";
@@ -11,11 +12,12 @@ export default class TiledMap {
   name;
   heroSpawnPoint;
   layers;
-  tileset;
+  size;
+  texture;
+  tileSize;
 
-  constructor(name, tmxConfig) {
+  constructor(name) {
     this.name = name;
-    parseTMX.call(this, tmxConfig);
   }
 
   getHeroSpawnPoint() {
@@ -30,8 +32,8 @@ export default class TiledMap {
     return this.name;
   }
 
-  getTilesetTexture() {
-    return this.tileset.texture;
+  getTexture() {
+    return this.texture;
   }
 
   getTileAt(position) {
@@ -48,7 +50,22 @@ export default class TiledMap {
   }
 
   getTileSize() {
-    return this.tileset.tileSize;
+    return this.tileSize;
+  }
+
+  async loadAssets() {
+    const tmxConfig = await new RestClient().get(
+      Url.MAPS + this.name + ".map.json"
+    );
+    if (!tmxConfig.tilesets) {
+      return;
+    }
+    const tileset = tmxConfig.tilesets[0];
+    this.texture = Url.MAPS + tileset.image;
+    this.size = new Size(tileset.imagewidth, tileset.imageheight);
+    this.tileSize = new Size(tileset.tilewidth, tileset.tileheight);
+    this.layers = parseTileLayers.call(this, tmxConfig.layers);
+    await TextureCache.fetch(this.texture);
   }
 
   render() {
@@ -76,7 +93,7 @@ export default class TiledMap {
 
   renderTile(tile) {
     Graphics.drawTexture(
-      TextureCache.get(this.getTilesetTexture()),
+      TextureCache.get(this.texture),
       this.getTileSize(),
       tile.getTilesetPosition(),
       tile.getPosition()
@@ -105,34 +122,20 @@ export default class TiledMap {
   toTileCoord(position) {
     const x = Math.floor(position.x / this.getTileSize().width);
     const y = Math.floor(
-      (this.tileset.size.height - position.y) / this.getTileSize().height
+      (this.size.height - position.y) / this.getTileSize().height
     );
     return new Vector(x, y);
   }
 }
 
-function parseTMX(config) {
-  if (!config.tilesets) {
-    return;
-  }
-  const tileset = config.tilesets[0];
-  this.tileset = {
-    texture: Url.PUBLIC + tileset.image.substr(tileset.image.indexOf("/maps")),
-    size: new Size(tileset.imagewidth, tileset.imageheight),
-    tileSize: new Size(tileset.tilewidth, tileset.tileheight)
-  };
-
-  this.layers = parseTileLayers.call(this, config);
-}
-
-function parseTileLayers(config) {
+function parseTileLayers(tmxLayers) {
   const layers = [];
   const tileLayers = [];
   let objects = [];
   let collidableLayer = {};
 
   // Separate object layers and tile layers.
-  config.layers.forEach(layer => {
+  tmxLayers.forEach(layer => {
     if (layer.type === TiledMapLayer.LAYER_TYPE_OBJECT) {
       objects = layer.objects;
     } else if (layer.type === TiledMapLayer.LAYER_TYPE_TILE) {
@@ -141,8 +144,8 @@ function parseTileLayers(config) {
   });
 
   // Convert layer tiles to game tiles
-  const mapWidth = this.tileset.size.width;
-  const tileWidth = this.tileset.tileSize.width;
+  const mapWidth = this.size.width;
+  const tileWidth = this.tileSize.width;
   tileLayers.forEach(layer => {
     const tmLayer = new TiledMapLayer(
       this.name + "-" + layer.name,
@@ -164,7 +167,7 @@ function parseTileLayers(config) {
         (gid % (mapWidth / tileWidth)) * tileWidth,
         Math.floor(gid / (mapWidth / tileWidth)) * tileWidth
       );
-      const tile = new Tile(position, this.tileset.tileSize, gid);
+      const tile = new Tile(position, this.tileSize, gid);
       tile.setTilesetPosition(tilesetPosition);
       tmLayer.addTile(tile);
     });

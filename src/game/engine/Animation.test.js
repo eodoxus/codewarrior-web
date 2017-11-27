@@ -1,14 +1,19 @@
 import Animation from "./Animation";
+import Vector from "./Vector";
+import Size from "./Size";
+import Texture from "./Texture";
 
-const dt = 101;
+const dt = 51;
 let animation;
 
 describe("Animation", () => {
   beforeEach(() => {
-    animation = new Animation("test", "", 100, 100, 100, [
-      { id: 1 },
-      { id: 2 }
-    ]);
+    const fps = 20;
+    const frames = [
+      { x: 48, y: 32, w: 24, h: 27 },
+      { x: 72, y: 32, w: 24, h: 27 }
+    ];
+    animation = new Animation("test", "tex", fps, frames);
   });
 
   afterEach(() => {
@@ -17,14 +22,17 @@ describe("Animation", () => {
 
   describe("addFrame", () => {
     it("adds a new frame to frames list", () => {
-      animation.addFrame();
+      animation.addFrame({ x: 96, y: 32, w: 24, h: 27 });
       expect(animation.frames.length).toBe(3);
     });
   });
 
   describe("getFrame", () => {
     it("gets the current frame", () => {
-      expect(animation.getFrame().id).toBe(1);
+      const frame = animation.getCurrentFrame();
+      expect(frame).toEqual(
+        new Texture("tex", new Vector(48, 32), new Size(24, 27))
+      );
     });
   });
 
@@ -37,27 +45,34 @@ describe("Animation", () => {
   });
 
   describe("update", () => {
+    beforeEach(() => {
+      animation.start();
+    });
+
     it("does nothing if the animation is not running", () => {
+      animation.stop();
       animation.update(dt);
-      expect(animation.getFrame().id).toBe(1);
+      const frame = animation.getCurrentFrame();
+      expect(frame.getPosition()).toEqual(new Vector(48, 32));
     });
 
     it("does nothing if not enough time has passed to change frames", () => {
-      animation.update(100);
-      expect(animation.getFrame().id).toBe(1);
+      animation.update(dt - 1);
+      const frame = animation.getCurrentFrame();
+      expect(frame.getPosition()).toEqual(new Vector(48, 32));
     });
 
     it("changes to next frame if it is running and more time has passed than its framerate", () => {
-      animation.start();
       animation.update(dt);
-      expect(animation.getFrame().id).toBe(2);
+      const frame = animation.getCurrentFrame();
+      expect(frame.getPosition()).toEqual(new Vector(72, 32));
     });
 
     it("resets to first frame when it has run through all frames", () => {
-      animation.start();
       animation.update(dt);
       animation.update(dt);
-      expect(animation.getFrame().id).toBe(1);
+      const frame = animation.getCurrentFrame();
+      expect(frame.getPosition()).toEqual(new Vector(48, 32));
     });
   });
 });

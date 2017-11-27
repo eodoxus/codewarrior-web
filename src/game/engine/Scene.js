@@ -1,6 +1,5 @@
 import Event from "../../lib/Event";
 import Graphics from "./Graphics";
-import TextureCache from "./TextureCache";
 import TiledMap from "./map/TiledMap";
 import Hero from "../entities/hero/Hero";
 
@@ -12,13 +11,11 @@ export default class Scene {
   size;
   entities;
 
-  constructor(hero, entities = []) {
+  constructor(hero) {
     this.hero = hero;
-    this.entities = entities;
-    this.map = new TiledMap(this.getName(), this.getMapConfig());
+    this.map = new TiledMap(this.getName());
     this.hero.setMap(this.map);
-    hero.setPosition(this.map.getHeroSpawnPoint());
-    this.entities.unshift(hero);
+    this.entities = [hero];
   }
 
   getName() {
@@ -28,11 +25,6 @@ export default class Scene {
 
   getMap() {
     return this.map;
-  }
-
-  getMapConfig() {
-    // Override this
-    return {};
   }
 
   getEntities() {
@@ -51,31 +43,18 @@ export default class Scene {
     if (entity.id === Hero.ID) {
       const tile = this.map.getTileAt(this.hero.getOrigin());
       if (tile && tile.isDoorway()) {
-        this.unload();
         Event.fire(Event.TRANSITION, tile);
       }
     }
   }
 
-  loadAssets() {
-    let textures = [];
-
-    this.getEntities().forEach(object => {
-      const sprite = object.getSprite();
-      if (!sprite) {
-        return;
-      }
-      textures = textures.concat(sprite.getTextures());
-    });
-
+  async loadAssets() {
     if (this.map) {
-      const tilesetTexture = this.map.getTilesetTexture();
-      if (tilesetTexture) {
-        textures.push(tilesetTexture);
-      }
+      await this.map.loadAssets();
     }
-
-    return TextureCache.fetch(textures);
+    const promises = [];
+    this.getEntities().forEach(entity => promises.push(entity.loadAssets()));
+    await Promise.all(promises);
   }
 
   onClick(position) {
@@ -102,6 +81,13 @@ export default class Scene {
 
   shouldShowBorder() {
     return this.showBorder;
+  }
+
+  spawnHero(position) {
+    if (!position) {
+      position = this.map.getHeroSpawnPoint();
+    }
+    this.hero.setPosition(position);
   }
 
   update(dt) {

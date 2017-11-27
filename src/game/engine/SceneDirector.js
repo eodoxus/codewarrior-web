@@ -48,16 +48,13 @@ export default class SceneDirector extends Component {
 
   onTransition = doorway => {
     this.setState({ isLoading: true });
-    setTimeout(() => {
+    this.scene.unload();
+    setTimeout(async () => {
       this.scene = createScene(doorway.getProperty("to"), this.hero);
-      const spawnPosition = doorway.getProperty(Tile.OBJECT_TYPE_SPAWN_HERO);
-      if (spawnPosition) {
-        this.hero.setPosition(new Vector(spawnPosition.x, spawnPosition.y));
-      }
-      this.scene.loadAssets().then(() => {
-        this.setState({ isLoading: false });
-        this.updateScene();
-      });
+      await this.scene.loadAssets();
+      this.scene.spawnHero(doorway.getProperty(Tile.OBJECT_TYPE_SPAWN_HERO));
+      this.setState({ isLoading: false });
+      this.updateScene();
     });
   };
 
@@ -65,6 +62,7 @@ export default class SceneDirector extends Component {
     await this.scene.loadAssets();
     Event.on(Event.TRANSITION, this.onTransition);
     this.setState({ isLoading: false });
+    this.scene.spawnHero();
     this.updateScene();
   }
 
@@ -108,8 +106,8 @@ export default class SceneDirector extends Component {
     if (this.state.isLoading) {
       return <Indicators.Loader />;
     }
-    const debug = this.state.debug ? this.scene.renderDebug() : null;
 
+    const debug = this.state.debug ? this.scene.renderDebug() : null;
     return (
       <div>
         {this.renderBorder()}

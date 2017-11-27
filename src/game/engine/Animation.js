@@ -1,22 +1,25 @@
+import Size from "./Size";
+import Texture from "./Texture";
+import Time from "./Time";
+import Vector from "./Vector";
+
 export default class Animation {
-  curFrame = 0;
+  curFrame;
+  dt;
+  fpsDelay;
   frames;
-  height;
+  isRunning;
   name;
-  delay;
-  url;
-  width;
+  texture;
 
-  _dt = 0;
-  _isRunning = false;
-
-  constructor(name, url, width, height, delay, frames = []) {
-    this.name = name;
-    this.url = url;
-    this.width = width;
-    this.height = height;
-    this.delay = delay;
+  constructor(name, texture, fps, frames = []) {
+    this.curFrame = 0;
+    this.dt = 0;
+    this.fpsDelay = Time.SECOND / fps;
     this.frames = frames;
+    this.isRunning = false;
+    this.name = name;
+    this.texture = texture;
   }
 
   addFrame(frame) {
@@ -24,21 +27,31 @@ export default class Animation {
     return this;
   }
 
-  getFrame() {
-    return this.frames[this.curFrame];
+  getCurrentFrame() {
+    const frame = this.frames[this.curFrame];
+    return new Texture(
+      this.texture,
+      new Vector(frame.x, frame.y),
+      new Size(frame.w, frame.h)
+    );
   }
 
-  getUrl() {
-    return this.url;
+  getFrames() {
+    return this.frames;
+  }
+
+  getName() {
+    return this.name;
   }
 
   start() {
-    this._isRunning = true;
+    this.isRunning = true;
     return this;
   }
 
   stop() {
-    this._isRunning = false;
+    this.isRunning = false;
+    this.dt = 0;
     return this;
   }
 
@@ -48,16 +61,16 @@ export default class Animation {
   }
 
   update(dt) {
-    if (!this._isRunning) {
+    if (!this.isRunning) {
       return;
     }
-    this._dt += dt;
-    if (this._dt > this.delay) {
+    this.dt += dt;
+    if (this.dt > this.fpsDelay) {
       this.curFrame++;
       if (this.curFrame === this.frames.length) {
         this.curFrame = 0;
       }
-      this._dt = 0;
+      this.dt = 0;
     }
     return this;
   }
