@@ -37,7 +37,8 @@ export default class SceneDirector extends Component {
   onClick = e => {
     e.preventDefault();
     e.stopPropagation();
-    const position = toSceneCoordinateSpace(e);
+    const hasBorder = this.props.canShowBorder && this.scene.shouldShowBorder();
+    const position = toSceneCoordinateSpace(e, hasBorder);
     if (this.hero.intersects(position)) {
       // TODO: handle click on hero
       console.log("hero clicked");
@@ -156,12 +157,20 @@ function createScene(name, hero) {
   return new Scenes[sceneClass](hero);
 }
 
-function toSceneCoordinateSpace(e) {
+function toSceneCoordinateSpace(e, hasBorder) {
   const sceneBoundingRect = e.currentTarget.getBoundingClientRect();
   const sceneOriginOffset = new Vector(
     sceneBoundingRect.x,
     sceneBoundingRect.y
   );
+  if (hasBorder) {
+    const borderOffset = {
+      x: 14,
+      y: 11
+    };
+    sceneOriginOffset.x += borderOffset.x;
+    sceneOriginOffset.y += borderOffset.y;
+  }
   return new Vector(e.clientX, e.clientY)
     .subtract(sceneOriginOffset)
     .multiply(Graphics.getScale());

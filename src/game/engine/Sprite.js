@@ -2,6 +2,7 @@ import Graphics from "./Graphics";
 import Size from "./Size";
 import TextureCache from "./TextureCache";
 import Tile from "./map/Tile";
+import Vector from "./Vector";
 
 export default class Sprite {
   id = "sprite-changeme";
@@ -30,6 +31,23 @@ export default class Sprite {
     this.texture = texture;
   }
 
+  intersects(position) {
+    // Find the texture's pixel at position. If it is
+    // not transparent, then we have an intersection.
+    Graphics.openBuffer();
+    const tex = this.getTexture();
+    Graphics.drawTexture(
+      tex.getImage(),
+      tex.getSize(),
+      tex.getPosition(),
+      new Vector(0, 0)
+    );
+    const pixelPosition = Vector.subtract(position, this.position);
+    const pixel = Graphics.getPixel(pixelPosition);
+    Graphics.closeBuffer();
+    return !Graphics.isTransparent(pixel);
+  }
+
   async loadAssets() {
     await TextureCache.fetch(this.texture);
   }
@@ -45,7 +63,7 @@ export default class Sprite {
     );
 
     if (Graphics.debug) {
-      const size = this.getSize();
+      const size = texture.getSize();
       Graphics.drawRect(position, size);
       Graphics.drawPoint(Tile.getOrigin(position, size));
     }

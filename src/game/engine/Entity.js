@@ -79,8 +79,11 @@ export default class Entity {
 
   intersects(position) {
     const point = Tile.point(position);
-    const spriteRect = new Tile(this.getPosition(), this.sprite.getSize());
-    return spriteRect.intersects(point);
+    const spriteRect = new Tile(this.position, this.sprite.getSize());
+    if (!spriteRect.intersects(point)) {
+      return false;
+    }
+    return this.getSprite().intersects(position);
   }
 
   async loadAssets() {

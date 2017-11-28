@@ -81,14 +81,6 @@ export default class Tile {
     }
   }
 
-  getTilesetPosition() {
-    return this.tilesetPosition;
-  }
-
-  setTilesetPosition(position) {
-    this.tilesetPosition = position;
-  }
-
   getRect() {
     const p = this.getPosition();
     const s = this.getSize();
@@ -97,6 +89,14 @@ export default class Tile {
 
   getSize() {
     return this.size;
+  }
+
+  getTilesetPosition() {
+    return this.tilesetPosition;
+  }
+
+  setTilesetPosition(position) {
+    this.tilesetPosition = position;
   }
 
   isCollectable() {

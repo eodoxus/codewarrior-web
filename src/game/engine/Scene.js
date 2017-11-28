@@ -72,6 +72,7 @@ export default class Scene {
   }
 
   onClick(position) {
+    this.clickedPosition = position;
     this.clickedTile = this.map.getTileAt(position);
     if (this.clickedTile && this.clickedTile.isWalkable()) {
       this.hero.walkTo(this.clickedTile);
@@ -82,8 +83,13 @@ export default class Scene {
     if (this.map) {
       this.map.render();
 
-      if (this.clickedTile && Graphics.debug) {
-        Graphics.colorize(this.clickedTile.getRect(), "black");
+      if (Graphics.debug) {
+        if (this.clickedPosition) {
+          Graphics.drawPoint(this.clickedPosition);
+        }
+        if (this.clickedTile) {
+          Graphics.colorize(this.clickedTile.getRect(), "black");
+        }
       }
     }
     this.entities.forEach(entity => entity.render());

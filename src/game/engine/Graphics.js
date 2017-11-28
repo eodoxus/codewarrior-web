@@ -1,5 +1,3 @@
-import Size from "./Size";
-
 export default class Graphics {
   static COLORS = {
     shadow: "#252723",
@@ -43,7 +41,13 @@ export default class Graphics {
   }
 
   static drawPoint(position) {
-    Graphics._renderer.drawRect(position, new Size(1, 1));
+    const rect = {
+      x: position.x,
+      y: position.y,
+      width: 1,
+      height: 1
+    };
+    Graphics._renderer.colorize(rect, "white", 1.0);
   }
 
   static drawShadow(position, size) {
@@ -57,6 +61,19 @@ export default class Graphics {
 
   static drawTexture(tex, size, sPos, dPos, alpha = 1.0) {
     Graphics._renderer.drawTexture(tex, size, sPos, dPos, alpha);
+  }
+
+  static getPixel(position) {
+    return Graphics._renderer.getPixel(position);
+  }
+
+  static isTransparent(pixel) {
+    for (let iDx = 0; iDx < 3; iDx++) {
+      if (pixel[iDx] !== 0) {
+        return false;
+      }
+    }
+    return true;
   }
 
   static setDrawingSurface(surface) {
@@ -165,6 +182,10 @@ class CanvasRenderer {
     return data;
   }
 
+  getPixel(position) {
+    return this.context.getImageData(position.x, position.y, 1, 1).data;
+  }
+
   setSurface(canvas) {
     this.context = canvas.getContext("2d");
   }
@@ -179,8 +200,8 @@ class CanvasRenderer {
     this.context.scale(factor, factor);
   }
 
-  colorize(rect, color) {
-    this.context.globalAlpha = 0.2;
+  colorize(rect, color, alpha = 0.2) {
+    this.context.globalAlpha = alpha;
     this.context.fillStyle = color;
     this.context.fillRect(rect.x, rect.y, rect.width, rect.height);
     this.context.globalAlpha = 1.0;
