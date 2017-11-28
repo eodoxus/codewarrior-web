@@ -25,8 +25,8 @@ export default class TiledMap {
   addEntity(entity) {
     const exists = this.entities.some(tile => {
       return (
-        tile.getProperty(Tile.PROPERTY_NAME) ===
-        entity.getProperty(Tile.PROPERTY_NAME)
+        tile.getProperty(Tile.PROPERTIES.NAME) ===
+        entity.getProperty(Tile.PROPERTIES.NAME)
       );
     });
     if (!exists) {
@@ -227,7 +227,7 @@ function parseTileProperties(tile, collidableTiles, objects) {
   });
 
   objects.forEach(object => {
-    if (object.type === Tile.PROPERTY_SPAWN_HERO && !this.heroSpawnPoint) {
+    if (object.type === Tile.PROPERTIES.SPAWN_HERO && !this.heroSpawnPoint) {
       this.heroSpawnPoint = new Vector(object.x, object.y);
       return;
     }
@@ -238,22 +238,22 @@ function parseTileProperties(tile, collidableTiles, objects) {
     );
     if (tile.intersects(objectTile)) {
       switch (object.type) {
-        case Tile.OBJECT_TYPE_COLLECTABLE:
+        case Tile.OBJECT_TYPES.COLLECTABLE:
           properties.name = object.name;
           properties.isCollectable = true;
           Object.assign(properties, object.properties);
           break;
-        case Tile.OBJECT_TYPE_COLLIDABLE:
+        case Tile.OBJECT_TYPES.COLLIDABLE:
           properties.isCollidable = true;
           if (object.properties.layer) {
             properties.layer = object.properties.layer;
           }
           break;
-        case Tile.OBJECT_TYPE_DOORWAY:
+        case Tile.OBJECT_TYPES.DOORWAY:
           properties.isDoorway = true;
           Object.assign(properties, object.properties);
           break;
-        case Tile.OBJECT_TYPE_TRANSITION:
+        case Tile.OBJECT_TYPES.TRANSITION:
           properties.isTransition = true;
           Object.assign(properties, object.properties);
           break;

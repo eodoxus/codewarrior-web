@@ -2,15 +2,18 @@ import Vector from "../Vector";
 import Size from "../Size";
 
 export default class Tile {
-  static OBJECT_TYPE_COLLECTABLE = "collectable";
-  static OBJECT_TYPE_COLLIDABLE = "collidable";
-  static OBJECT_TYPE_DOORWAY = "doorway";
-  static OBJECT_TYPE_TRANSITION = "transition";
-
-  static PROPERTY_ENTITY = "entity";
-  static PROPERTY_FACING = "facing";
-  static PROPERTY_NAME = "name";
-  static PROPERTY_SPAWN_HERO = "spawn_hero";
+  static OBJECT_TYPES = {
+    COLLECTABLE: "collectable",
+    COLLIDABLE: "collidable",
+    DOORWAY: "doorway",
+    TRANSITION: "transition"
+  };
+  static PROPERTIES = {
+    ENTITY: "entity",
+    FACING: "facing",
+    NAME: "name",
+    SPAWN_HERO: "spawn_hero"
+  };
 
   static getOrigin(position, size) {
     return Vector.add(
@@ -57,7 +60,7 @@ export default class Tile {
 
   getProperty(name) {
     switch (name) {
-      case Tile.PROPERTY_FACING:
+      case Tile.PROPERTIES.FACING:
         if (this.properties[name + "_x"] && this.properties[name + "_y"]) {
           return new Vector(
             this.properties[name + "_x"],
@@ -65,7 +68,7 @@ export default class Tile {
           );
         }
         break;
-      case Tile.PROPERTY_SPAWN_HERO:
+      case Tile.PROPERTIES.SPAWN_HERO:
         if (this.properties[name + "_x"] && this.properties[name + "_y"]) {
           return new Vector(
             this.properties[name + "_x"],

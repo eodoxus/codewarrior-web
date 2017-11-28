@@ -53,8 +53,8 @@ export default class SceneDirector extends Component {
       this.scene = createScene(doorway.getProperty("to"), this.hero);
       await this.scene.loadAssets();
       this.scene.spawnHero(
-        doorway.getProperty(Tile.PROPERTY_SPAWN_HERO),
-        doorway.getProperty(Tile.PROPERTY_FACING)
+        doorway.getProperty(Tile.PROPERTIES.SPAWN_HERO),
+        doorway.getProperty(Tile.PROPERTIES.FACING)
       );
       this.setState({ isLoading: false });
       this.updateScene();

@@ -54,13 +54,13 @@ export default class Scene {
     if (this.map) {
       await this.map.loadAssets();
       this.map.getEntities().forEach(tile => {
-        const entityName = tile.getProperty(Tile.PROPERTY_ENTITY);
+        const entityName = tile.getProperty(Tile.PROPERTIES.ENTITY);
         if (!entities[entityName]) {
           throw new Error(`Entity ${entities[entityName]} does not exist`);
         }
         this.entities.push(
           new entities[entityName](
-            tile.getProperty(Tile.PROPERTY_NAME),
+            tile.getProperty(Tile.PROPERTIES.NAME),
             tile.getPosition()
           )
         );
