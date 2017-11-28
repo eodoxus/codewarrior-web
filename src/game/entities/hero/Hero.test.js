@@ -47,11 +47,11 @@ describe("Hero", () => {
       hero.setVelocity(new Vector(1, 1));
       hero.setState(Hero.STATES.WALKING);
       const sprite = hero.getSprite();
-      sprite.updateCurrentAnimation = jest.fn();
+      sprite.pickAnimation = jest.fn();
       const animation = sprite.getAnimation();
       animation.update = jest.fn();
       hero.update();
-      expect(sprite.updateCurrentAnimation).toHaveBeenCalled();
+      expect(sprite.pickAnimation).toHaveBeenCalled();
       expect(animation.update).toHaveBeenCalled();
     });
   });

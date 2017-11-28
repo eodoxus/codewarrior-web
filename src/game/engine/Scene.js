@@ -56,7 +56,7 @@ export default class Scene {
       this.map.getEntities().forEach(tile => {
         const entityName = tile.getProperty(Tile.PROPERTIES.ENTITY);
         if (!entities[entityName]) {
-          throw new Error(`Entity ${entities[entityName]} does not exist`);
+          throw new Error(`Entity ${entityName} does not exist`);
         }
         this.entities.push(
           new entities[entityName](
@@ -109,9 +109,7 @@ export default class Scene {
     }
     this.hero.setPosition(position);
     if (direction) {
-      this.hero
-        .getSprite()
-        .updateCurrentAnimation(Hero.STATES.WALKING, direction);
+      this.hero.getSprite().pickAnimation(Hero.STATES.WALKING, direction);
     }
   }
 

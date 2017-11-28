@@ -2,7 +2,7 @@
  "layers":[
         {
          "compression":"zlib",
-         "data":"eJztz0FOAjEUxvGSCSsR1A3oBlDhDoIoG5UNoOIdUAE3AjcBgnobJVFvgyK69N9kJul0M3ZIVJJO8str0\/Z984T4f98KYlhFXKkJrAXs9TNpHRsG+XsooIh9pZZwELDXz6RDlA3ym7jEFa6V2kI7YK+fSR3cGOQPMMRI9onSAxlD3rs7etzjIWT+WPYIke+9C5P\/iCdMhHmu7pkeL3gNOf+i+XZ+O7+d385v51+e+f86f4o3vGPm+tDWSUeIFDax5fjvqHWOT3wZ5Kcj\/Duy2HbtaOsjMo9xgorjv6PWXeSQj\/w8v8rdGuo4dZ1p61syu+ih7\/jvqPUcDVwY5P\/m9w2+y5ZS",
+         "data":"eJztz8lOQjEUxvHijStF1I3KRhnkHXDCDcNGQeAdcEA2Dm+iBuVtwAR4GybRnf8ml6S3m2sviWLSJr+cNm3PlyPE4q0VrCKMNaVGsO5z1u+kDWwa5KdxgEMcKfUYJz5n\/U7K4NQgv4ZLXOFaqTeo+5z1O+kWDYP8JzzjRfZZpge+lszM\/r3S4w2tgPlN2SNA\/uxfkPw2OngX5rm6Lj166Aecf958O7+d385v57fz\/5\/5\/zp\/gCFGGLsm2n7LEWIbO4g63jdq\/cAUnwb5uyEh9hBD3JXQ9lkyc8ij4HjfqDWJfaRCP88\/4+05iii5LrT9HZn3eMCj432j1jIqqBrk\/+b6Bh\/8ZbE=",
          "encoding":"base64",
          "height":24,
          "name":"map",
@@ -58,13 +58,13 @@
                  "name":"spawn_npc",
                  "properties":
                     {
-                     "npc":"WoodCutter"
+                     "entity":"CrestfallenMage"
                     },
                  "rotation":0,
-                 "type":"spawn_npc",
+                 "type":"entity",
                  "visible":true,
                  "width":0,
-                 "x":128,
+                 "x":109.666666666667,
                  "y":81
                 }],
          "opacity":1,

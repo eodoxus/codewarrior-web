@@ -37,6 +37,9 @@ describe("Entity", () => {
     beforeEach(() => {
       entity = new Entity(entityId, new Vector(10, 10));
       entity.setSprite(new Sprite(spriteId, new Size(10, 20)));
+      const sprite = entity.getSprite();
+      sprite.intersects = jest.fn();
+      sprite.intersects.mockReturnValue(true);
     });
 
     it("should return true if a point intersects the entity", () => {

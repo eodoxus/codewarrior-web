@@ -102,7 +102,7 @@
                      "entity":"BookOfEcmaScript"
                     },
                  "rotation":0,
-                 "type":"collectable",
+                 "type":"entity",
                  "visible":true,
                  "width":31,
                  "x":112,

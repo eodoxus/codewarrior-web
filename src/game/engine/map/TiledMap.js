@@ -201,20 +201,44 @@ function parseTileLayers(tmxLayers) {
   // Set properties for layer tiles
   layers.forEach(layer => {
     layer.tiles.forEach(tile => {
-      const properties = parseTileProperties.call(
-        this,
-        tile,
-        collidableLayer.getTiles(),
-        objects
+      tile.setProperties(
+        parseTileProperties.call(
+          this,
+          tile,
+          collidableLayer.getTiles(),
+          objects
+        )
       );
-      tile.setProperties(properties);
-      if (properties.entity) {
-        this.addEntity(tile);
-      }
     });
   });
 
+  // Extract entities
+  parseObjects.call(this, objects);
+
   return layers;
+}
+
+function parseObjects(objects) {
+  objects.forEach(object => {
+    let tile = new Tile(
+      new Vector(object.x, object.y),
+      new Size(object.width, object.height)
+    );
+    switch (object.type) {
+      case Tile.PROPERTIES.SPAWN_HERO:
+        this.heroSpawnPoint = new Vector(object.x, object.y);
+        break;
+      case Tile.PROPERTIES.ENTITY:
+        const properties = {};
+        properties[Tile.PROPERTIES.NAME] = object.name;
+        Object.assign(properties, object.properties);
+        tile.setProperties(properties);
+        this.addEntity(tile);
+        break;
+      default:
+        break;
+    }
+  });
 }
 
 function parseTileProperties(tile, collidableTiles, objects) {
@@ -227,22 +251,12 @@ function parseTileProperties(tile, collidableTiles, objects) {
   });
 
   objects.forEach(object => {
-    if (object.type === Tile.PROPERTIES.SPAWN_HERO && !this.heroSpawnPoint) {
-      this.heroSpawnPoint = new Vector(object.x, object.y);
-      return;
-    }
-
     let objectTile = new Tile(
       new Vector(object.x, object.y),
       new Size(object.width, object.height)
     );
     if (tile.intersects(objectTile)) {
       switch (object.type) {
-        case Tile.OBJECT_TYPES.COLLECTABLE:
-          properties.name = object.name;
-          properties.isCollectable = true;
-          Object.assign(properties, object.properties);
-          break;
         case Tile.OBJECT_TYPES.COLLIDABLE:
           properties.isCollidable = true;
           if (object.properties.layer) {

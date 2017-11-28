@@ -66,7 +66,7 @@ export default class HeroSprite extends AnimatedSprite {
     return ANIMATIONS.WALKING.UP;
   }
 
-  updateCurrentAnimation(state, velocity) {
+  pickAnimation(state, velocity) {
     const nextAnimation = this.getStateAnimationName(state, velocity);
     if (!this.getAnimation()) {
       this.setAnimation(nextAnimation);

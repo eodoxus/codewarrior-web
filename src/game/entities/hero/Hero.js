@@ -29,7 +29,7 @@ export default class Hero extends WalkingEntity {
     }
     this.sprite = new HeroSprite();
     await this.sprite.loadAssets();
-    this.sprite.updateCurrentAnimation(this.state, this.velocity);
+    this.sprite.pickAnimation(this.state, this.velocity);
   }
 
   getStateVelocity() {
@@ -65,7 +65,7 @@ export default class Hero extends WalkingEntity {
     ) {
       const speed = this.velocity.magnitude();
       if (speed > 0) {
-        this.sprite.updateCurrentAnimation(this.state, this.velocity);
+        this.sprite.pickAnimation(this.state, this.velocity);
       }
 
       const animation = this.sprite.getAnimation();
