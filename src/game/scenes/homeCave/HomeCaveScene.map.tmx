@@ -37,7 +37,11 @@
     <property name="layer" value="skull"/>
    </properties>
   </object>
-  <object id="6" name="book" type="collectable" x="112" y="64.6667" width="31" height="23"/>
+  <object id="6" name="book" type="collectable" x="112" y="61.6667" width="31" height="23">
+   <properties>
+    <property name="entity" value="BookOfEcmaScript"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="collidable" width="32" height="24" visible="0">
   <data encoding="base64" compression="zlib">

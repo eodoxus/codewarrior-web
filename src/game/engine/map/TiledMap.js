@@ -13,11 +13,29 @@ export default class TiledMap {
   heroSpawnPoint;
   layers;
   size;
+  entities;
   texture;
   tileSize;
 
   constructor(name) {
     this.name = name;
+    this.entities = [];
+  }
+
+  addEntity(entity) {
+    const exists = this.entities.some(tile => {
+      return (
+        tile.getProperty(Tile.PROPERTY_NAME) ===
+        entity.getProperty(Tile.PROPERTY_NAME)
+      );
+    });
+    if (!exists) {
+      this.entities.push(entity);
+    }
+  }
+
+  getEntities() {
+    return this.entities;
   }
 
   getHeroSpawnPoint() {
@@ -183,14 +201,16 @@ function parseTileLayers(tmxLayers) {
   // Set properties for layer tiles
   layers.forEach(layer => {
     layer.tiles.forEach(tile => {
-      tile.setProperties(
-        parseTileProperties.call(
-          this,
-          tile,
-          collidableLayer.getTiles(),
-          objects
-        )
+      const properties = parseTileProperties.call(
+        this,
+        tile,
+        collidableLayer.getTiles(),
+        objects
       );
+      tile.setProperties(properties);
+      if (properties.entity) {
+        this.addEntity(tile);
+      }
     });
   });
 
@@ -219,6 +239,7 @@ function parseTileProperties(tile, collidableTiles, objects) {
     if (tile.intersects(objectTile)) {
       switch (object.type) {
         case Tile.OBJECT_TYPE_COLLECTABLE:
+          properties.name = object.name;
           properties.isCollectable = true;
           Object.assign(properties, object.properties);
           break;

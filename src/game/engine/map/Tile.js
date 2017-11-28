@@ -7,7 +7,9 @@ export default class Tile {
   static OBJECT_TYPE_DOORWAY = "doorway";
   static OBJECT_TYPE_TRANSITION = "transition";
 
+  static PROPERTY_ENTITY = "entity";
   static PROPERTY_FACING = "facing";
+  static PROPERTY_NAME = "name";
   static PROPERTY_SPAWN_HERO = "spawn_hero";
 
   static getOrigin(position, size) {

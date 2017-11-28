@@ -99,14 +99,14 @@
                  "name":"book",
                  "properties":
                     {
-
+                     "entity":"BookOfEcmaScript"
                     },
                  "rotation":0,
                  "type":"collectable",
                  "visible":true,
                  "width":31,
                  "x":112,
-                 "y":64.6666666666667
+                 "y":61.6666666666667
                 }],
          "opacity":1,
          "type":"objectgroup",

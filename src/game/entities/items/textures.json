@@ -1,0 +1,21 @@
+{"frames": {
+
+"bookOfEcmaScript.png":
+{
+	"frame": {"x":0,"y":0,"w":30,"h":20},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":30,"h":20},
+	"sourceSize": {"w":30,"h":20},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "items.png",
+	"format": "RGBA8888",
+	"size": {"w":30,"h":20},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:9b7e5e20251584531b207f5dcb3e821b:28d285ce37de2a8cb156a0fb65eed335:982f44152e3d30e42b45b7261deb70a4$"
+}
+}

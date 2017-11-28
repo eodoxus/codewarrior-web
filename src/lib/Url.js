@@ -10,4 +10,6 @@ export default class Url {
   static ANIMATIONS = Url.PUBLIC + "/animations/";
 
   static MAPS = Url.PUBLIC + "/maps/";
+
+  static SPRITES = Url.PUBLIC + "/sprites/";
 }

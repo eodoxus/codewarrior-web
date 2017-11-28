@@ -23,6 +23,10 @@ export default class Vector {
     return _vectorOperation(v, "round");
   }
 
+  static copy(v) {
+    return new Vector(v.x, v.y);
+  }
+
   x;
   y;
 

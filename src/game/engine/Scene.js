@@ -1,7 +1,9 @@
+import entities from "../entities";
 import Event from "../../lib/Event";
 import Graphics from "./Graphics";
-import TiledMap from "./map/TiledMap";
 import Hero from "../entities/hero/Hero";
+import Tile from "./map/Tile";
+import TiledMap from "./map/TiledMap";
 
 export default class Scene {
   clickedTile;
@@ -51,6 +53,18 @@ export default class Scene {
   async loadAssets() {
     if (this.map) {
       await this.map.loadAssets();
+      this.map.getEntities().forEach(tile => {
+        const entityName = tile.getProperty(Tile.PROPERTY_ENTITY);
+        if (!entities[entityName]) {
+          throw new Error(`Entity ${entities[entityName]} does not exist`);
+        }
+        this.entities.push(
+          new entities[entityName](
+            tile.getProperty(Tile.PROPERTY_NAME),
+            tile.getPosition()
+          )
+        );
+      });
     }
     const promises = [];
     this.getEntities().forEach(entity => promises.push(entity.loadAssets()));

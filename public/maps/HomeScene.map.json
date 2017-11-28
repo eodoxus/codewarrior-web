@@ -83,7 +83,7 @@
                  "y":149.333
                 }, 
                 {
-                 "height":22.6667,
+                 "height":17.3333,
                  "id":4,
                  "name":"cave",
                  "properties":
@@ -95,8 +95,8 @@
                  "rotation":0,
                  "type":"doorway",
                  "visible":true,
-                 "width":12,
-                 "x":34.3333,
+                 "width":21.6666666666667,
+                 "x":29.3333333333333,
                  "y":13.6667
                 }, 
                 {

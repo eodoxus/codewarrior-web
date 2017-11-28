@@ -1,6 +1,10 @@
 import Size from "./Size";
 
 export default class Graphics {
+  static COLORS = {
+    shadow: "#252723",
+    shadowBorder: "#1e1e1e"
+  };
   static debug = false;
 
   static _renderer;
@@ -34,8 +38,21 @@ export default class Graphics {
     Graphics._renderer.drawRect(position, size);
   }
 
+  static drawEllipse(position, size, color) {
+    Graphics._renderer.drawEllipse(position, size, color);
+  }
+
   static drawPoint(position) {
     Graphics._renderer.drawRect(position, new Size(1, 1));
+  }
+
+  static drawShadow(position, size) {
+    Graphics._renderer.drawEllipseFilled(
+      position,
+      size,
+      Graphics.COLORS.shadow,
+      0.7
+    );
   }
 
   static drawTexture(tex, size, sPos, dPos, alpha = 1.0) {
@@ -76,6 +93,38 @@ class CanvasRenderer {
 
   clear() {
     this.context.clearRect(0, 0, this.size.width, this.size.height);
+  }
+
+  drawEllipseFilled(position, size, color = "#fff", alpha = 1.0) {
+    this.context.globalAlpha = alpha;
+    this.context.ellipse(
+      position.x,
+      position.y,
+      size.width / 2,
+      size.height / 2,
+      0,
+      0,
+      2 * Math.PI
+    );
+    this.context.fillStyle = color;
+    this.context.fill();
+    this.context.globalAlpha = 1.0;
+  }
+
+  drawEllipseStroke(position, size, color = "#fff", alpha = 1.0) {
+    this.context.globalAlpha = alpha;
+    this.context.ellipse(
+      position.x,
+      position.y,
+      size.width / 2,
+      size.height / 2,
+      0,
+      0,
+      2 * Math.PI
+    );
+    this.context.strokeStyle = "#1e1e1e";
+    this.context.stroke();
+    this.context.globalAlpha = 1.0;
   }
 
   drawRect(position, size) {
