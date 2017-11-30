@@ -62,7 +62,12 @@ export default class BookOfEcmaScript extends Entity {
     super.update(dt);
     if (this.state === BookOfEcmaScript.STATES.FLOATING) {
       const dy = this.originalPosition.y - this.position.y;
-      if (dy >= BookOfEcmaScript.FLOAT_DISTANCE || dy <= 0) {
+      if (dy >= BookOfEcmaScript.FLOAT_DISTANCE) {
+        this.position.y =
+          this.originalPosition.y - BookOfEcmaScript.FLOAT_DISTANCE;
+        this.velocity.multiply(-1);
+      } else if (dy <= 0) {
+        this.position.y = this.originalPosition.y;
         this.velocity.multiply(-1);
       }
     }

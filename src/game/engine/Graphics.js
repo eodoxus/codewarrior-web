@@ -1,6 +1,6 @@
 export default class Graphics {
   static COLORS = {
-    shadow: "#252723",
+    shadow: "#493d30",
     shadowBorder: "#1e1e1e"
   };
   static debug = false;
