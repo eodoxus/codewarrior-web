@@ -38,8 +38,14 @@ export default class CrestfallenMage extends Entity {
   update(dt) {
     super.update(dt);
     if (this.state === CrestfallenMage.STATES.WALKING) {
-      const dx = Math.abs(this.originalPosition.x - this.position.x);
-      if (dx >= CrestfallenMage.PACING_DISTANCE) {
+      const minX = this.originalPosition.x - CrestfallenMage.PACING_DISTANCE;
+      const maxX = this.originalPosition.x + CrestfallenMage.PACING_DISTANCE;
+      if (this.position.x <= minX) {
+        this.position.x = minX;
+        this.velocity.multiply(-1);
+      }
+      if (this.position.x >= maxX) {
+        this.position.x = maxX;
         this.velocity.multiply(-1);
       }
 
