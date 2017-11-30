@@ -1,7 +1,8 @@
 import React from "react";
+import Size from "./Size";
+import Tile from "./map/Tile";
 import Time from "./Time";
 import Vector from "./Vector";
-import Tile from "./map/Tile";
 
 export default class Entity {
   static DEFAULT_MOVEMENT_VELOCITY = 50;
@@ -10,6 +11,7 @@ export default class Entity {
   id;
   map;
   position;
+  properties;
   sprite;
   state;
   velocity;
@@ -26,6 +28,10 @@ export default class Entity {
     return this.currentMove;
   }
 
+  getId() {
+    return this.id;
+  }
+
   getMap() {
     return this.map;
   }
@@ -38,12 +44,46 @@ export default class Entity {
     return Tile.getOrigin(this.position, this.sprite.getSize());
   }
 
+  getOutline() {
+    const outline = this.getSprite().getOutline();
+    const translatedRows = [];
+    const rowIndexes = Object.keys(outline.rows);
+    const top = parseInt(rowIndexes[0], 10);
+    rowIndexes.forEach(y => {
+      const newY = Math.floor(parseInt(y, 10) + this.position.y);
+      const row = outline.rows[y];
+      translatedRows[newY] = {
+        start: row.start + this.position.x,
+        end: row.end + this.position.x
+      };
+    });
+    return {
+      rows: translatedRows,
+      rect: new Tile(
+        new Vector(this.position.x + outline.min, this.position.y + top),
+        new Size(outline.max - outline.min, rowIndexes.length)
+      )
+    };
+  }
+
   getPosition() {
     return this.position;
   }
 
   setPosition(p) {
     this.position = p;
+  }
+
+  getProperties() {
+    return this.properties;
+  }
+
+  setProperties(p) {
+    this.properties = p;
+  }
+
+  getRect() {
+    return new Tile(this.getPosition(), this.getSprite().getSize());
   }
 
   getSprite() {
@@ -77,13 +117,30 @@ export default class Entity {
     );
   }
 
-  intersects(position) {
-    const point = Tile.point(position);
-    const spriteRect = new Tile(this.position, this.sprite.getSize());
-    if (!spriteRect.intersects(point)) {
-      return false;
+  intersects(obj) {
+    const spriteRect = this.getRect();
+    // Is incoming an entity?
+    if (obj.getSprite) {
+      if (!spriteRect.intersects(obj.getRect())) {
+        return false;
+      }
+      return this.outlinesIntersect(obj.getOutline());
+    } else {
+      // Not an entity, so it's just a point
+      const point = Tile.point(obj);
+      if (!spriteRect.intersects(point)) {
+        return false;
+      }
+      return this.getSprite().intersects(obj, this.getPosition());
     }
-    return this.getSprite().intersects(position);
+  }
+
+  isHero(entity) {
+    return this.id === "hero";
+  }
+
+  isNpc() {
+    return this.properties[Tile.PROPERTIES.NPC] === "true";
   }
 
   async loadAssets() {
@@ -118,6 +175,30 @@ export default class Entity {
       vy *= -1;
     }
     this.velocity = new Vector(vx, vy);
+  }
+
+  outlinesIntersect(outline) {
+    const thisOutline = this.getOutline();
+    if (!thisOutline.rect.intersects(outline.rect)) {
+      return false;
+    }
+
+    const rows = Object.keys(thisOutline.rows);
+    const numRows = rows.length;
+    for (let iDx = 0; iDx < numRows; iDx++) {
+      const row = rows[iDx];
+      if (!outline.rows[row]) {
+        continue;
+      }
+      if (
+        thisOutline.rows[row].start < outline.rows[row].end &&
+        thisOutline.rows[row].end > outline.rows[row].start
+      ) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   renderDebug() {

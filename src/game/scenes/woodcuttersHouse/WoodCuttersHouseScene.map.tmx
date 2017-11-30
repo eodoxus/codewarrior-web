@@ -22,6 +22,7 @@
   <object id="3" name="spawn_npc" type="entity" x="109.667" y="81">
    <properties>
     <property name="entity" value="CrestfallenMage"/>
+    <property name="npc" value="true"/>
    </properties>
   </object>
  </objectgroup>

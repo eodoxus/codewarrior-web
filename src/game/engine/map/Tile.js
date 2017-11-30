@@ -12,6 +12,7 @@ export default class Tile {
     ENTITY: "entity",
     FACING: "facing",
     NAME: "name",
+    NPC: "npc",
     SPAWN_HERO: "spawn_hero"
   };
 
@@ -79,6 +80,10 @@ export default class Tile {
       default:
         return this.properties[name];
     }
+  }
+
+  getProperties() {
+    return this.properties;
   }
 
   getRect() {

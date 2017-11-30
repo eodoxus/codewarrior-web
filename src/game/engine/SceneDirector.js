@@ -47,7 +47,12 @@ export default class SceneDirector extends Component {
     }
   };
 
-  onTransition = doorway => {
+  onCollision = entities => {
+    entities[0].stop();
+    entities[1].stop();
+  };
+
+  onDoorwayTransition = doorway => {
     this.setState({ isLoading: true });
     this.scene.unload();
     setTimeout(async () => {
@@ -64,7 +69,8 @@ export default class SceneDirector extends Component {
 
   async componentDidMount() {
     await this.scene.loadAssets();
-    Event.on(Event.TRANSITION, this.onTransition);
+    Event.on(Event.DOORWAY, this.onDoorwayTransition);
+    Event.on(Event.COLLISION, this.onCollision);
     this.setState({ isLoading: false });
     this.scene.spawnHero();
     this.updateScene();

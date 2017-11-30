@@ -58,7 +58,8 @@
                  "name":"spawn_npc",
                  "properties":
                     {
-                     "entity":"CrestfallenMage"
+                     "entity":"CrestfallenMage",
+                     "npc":"true"
                     },
                  "rotation":0,
                  "type":"entity",

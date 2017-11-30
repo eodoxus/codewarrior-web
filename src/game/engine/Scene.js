@@ -41,13 +41,24 @@ export default class Scene {
     this.size = s;
   }
 
-  handleCollisions(entity) {
-    if (entity.id === Hero.ID) {
-      const tile = this.map.getTileAt(this.hero.getOrigin());
-      if (tile && tile.isDoorway()) {
-        Event.fire(Event.TRANSITION, tile);
-      }
+  detectCollisions(entity) {
+    const tile = this.map.getTileAt(entity.getOrigin());
+    if (tile && tile.isDoorway() && entity.isHero()) {
+      return Event.fire(Event.DOORWAY, tile);
     }
+
+    this.entities.forEach(nextEntity => {
+      if (entity.getId() === nextEntity.getId()) {
+        return;
+      }
+      if (
+        (entity.getVelocity().magnitude() ||
+          nextEntity.getVelocity().magnitude()) &&
+        entity.intersects(nextEntity)
+      ) {
+        Event.fire(Event.COLLISION, [entity, nextEntity]);
+      }
+    });
   }
 
   async loadAssets() {
@@ -58,12 +69,12 @@ export default class Scene {
         if (!entities[entityName]) {
           throw new Error(`Entity ${entityName} does not exist`);
         }
-        this.entities.push(
-          new entities[entityName](
-            tile.getProperty(Tile.PROPERTIES.NAME),
-            tile.getPosition()
-          )
+        const entity = new entities[entityName](
+          tile.getProperty(Tile.PROPERTIES.NAME),
+          tile.getPosition()
         );
+        entity.setProperties(tile.getProperties());
+        this.entities.push(entity);
       });
     }
     const promises = [];
@@ -116,7 +127,7 @@ export default class Scene {
   update(dt) {
     this.entities.forEach(entity => {
       entity.update(dt);
-      this.handleCollisions(entity);
+      this.detectCollisions(entity);
     });
   }
 

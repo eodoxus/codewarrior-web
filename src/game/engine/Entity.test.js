@@ -4,6 +4,10 @@ import Sprite from "./Sprite";
 import Size from "./Size";
 import Tile from "./map/Tile";
 
+import outline from "./__mocks__/SpriteOutline.json";
+Sprite.prototype.getOutline = jest.fn();
+Sprite.prototype.getOutline.mockReturnValue(outline);
+
 let entity;
 const entityId = "entity-id";
 const spriteId = "sprite-id";
@@ -49,6 +53,24 @@ describe("Entity", () => {
     it("should return false if a point does not intersect the entity", () => {
       expect(entity.intersects(new Vector(9, 11))).toBe(false);
       expect(entity.intersects(new Vector(21, 31))).toBe(false);
+    });
+
+    it("should return true if an entity's outline intersects this entity's outline", () => {
+      const collisionEntity = new Entity("test", new Vector(17, 29));
+      collisionEntity.setSprite(new Sprite("test-sprite", new Size(10, 20)));
+      expect(entity.intersects(collisionEntity)).toBe(true);
+    });
+
+    it("should return false if entity rects intersect, but outlines don't", () => {
+      const collisionEntity = new Entity("test", new Vector(19, 29));
+      collisionEntity.setSprite(new Sprite("test-sprite", new Size(10, 20)));
+      expect(entity.intersects(collisionEntity)).toBe(false);
+    });
+
+    it("should return false if entity rects don't intersect", () => {
+      const collisionEntity = new Entity("test", new Vector(20, 29));
+      collisionEntity.setSprite(new Sprite("test-sprite", new Size(10, 20)));
+      expect(entity.intersects(collisionEntity)).toBe(false);
     });
   });
 
