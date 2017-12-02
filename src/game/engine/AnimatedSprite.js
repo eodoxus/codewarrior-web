@@ -27,11 +27,11 @@ export default class AnimatedSprite extends Sprite {
     return this.animations;
   }
 
-  async loadAssets() {
-    const plist = await new RestClient().get(
-      Url.ANIMATIONS + this.id + ".json"
-    );
-    const textureUrl = Url.ANIMATIONS + plist.meta.image;
+  getTexture() {
+    return this.curAnimation.getCurrentFrame();
+  }
+
+  loadAnimations(plist, textureUrl = "") {
     this.animations = {};
     Object.keys(plist.frames).forEach(key => {
       const frame = plist.frames[key].frame;
@@ -41,10 +41,32 @@ export default class AnimatedSprite extends Sprite {
       }
       this.animations[name].addFrame(frame);
     });
-    await TextureCache.fetch(textureUrl);
   }
 
-  getTexture() {
-    return this.curAnimation.getCurrentFrame();
+  async loadAssets() {
+    if (this.sprite && this.sprite.getAnimations()) {
+      return;
+    }
+    const plist = await new RestClient().get(
+      Url.ANIMATIONS + this.id + ".json"
+    );
+    const textureUrl = Url.ANIMATIONS + plist.meta.image;
+    this.loadAnimations(plist, textureUrl);
+    await TextureCache.fetch(textureUrl);
+    this.pickAnimation(this.state, this.velocity);
+  }
+
+  pickAnimation(state, velocity) {
+    const nextAnimation = this.getStateAnimationName(state, velocity);
+    if (!this.getAnimation()) {
+      this.setAnimation(nextAnimation);
+    }
+
+    if (this.getAnimation().getName() !== nextAnimation) {
+      this.getAnimation()
+        .stop()
+        .reset();
+      this.setAnimation(nextAnimation).start();
+    }
   }
 }

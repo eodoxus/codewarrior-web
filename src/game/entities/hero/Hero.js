@@ -20,16 +20,8 @@ export default class Hero extends WalkingEntity {
 
   constructor() {
     super(Hero.ID);
-    this.state = Hero.STATES.STOPPED;
-  }
-
-  async loadAssets() {
-    if (this.sprite) {
-      return;
-    }
     this.sprite = new HeroSprite();
-    await this.sprite.loadAssets();
-    this.sprite.pickAnimation(this.state, this.velocity);
+    this.state = Hero.STATES.STOPPED;
   }
 
   getStateVelocity() {

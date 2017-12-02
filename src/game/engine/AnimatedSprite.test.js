@@ -8,9 +8,8 @@ let sprite;
 
 describe("AnimatedSprite", () => {
   beforeEach(async () => {
-    fetch.mockResponse(JSON.stringify(plist));
     sprite = new AnimatedSprite("hero", new Size(24, 32), 17);
-    await sprite.loadAssets();
+    sprite.loadAnimations(plist);
   });
 
   afterEach(() => {

@@ -75,6 +75,11 @@ export default class TiledMap {
     const tmxConfig = await new RestClient().get(
       Url.MAPS + this.name + ".map.json"
     );
+    this.loadTMXConfig(tmxConfig);
+    await TextureCache.fetch(this.texture);
+  }
+
+  loadTMXConfig(tmxConfig) {
     if (!tmxConfig.tilesets) {
       return;
     }
@@ -83,7 +88,6 @@ export default class TiledMap {
     this.size = new Size(tileset.imagewidth, tileset.imageheight);
     this.tileSize = new Size(tileset.tilewidth, tileset.tileheight);
     this.layers = parseTileLayers.call(this, tmxConfig.layers);
-    await TextureCache.fetch(this.texture);
   }
 
   render() {

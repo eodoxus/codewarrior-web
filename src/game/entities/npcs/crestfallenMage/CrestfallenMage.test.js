@@ -2,12 +2,11 @@ import CrestfallenMage from "./CrestfallenMage";
 
 import plist from "../../../../../public/animations/npcs.json";
 let mage;
-let Entity = CrestfallenMage.__proto__.prototype;
 
 beforeEach(async () => {
   fetch.mockResponse(JSON.stringify(plist));
   mage = new CrestfallenMage();
-  await mage.loadAssets();
+  mage.getSprite().loadAnimations(plist);
 });
 
 describe("CrestfallenMage", () => {

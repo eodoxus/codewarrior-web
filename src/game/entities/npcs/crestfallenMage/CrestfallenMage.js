@@ -21,12 +21,7 @@ export default class CrestfallenMage extends Entity {
   }
 
   async loadAssets() {
-    if (this.sprite) {
-      return;
-    }
-    this.sprite = new CrestfallenMageSprite();
     await this.sprite.loadAssets();
-    this.sprite.pickAnimation(this.state, this.velocity);
     this.sprite.getAnimation().start();
   }
 
