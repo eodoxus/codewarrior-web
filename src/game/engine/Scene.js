@@ -20,6 +20,10 @@ export default class Scene {
     this.entities = [hero];
   }
 
+  addEntity(entity) {
+    this.entities.push(entity);
+  }
+
   getName() {
     // Override this
     return this.name;
@@ -27,6 +31,13 @@ export default class Scene {
 
   getMap() {
     return this.map;
+  }
+
+  setMap(map) {
+    this.map = map;
+    this.entities.forEach(entity => {
+      entity.setMap(this.map);
+    });
   }
 
   getEntities() {
@@ -56,7 +67,7 @@ export default class Scene {
           nextEntity.getVelocity().magnitude()) &&
         entity.intersects(nextEntity)
       ) {
-        Event.fire(Event.COLLISION, [entity, nextEntity]);
+        entity.handleCollision(nextEntity);
       }
     });
   }
@@ -125,6 +136,7 @@ export default class Scene {
   }
 
   update(dt) {
+    this.map.trackEntities(this.entities);
     this.entities.forEach(entity => {
       entity.update(dt);
       this.detectCollisions(entity);

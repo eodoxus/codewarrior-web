@@ -38,6 +38,12 @@ export default class Hero extends WalkingEntity {
     return new Vector(1, 1).multiply(v);
   }
 
+  handleCollision(entity) {
+    if (entity.isNpc()) {
+      this.reroute();
+    }
+  }
+
   setPosition(position) {
     super.setPosition(this.translateToOrigin(position));
   }

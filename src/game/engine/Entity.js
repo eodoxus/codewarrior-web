@@ -20,6 +20,7 @@ export default class Entity {
     this.id = id;
     this.position = position;
     this.dt = 0;
+    this.properties = {};
     this.state = 0;
     this.velocity = new Vector();
   }
@@ -117,6 +118,10 @@ export default class Entity {
     );
   }
 
+  handleCollision(entity) {
+    this.stop();
+  }
+
   intersects(obj) {
     const spriteRect = this.getRect();
     // Is incoming an entity?
@@ -135,12 +140,16 @@ export default class Entity {
     }
   }
 
+  isEnemy() {
+    return this.properties[Tile.PROPERTIES.ENEMY];
+  }
+
   isHero(entity) {
     return this.id === "hero";
   }
 
   isNpc() {
-    return this.properties[Tile.PROPERTIES.NPC] === "true";
+    return this.properties[Tile.PROPERTIES.NPC];
   }
 
   async loadAssets() {
@@ -221,6 +230,10 @@ export default class Entity {
 
   render() {
     this.sprite.render(this.position);
+  }
+
+  start() {
+    // Override this
   }
 
   stop() {

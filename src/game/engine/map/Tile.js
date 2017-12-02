@@ -9,6 +9,7 @@ export default class Tile {
     TRANSITION: "transition"
   };
   static PROPERTIES = {
+    ENEMY: "enemy",
     ENTITY: "entity",
     FACING: "facing",
     NAME: "name",
@@ -28,6 +29,7 @@ export default class Tile {
   }
 
   gid;
+  entity;
   position;
   tilesetPosition;
   size;
@@ -40,15 +42,8 @@ export default class Tile {
     this.properties = properties;
   }
 
-  intersects(tile) {
-    const aRect = this.getRect();
-    const bRect = tile.getRect();
-    return (
-      aRect.x < bRect.x + bRect.width &&
-      aRect.x + aRect.width > bRect.x &&
-      aRect.y < bRect.y + bRect.height &&
-      aRect.height + aRect.y > bRect.y
-    );
+  clear() {
+    delete this.entity;
   }
 
   getGid() {
@@ -104,6 +99,17 @@ export default class Tile {
     this.tilesetPosition = position;
   }
 
+  intersects(tile) {
+    const aRect = this.getRect();
+    const bRect = tile.getRect();
+    return (
+      aRect.x < bRect.x + bRect.width &&
+      aRect.x + aRect.width > bRect.x &&
+      aRect.y < bRect.y + bRect.height &&
+      aRect.height + aRect.y > bRect.y
+    );
+  }
+
   isCollectable() {
     return this.properties.isCollectable;
   }
@@ -117,7 +123,17 @@ export default class Tile {
   }
 
   isWalkable() {
-    return !this.properties.isCollidable;
+    if (this.properties.isCollidable) {
+      return false;
+    }
+    if (this.entity && (this.entity.isNpc() || this.entity.isEnemy())) {
+      return false;
+    }
+    return true;
+  }
+
+  setEntity(entity) {
+    this.entity = entity;
   }
 
   setProperties(properties) {

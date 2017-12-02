@@ -41,24 +41,6 @@ describe("<SceneDirector />", () => {
     expect(hero.position).toBeDefined();
   });
 
-  it("starts update loop", async () => {
-    const p = Promise.resolve();
-    Scene.prototype.loadAssets = () => p;
-    const ctrl = getController();
-    ctrl.updateScene = jest.fn();
-    await p;
-    expect(ctrl.updateScene).toHaveBeenCalledTimes(1);
-  });
-
-  it("runs update loop once every frame", async () => {
-    window.requestAnimationFrame = jest.fn();
-    const p = Promise.resolve();
-    Scene.prototype.loadAssets = () => p;
-    const ctrl = getController();
-    await p;
-    expect(window.requestAnimationFrame).toHaveBeenCalledTimes(1);
-  });
-
   describe("onClick", () => {
     let mockEvent = {
       preventDefault: jest.fn(),

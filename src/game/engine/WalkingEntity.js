@@ -1,6 +1,7 @@
 import Entity from "./Entity";
 import PathFinder from "./map/PathFinder";
 import Vector from "./Vector";
+import Tile from "./map/Tile";
 
 export default class WalkingEntity extends Entity {
   pathFinder;
@@ -8,6 +9,14 @@ export default class WalkingEntity extends Entity {
   constructor(id, position) {
     super(id, position);
     this.pathFinder = new PathFinder();
+  }
+
+  reroute() {
+    const curPath = this.pathFinder.getPath();
+    if (curPath.length) {
+      const end = Tile.point(curPath.shift());
+      this.walkTo(end);
+    }
   }
 
   setMap(map) {

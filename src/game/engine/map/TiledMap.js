@@ -148,6 +148,19 @@ export default class TiledMap {
     );
     return new Vector(x, y);
   }
+
+  trackEntities(entities) {
+    this.layers.forEach(layer => {
+      layer.getTiles().forEach(tile => {
+        tile.clear();
+        entities.forEach(entity => {
+          if (tile.intersects(entity.getRect())) {
+            tile.setEntity(entity);
+          }
+        });
+      });
+    });
+  }
 }
 
 function parseTileLayers(tmxLayers) {

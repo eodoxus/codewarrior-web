@@ -1,8 +1,18 @@
+import CrestfallenMage from "../npcs/crestfallenMage/CrestfallenMage";
 import Hero from "./Hero";
 import Size from "../../engine/Size";
+import Scene from "../../engine/Scene";
+import Sprite from "../../engine/Sprite";
+import Tile from "../../engine/map/Tile";
+import TiledMap from "../../engine/map/TiledMap";
 import Vector from "../../engine/Vector";
 
 import plist from "../../../../public/animations/hero.json";
+import npcPlist from "../../../../public/animations/npcs.json";
+import tmxConfig from "../../engine/map/__mocks__/map.json";
+import outline from "../../engine/__mocks__/SpriteOutline.json";
+Sprite.prototype.getOutline = jest.fn();
+Sprite.prototype.getOutline.mockReturnValue(outline);
 
 let hero;
 let Entity = Hero.__proto__.prototype;
@@ -38,9 +48,10 @@ describe("Hero", () => {
 
   describe("update", () => {
     it("calls parent class update.", () => {
-      Entity.update = jest.fn();
+      jest.spyOn(Entity, "update");
       hero.update();
       expect(Entity.update).toHaveBeenCalled();
+      Entity.update.mockRestore();
     });
 
     it("should update animation if velocity is > 0 and hero is moving", () => {
@@ -58,10 +69,38 @@ describe("Hero", () => {
 
   describe("walkTo", () => {
     it("set state to walking and call parent walkTo", () => {
-      Entity.walkTo = jest.fn();
+      jest.spyOn(Entity, "walkTo").mockImplementation(() => true);
       hero.walkTo();
       expect(hero.getState()).toBe(Hero.STATES.WALKING);
       expect(Entity.walkTo).toHaveBeenCalled();
+      Entity.walkTo.mockRestore();
+    });
+  });
+
+  describe("Collisions", () => {
+    it("should route around NPCs", async () => {
+      const map = new TiledMap();
+      map.loadTMXConfig(tmxConfig);
+      const npc = new CrestfallenMage(null, new Vector(80, 66));
+      npc.getSprite().loadAnimations(npcPlist);
+      npc.setProperties({ npc: true });
+
+      const heroCollisionSpy = jest.spyOn(hero, "handleCollision");
+      const heroRerouteSpy = jest.spyOn(hero, "reroute");
+      const npcCollisionSpy = jest.spyOn(npc, "handleCollision");
+
+      const scene = new Scene(hero);
+      scene.addEntity(npc);
+      scene.setMap(map);
+      hero.setPosition(new Vector(50, 66));
+      hero.walkTo(Tile.point(new Vector(112, 72)));
+      while (hero.state === Hero.STATES.WALKING) {
+        scene.update(20);
+        npc.stop();
+      }
+      expect(heroCollisionSpy).toHaveBeenCalled();
+      expect(npcCollisionSpy).toHaveBeenCalled();
+      expect(heroRerouteSpy).toHaveBeenCalled();
     });
   });
 });
