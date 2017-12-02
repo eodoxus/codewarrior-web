@@ -22,6 +22,7 @@ export default class PathFinder {
     this.closedSteps = [];
     const endStep = new Step(end);
     let curStep = start;
+    let isEndFound = false;
 
     this.clear();
     insertInOpenSteps.call(this, new Step(start));
@@ -30,6 +31,7 @@ export default class PathFinder {
       curStep = this.openSteps.shift();
       this.closedSteps.push(curStep);
       if (curStep.isEqualTo(endStep)) {
+        isEndFound = true;
         break;
       }
 
@@ -71,6 +73,10 @@ export default class PathFinder {
       step = step.parent;
     } while (step !== null);
 
+    if (!isEndFound) {
+      this.rerouteToClosest(endStep.getPosition());
+    }
+
     this.closedSteps = null;
     this.openStep = null;
   }
@@ -88,6 +94,23 @@ export default class PathFinder {
 
   getPath() {
     return this.path;
+  }
+
+  rerouteToClosest(step) {
+    let closestStep = step;
+    let diff = this.map.getSize().width;
+    for (let iDx = this.path.length - 1; iDx >= 0; iDx--) {
+      const nextStep = this.path[iDx];
+      const nextDiff =
+        Math.abs(step.x - nextStep.x) + Math.abs(step.y - nextStep.y);
+      if (nextDiff < diff) {
+        closestStep = nextStep;
+        diff = nextDiff;
+      }
+    }
+    if (closestStep.x !== step.x && closestStep.y !== step.y) {
+      this.findPath(this.path[this.path.length - 1], closestStep);
+    }
   }
 
   setMap(map) {

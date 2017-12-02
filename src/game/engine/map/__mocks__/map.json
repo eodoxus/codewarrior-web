@@ -66,34 +66,38 @@
          "name":"objects",
          "objects":[
                 {
-                 "height":13.3333333333333,
+                 "height":13.3333,
                  "id":3,
                  "name":"woodcutters_house",
                  "properties":
                     {
+                     "facing_x":"0",
+                     "facing_y":"-1",
                      "to":"WoodCuttersHouse"
                     },
                  "rotation":0,
                  "type":"doorway",
                  "visible":true,
                  "width":10,
-                 "x":25.6666666666667,
-                 "y":149.333333333333
+                 "x":25.6667,
+                 "y":149.333
                 }, 
                 {
-                 "height":22.6666666666667,
+                 "height":17.3333,
                  "id":4,
                  "name":"cave",
                  "properties":
                     {
+                     "facing_x":"0",
+                     "facing_y":"-1",
                      "to":"HomeCave"
                     },
                  "rotation":0,
                  "type":"doorway",
                  "visible":true,
-                 "width":12,
-                 "x":34.3333333333333,
-                 "y":13.6666666666667
+                 "width":21.6667,
+                 "x":29.3333,
+                 "y":13.6667
                 }, 
                 {
                  "height":8.5,
@@ -141,7 +145,7 @@
                  "y":142.5
                 }, 
                 {
-                 "height":24.3333,
+                 "height":14.9999666666667,
                  "id":27,
                  "name":"collision_stumps",
                  "properties":
@@ -153,7 +157,7 @@
                  "visible":true,
                  "width":54.6667,
                  "x":168.333,
-                 "y":-1
+                 "y":8.33333333333333
                 }, 
                 {
                  "height":31.6667,
@@ -167,7 +171,7 @@
                  "rotation":0,
                  "type":"collidable",
                  "visible":true,
-                 "width":24.3333,
+                 "width":14.3333333333333,
                  "x":232,
                  "y":96
                 }],
@@ -191,7 +195,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":32,
+ "nextobjectid":36,
  "orientation":"orthogonal",
  "properties":
     {

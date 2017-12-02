@@ -51,6 +51,10 @@ export default class TiledMap {
     return this.name;
   }
 
+  getSize() {
+    return this.size;
+  }
+
   getTexture() {
     return this.texture;
   }
