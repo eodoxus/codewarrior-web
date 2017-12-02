@@ -1,5 +1,5 @@
 import React from "react";
-import Size from "./Size";
+import Rect from "./Rect";
 import Tile from "./map/Tile";
 import Time from "./Time";
 import Vector from "./Vector";
@@ -60,9 +60,11 @@ export default class Entity {
     });
     return {
       rows: translatedRows,
-      rect: new Tile(
-        new Vector(this.position.x + outline.min, this.position.y + top),
-        new Size(outline.max - outline.min, rowIndexes.length)
+      rect: new Rect(
+        this.position.x + outline.min,
+        this.position.y + top,
+        outline.max - outline.min,
+        rowIndexes.length
       )
     };
   }
@@ -84,7 +86,9 @@ export default class Entity {
   }
 
   getRect() {
-    return new Tile(this.getPosition(), this.getSprite().getSize());
+    const p = this.getPosition();
+    const s = this.getSprite().getSize();
+    return new Rect(p.x, p.y, s.width, s.height);
   }
 
   getSprite() {
@@ -123,21 +127,23 @@ export default class Entity {
   }
 
   intersects(obj) {
-    const spriteRect = this.getRect();
-    // Is incoming an entity?
-    if (obj.getSprite) {
-      if (!spriteRect.intersects(obj.getRect())) {
-        return false;
-      }
-      return this.outlinesIntersect(obj.getOutline());
-    } else {
-      // Not an entity, so it's just a point
-      const point = Tile.point(obj);
-      if (!spriteRect.intersects(point)) {
-        return false;
-      }
-      return this.getSprite().intersects(obj, this.getPosition());
+    return obj.getSprite
+      ? this.intersectsEntity(obj)
+      : this.intersectsPoint(Rect.point(obj));
+  }
+
+  intersectsEntity(entity) {
+    if (!this.getRect().intersects(entity.getRect())) {
+      return false;
     }
+    return this.outlinesIntersect(entity.getOutline());
+  }
+
+  intersectsPoint(point) {
+    if (!this.getRect().intersects(point)) {
+      return false;
+    }
+    return this.getSprite().intersects(point, this.getPosition());
   }
 
   isEnemy() {

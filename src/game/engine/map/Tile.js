@@ -1,5 +1,5 @@
+import Rect from "../Rect";
 import Vector from "../Vector";
-import Size from "../Size";
 
 export default class Tile {
   static OBJECT_TYPES = {
@@ -18,14 +18,12 @@ export default class Tile {
   };
 
   static getOrigin(position, size) {
-    return Vector.add(
-      position,
-      new Vector(Math.floor(size.width / 2), Math.floor(size.height / 2))
-    );
-  }
-
-  static point(position) {
-    return new Tile(position, new Size(1, 1));
+    return new Rect(
+      position.x,
+      position.y,
+      size.width,
+      size.height
+    ).getOrigin();
   }
 
   gid;
@@ -84,7 +82,7 @@ export default class Tile {
   getRect() {
     const p = this.getPosition();
     const s = this.getSize();
-    return { x: p.x, y: p.y, width: s.width, height: s.height };
+    return new Rect(p.x, p.y, s.width, s.height);
   }
 
   getSize() {
@@ -100,14 +98,15 @@ export default class Tile {
   }
 
   intersects(tile) {
-    const aRect = this.getRect();
-    const bRect = tile.getRect();
-    return (
-      aRect.x < bRect.x + bRect.width &&
-      aRect.x + aRect.width > bRect.x &&
-      aRect.y < bRect.y + bRect.height &&
-      aRect.height + aRect.y > bRect.y
-    );
+    return tile.getRect ? this.intersectsTile(tile) : this.intersectsRect(tile);
+  }
+
+  intersectsTile(tile) {
+    return this.getRect().intersects(tile.getRect());
+  }
+
+  intersectsRect(rect) {
+    return this.getRect().intersects(rect);
   }
 
   isCollectable() {

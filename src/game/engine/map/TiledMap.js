@@ -1,5 +1,6 @@
 import * as pako from "pako";
 import Graphics from "../../engine/Graphics";
+import Rect from "../Rect";
 import RestClient from "../../../lib/RestClient";
 import Size from "../Size";
 import Tile from "./Tile";
@@ -55,7 +56,7 @@ export default class TiledMap {
   }
 
   getTileAt(position) {
-    const point = Tile.point(position);
+    const point = Rect.point(position);
     for (let iDx = this.layers.length - 1; iDx >= 0; iDx--) {
       const tiles = this.layers[iDx].getTiles();
       for (let jDx = 0; jDx < tiles.length; jDx++) {
@@ -154,7 +155,7 @@ export default class TiledMap {
       layer.getTiles().forEach(tile => {
         tile.clear();
         entities.forEach(entity => {
-          if (tile.intersects(entity.getRect())) {
+          if (tile.intersects(entity)) {
             tile.setEntity(entity);
           }
         });

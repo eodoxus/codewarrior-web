@@ -1,5 +1,6 @@
 import CrestfallenMage from "../npcs/crestfallenMage/CrestfallenMage";
 import Hero from "./Hero";
+import Rect from "../../engine/Rect";
 import Size from "../../engine/Size";
 import Scene from "../../engine/Scene";
 import Sprite from "../../engine/Sprite";
@@ -93,7 +94,7 @@ describe("Hero", () => {
       scene.addEntity(npc);
       scene.setMap(map);
       hero.setPosition(new Vector(50, 66));
-      hero.walkTo(Tile.point(new Vector(112, 72)));
+      hero.walkTo(Rect.point(new Vector(112, 72)));
       while (hero.state === Hero.STATES.WALKING) {
         scene.update(20);
         npc.stop();
