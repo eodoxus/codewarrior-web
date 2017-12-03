@@ -14,6 +14,7 @@ export default class Entity {
   sprite;
   state;
   velocity;
+  zIndex;
 
   constructor(id, position = new Vector()) {
     this.id = id;
@@ -22,6 +23,7 @@ export default class Entity {
     this.properties = {};
     this.state = 0;
     this.velocity = new Vector();
+    this.zIndex = 0;
   }
 
   getCurrentMove() {
@@ -119,6 +121,10 @@ export default class Entity {
       Entity.DEFAULT_MOVEMENT_VELOCITY,
       Entity.DEFAULT_MOVEMENT_VELOCITY
     );
+  }
+
+  getZIndex() {
+    return this.zIndex;
   }
 
   handleCollision(entity) {

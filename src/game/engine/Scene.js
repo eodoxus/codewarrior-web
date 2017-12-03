@@ -123,7 +123,18 @@ export default class Scene {
         }
       }
     }
-    this.entities.forEach(entity => entity.render());
+    const renderOrder = {};
+    this.entities.forEach(entity => {
+      if (!renderOrder[entity.getZIndex()]) {
+        renderOrder[entity.getZIndex()] = [];
+      }
+      renderOrder[entity.getZIndex()].push(entity);
+    });
+    Object.keys(renderOrder).forEach(iDx => {
+      renderOrder[iDx].forEach(entity => {
+        entity.render();
+      });
+    });
   }
 
   shouldShowBorder() {

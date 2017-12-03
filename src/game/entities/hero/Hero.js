@@ -22,6 +22,7 @@ export default class Hero extends WalkingEntity {
     super(Hero.ID);
     this.sprite = new HeroSprite();
     this.state = Hero.STATES.STOPPED;
+    this.zIndex = 1;
   }
 
   getStateVelocity() {
