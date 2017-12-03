@@ -44,7 +44,7 @@ export default class Sprite {
     return !Graphics.isTransparent(pixel);
   }
 
-  async loadAssets() {
+  async init() {
     await TextureCache.fetch(this.getTexture());
   }
 

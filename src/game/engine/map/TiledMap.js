@@ -76,7 +76,7 @@ export default class TiledMap {
     return this.tileSize;
   }
 
-  async loadAssets() {
+  async init() {
     const tmxConfig = await new RestClient().get(
       Url.MAPS + this.name + ".map.json"
     );

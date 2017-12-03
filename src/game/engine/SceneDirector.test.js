@@ -11,7 +11,7 @@ import Vector from "./Vector";
 jest.mock("./Graphics");
 jest.useFakeTimers();
 
-Scene.prototype.loadAssets = () => Promise.resolve();
+Scene.prototype.init = () => Promise.resolve();
 Scene.prototype.render = () => true;
 Scene.prototype.update = () => true;
 

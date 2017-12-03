@@ -1,8 +1,8 @@
 import * as _ from "lodash";
 import React, { Component } from "react";
 import styles from "./SceneDirector.scss";
-import Event from "../../lib/Event";
 import Entities from "../entities";
+import GameEvent from "./GameEvent";
 import Indicators from "../../components/indicators";
 import Scenes from "../scenes";
 import Graphics from "./Graphics";
@@ -52,8 +52,8 @@ export default class SceneDirector extends Component {
     this.scene.unload();
     setTimeout(async () => {
       this.scene = createScene(doorway.getProperty("to"), this.hero);
-      await this.scene.loadAssets();
-      this.scene.spawnHero(
+      await this.scene.init();
+      this.hero.spawn(
         doorway.getProperty(Tile.PROPERTIES.SPAWN_HERO),
         doorway.getProperty(Tile.PROPERTIES.FACING)
       );
@@ -63,10 +63,10 @@ export default class SceneDirector extends Component {
   };
 
   async componentDidMount() {
-    await this.scene.loadAssets();
-    Event.on(Event.DOORWAY, this.onDoorwayTransition);
+    await this.scene.init();
+    GameEvent.on(GameEvent.DOORWAY, this.onDoorwayTransition);
     this.setState({ isLoading: false });
-    this.scene.spawnHero();
+    this.hero.spawn();
     this.updateScene();
   }
 

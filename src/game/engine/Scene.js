@@ -1,8 +1,7 @@
 import Audio from "./Audio";
 import entities from "../entities";
-import Event from "../../lib/Event";
+import GameEvent from "./GameEvent";
 import Graphics from "./Graphics";
-import Hero from "../entities/hero/Hero";
 import Tile from "./map/Tile";
 import TiledMap from "./map/TiledMap";
 
@@ -60,7 +59,7 @@ export default class Scene {
   detectCollisions(entity) {
     const tile = this.map.getTileAt(entity.getOrigin());
     if (tile && tile.isDoorway() && entity.isHero()) {
-      return Event.fire(Event.DOORWAY, tile);
+      return GameEvent.fire(GameEvent.DOORWAY, tile);
     }
 
     this.entities.forEach(nextEntity => {
@@ -77,9 +76,9 @@ export default class Scene {
     });
   }
 
-  async loadAssets() {
+  async init() {
     if (this.map) {
-      await this.map.loadAssets();
+      await this.map.init();
       this.map.getEntities().forEach(tile => {
         const entityName = tile.getProperty(Tile.PROPERTIES.ENTITY);
         if (!entities[entityName]) {
@@ -94,7 +93,7 @@ export default class Scene {
       });
     }
     const promises = [];
-    this.getEntities().forEach(entity => promises.push(entity.loadAssets()));
+    this.getEntities().forEach(entity => promises.push(entity.init()));
     const music = this.getBackgroundMusic();
     if (music) {
       Audio.play(music);
@@ -105,12 +104,15 @@ export default class Scene {
   onClick(position) {
     this.clickedPosition = position;
     this.clickedTile = this.map.getTileAt(position);
-    if (this.clickedTile && this.clickedTile.isWalkable()) {
-      this.hero.walkTo(this.clickedTile);
-    }
+    this.hero.handleInput(GameEvent.click(this.clickedTile));
   }
 
   render() {
+    this.renderMap();
+    this.renderEntities();
+  }
+
+  renderMap() {
     if (this.map) {
       this.map.render();
 
@@ -123,6 +125,9 @@ export default class Scene {
         }
       }
     }
+  }
+
+  renderEntities() {
     const renderOrder = {};
     this.entities.forEach(entity => {
       if (!renderOrder[entity.getZIndex()]) {
@@ -139,16 +144,6 @@ export default class Scene {
 
   shouldShowBorder() {
     return this.showBorder;
-  }
-
-  spawnHero(position, direction) {
-    if (!position) {
-      position = this.map.getHeroSpawnPoint();
-    }
-    this.hero.setPosition(position);
-    if (direction) {
-      this.hero.getSprite().pickAnimation(Hero.STATES.WALKING, direction);
-    }
   }
 
   update(dt) {

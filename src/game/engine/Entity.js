@@ -6,7 +6,6 @@ import Vector from "./Vector";
 export default class Entity {
   static DEFAULT_MOVEMENT_VELOCITY = 50;
 
-  currentMove;
   id;
   map;
   position;
@@ -24,10 +23,6 @@ export default class Entity {
     this.state = 0;
     this.velocity = new Vector();
     this.zIndex = 0;
-  }
-
-  getCurrentMove() {
-    return this.currentMove;
   }
 
   getId() {
@@ -116,19 +111,20 @@ export default class Entity {
     this.velocity = v;
   }
 
-  getStateVelocity() {
-    return new Vector(
-      Entity.DEFAULT_MOVEMENT_VELOCITY,
-      Entity.DEFAULT_MOVEMENT_VELOCITY
-    );
-  }
-
   getZIndex() {
     return this.zIndex;
   }
 
   handleCollision(entity) {
     this.stop();
+  }
+
+  handleInput(event) {
+    this.state = this.state.handleInput(this, event);
+  }
+
+  async init() {
+    return this.sprite.init();
   }
 
   intersects(obj) {
@@ -163,40 +159,6 @@ export default class Entity {
     return this.properties[Tile.PROPERTIES.NPC];
   }
 
-  async loadAssets() {
-    if (!this.sprite) {
-      return Promise.resolve();
-    }
-    return this.sprite.loadAssets();
-  }
-
-  moveTo(position) {
-    position = this.translateToOrigin(position);
-    //console.log("moving to", position);
-    this.currentMove = {
-      distanceRemaining: this.position.distanceBetween(position),
-      prev: new Vector(this.position.x, this.position.y),
-      end: position
-    };
-
-    // Set velocity in the direction of the move
-    let vx = Math.abs(this.velocity.x);
-    let vy = Math.abs(this.velocity.y);
-    if (this.position.x === position.x) {
-      vx = 0;
-    }
-    if (this.position.x > position.x) {
-      vx *= -1;
-    }
-    if (this.position.y === position.y) {
-      vy = 0;
-    }
-    if (this.position.y > position.y) {
-      vy *= -1;
-    }
-    this.velocity = new Vector(vx, vy);
-  }
-
   outlinesIntersect(outline) {
     const thisOutline = this.getOutline();
     if (!thisOutline.rect.intersects(outline.rect)) {
@@ -225,13 +187,9 @@ export default class Entity {
     this.sprite.render(this.position);
   }
 
-  start() {
-    // Override this
-  }
-
-  stop() {
-    delete this.currentMove;
-    this.velocity = new Vector();
+  speak() {
+    const text = this.dialog.getText();
+    console.log(text);
   }
 
   translateToOrigin(position) {
@@ -250,29 +208,5 @@ export default class Entity {
     const velocity = Vector.multiply(this.velocity, Time.toSeconds(dt));
     velocity.multiply(Vector.normalize(this.velocity));
     this.position.add(velocity);
-    this.updateMove();
-  }
-
-  updateMove() {
-    if (!this.currentMove) {
-      return;
-    }
-
-    const position = new Vector(this.position.x, this.position.y);
-    const distance = this.currentMove.prev.distanceBetween(position);
-    this.currentMove.distanceRemaining.subtract(distance);
-    this.currentMove.prev = position;
-
-    if (this.currentMove.distanceRemaining.x <= 0) {
-      this.velocity.x = 0;
-    }
-
-    if (this.currentMove.distanceRemaining.y <= 0) {
-      this.velocity.y = 0;
-    }
-
-    if (this.velocity.magnitude() === 0) {
-      delete this.currentMove;
-    }
   }
 }

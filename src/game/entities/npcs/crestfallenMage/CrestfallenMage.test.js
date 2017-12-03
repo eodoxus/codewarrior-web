@@ -3,6 +3,13 @@ import CrestfallenMage from "./CrestfallenMage";
 import plist from "../../../../../public/animations/npcs.json";
 let mage;
 
+function makePositive(velocity) {
+  if (velocity.x < 0) {
+    velocity.x *= -1;
+  }
+  return velocity;
+}
+
 beforeEach(async () => {
   fetch.mockResponse(JSON.stringify(plist));
   mage = new CrestfallenMage();
@@ -19,6 +26,7 @@ describe("CrestfallenMage", () => {
   describe("update", () => {
     it("should make mage walk left and right, constrained to 40px range", () => {
       // Walk right 30px;
+      mage.setVelocity(makePositive(mage.getVelocity()));
       mage.update(3000);
       expect(mage.getPosition().x).toBe(30);
       // Walk right more constrained to 40px;

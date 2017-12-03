@@ -11,22 +11,17 @@ const TEXTURE = Url.SPRITES + "items.png";
 export default class BookOfEcmaScript extends Entity {
   static ID = "bookOfEcmaScript";
   static FLOAT_DISTANCE = 2;
-  static STATES = {
-    STOPPED: 0,
-    FLOATING: 1
-  };
   static VELOCITY = -1.5;
 
   originalPosition;
 
   constructor(id, position) {
     super(BookOfEcmaScript.ID, position);
-    this.state = BookOfEcmaScript.STATES.FLOATING;
     this.originalPosition = Vector.copy(this.position);
     this.velocity = new Vector(0, BookOfEcmaScript.VELOCITY);
   }
 
-  async loadAssets() {
+  async init() {
     if (this.sprite) {
       return;
     }
@@ -35,7 +30,7 @@ export default class BookOfEcmaScript extends Entity {
       new Size(32, 32),
       new Texture(TEXTURE, new Vector(), new Size(32, 20))
     );
-    await this.sprite.loadAssets();
+    await this.sprite.init();
   }
 
   render() {
@@ -53,23 +48,16 @@ export default class BookOfEcmaScript extends Entity {
     super.render();
   }
 
-  stop() {
-    super.stop();
-    this.state = BookOfEcmaScript.STATES.STOPPED;
-  }
-
   update(dt) {
     super.update(dt);
-    if (this.state === BookOfEcmaScript.STATES.FLOATING) {
-      const dy = this.originalPosition.y - this.position.y;
-      if (dy >= BookOfEcmaScript.FLOAT_DISTANCE) {
-        this.position.y =
-          this.originalPosition.y - BookOfEcmaScript.FLOAT_DISTANCE;
-        this.velocity.multiply(-1);
-      } else if (dy <= 0) {
-        this.position.y = this.originalPosition.y;
-        this.velocity.multiply(-1);
-      }
+    const dy = this.originalPosition.y - this.position.y;
+    if (dy >= BookOfEcmaScript.FLOAT_DISTANCE) {
+      this.position.y =
+        this.originalPosition.y - BookOfEcmaScript.FLOAT_DISTANCE;
+      this.velocity.multiply(-1);
+    } else if (dy <= 0) {
+      this.position.y = this.originalPosition.y;
+      this.velocity.multiply(-1);
     }
   }
 }

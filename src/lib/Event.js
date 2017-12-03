@@ -1,10 +1,6 @@
 import { EventEmitter } from "fbemitter";
 
 export default class Event {
-  static COLLISION = "collision";
-  static DOORWAY = "doorway";
-  static TRANSITION = "transition";
-
   static _instance;
   static instance() {
     if (!Event._instance) {

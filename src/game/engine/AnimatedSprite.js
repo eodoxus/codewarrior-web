@@ -43,7 +43,7 @@ export default class AnimatedSprite extends Sprite {
     });
   }
 
-  async loadAssets() {
+  async init() {
     if (this.sprite && this.sprite.getAnimations()) {
       return;
     }
@@ -53,7 +53,6 @@ export default class AnimatedSprite extends Sprite {
     const textureUrl = Url.ANIMATIONS + plist.meta.image;
     this.loadAnimations(plist, textureUrl);
     await TextureCache.fetch(textureUrl);
-    this.pickAnimation(this.state, this.velocity);
   }
 
   pickAnimation(state, velocity) {

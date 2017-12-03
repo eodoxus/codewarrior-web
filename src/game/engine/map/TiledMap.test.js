@@ -11,7 +11,7 @@ let map;
 beforeEach(() => {
   fetch.mockResponse(JSON.stringify(tmxConfig));
   map = new TiledMap("test");
-  map.loadAssets();
+  map.init();
 });
 afterEach(() => {
   map = undefined;
