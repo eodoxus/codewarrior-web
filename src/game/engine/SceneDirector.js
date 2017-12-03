@@ -81,6 +81,7 @@ export default class SceneDirector extends Component {
 
     if (!Graphics.isReady()) {
       Graphics.init(this.canvas);
+      Graphics.setDrawingSurface(this.canvas);
       Graphics.debug = DEBUG;
     }
 
@@ -96,7 +97,6 @@ export default class SceneDirector extends Component {
     this.scene.update(dt);
 
     Graphics.clear();
-    Graphics.setDrawingSurface(this.canvas);
     this.scene.render();
 
     if (this.state.debug) {
@@ -111,7 +111,6 @@ export default class SceneDirector extends Component {
       return <Indicators.Loader />;
     }
 
-    const debug = this.state.debug ? this.scene.renderDebug() : null;
     return (
       <div>
         {this.renderBorder()}
@@ -121,7 +120,6 @@ export default class SceneDirector extends Component {
           onClick={this.onClick}
         >
           <canvas ref={canvas => (this.canvas = canvas)} />
-          {debug}
         </div>
       </div>
     );

@@ -113,10 +113,6 @@ export default class Vector {
     this.y = Math.round(this.y);
     return this;
   }
-
-  render() {
-    return Math.round(this.x) + ", " + Math.round(this.y);
-  }
 }
 
 function _vectorOperation(v, op, arg) {

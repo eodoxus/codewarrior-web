@@ -8,7 +8,6 @@ import TiledMap from "./map/TiledMap";
 
 export default class Scene {
   clickedTile;
-  name;
   hero;
   map;
   size;
@@ -32,7 +31,7 @@ export default class Scene {
 
   getName() {
     // Override this
-    return this.name;
+    return "Base Scene";
   }
 
   getMap() {
@@ -91,7 +90,7 @@ export default class Scene {
           tile.getPosition()
         );
         entity.setProperties(tile.getProperties());
-        this.entities.push(entity);
+        this.addEntity(entity);
       });
     }
     const promises = [];
@@ -125,10 +124,6 @@ export default class Scene {
       }
     }
     this.entities.forEach(entity => entity.render());
-  }
-
-  renderDebug() {
-    return this.entities.map(entity => entity.renderDebug());
   }
 
   shouldShowBorder() {

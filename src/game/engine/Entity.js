@@ -1,4 +1,3 @@
-import React from "react";
 import Rect from "./Rect";
 import Tile from "./map/Tile";
 import Time from "./Time";
@@ -214,24 +213,6 @@ export default class Entity {
     }
 
     return false;
-  }
-
-  renderDebug() {
-    const size = this.sprite.getSize();
-    return (
-      <div
-        className="debug"
-        key={this.id}
-        style={{
-          top: this.position.y + size.height,
-          left: this.position.x + size.width
-        }}
-      >
-        position: {this.position.render()}
-        <br />
-        velocity: {this.velocity.render()}
-      </div>
-    );
   }
 
   render() {
