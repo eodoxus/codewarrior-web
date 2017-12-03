@@ -1,3 +1,4 @@
+import Audio from "./Audio";
 import entities from "../entities";
 import Event from "../../lib/Event";
 import Graphics from "./Graphics";
@@ -14,6 +15,7 @@ export default class Scene {
   entities;
 
   constructor(hero) {
+    Audio.stop();
     this.hero = hero;
     this.map = new TiledMap(this.getName());
     this.hero.setMap(this.map);
@@ -22,6 +24,10 @@ export default class Scene {
 
   addEntity(entity) {
     this.entities.push(entity);
+  }
+
+  getBackgroundMusic() {
+    // Override this
   }
 
   getName() {
@@ -90,6 +96,10 @@ export default class Scene {
     }
     const promises = [];
     this.getEntities().forEach(entity => promises.push(entity.loadAssets()));
+    const music = this.getBackgroundMusic();
+    if (music) {
+      Audio.play(music);
+    }
     await Promise.all(promises);
   }
 

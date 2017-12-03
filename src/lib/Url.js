@@ -11,5 +11,7 @@ export default class Url {
 
   static MAPS = Url.PUBLIC + "/maps/";
 
+  static SOUND = Url.PUBLIC + "/sound/";
+
   static SPRITES = Url.PUBLIC + "/sprites/";
 }
