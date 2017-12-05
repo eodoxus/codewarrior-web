@@ -66,11 +66,11 @@ export default class Scene {
       if (entity.getId() === nextEntity.getId()) {
         return;
       }
-      if (
-        (entity.getVelocity().magnitude() ||
-          nextEntity.getVelocity().magnitude()) &&
-        entity.intersects(nextEntity)
-      ) {
+      const isOneMoving =
+        entity.getVelocity().magnitude() ||
+        nextEntity.getVelocity().magnitude();
+      const shouldHandleCollision = isOneMoving || nextEntity.hasIntent();
+      if (shouldHandleCollision && entity.intersects(nextEntity)) {
         entity.handleCollision(nextEntity);
       }
     });
@@ -102,9 +102,12 @@ export default class Scene {
   }
 
   onClick(position) {
+    GameEvent.fire(GameEvent.DIALOG, "");
     this.clickedPosition = position;
     this.clickedTile = this.map.getTileAt(position);
-    this.hero.handleInput(GameEvent.click(this.clickedTile));
+    if (this.clickedTile) {
+      this.hero.handleInput(GameEvent.click(this.clickedTile));
+    }
   }
 
   render() {

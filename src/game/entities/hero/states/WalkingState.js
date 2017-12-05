@@ -24,9 +24,10 @@ export default class WalkingState extends State {
   static handleInput(hero, event) {
     if (event.getType() === GameEvent.CLICK) {
       const tile = event.getData();
-      if (tile && tile.isWalkable()) {
-        hero.walkTo(tile);
+      if (tile.hasNpc()) {
+        hero.setIntent(GameEvent.talk(tile.getEntity()));
       }
+      hero.walkTo(tile);
     }
     return WalkingState;
   }

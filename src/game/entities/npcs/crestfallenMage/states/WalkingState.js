@@ -2,6 +2,7 @@ import CrestfallenMage from "../CrestfallenMage";
 import GameEvent from "../../../../engine/GameEvent";
 import State from "../../../../engine/State";
 import StoppedState from "./StoppedState";
+import TalkingState from "./TalkingState";
 import Vector from "../../../../engine/Vector";
 
 const ANIMATIONS = {
@@ -21,9 +22,15 @@ export default class WalkingState extends State {
   }
 
   static handleInput(mage, event) {
-    return event.getType() === GameEvent.COLLISION
-      ? StoppedState.enter(mage)
-      : WalkingState;
+    if (event.getType() === GameEvent.COLLISION) {
+      const entity = event.getData();
+      if (entity.isHero() && entity.isIntent(GameEvent.TALK)) {
+        entity.fulfillIntent();
+        return TalkingState.enter(mage, entity);
+      }
+      return StoppedState.enter(mage);
+    }
+    return WalkingState;
   }
 
   static update(mage) {

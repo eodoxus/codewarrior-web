@@ -3,7 +3,9 @@ import Event from "../../lib/Event";
 export default class GameEvent extends Event {
   static CLICK = "click";
   static COLLISION = "collision";
+  static DIALOG = "dialog";
   static DOORWAY = "doorway";
+  static TALK = "talk";
   static TRANSITION = "transition";
   static STOP = "stop";
 
@@ -17,6 +19,10 @@ export default class GameEvent extends Event {
 
   static stop() {
     return new EventType(GameEvent.STOP);
+  }
+
+  static talk(entity) {
+    return new EventType(GameEvent.TALK, entity);
   }
 }
 

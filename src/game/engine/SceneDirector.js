@@ -1,6 +1,7 @@
 import * as _ from "lodash";
 import React, { Component } from "react";
 import styles from "./SceneDirector.scss";
+import DialogComponent from "./DialogComponent";
 import Entities from "../entities";
 import GameEvent from "./GameEvent";
 import Indicators from "../../components/indicators";
@@ -64,10 +65,14 @@ export default class SceneDirector extends Component {
 
   async componentDidMount() {
     await this.scene.init();
-    GameEvent.on(GameEvent.DOORWAY, this.onDoorwayTransition);
+    this.initEventListeners();
     this.setState({ isLoading: false });
     this.hero.spawn();
     this.updateScene();
+  }
+
+  initEventListeners() {
+    GameEvent.on(GameEvent.DOORWAY, this.onDoorwayTransition);
   }
 
   shouldComponentUpdate() {
@@ -120,6 +125,7 @@ export default class SceneDirector extends Component {
           onClick={this.onClick}
         >
           <canvas ref={canvas => (this.canvas = canvas)} />
+          <DialogComponent />
         </div>
       </div>
     );

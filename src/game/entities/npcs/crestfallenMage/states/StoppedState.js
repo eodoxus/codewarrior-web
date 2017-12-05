@@ -1,4 +1,6 @@
+import GameEvent from "../../../../engine/GameEvent";
 import State from "../../../../engine/State";
+import TalkingState from "./TalkingState";
 import Time from "../../../../engine/Time";
 import Vector from "../../../../engine/Vector";
 import WalkingState from "./WalkingState";
@@ -16,6 +18,14 @@ export default class StoppedState extends State {
   }
 
   static handleInput(mage, event) {
+    if (event.getType() === GameEvent.COLLISION) {
+      const entity = event.getData();
+      if (entity.isHero() && entity.isIntent(GameEvent.TALK)) {
+        entity.fulfillIntent();
+        return TalkingState.enter(mage, entity);
+      }
+      StoppedState.enter(mage);
+    }
     return StoppedState;
   }
 
@@ -24,6 +34,7 @@ export default class StoppedState extends State {
     if (this.stoppedTimer > this.restartTime) {
       return WalkingState.enter(mage);
     }
+    StoppedState.updateAnimation(mage);
     return StoppedState;
   }
 

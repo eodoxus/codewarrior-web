@@ -9,7 +9,7 @@ export default class Tile {
     TRANSITION: "transition"
   };
   static PROPERTIES = {
-    ENEMY: "enemy",
+    DIALOG: "dialog",
     ENTITY: "entity",
     FACING: "facing",
     NAME: "name",
@@ -42,6 +42,14 @@ export default class Tile {
 
   clear() {
     delete this.entity;
+  }
+
+  getEntity() {
+    return this.entity;
+  }
+
+  setEntity(entity) {
+    this.entity = entity;
   }
 
   getGid() {
@@ -97,6 +105,10 @@ export default class Tile {
     this.tilesetPosition = position;
   }
 
+  hasNpc() {
+    return this.entity && this.entity.isNpc();
+  }
+
   intersects(tile) {
     return tile.getRect ? this.intersectsTile(tile) : this.intersectsRect(tile);
   }
@@ -125,14 +137,10 @@ export default class Tile {
     if (this.properties.isCollidable) {
       return false;
     }
-    if (this.entity && (this.entity.isNpc() || this.entity.isEnemy())) {
+    if (this.hasNpc()) {
       return false;
     }
     return true;
-  }
-
-  setEntity(entity) {
-    this.entity = entity;
   }
 
   setProperties(properties) {

@@ -3,6 +3,7 @@ import Size from "../../engine/Size";
 import StoppedState from "./states/StoppedState";
 import WalkingEntity from "../../engine/WalkingEntity";
 import WalkingState from "./states/WalkingState";
+import GameEvent from "../../engine/GameEvent";
 
 export default class Hero extends WalkingEntity {
   static FPS = 20;
@@ -17,7 +18,11 @@ export default class Hero extends WalkingEntity {
 
   handleCollision(entity) {
     if (entity.isNpc()) {
-      this.reroute();
+      if (this.isIntent(GameEvent.TALK)) {
+        this.state = StoppedState.enter(this);
+      } else {
+        this.reroute();
+      }
     }
   }
 
@@ -26,7 +31,10 @@ export default class Hero extends WalkingEntity {
   }
 
   spawn(position, direction) {
-    this.setPosition(position || this.map.getHeroSpawnPoint());
+    const spawnPosition = position || this.map.getHeroSpawnPoint();
+    if (spawnPosition) {
+      this.setPosition(spawnPosition);
+    }
     if (direction) {
       this.updateDirection(direction);
     }

@@ -8,6 +8,8 @@ import SceneDirector from "./SceneDirector";
 import TextureCache from "./TextureCache";
 import Vector from "./Vector";
 
+import dialog from "../../../public/dialog.json";
+
 jest.mock("./Graphics");
 jest.useFakeTimers();
 
@@ -16,6 +18,7 @@ Scene.prototype.render = () => true;
 Scene.prototype.update = () => true;
 
 function getController() {
+  fetch.mockResponse(JSON.stringify(dialog));
   const div = document.createElement("div");
   return ReactDOM.render(<SceneDirector scene="home" />, div);
 }

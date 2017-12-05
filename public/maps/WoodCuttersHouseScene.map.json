@@ -58,6 +58,7 @@
                  "name":"spawn_npc",
                  "properties":
                     {
+                     "dialog":"WoodCuttersHouse.CrestfallenMage",
                      "entity":"CrestfallenMage",
                      "npc":"true"
                     },
@@ -65,7 +66,7 @@
                  "type":"entity",
                  "visible":true,
                  "width":0,
-                 "x":109.666666666667,
+                 "x":109.667,
                  "y":81
                 }],
          "opacity":1,
