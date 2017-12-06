@@ -1,9 +1,9 @@
-import Entity from "./Entity";
+import Actor from "./Actor";
 import PathFinder from "./map/PathFinder";
 import Rect from "./Rect";
 import Vector from "./Vector";
 
-export default class WalkingEntity extends Entity {
+export default class PathfindingActor extends Actor {
   currentMove;
   pathFinder;
 

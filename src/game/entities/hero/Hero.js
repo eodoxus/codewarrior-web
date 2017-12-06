@@ -1,11 +1,11 @@
 import AnimatedSprite from "../../engine/AnimatedSprite";
+import GameEvent from "../../engine/GameEvent";
+import PathfindingActor from "../../engine/PathfindingActor";
 import Size from "../../engine/Size";
 import StoppedState from "./states/StoppedState";
-import WalkingEntity from "../../engine/WalkingEntity";
 import WalkingState from "./states/WalkingState";
-import GameEvent from "../../engine/GameEvent";
 
-export default class Hero extends WalkingEntity {
+export default class Hero extends PathfindingActor {
   static FPS = 20;
   static ID = "hero";
 

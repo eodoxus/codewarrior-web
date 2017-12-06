@@ -1,15 +1,10 @@
-import Dialog from "./Dialog";
 import Rect from "./Rect";
 import Tile from "./map/Tile";
 import Time from "./Time";
 import Vector from "./Vector";
 
 export default class Entity {
-  static DEFAULT_MOVEMENT_VELOCITY = 50;
-
-  dialog;
   id;
-  intent;
   map;
   position;
   properties;
@@ -28,36 +23,8 @@ export default class Entity {
     this.zIndex = 0;
   }
 
-  getDialog() {
-    return this.dialog;
-  }
-
-  setDialog(dialog) {
-    this.dialog = dialog;
-  }
-
   getId() {
     return this.id;
-  }
-
-  fulfillIntent() {
-    delete this.intent;
-  }
-
-  getIntent() {
-    return this.intent;
-  }
-
-  hasIntent() {
-    return !!this.intent;
-  }
-
-  isIntent(type) {
-    return this.intent && this.intent.getType(type);
-  }
-
-  setIntent(intent) {
-    this.intent = intent;
   }
 
   getMap() {
@@ -108,11 +75,8 @@ export default class Entity {
     return this.properties;
   }
 
-  setProperties(p) {
-    this.properties = p;
-    if (this.properties[Tile.PROPERTIES.DIALOG]) {
-      this.dialog = new Dialog(this.properties[Tile.PROPERTIES.DIALOG]);
-    }
+  setProperties(properties) {
+    this.properties = properties;
   }
 
   getRect() {
@@ -171,9 +135,6 @@ export default class Entity {
     if (!this.getRect().intersects(entity.getRect())) {
       return false;
     }
-    if (this.isNpc() || entity.isNpc()) {
-      return true;
-    }
     return this.outlinesIntersect(entity.getOutline());
   }
 
@@ -182,10 +143,6 @@ export default class Entity {
       return false;
     }
     return this.getSprite().intersects(point, this.getPosition());
-  }
-
-  isEnemy() {
-    return this.properties[Tile.PROPERTIES.ENEMY];
   }
 
   isHero(entity) {

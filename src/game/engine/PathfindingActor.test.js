@@ -2,16 +2,16 @@ import Size from "./Size";
 import Sprite from "./Sprite";
 import Tile from "./map/Tile";
 import Vector from "./Vector";
-import WalkingEntity from "./WalkingEntity";
+import PathfindingActor from "./PathfindingActor";
 
 let entity;
 const entityId = "entity-id";
 const spriteId = "sprite-id";
 
-describe("WalkingEntity", () => {
+describe("PathfindingActor", () => {
   describe("moveTo", () => {
     beforeEach(() => {
-      entity = new WalkingEntity(entityId, new Vector(10, 10));
+      entity = new PathfindingActor(entityId, new Vector(10, 10));
       entity.setSprite(new Sprite(spriteId, new Size(10, 20)));
       entity.setVelocity(new Vector(50, 50));
     });
@@ -47,7 +47,7 @@ describe("WalkingEntity", () => {
 
   describe("update", () => {
     beforeEach(() => {
-      entity = new WalkingEntity(entityId, new Vector(10, 10));
+      entity = new PathfindingActor(entityId, new Vector(10, 10));
       entity.setSprite(new Sprite(spriteId, new Size(10, 20)));
       entity.setVelocity(new Vector(50, 50));
       jest.spyOn(entity.getVelocity(), "magnitude");
@@ -111,7 +111,7 @@ describe("WalkingEntity", () => {
         getTileAt: jest.fn()
       };
       mockMap.getTileAt.mockReturnValue(new Tile(new Vector(), new Size(1, 1)));
-      entity = new WalkingEntity(entityId, new Vector(10, 10));
+      entity = new PathfindingActor(entityId, new Vector(10, 10));
       entity.setSprite(new Sprite(spriteId, new Size(10, 20)));
       entity.setMap(mockMap);
       entity.pathFinder.findPath = jest.fn();
@@ -134,7 +134,7 @@ describe("WalkingEntity", () => {
 
   describe("walkToNextStep", () => {
     beforeEach(() => {
-      entity = new WalkingEntity(entityId, new Vector(10, 10));
+      entity = new PathfindingActor(entityId, new Vector(10, 10));
       entity.setMap({});
     });
 

@@ -1,11 +1,11 @@
 import AnimatedSprite from "../../../engine/AnimatedSprite";
-import Entity from "../../../engine/Entity";
+import Actor from "../../../engine/Actor";
 import GameEvent from "../../../engine/GameEvent";
 import Size from "../../../engine/Size";
 import Vector from "../../../engine/Vector";
 import WalkingState from "./states/WalkingState";
 
-export default class CrestfallenMage extends Entity {
+export default class CrestfallenMage extends Actor {
   static FPS = 10;
   static ID = "crestfallenMage";
 
