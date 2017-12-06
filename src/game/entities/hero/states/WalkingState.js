@@ -1,5 +1,6 @@
 import GameEvent from "../../../engine/GameEvent";
 import State from "../../../engine/State";
+import StateHelper from "./StateHelper";
 import StoppedState from "./StoppedState";
 import Vector from "../../../engine/Vector";
 
@@ -16,53 +17,51 @@ const ANIMATIONS = {
 const VELOCITY = 70;
 
 export default class WalkingState extends State {
-  static enter(hero) {
-    WalkingState.updateAnimation(hero);
-    return WalkingState;
+  enter(hero) {
+    return this.updateAnimation(hero);
   }
 
-  static handleInput(hero, event) {
+  handleInput(hero, event) {
     if (event.getType() === GameEvent.CLICK) {
-      const tile = event.getData();
-      if (tile.hasNpc()) {
-        hero.setIntent(GameEvent.talk(tile.getEntity()));
-      }
-      hero.walkTo(tile);
+      StateHelper.beginWalking(hero, event.getData());
     }
-    return WalkingState;
+    if (event.getType() === GameEvent.COLLISION) {
+      return this.handleCollision(hero, event.getData());
+    }
+    return this;
   }
 
-  static update(hero) {
+  handleCollision(hero, entity) {
+    if (entity.isNpc()) {
+      if (hero.isIntent(GameEvent.TALK)) {
+        return new StoppedState(hero);
+      } else {
+        hero.reroute();
+      }
+    }
+    return this;
+  }
+
+  update(hero) {
     const didMoveEnd = !hero.getCurrentMove();
     if (didMoveEnd) {
       hero.setVelocity(new Vector(VELOCITY, VELOCITY));
       const hasMoreSteps = hero.walkToNextStep();
       if (!hasMoreSteps) {
-        return StoppedState.enter(hero);
+        return new StoppedState(hero);
       }
-    } else {
-      WalkingState.updateAnimation(hero);
+      return this;
     }
-    return WalkingState;
+    return this.updateAnimation(hero);
   }
 
-  static exit(hero) {
-    return WalkingState;
+  updateAnimation(hero) {
+    const animationName = this.getAnimationNameFromVelocity(hero.getVelocity());
+    hero.getSprite().changeAnimationTo(animationName);
+    return this;
   }
 
-  static updateAnimation(hero) {
-    const animationName = WalkingState.getAnimationNameFromVelocity(
-      hero.getVelocity()
-    );
-    const sprite = hero.getSprite();
-    const curAnimation = sprite.getAnimation();
-    if (curAnimation && curAnimation.getName() !== animationName) {
-      curAnimation.stop().reset();
-    }
-    sprite.setAnimation(animationName).start();
-  }
-
-  static getAnimationNameFromVelocity(velocity) {
+  getAnimationNameFromVelocity(velocity) {
     if (velocity.y > 0) {
       if (velocity.x > 0) {
         return ANIMATIONS.DOWN_RIGHT;

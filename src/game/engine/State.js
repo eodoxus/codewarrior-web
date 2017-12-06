@@ -1,21 +1,25 @@
 export default class State {
-  static enter() {
-    // Override this
-    return State;
+  constructor() {
+    this.enter(...arguments);
   }
 
-  static handleInput(subject, input) {
+  enter() {
     // Override this
-    return State;
+    return this;
   }
 
-  static update(subject, dt) {
+  handleInput(subject, input) {
     // Override this
-    return State;
+    return this;
   }
 
-  static exit() {
+  update(subject, dt) {
     // Override this
-    return State;
+    return this;
+  }
+
+  exit() {
+    // Override this
+    return this;
   }
 }

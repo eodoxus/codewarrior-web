@@ -1,34 +1,30 @@
 import GameEvent from "../../../engine/GameEvent";
 import State from "../../../engine/State";
+import StateHelper from "./StateHelper";
 import Vector from "../../../engine/Vector";
 import WalkingState from "./WalkingState";
 
 const STOPPED_ANIMATION = "walking_down";
 
 export default class StoppedState extends State {
-  static enter(hero) {
+  enter(hero) {
     hero.setVelocity(new Vector());
-    return StoppedState;
+    return this;
   }
 
-  static handleInput(hero, event) {
+  handleInput(hero, event) {
     if (event.getType() === GameEvent.CLICK) {
-      const tile = event.getData();
-      if (tile.hasNpc()) {
-        hero.setIntent(GameEvent.talk(tile.getEntity()));
-      }
-      hero.walkTo(tile);
-      return WalkingState.enter(hero);
+      StateHelper.beginWalking(hero, event.getData());
+      return new WalkingState(hero);
     }
-    return StoppedState;
+    return this;
   }
 
-  static update(update) {
-    StoppedState.updateAnimation(update);
-    return StoppedState;
+  update(update) {
+    return this.updateAnimation(update);
   }
 
-  static updateAnimation(hero) {
+  updateAnimation(hero) {
     const sprite = hero.getSprite();
     const animation = sprite.getAnimation();
     if (animation) {
@@ -36,9 +32,6 @@ export default class StoppedState extends State {
     } else {
       sprite.setAnimation(STOPPED_ANIMATION);
     }
-  }
-
-  static exit(hero) {
-    return StoppedState;
+    return this;
   }
 }

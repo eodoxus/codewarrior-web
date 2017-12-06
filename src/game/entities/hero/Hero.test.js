@@ -30,7 +30,7 @@ beforeEach(async () => {
 describe("Hero", () => {
   describe("construction", () => {
     it("should initialize sprite, state, velocity and animation", () => {
-      expect(hero.getState()).toBe(StoppedState);
+      expect(hero.getState()).toEqual(new StoppedState(hero));
       expect(hero.getVelocity()).toEqual(new Vector());
     });
   });
@@ -60,7 +60,7 @@ describe("Hero", () => {
 
     it("should update animation if velocity is > 0 and hero is moving", () => {
       hero.setVelocity(new Vector(1, 1));
-      hero.setState(WalkingState.enter(hero));
+      hero.setState(new WalkingState(hero));
       const sprite = hero.getSprite();
       const animation = sprite.getAnimation();
       animation.update = jest.fn();
@@ -85,9 +85,10 @@ describe("Hero", () => {
       scene.addEntity(npc);
       scene.setMap(map);
       hero.setPosition(new Vector(50, 66));
-      hero.setState(WalkingState.enter(hero));
+      const state = new WalkingState(hero);
+      hero.setState(state);
       hero.walkTo(Rect.point(new Vector(112, 72)));
-      while (hero.state === WalkingState) {
+      while (hero.state === state) {
         scene.update(20);
       }
       expect(heroCollisionSpy).toHaveBeenCalled();

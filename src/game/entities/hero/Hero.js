@@ -12,18 +12,12 @@ export default class Hero extends PathfindingActor {
   constructor() {
     super(Hero.ID);
     this.sprite = new AnimatedSprite(Hero.ID, new Size(24, 32), Hero.FPS);
-    this.state = StoppedState.enter(this);
+    this.state = new StoppedState(this);
     this.zIndex = 1;
   }
 
   handleCollision(entity) {
-    if (entity.isNpc()) {
-      if (this.isIntent(GameEvent.TALK)) {
-        this.state = StoppedState.enter(this);
-      } else {
-        this.reroute();
-      }
-    }
+    this.state = this.state.handleInput(this, GameEvent.collision(entity));
   }
 
   setPosition(position) {
@@ -42,7 +36,7 @@ export default class Hero extends PathfindingActor {
 
   stop() {
     super.stop();
-    this.state = StoppedState.enter(this);
+    this.state = new StoppedState(this);
   }
 
   update(dt) {
@@ -53,6 +47,6 @@ export default class Hero extends PathfindingActor {
 
   updateDirection(direction) {
     this.setVelocity(direction);
-    this.state = WalkingState.enter(this);
+    this.state = new WalkingState(this);
   }
 }

@@ -14,6 +14,13 @@ export default class AnimatedSprite extends Sprite {
     this.fps = fps;
   }
 
+  changeAnimationTo(name) {
+    if (this.curAnimation && this.curAnimation.getName() !== name) {
+      this.curAnimation.stop().reset();
+    }
+    this.setAnimation(name).start();
+  }
+
   getAnimation() {
     return this.curAnimation;
   }
@@ -53,19 +60,5 @@ export default class AnimatedSprite extends Sprite {
     const textureUrl = Url.ANIMATIONS + plist.meta.image;
     this.loadAnimations(plist, textureUrl);
     await TextureCache.fetch(textureUrl);
-  }
-
-  pickAnimation(state, velocity) {
-    const nextAnimation = this.getStateAnimationName(state, velocity);
-    if (!this.getAnimation()) {
-      this.setAnimation(nextAnimation);
-    }
-
-    if (this.getAnimation().getName() !== nextAnimation) {
-      this.getAnimation()
-        .stop()
-        .reset();
-      this.setAnimation(nextAnimation).start();
-    }
   }
 }

@@ -19,7 +19,7 @@ export default class CrestfallenMage extends Actor {
       new Size(20, 24),
       CrestfallenMage.FPS
     );
-    this.state = WalkingState.enter(this);
+    this.state = new WalkingState(this);
   }
 
   getOriginalPosition() {
