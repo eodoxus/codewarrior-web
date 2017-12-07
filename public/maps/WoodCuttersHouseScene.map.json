@@ -2,7 +2,7 @@
  "layers":[
         {
          "compression":"zlib",
-         "data":"eJztz8lOQjEUxvHijStF1I3KRhnkHXDCDcNGQeAdcEA2Dm+iBuVtwAR4GybRnf8ml6S3m2sviWLSJr+cNm3PlyPE4q0VrCKMNaVGsO5z1u+kDWwa5KdxgEMcKfUYJz5n\/U7K4NQgv4ZLXOFaqTeo+5z1O+kWDYP8JzzjRfZZpge+lszM\/r3S4w2tgPlN2SNA\/uxfkPw2OngX5rm6Lj166Aecf958O7+d385v57fz\/5\/5\/zp\/gCFGGLsm2n7LEWIbO4g63jdq\/cAUnwb5uyEh9hBD3JXQ9lkyc8ij4HjfqDWJfaRCP88\/4+05iii5LrT9HZn3eMCj432j1jIqqBrk\/+b6Bh\/8ZbE=",
+         "data":"eJztz09OAjEUx\/HCbEgERDcKG0HFG7BQFNz4Z4MicgcBgQ3KTcBEvI2QqLdBQWHHd+KQdLoZKolA0iafvDZ97S9PiOVbawgihLBU1xHxOKt3tg1sauQf4ghpHEv1BBmPs3pny+JUI\/8OJZRRkeo9qh5n9c5WQ10jv4U2npAK\/Br79UzfPfNHBy8rlP+KLnpCP1f1xh\/v+Pjj\/PPmm\/nN\/GZ+M7+Zf3XmX3R+H5\/4wsAxVPZblhDbiCJmuXvk+o0fjDTyd3xCxJHArmNP2Z+ReY4LXFruHrnuI4kD3+z5OXqvcI2840bZN8h8wCOalrtHrgXcoqiR\/59rAin6Y10=",
          "encoding":"base64",
          "height":24,
          "name":"map",
@@ -68,6 +68,36 @@
                  "width":0,
                  "x":109.667,
                  "y":81
+                }, 
+                {
+                 "height":0,
+                 "id":5,
+                 "name":"firePit_01",
+                 "properties":
+                    {
+                     "entity":"UnderworldFirepit"
+                    },
+                 "rotation":0,
+                 "type":"entity",
+                 "visible":true,
+                 "width":0,
+                 "x":64,
+                 "y":31.969696969697
+                }, 
+                {
+                 "height":0,
+                 "id":7,
+                 "name":"firePit_02",
+                 "properties":
+                    {
+                     "entity":"UnderworldFirepit"
+                    },
+                 "rotation":0,
+                 "type":"entity",
+                 "visible":true,
+                 "width":0,
+                 "x":176.121212121212,
+                 "y":32
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -84,12 +114,12 @@
          "name":"collidable",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":32,
          "x":0,
          "y":0
         }],
- "nextobjectid":5,
+ "nextobjectid":8,
  "orientation":"orthogonal",
  "properties":
     {

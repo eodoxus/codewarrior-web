@@ -8,6 +8,7 @@
   width: 668px;
   height: 500px;
   z-index: 2;
+  cursor: pointer;
 }
 
 .scene {
@@ -16,6 +17,7 @@
   flex-direction: column;
   width: 640px;
   height: 480px;
+  cursor: pointer;
 
   .background {
     @include fill-container;

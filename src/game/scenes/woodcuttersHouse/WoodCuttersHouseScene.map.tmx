@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="5">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="8">
  <tileset firstgid="1" name="underworld" tilewidth="8" tileheight="8" tilecount="2116">
   <image source="../../../../public/maps/underworld.png" width="368" height="368"/>
  </tileset>
  <layer name="map" width="32" height="24">
   <data encoding="base64" compression="zlib">
-   eJztz8lOQjEUxvHijStF1I3KRhnkHXDCDcNGQeAdcEA2Dm+iBuVtwAR4GybRnf8ml6S3m2sviWLSJr+cNm3PlyPE4q0VrCKMNaVGsO5z1u+kDWwa5KdxgEMcKfUYJz5n/U7K4NQgv4ZLXOFaqTeo+5z1O+kWDYP8JzzjRfZZpge+lszM/r3S4w2tgPlN2SNA/uxfkPw2OngX5rm6Lj166Aecf958O7+d385v57fz/5/5/zp/gCFGGLsm2n7LEWIbO4g63jdq/cAUnwb5uyEh9hBD3JXQ9lkyc8ij4HjfqDWJfaRCP88/4+05iii5LrT9HZn3eMCj432j1jIqqBrk/+b6Bh/8ZbE=
+   eJztz09OAjEUx/HCbEgERDcKG0HFG7BQFNz4Z4MicgcBgQ3KTcBEvI2QqLdBQWHHd+KQdLoZKolA0iafvDZ97S9PiOVbawgihLBU1xHxOKt3tg1sauQf4ghpHEv1BBmPs3pny+JUI/8OJZRRkeo9qh5n9c5WQ10jv4U2npAK/Br79UzfPfNHBy8rlP+KLnpCP1f1xh/v+Pjj/PPmm/nN/GZ+M7+Zf3XmX3R+H5/4wsAxVPZblhDbiCJmuXvk+o0fjDTyd3xCxJHArmNP2Z+ReY4LXFruHrnuI4kD3+z5OXqvcI2840bZN8h8wCOalrtHrgXcoqiR/59rAin6Y10=
   </data>
  </layer>
  <objectgroup name="objects">
@@ -26,8 +26,18 @@
     <property name="npc" value="true"/>
    </properties>
   </object>
+  <object id="5" name="firePit_01" type="entity" x="64" y="31.9697">
+   <properties>
+    <property name="entity" value="UnderworldFirepit"/>
+   </properties>
+  </object>
+  <object id="7" name="firePit_02" type="entity" x="176.121" y="32">
+   <properties>
+    <property name="entity" value="UnderworldFirepit"/>
+   </properties>
+  </object>
  </objectgroup>
- <layer name="collidable" width="32" height="24">
+ <layer name="collidable" width="32" height="24" visible="0">
   <data encoding="base64" compression="zlib">
    eJxjYBh8wJGDNnjUfvLtJxUMF/spBaP2j9o/av+o/aP2j9o/FO0nti1B6/bHSLKfngAAGag/4Q==
   </data>

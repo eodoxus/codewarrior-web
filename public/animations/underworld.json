@@ -1,0 +1,17 @@
+{
+  "frames": {
+    "firePit/01.png": {
+      "frame": { "x": 16, "y": 240, "w": 16, "h": 16 }
+    },
+    "firePit/02.png": {
+      "frame": { "x": 32, "y": 240, "w": 16, "h": 16 }
+    },
+    "firePit/03.png": {
+      "frame": { "x": 48, "y": 240, "w": 16, "h": 16 }
+    }
+  },
+  "meta": {
+    "image": "../maps/underworld.png",
+    "size": { "w": 368, "h": 368 }
+  }
+}
