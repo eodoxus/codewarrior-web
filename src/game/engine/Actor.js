@@ -15,7 +15,7 @@ export default class Actor extends Entity {
   }
 
   fulfillIntent() {
-    delete this.intent;
+    setTimeout(() => delete this.intent);
   }
 
   getIntent() {

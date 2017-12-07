@@ -1,8 +1,6 @@
-import GameEvent from "../../../engine/GameEvent";
 import State from "../../../engine/State";
 import StateHelper from "./StateHelper";
 import Vector from "../../../engine/Vector";
-import WalkingState from "./WalkingState";
 
 const STOPPED_ANIMATION = "walking_down";
 
@@ -12,12 +10,8 @@ export default class StoppedState extends State {
     return this;
   }
 
-  handleInput(hero, event) {
-    if (event.getType() === GameEvent.CLICK) {
-      StateHelper.beginWalking(hero, event.getData());
-      return new WalkingState(hero);
-    }
-    return this;
+  handleEvent(hero, event) {
+    return StateHelper.handleEvent(this, hero, event);
   }
 
   update(update) {

@@ -1,7 +1,6 @@
 import CrestfallenMage from "../CrestfallenMage";
 import GameEvent from "../../../../engine/GameEvent";
 import State from "../../../../engine/State";
-import StateHelper from "./StateHelper";
 import StoppedState from "./StoppedState";
 import TalkingState from "./TalkingState";
 import Vector from "../../../../engine/Vector";
@@ -22,10 +21,10 @@ export default class WalkingState extends State {
     return this;
   }
 
-  handleInput(mage, event) {
+  handleEvent(mage, event) {
     if (event.getType() === GameEvent.COLLISION) {
       const entity = event.getData();
-      if (StateHelper.wasIntentFulfilled(entity)) {
+      if (entity.isIntent(GameEvent.TALK)) {
         return new TalkingState(mage, entity);
       }
       return new StoppedState(mage);

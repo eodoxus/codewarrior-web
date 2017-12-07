@@ -69,9 +69,10 @@ export default class Scene {
       const isOneMoving =
         entity.getVelocity().magnitude() ||
         nextEntity.getVelocity().magnitude();
-      const shouldHandleCollision = isOneMoving || nextEntity.hasIntent();
+      const doesOneHaveIntent = entity.hasIntent() || nextEntity.hasIntent();
+      const shouldHandleCollision = isOneMoving || doesOneHaveIntent;
       if (shouldHandleCollision && entity.intersects(nextEntity)) {
-        entity.handleCollision(nextEntity);
+        entity.handleEvent(GameEvent.collision(nextEntity));
       }
     });
   }
@@ -106,7 +107,7 @@ export default class Scene {
     this.clickedPosition = position;
     this.clickedTile = this.map.getTileAt(position);
     if (this.clickedTile) {
-      this.hero.handleInput(GameEvent.click(this.clickedTile));
+      this.hero.handleEvent(GameEvent.click(this.clickedTile));
     }
   }
 

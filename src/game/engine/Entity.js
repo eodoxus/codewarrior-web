@@ -23,6 +23,54 @@ export default class Entity {
     this.zIndex = 0;
   }
 
+  getFaceTowardDirection(entity) {
+    const pos = this.getPosition();
+    const size = this.getSprite().getSize();
+    const entityOrigin = entity.getOrigin();
+
+    // Is entity directly left or right?
+    if (entityOrigin.y >= pos.y && entityOrigin.y <= pos.y + size.height) {
+      // Is entity to the left?
+      if (entityOrigin.x < pos.x) {
+        // Face left
+        return new Vector(-1, 0);
+      }
+      // Face right
+      return new Vector(1, 0);
+    }
+
+    // Is entity directly above or below?
+    if (entityOrigin.x >= pos.x && entityOrigin.x <= pos.x + size.width) {
+      // Is entity above?
+      if (entityOrigin.y < pos.y) {
+        // Face up
+        return new Vector(0, -1);
+      }
+      // Face down
+      return new Vector(0, 1);
+    }
+
+    // Is entity above ?
+    if (entityOrigin.y < pos.y) {
+      // Is entity to the left?
+      if (entityOrigin.x < pos.x) {
+        // Face up/left
+        return new Vector(-1, -1);
+      }
+      // Face up/right
+      return new Vector(1, -1);
+    }
+
+    // Entity must be below
+    // Is entity to the left?
+    if (entityOrigin.x < pos.x) {
+      // Face down/left
+      return new Vector(-1, 1);
+    }
+    // Face down/right
+    return new Vector(1, 1);
+  }
+
   getId() {
     return this.id;
   }
@@ -113,12 +161,16 @@ export default class Entity {
     return this.zIndex;
   }
 
-  handleCollision(entity) {
-    this.stop();
+  handleEvent(event) {
+    this.state = this.state.handleEvent(this, event);
   }
 
-  handleInput(event) {
-    this.state = this.state.handleInput(this, event);
+  hasIntent() {
+    return false;
+  }
+
+  isIntent(type) {
+    return false;
   }
 
   async init() {

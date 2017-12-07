@@ -12,17 +12,17 @@ export default class TalkingState extends State {
 
   enter(mage, entity) {
     this.entity = entity;
-    new StoppedState(mage);
+    StateHelper.faceEntity(mage, entity);
     this.startTimer = 0;
     GameEvent.fire(GameEvent.DIALOG, mage.getDialog().getText());
     mage.getDialog().next();
     return this;
   }
 
-  handleInput(mage, event) {
+  handleEvent(mage, event) {
     if (event.getType() === GameEvent.COLLISION) {
       const entity = event.getData();
-      if (StateHelper.wasIntentFulfilled(entity)) {
+      if (entity.isIntent(GameEvent.TALK)) {
         return this.enter(mage, entity);
       }
     }

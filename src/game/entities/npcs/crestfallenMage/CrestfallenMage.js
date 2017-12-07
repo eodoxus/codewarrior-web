@@ -1,6 +1,5 @@
 import AnimatedSprite from "../../../engine/AnimatedSprite";
 import Actor from "../../../engine/Actor";
-import GameEvent from "../../../engine/GameEvent";
 import Size from "../../../engine/Size";
 import Vector from "../../../engine/Vector";
 import WalkingState from "./states/WalkingState";
@@ -24,10 +23,6 @@ export default class CrestfallenMage extends Actor {
 
   getOriginalPosition() {
     return this.originalPosition;
-  }
-
-  handleCollision(entity) {
-    this.state = this.state.handleInput(this, GameEvent.collision(entity));
   }
 
   update(dt) {

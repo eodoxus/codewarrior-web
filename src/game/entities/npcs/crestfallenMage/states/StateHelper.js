@@ -1,11 +1,11 @@
-import GameEvent from "../../../../engine/GameEvent";
+import WalkingState from "./WalkingState";
+import StoppedState from "./StoppedState";
 
 export default class StateHelper {
-  static wasIntentFulfilled(entity) {
-    if (entity.isHero() && entity.isIntent(GameEvent.TALK)) {
-      entity.fulfillIntent();
-      return true;
-    }
-    return false;
+  static faceEntity(mage, entity) {
+    const walkingState = new WalkingState(mage);
+    mage.setVelocity(mage.getFaceTowardDirection(entity));
+    walkingState.updateAnimation(mage);
+    new StoppedState(mage);
   }
 }

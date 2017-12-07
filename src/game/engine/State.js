@@ -8,7 +8,7 @@ export default class State {
     return this;
   }
 
-  handleInput(subject, input) {
+  handleEvent(subject, input) {
     // Override this
     return this;
   }

@@ -1,4 +1,3 @@
-import GameEvent from "../../../engine/GameEvent";
 import State from "../../../engine/State";
 import StateHelper from "./StateHelper";
 import StoppedState from "./StoppedState";
@@ -21,25 +20,8 @@ export default class WalkingState extends State {
     return this.updateAnimation(hero);
   }
 
-  handleInput(hero, event) {
-    if (event.getType() === GameEvent.CLICK) {
-      StateHelper.beginWalking(hero, event.getData());
-    }
-    if (event.getType() === GameEvent.COLLISION) {
-      return this.handleCollision(hero, event.getData());
-    }
-    return this;
-  }
-
-  handleCollision(hero, entity) {
-    if (entity.isNpc()) {
-      if (hero.isIntent(GameEvent.TALK)) {
-        return new StoppedState(hero);
-      } else {
-        hero.reroute();
-      }
-    }
-    return this;
+  handleEvent(hero, event) {
+    return StateHelper.handleEvent(this, hero, event);
   }
 
   update(hero) {

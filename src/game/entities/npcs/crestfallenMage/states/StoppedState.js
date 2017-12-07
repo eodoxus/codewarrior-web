@@ -1,7 +1,6 @@
 import GameEvent from "../../../../engine/GameEvent";
 import State from "../../../../engine/State";
 import TalkingState from "./TalkingState";
-import StateHelper from "./StateHelper";
 import Time from "../../../../engine/Time";
 import Vector from "../../../../engine/Vector";
 import WalkingState from "./WalkingState";
@@ -17,10 +16,10 @@ export default class StoppedState extends State {
     return this.updateAnimation(mage);
   }
 
-  handleInput(mage, event) {
+  handleEvent(mage, event) {
     if (event.getType() === GameEvent.COLLISION) {
       const entity = event.getData();
-      if (StateHelper.wasIntentFulfilled(entity)) {
+      if (entity.isIntent(GameEvent.TALK)) {
         return new TalkingState(mage, entity);
       }
     }

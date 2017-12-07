@@ -77,9 +77,7 @@ describe("Hero", () => {
       npc.getSprite().loadAnimations(npcPlist);
       npc.setProperties({ npc: true });
 
-      const heroCollisionSpy = jest.spyOn(hero, "handleCollision");
       const heroRerouteSpy = jest.spyOn(hero, "reroute");
-      const npcCollisionSpy = jest.spyOn(npc, "handleCollision");
 
       const scene = new Scene(hero);
       scene.addEntity(npc);
@@ -91,8 +89,6 @@ describe("Hero", () => {
       while (hero.state === state) {
         scene.update(20);
       }
-      expect(heroCollisionSpy).toHaveBeenCalled();
-      expect(npcCollisionSpy).toHaveBeenCalled();
       expect(heroRerouteSpy).toHaveBeenCalled();
     });
   });

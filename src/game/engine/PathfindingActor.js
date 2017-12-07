@@ -92,7 +92,7 @@ export default class PathfindingActor extends Actor {
   walkTo(tile) {
     const curTile = this.map.getTileAt(this.getOrigin());
     this.pathFinder.findPath(curTile.getPosition(), tile.getPosition());
-    this.walkToNextStep();
+    return this.walkToNextStep();
   }
 
   walkToNextStep() {
