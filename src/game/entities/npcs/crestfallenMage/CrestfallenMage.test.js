@@ -1,6 +1,7 @@
 import CrestfallenMage from "./CrestfallenMage";
 
 import plist from "../../../../../public/animations/npcs.json";
+import Vector from "../../../engine/Vector";
 let mage;
 
 function makePositive(velocity) {
@@ -12,8 +13,9 @@ function makePositive(velocity) {
 
 beforeEach(async () => {
   fetch.mockResponse(JSON.stringify(plist));
-  mage = new CrestfallenMage();
+  mage = new CrestfallenMage("test", new Vector(0, 0));
   mage.getSprite().loadAnimations(plist);
+  mage.getBehavior().start();
 });
 
 describe("CrestfallenMage", () => {
@@ -38,12 +40,12 @@ describe("CrestfallenMage", () => {
       // Walk left 10 more px
       mage.update(1000);
       expect(mage.getPosition().x).toBe(20);
-      // Walk left more constrained to -40px;
+      // Walk left more constrained to 0px;
       mage.update(10000);
-      expect(mage.getPosition().x).toBe(-40);
+      expect(mage.getPosition().x).toBe(0);
       // Turn around and walk right 10px
       mage.update(1000);
-      expect(mage.getPosition().x).toBe(-30);
+      expect(mage.getPosition().x).toBe(10);
     });
   });
 });

@@ -26,12 +26,12 @@
     <property name="npc" value="true"/>
    </properties>
   </object>
-  <object id="5" name="firePit_01" type="entity" x="64" y="31.9697">
+  <object id="5" name="firePit_01" type="entity" x="64" y="32">
    <properties>
     <property name="entity" value="UnderworldFirepit"/>
    </properties>
   </object>
-  <object id="7" name="firePit_02" type="entity" x="176.121" y="32">
+  <object id="7" name="firePit_02" type="entity" x="176" y="32">
    <properties>
     <property name="entity" value="UnderworldFirepit"/>
    </properties>

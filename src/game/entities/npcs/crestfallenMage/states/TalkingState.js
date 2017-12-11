@@ -1,6 +1,5 @@
 import GameEvent from "../../../../engine/GameEvent";
 import State from "../../../../engine/State";
-import StateHelper from "./StateHelper";
 import StoppedState from "./StoppedState";
 import Time from "../../../../engine/Time";
 
@@ -11,18 +10,19 @@ export default class TalkingState extends State {
   startTimer;
 
   enter(mage, entity) {
+    mage.stop();
     this.entity = entity;
-    StateHelper.faceEntity(mage, entity);
     this.startTimer = 0;
-    GameEvent.fire(GameEvent.DIALOG, mage.getDialog().getText());
-    mage.getDialog().next();
+    mage.movement.faceEntity(entity);
+    GameEvent.fire(GameEvent.DIALOG, mage.behavior.getDialog().getText());
+    mage.behavior.getDialog().next();
     return this;
   }
 
   handleEvent(mage, event) {
     if (event.getType() === GameEvent.COLLISION) {
       const entity = event.getData();
-      if (entity.isIntent(GameEvent.TALK)) {
+      if (entity.behavior.isIntent(GameEvent.TALK)) {
         return this.enter(mage, entity);
       }
     }

@@ -2,7 +2,6 @@ import GameEvent from "../../../../engine/GameEvent";
 import State from "../../../../engine/State";
 import TalkingState from "./TalkingState";
 import Time from "../../../../engine/Time";
-import Vector from "../../../../engine/Vector";
 import WalkingState from "./WalkingState";
 
 export default class StoppedState extends State {
@@ -10,10 +9,10 @@ export default class StoppedState extends State {
   restartTime;
 
   enter(mage) {
-    mage.setVelocity(new Vector());
+    mage.movement.stop();
     this.stoppedTimer = 0;
     this.restartTime = Math.min((Math.random() * 10 - 5, 1)) * Time.SECOND;
-    return this.updateAnimation(mage);
+    return this;
   }
 
   handleEvent(mage, event) {
@@ -31,15 +30,6 @@ export default class StoppedState extends State {
     if (this.stoppedTimer > this.restartTime) {
       return new WalkingState(mage);
     }
-    return this.updateAnimation(mage);
-  }
-
-  updateAnimation(mage) {
-    mage
-      .getSprite()
-      .getAnimation()
-      .stop()
-      .reset();
     return this;
   }
 }

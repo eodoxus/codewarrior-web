@@ -1,63 +1,30 @@
+import BehaviorComponent from "../../components/behaviors/BehaviorComponent";
+import BookOfEcmaScriptGraphics from "./BookOfEcmaScriptGraphics";
 import Entity from "../../../engine/Entity";
-import Size from "../../../engine/Size";
-import Sprite from "../../../engine/Sprite";
-import Texture from "../../../engine/Texture";
+import PacingMovement from "../../../entities/components/movements/PacingMovement";
 import Vector from "../../../engine/Vector";
-import Url from "../../../../lib/Url";
-import Graphics from "../../../engine/Graphics";
 
-const TEXTURE = Url.SPRITES + "items.png";
+const DISTANCE = 2;
+const VELOCITY = -1.5;
 
 export default class BookOfEcmaScript extends Entity {
   static ID = "bookOfEcmaScript";
-  static FLOAT_DISTANCE = 2;
-  static VELOCITY = -1.5;
 
-  originalPosition;
+  constructor(id, position, properties) {
+    super(BookOfEcmaScript.ID, properties);
+    this.behavior = new BehaviorComponent(this);
+    this.graphics = new BookOfEcmaScriptGraphics(this);
 
-  constructor(id, position) {
-    super(BookOfEcmaScript.ID, position);
-    this.originalPosition = Vector.copy(this.position);
-    this.velocity = new Vector(0, BookOfEcmaScript.VELOCITY);
-  }
-
-  async init() {
-    if (this.sprite) {
-      return;
-    }
-    this.sprite = new Sprite(
-      BookOfEcmaScript.ID,
-      new Size(32, 32),
-      new Texture(TEXTURE, new Vector(), new Size(32, 20))
-    );
-    await this.sprite.init();
-  }
-
-  render() {
-    // Draw shadow
-    const size = this.getSprite().getSize();
-    const dy = Math.max(0.5, this.originalPosition.y - this.position.y);
-    const position = new Vector(
-      this.originalPosition.x + size.width / 2,
-      this.originalPosition.y + size.height / 2 + 7
-    );
-    Graphics.drawShadow(
+    const orientation = new Vector(0, 1);
+    const endPosition = Vector.copy(position);
+    endPosition.y -= DISTANCE;
+    const velocity = new Vector(0, VELOCITY);
+    this.movement = new PacingMovement(
+      this,
+      orientation,
       position,
-      new Size(size.width, 5 * dy / BookOfEcmaScript.FLOAT_DISTANCE)
+      endPosition,
+      velocity
     );
-    super.render();
-  }
-
-  update(dt) {
-    super.update(dt);
-    const dy = this.originalPosition.y - this.position.y;
-    if (dy >= BookOfEcmaScript.FLOAT_DISTANCE) {
-      this.position.y =
-        this.originalPosition.y - BookOfEcmaScript.FLOAT_DISTANCE;
-      this.velocity.multiply(-1);
-    } else if (dy <= 0) {
-      this.position.y = this.originalPosition.y;
-      this.velocity.multiply(-1);
-    }
   }
 }

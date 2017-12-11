@@ -1,8 +1,11 @@
-import AnimatedSprite from "../../../engine/AnimatedSprite";
+import AnimationGraphics from "../../components/graphics/AnimationGraphics";
+import AnimateSometimesBehavior from "../../components/behaviors/AnimateSometimesBehavior";
 import Entity from "../../../engine/Entity";
 import Size from "../../../engine/Size";
+import StaticMovement from "../../components/movements/StaticMovement";
+import Vector from "../../../engine/Vector";
 
-const ANIMATION = "firePit";
+const ANIMATION = "underworld";
 const FPS = 20;
 
 export default class FirePit extends Entity {
@@ -10,25 +13,14 @@ export default class FirePit extends Entity {
 
   constructor(id, position) {
     super(FirePit.ID, position);
-    this.sprite = new AnimatedSprite("underworld", new Size(16, 16), FPS);
-  }
-
-  handleEvent(event) {
-    // Do nothing
-  }
-
-  async init() {
-    await Entity.prototype.init.call(this);
-    const sprite = this.getSprite();
-    sprite.setAnimation(ANIMATION);
-    sprite.getAnimation().start();
-  }
-
-  update(dt) {
-    if (Math.random() > 0.5) {
-      this.getSprite()
-        .getAnimation()
-        .update(dt);
-    }
+    this.movement = new StaticMovement(this, new Vector(), position);
+    this.behavior = new AnimateSometimesBehavior(this);
+    this.graphics = new AnimationGraphics(
+      this,
+      ANIMATION,
+      FirePit.ID,
+      new Size(16, 16),
+      FPS
+    );
   }
 }

@@ -1,11 +1,12 @@
 import BookOfEcmaScript from "./BookOfEcmaScript";
+import Vector from "../../../engine/Vector";
 
 let book;
 let Entity = BookOfEcmaScript.__proto__.prototype;
 
 beforeEach(async () => {
   fetch.mockResponse("");
-  book = new BookOfEcmaScript();
+  book = new BookOfEcmaScript("test", new Vector(0, 0));
   await book.init();
 });
 

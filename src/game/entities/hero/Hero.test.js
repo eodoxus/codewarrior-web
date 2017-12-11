@@ -77,7 +77,7 @@ describe("Hero", () => {
       npc.getSprite().loadAnimations(npcPlist);
       npc.setProperties({ npc: true });
 
-      const heroRerouteSpy = jest.spyOn(hero, "reroute");
+      const heroRerouteSpy = jest.spyOn(hero.getMovement(), "reroute");
 
       const scene = new Scene(hero);
       scene.addEntity(npc);
@@ -85,8 +85,10 @@ describe("Hero", () => {
       hero.setPosition(new Vector(50, 66));
       const state = new WalkingState(hero);
       hero.setState(state);
-      hero.walkTo(Rect.point(new Vector(112, 72)));
-      while (hero.state === state) {
+      const destination = hero.translateToOrigin(new Vector(112, 72));
+      hero.getMovement().walkTo(Rect.point(destination));
+      npc.getBehavior().start();
+      while (hero.getState() === state) {
         scene.update(20);
       }
       expect(heroRerouteSpy).toHaveBeenCalled();

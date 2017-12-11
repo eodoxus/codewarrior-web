@@ -8,9 +8,11 @@ export default class AnimatedSprite extends Sprite {
   animations;
   curAnimation;
   fps;
+  name;
 
-  constructor(id, size, fps) {
-    super(id, size);
+  constructor(name, size, fps) {
+    super(size);
+    this.name = name;
     this.fps = fps;
   }
 
@@ -18,7 +20,7 @@ export default class AnimatedSprite extends Sprite {
     if (this.curAnimation && this.curAnimation.getName() !== name) {
       this.curAnimation.stop().reset();
     }
-    this.setAnimation(name).start();
+    this.setAnimation(name);
   }
 
   getAnimation() {
@@ -27,7 +29,6 @@ export default class AnimatedSprite extends Sprite {
 
   setAnimation(name) {
     this.curAnimation = this.animations[name];
-    return this.curAnimation;
   }
 
   getAnimations() {
@@ -54,9 +55,8 @@ export default class AnimatedSprite extends Sprite {
     if (this.sprite && this.sprite.getAnimations()) {
       return;
     }
-    const plist = await new RestClient().get(
-      Url.ANIMATIONS + this.id + ".json"
-    );
+    const plistFile = Url.ANIMATIONS + this.name + ".json";
+    const plist = await new RestClient().get(plistFile);
     const textureUrl = Url.ANIMATIONS + plist.meta.image;
     this.loadAnimations(plist, textureUrl);
     await TextureCache.fetch(textureUrl);

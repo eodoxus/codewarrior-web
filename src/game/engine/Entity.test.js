@@ -1,4 +1,7 @@
+import BehaviorComponent from "../entities/components/behaviors/BehaviorComponent";
 import Entity from "./Entity";
+import GraphicsComponent from "../entities/components/graphics/GraphicsComponent";
+import MovementComponent from "../entities/components/movements/MovementComponent";
 import Vector from "./Vector";
 import Sprite from "./Sprite";
 import Size from "./Size";
@@ -12,10 +15,23 @@ let entity;
 const entityId = "entity-id";
 const spriteId = "sprite-id";
 
+function createEntity(id = entityId, position = new Vector()) {
+  const entity = new Entity(id);
+  entity.behavior = new BehaviorComponent(entity);
+  entity.movement = new MovementComponent(entity, new Vector(), position);
+  entity.graphics = new GraphicsComponent(entity);
+  entity.behavior.start();
+  return entity;
+}
+
+afterEach(() => {
+  entity = undefined;
+});
+
 describe("Entity", () => {
   describe("construction", () => {
     beforeEach(() => {
-      entity = new Entity(entityId);
+      entity = createEntity();
     });
 
     it("instantiates without crashing", () => {
@@ -31,16 +47,16 @@ describe("Entity", () => {
 
   describe("getOrigin", () => {
     it("should return a Vector positioned at the center of entity", () => {
-      entity = new Entity(entityId, new Vector(10, 10));
-      entity.setSprite(new Sprite(spriteId, new Size(10, 20)));
+      entity = createEntity(entityId, new Vector(10, 10));
+      entity.setSprite(new Sprite(new Size(10, 20)));
       expect(entity.getOrigin()).toEqual(new Vector(15, 20));
     });
   });
 
   describe("intersects", () => {
     beforeEach(() => {
-      entity = new Entity(entityId, new Vector(10, 10));
-      entity.setSprite(new Sprite(spriteId, new Size(10, 20)));
+      entity = createEntity(entityId, new Vector(10, 10));
+      entity.setSprite(new Sprite(new Size(10, 20)));
       const sprite = entity.getSprite();
       sprite.intersects = jest.fn();
       sprite.intersects.mockReturnValue(true);
@@ -56,28 +72,28 @@ describe("Entity", () => {
     });
 
     it("should return true if an entity's outline intersects this entity's outline", () => {
-      const collisionEntity = new Entity("test", new Vector(17, 29));
-      collisionEntity.setSprite(new Sprite("test-sprite", new Size(10, 20)));
+      const collisionEntity = createEntity("test", new Vector(17, 29));
+      collisionEntity.setSprite(new Sprite(new Size(10, 20)));
       expect(entity.intersects(collisionEntity)).toBe(true);
     });
 
     it("should return false if entity rects intersect, but outlines don't", () => {
-      const collisionEntity = new Entity("test", new Vector(19, 29));
-      collisionEntity.setSprite(new Sprite("test-sprite", new Size(10, 20)));
+      const collisionEntity = createEntity("test", new Vector(19, 29));
+      collisionEntity.setSprite(new Sprite(new Size(10, 20)));
       expect(entity.intersects(collisionEntity)).toBe(false);
     });
 
     it("should return false if entity rects don't intersect", () => {
-      const collisionEntity = new Entity("test", new Vector(20, 29));
-      collisionEntity.setSprite(new Sprite("test-sprite", new Size(10, 20)));
+      const collisionEntity = createEntity("test", new Vector(20, 29));
+      collisionEntity.setSprite(new Sprite(new Size(10, 20)));
       expect(entity.intersects(collisionEntity)).toBe(false);
     });
   });
 
   describe("render", () => {
     beforeEach(() => {
-      entity = new Entity(entityId, new Vector(10, 10));
-      entity.setSprite(new Sprite(spriteId, new Size(10, 20)));
+      entity = createEntity(entityId, new Vector(10, 10));
+      entity.setSprite(new Sprite(new Size(10, 20)));
       entity.getSprite().render = jest.fn();
     });
 
@@ -91,8 +107,8 @@ describe("Entity", () => {
 
   describe("translateToOrigin", () => {
     it("offsets a position to entity's origin", () => {
-      entity = new Entity(entityId, new Vector(10, 10));
-      entity.setSprite(new Sprite(spriteId, new Size(10, 20)));
+      entity = createEntity(entityId, new Vector(10, 10));
+      entity.setSprite(new Sprite(new Size(10, 20)));
       const position = entity.translateToOrigin(new Vector(20, 30));
       expect(position).toEqual(new Vector(15, 20));
     });
@@ -100,7 +116,7 @@ describe("Entity", () => {
 
   describe("update", () => {
     beforeEach(() => {
-      entity = new Entity(entityId, new Vector(10, 10));
+      entity = createEntity(entityId, new Vector(10, 10));
       entity.setVelocity(new Vector(100, 300));
     });
 

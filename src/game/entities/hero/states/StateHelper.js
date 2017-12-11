@@ -4,27 +4,21 @@ import StoppedState from "./StoppedState";
 
 export default class StateHelper {
   static beginWalking(currentState, hero, tile) {
-    if (hero.walkTo(tile)) {
+    tile.clear();
+    if (hero.movement.walkTo(tile)) {
       return new WalkingState(hero);
     }
     return currentState;
   }
 
-  static faceEntity(hero, entity) {
-    const walkingState = new WalkingState(hero);
-    hero.setVelocity(hero.getFaceTowardDirection(entity));
-    walkingState.updateAnimation(hero);
-    new StoppedState(hero);
-  }
-
   static handleCollision(currentState, hero, entity) {
     if (entity.isNpc()) {
-      if (hero.isIntent(GameEvent.TALK)) {
-        StateHelper.faceEntity(hero, entity);
-        hero.fulfillIntent();
+      if (hero.behavior.isIntent(GameEvent.TALK)) {
+        hero.movement.faceEntity(entity);
+        hero.behavior.fulfillIntent();
         return new StoppedState(hero);
       }
-      hero.reroute();
+      hero.movement.reroute();
     }
     return currentState;
   }
@@ -43,7 +37,7 @@ export default class StateHelper {
 
   static setIntent(hero, tile) {
     if (tile.hasNpc()) {
-      hero.setIntent(GameEvent.talk(tile.getEntity()));
+      hero.behavior.setIntent(GameEvent.talk(tile.getEntity()));
     }
   }
 }

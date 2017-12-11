@@ -1,0 +1,135 @@
+import Rect from "../../../engine/Rect";
+import Tile from "../../../engine/map/Tile";
+import Vector from "../../../engine/Vector";
+
+export default class GraphicsComponent {
+  entity;
+  sprite;
+  zIndex;
+
+  constructor(entity, zIndex = 0) {
+    this.entity = entity;
+    this.zIndex = zIndex;
+  }
+
+  getOrigin() {
+    return Tile.getOrigin(this.entity.getPosition(), this.sprite.getSize());
+  }
+
+  getOutline() {
+    const outline = this.sprite.getOutline();
+    const translatedRows = [];
+    const rowIndexes = Object.keys(outline.rows);
+    const top = parseInt(rowIndexes[0], 10);
+    const pos = this.entity.movement.getPosition();
+    rowIndexes.forEach(y => {
+      const newY = Math.floor(parseInt(y, 10) + pos.y);
+      const row = outline.rows[y];
+      translatedRows[newY] = {
+        start: row.start + pos.x,
+        end: row.end + pos.x
+      };
+    });
+    return {
+      rows: translatedRows,
+      rect: new Rect(
+        pos.x + outline.min,
+        pos.y + top,
+        outline.max - outline.min,
+        rowIndexes.length
+      )
+    };
+  }
+
+  getRect() {
+    const p = this.entity.getPosition();
+    const s = this.getSprite().getSize();
+    return new Rect(p.x, p.y, s.width, s.height);
+  }
+
+  getSprite() {
+    return this.sprite;
+  }
+
+  setSprite(s) {
+    this.sprite = s;
+  }
+
+  getZIndex() {
+    return this.zIndex;
+  }
+
+  async init() {
+    await this.sprite.init();
+    this._isReady = true;
+  }
+
+  intersects(obj) {
+    return obj.getSprite
+      ? this.intersectsEntity(obj)
+      : this.intersectsPoint(Rect.point(obj));
+  }
+
+  intersectsEntity(entity) {
+    if (!this.getRect().intersects(entity.graphics.getRect())) {
+      return false;
+    }
+    return this.outlinesIntersect(entity.graphics.getOutline());
+  }
+
+  intersectsPoint(point) {
+    if (!this.getRect().intersects(point)) {
+      return false;
+    }
+    return this.sprite.intersects(point, this.entity.getPosition());
+  }
+
+  isReady() {
+    return this._isReady;
+  }
+
+  outlinesIntersect(outline) {
+    const thisOutline = this.getOutline();
+    if (!thisOutline.rect.intersects(outline.rect)) {
+      return false;
+    }
+
+    const rows = Object.keys(thisOutline.rows);
+    const numRows = rows.length;
+    for (let iDx = 0; iDx < numRows; iDx++) {
+      const row = rows[iDx];
+      if (!outline.rows[row]) {
+        continue;
+      }
+      if (
+        thisOutline.rows[row].start < outline.rows[row].end &&
+        thisOutline.rows[row].end > outline.rows[row].start
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  render() {
+    this.sprite.render(this.entity.getPosition());
+  }
+
+  translateToOrigin(position) {
+    if (!this.sprite) {
+      return position;
+    }
+    const size = this.sprite.getSize();
+    return Vector.subtract(
+      position,
+      new Vector(Math.floor(size.width / 2), Math.floor(size.height / 2))
+    );
+  }
+
+  start() {}
+
+  stop() {}
+
+  update(dt) {}
+}

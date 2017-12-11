@@ -1,47 +1,32 @@
-import AnimatedSprite from "../../engine/AnimatedSprite";
-import PathfindingActor from "../../engine/PathfindingActor";
-import Size from "../../engine/Size";
+import BehaviorComponent from "../components/behaviors/BehaviorComponent";
+import Entity from "../../engine/Entity";
+import HeroGraphics from "./HeroGraphics";
+import PathfindingMovement from "../components/movements/PathfindingMovement";
 import StoppedState from "./states/StoppedState";
-import WalkingState from "./states/WalkingState";
+import Vector from "../../engine/Vector";
 
-export default class Hero extends PathfindingActor {
-  static FPS = 20;
+export default class Hero extends Entity {
   static ID = "hero";
 
   constructor() {
     super(Hero.ID);
-    this.sprite = new AnimatedSprite(Hero.ID, new Size(24, 32), Hero.FPS);
-    this.state = new StoppedState(this);
+    this.movement = new PathfindingMovement(this);
+    this.behavior = new BehaviorComponent(this, StoppedState, StoppedState);
+    this.graphics = new HeroGraphics(this);
+    Entity.makeActor(this);
     this.zIndex = 1;
+    this.spawn(new Vector(0, 0), new Vector(0, 1));
   }
 
-  setPosition(position) {
-    super.setPosition(this.translateToOrigin(position));
-  }
-
-  spawn(position, direction) {
-    const spawnPosition = position || this.map.getHeroSpawnPoint();
+  spawn(position, orientation) {
+    const spawnPosition =
+      position || this.movement.getMap().getHeroSpawnPoint();
     if (spawnPosition) {
-      this.setPosition(spawnPosition);
+      this.movement.setPosition(spawnPosition);
     }
-    if (direction) {
-      this.updateDirection(direction);
+    if (orientation) {
+      this.movement.setOrientation(orientation);
     }
-  }
-
-  stop() {
-    super.stop();
-    this.state = new StoppedState(this);
-  }
-
-  update(dt) {
-    super.update(dt);
-    this.state = this.state.update(this);
-    this.sprite.getAnimation().update(dt);
-  }
-
-  updateDirection(direction) {
-    this.setVelocity(direction);
-    this.state = new WalkingState(this);
+    this.graphics.stop();
   }
 }

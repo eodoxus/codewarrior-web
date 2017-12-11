@@ -91,11 +91,8 @@ export default class Vector {
     return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
   }
 
-  distanceBetween(v) {
-    return new Vector(
-      Math.abs(Math.abs(this.x) - Math.abs(v.x)),
-      Math.abs(Math.abs(this.y) - Math.abs(v.y))
-    );
+  distanceTo(v) {
+    return new Vector(Math.abs(this.x - v.x), Math.abs(this.y - v.y));
   }
 
   normalize() {

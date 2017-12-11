@@ -82,7 +82,7 @@
                  "visible":true,
                  "width":0,
                  "x":64,
-                 "y":31.969696969697
+                 "y":32
                 }, 
                 {
                  "height":0,
@@ -96,7 +96,7 @@
                  "type":"entity",
                  "visible":true,
                  "width":0,
-                 "x":176.121212121212,
+                 "x":176,
                  "y":32
                 }],
          "opacity":1,

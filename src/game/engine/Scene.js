@@ -2,7 +2,6 @@ import Audio from "./Audio";
 import entities from "../entities";
 import GameEvent from "./GameEvent";
 import Graphics from "./Graphics";
-import Tile from "./map/Tile";
 import TiledMap from "./map/TiledMap";
 
 export default class Scene {
@@ -81,15 +80,10 @@ export default class Scene {
     if (this.map) {
       await this.map.init();
       this.map.getEntities().forEach(tile => {
-        const entityName = tile.getProperty(Tile.PROPERTIES.ENTITY);
-        if (!entities[entityName]) {
-          throw new Error(`Entity ${entityName} does not exist`);
-        }
-        const entity = new entities[entityName](
-          tile.getProperty(Tile.PROPERTIES.NAME),
-          tile.getPosition()
+        const entity = entities.createEntity(
+          tile.getPosition(),
+          tile.getProperties()
         );
-        entity.setProperties(tile.getProperties());
         this.addEntity(entity);
       });
     }

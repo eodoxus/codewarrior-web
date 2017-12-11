@@ -5,13 +5,11 @@ import Tile from "./map/Tile";
 import Vector from "./Vector";
 
 export default class Sprite {
-  id = "sprite-changeme";
   outline;
   size;
   texture;
 
-  constructor(id, size = new Size(100, 100), texture) {
-    this.id = id;
+  constructor(size = new Size(100, 100), texture) {
     this.size = size;
     this.texture = texture;
   }

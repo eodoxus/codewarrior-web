@@ -1,74 +1,28 @@
-import Rect from "./Rect";
+import ActorMixin from "../entities/components/mixins/ActorMixin";
 import Tile from "./map/Tile";
-import Time from "./Time";
-import Vector from "./Vector";
 
 export default class Entity {
-  id;
-  map;
-  position;
-  properties;
-  sprite;
-  state;
-  velocity;
-  zIndex;
-
-  constructor(id, position = new Vector()) {
-    this.id = id;
-    this.position = position;
-    this.dt = 0;
-    this.properties = {};
-    this.state = 0;
-    this.velocity = new Vector();
-    this.zIndex = 0;
+  static makeActor(entity) {
+    ActorMixin.applyTo(entity);
   }
 
-  getFaceTowardDirection(entity) {
-    const pos = this.getPosition();
-    const size = this.getSprite().getSize();
-    const entityOrigin = entity.getOrigin();
+  behavior;
+  id;
+  graphics;
+  movement;
+  properties;
 
-    // Is entity directly left or right?
-    if (entityOrigin.y >= pos.y && entityOrigin.y <= pos.y + size.height) {
-      // Is entity to the left?
-      if (entityOrigin.x < pos.x) {
-        // Face left
-        return new Vector(-1, 0);
-      }
-      // Face right
-      return new Vector(1, 0);
-    }
+  constructor(id, properties = {}) {
+    this.id = id;
+    this.properties = properties;
+  }
 
-    // Is entity directly above or below?
-    if (entityOrigin.x >= pos.x && entityOrigin.x <= pos.x + size.width) {
-      // Is entity above?
-      if (entityOrigin.y < pos.y) {
-        // Face up
-        return new Vector(0, -1);
-      }
-      // Face down
-      return new Vector(0, 1);
-    }
+  getBehavior() {
+    return this.behavior;
+  }
 
-    // Is entity above ?
-    if (entityOrigin.y < pos.y) {
-      // Is entity to the left?
-      if (entityOrigin.x < pos.x) {
-        // Face up/left
-        return new Vector(-1, -1);
-      }
-      // Face up/right
-      return new Vector(1, -1);
-    }
-
-    // Entity must be below
-    // Is entity to the left?
-    if (entityOrigin.x < pos.x) {
-      // Face down/left
-      return new Vector(-1, 1);
-    }
-    // Face down/right
-    return new Vector(1, 1);
+  getGraphics() {
+    return this.graphics;
   }
 
   getId() {
@@ -76,51 +30,35 @@ export default class Entity {
   }
 
   getMap() {
-    return this.map;
+    return this.movement.getMap();
   }
 
   setMap(map) {
-    this.map = map;
+    this.movement.setMap && this.movement.setMap(map);
+  }
+
+  getMovement() {
+    return this.movement;
   }
 
   getOrigin() {
-    return Tile.getOrigin(this.position, this.sprite.getSize());
-  }
-
-  getOutline() {
-    const outline = this.getSprite().getOutline();
-    const translatedRows = [];
-    const rowIndexes = Object.keys(outline.rows);
-    const top = parseInt(rowIndexes[0], 10);
-    rowIndexes.forEach(y => {
-      const newY = Math.floor(parseInt(y, 10) + this.position.y);
-      const row = outline.rows[y];
-      translatedRows[newY] = {
-        start: row.start + this.position.x,
-        end: row.end + this.position.x
-      };
-    });
-    return {
-      rows: translatedRows,
-      rect: new Rect(
-        this.position.x + outline.min,
-        this.position.y + top,
-        outline.max - outline.min,
-        rowIndexes.length
-      )
-    };
+    return this.graphics.getOrigin();
   }
 
   getPosition() {
-    return this.position;
+    return this.movement.getPosition();
   }
 
   setPosition(p) {
-    this.position = p;
+    this.movement.setPosition(p);
   }
 
   getProperties() {
     return this.properties;
+  }
+
+  getProperty(name) {
+    return this.properties[name];
   }
 
   setProperties(properties) {
@@ -128,73 +66,56 @@ export default class Entity {
   }
 
   getRect() {
-    const p = this.getPosition();
-    const s = this.getSprite().getSize();
-    return new Rect(p.x, p.y, s.width, s.height);
+    return this.graphics.getRect();
   }
 
   getSprite() {
-    return this.sprite;
+    return this.graphics.getSprite();
   }
 
   setSprite(s) {
-    this.sprite = s;
+    this.graphics.setSprite(s);
   }
 
   getState() {
-    return this.state;
+    return this.behavior.getState();
   }
 
   setState(state) {
-    this.state = state;
+    this.behavior.setState(state);
   }
 
   getVelocity() {
-    return this.velocity;
+    return this.movement.getVelocity();
   }
 
   setVelocity(v) {
-    this.velocity = v;
+    this.movement.setVelocity(v);
   }
 
   getZIndex() {
-    return this.zIndex;
+    return this.graphics.getZIndex();
   }
 
   handleEvent(event) {
-    this.state = this.state.handleEvent(this, event);
+    this.behavior.handleEvent(event);
   }
 
   hasIntent() {
-    return false;
-  }
-
-  isIntent(type) {
-    return false;
-  }
-
-  async init() {
-    return this.sprite.init();
+    return this.behavior.hasIntent();
   }
 
   intersects(obj) {
-    return obj.getSprite
-      ? this.intersectsEntity(obj)
-      : this.intersectsPoint(Rect.point(obj));
+    return this.graphics.intersects(obj);
   }
 
-  intersectsEntity(entity) {
-    if (!this.getRect().intersects(entity.getRect())) {
-      return false;
-    }
-    return this.outlinesIntersect(entity.getOutline());
+  isIntent(type) {
+    return this.behavior.isIntent(type);
   }
 
-  intersectsPoint(point) {
-    if (!this.getRect().intersects(point)) {
-      return false;
-    }
-    return this.getSprite().intersects(point, this.getPosition());
+  async init() {
+    await this.graphics.init();
+    this.start();
   }
 
   isHero(entity) {
@@ -202,52 +123,26 @@ export default class Entity {
   }
 
   isNpc() {
-    return this.properties[Tile.PROPERTIES.NPC];
-  }
-
-  outlinesIntersect(outline) {
-    const thisOutline = this.getOutline();
-    if (!thisOutline.rect.intersects(outline.rect)) {
-      return false;
-    }
-
-    const rows = Object.keys(thisOutline.rows);
-    const numRows = rows.length;
-    for (let iDx = 0; iDx < numRows; iDx++) {
-      const row = rows[iDx];
-      if (!outline.rows[row]) {
-        continue;
-      }
-      if (
-        thisOutline.rows[row].start < outline.rows[row].end &&
-        thisOutline.rows[row].end > outline.rows[row].start
-      ) {
-        return true;
-      }
-    }
-
-    return false;
+    return !!this.getProperty(Tile.PROPERTIES.NPC);
   }
 
   render() {
-    this.sprite.render(this.position);
+    this.graphics.render();
   }
 
-  translateToOrigin(position) {
-    if (!this.sprite) {
-      return position;
-    }
-    const size = this.sprite.getSize();
-    return Vector.subtract(
-      position,
-      new Vector(Math.floor(size.width / 2), Math.floor(size.height / 2))
-    );
+  start() {
+    this.behavior.start();
+  }
+
+  stop() {
+    this.behavior.stop();
+  }
+
+  translateToOrigin(point) {
+    return this.graphics.translateToOrigin(point);
   }
 
   update(dt) {
-    this.dt += dt;
-    const velocity = Vector.multiply(this.velocity, Time.toSeconds(dt));
-    velocity.multiply(Vector.normalize(this.velocity));
-    this.position.add(velocity);
+    this.behavior.update(dt);
   }
 }

@@ -1,33 +1,44 @@
-import AnimatedSprite from "../../../engine/AnimatedSprite";
-import Actor from "../../../engine/Actor";
+import BehaviorComponent from "../../components/behaviors/BehaviorComponent";
+import CrestfallenMageGraphics from "./CrestfallenMageGraphics";
+import Entity from "../../../engine/Entity";
+import PacingMovement from "../../components/movements/PacingMovement";
 import Size from "../../../engine/Size";
+import StoppedState from "./states/StoppedState";
 import Vector from "../../../engine/Vector";
 import WalkingState from "./states/WalkingState";
 
-export default class CrestfallenMage extends Actor {
+const ANIMATION = "npcs";
+const DISTANCE = 40;
+const FPS = 10;
+const VELOCITY = 10;
+
+export default class CrestfallenMage extends Entity {
   static FPS = 10;
   static ID = "crestfallenMage";
 
-  originalPosition;
-
-  constructor(id, position) {
-    super(CrestfallenMage.ID, position);
-    this.originalPosition = Vector.copy(this.position);
-    this.sprite = new AnimatedSprite(
-      "npcs",
+  constructor(id, position, properties) {
+    super(CrestfallenMage.ID, properties);
+    this.behavior = new BehaviorComponent(this, WalkingState, StoppedState);
+    this.graphics = new CrestfallenMageGraphics(
+      this,
+      ANIMATION,
+      CrestfallenMage.ID,
       new Size(20, 24),
-      CrestfallenMage.FPS
+      FPS
     );
-    this.state = new WalkingState(this);
-  }
 
-  getOriginalPosition() {
-    return this.originalPosition;
-  }
+    const orientation = new Vector(1, 0);
+    const endPosition = Vector.copy(position);
+    endPosition.x += DISTANCE;
+    const velocity = new Vector(VELOCITY, 0);
+    this.movement = new PacingMovement(
+      this,
+      orientation,
+      position,
+      endPosition,
+      velocity
+    );
 
-  update(dt) {
-    super.update(dt);
-    this.state = this.state.update(this, dt);
-    this.sprite.getAnimation().update(dt);
+    Entity.makeActor(this);
   }
 }

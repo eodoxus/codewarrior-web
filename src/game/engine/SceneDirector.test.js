@@ -41,7 +41,7 @@ describe("<SceneDirector />", () => {
   it("initializes hero", () => {
     const ctrl = getController();
     const hero = ctrl.scene.getEntities()[0];
-    expect(hero.position).toBeDefined();
+    expect(hero.getPosition()).toBeDefined();
   });
 
   describe("onClick", () => {
