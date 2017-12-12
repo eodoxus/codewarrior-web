@@ -30,11 +30,11 @@
   </data>
  </layer>
  <objectgroup name="objects">
-  <object id="3" name="woodcutters_house" type="doorway" x="25.6667" y="149.333" width="10" height="13.3333">
+  <object id="3" name="crestfallen_home" type="doorway" x="25.6667" y="149.333" width="10" height="13.3333">
    <properties>
     <property name="facing_x" value="0"/>
     <property name="facing_y" value="-1"/>
-    <property name="to" value="WoodCuttersHouse"/>
+    <property name="to" value="CrestfallenHome"/>
    </properties>
   </object>
   <object id="4" name="cave" type="doorway" x="29.3333" y="13.6667" width="21.6667" height="17.3333">

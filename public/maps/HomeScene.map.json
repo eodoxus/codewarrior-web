@@ -68,12 +68,12 @@
                 {
                  "height":13.3333,
                  "id":3,
-                 "name":"woodcutters_house",
+                 "name":"crestfallen_home",
                  "properties":
                     {
                      "facing_x":"0",
                      "facing_y":"-1",
-                     "to":"WoodCuttersHouse"
+                     "to":"CrestfallenHome"
                     },
                  "rotation":0,
                  "type":"doorway",
@@ -145,7 +145,7 @@
                  "y":142.5
                 }, 
                 {
-                 "height":14.9999666666667,
+                 "height":15,
                  "id":27,
                  "name":"collision_stumps",
                  "properties":
@@ -156,11 +156,11 @@
                  "type":"collidable",
                  "visible":true,
                  "width":38,
-                 "x":176.666666666667,
-                 "y":8.33333333333333
+                 "x":176.667,
+                 "y":8.33333
                 }, 
                 {
-                 "height":39.3333666666667,
+                 "height":39.3334,
                  "id":28,
                  "name":"collision_skulls",
                  "properties":
@@ -171,9 +171,9 @@
                  "rotation":0,
                  "type":"collidable",
                  "visible":true,
-                 "width":14.3333333333333,
+                 "width":14.3333,
                  "x":232,
-                 "y":88.3333333333333
+                 "y":88.3333
                 }],
          "opacity":1,
          "type":"objectgroup",

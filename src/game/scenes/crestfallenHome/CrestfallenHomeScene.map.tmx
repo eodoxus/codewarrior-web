@@ -21,7 +21,7 @@
   <object id="2" name="spawn_hero" type="spawn_hero" x="128.333" y="149.333"/>
   <object id="3" name="spawn_npc" type="entity" x="109.667" y="81">
    <properties>
-    <property name="dialog" value="WoodCuttersHouse.CrestfallenMage"/>
+    <property name="dialog" value="CrestfallenHome.CrestfallenMage"/>
     <property name="entity" value="CrestfallenMage"/>
     <property name="npc" value="true"/>
    </properties>

@@ -1,4 +1,4 @@
-import WoodCuttersHouseScene from "./WoodCuttersHouseScene";
+import CrestfallenHomeScene from "./CrestfallenHomeScene";
 
 jest.mock("../../engine/Graphics");
 
@@ -7,8 +7,8 @@ const mockHero = {
   setPosition: jest.fn()
 };
 
-describe("WoodCuttersHouseScene", () => {
+describe("CrestfallenHomeScene", () => {
   it("instantiates without crashing", () => {
-    const scene = new WoodCuttersHouseScene(mockHero);
+    const scene = new CrestfallenHomeScene(mockHero);
   });
 });
