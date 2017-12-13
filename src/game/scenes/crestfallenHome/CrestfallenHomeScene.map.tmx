@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="8">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="9">
  <tileset firstgid="1" name="underworld" tilewidth="8" tileheight="8" tilecount="2116">
   <image source="../../../../public/maps/underworld.png" width="368" height="368"/>
  </tileset>
@@ -28,12 +28,26 @@
   </object>
   <object id="5" name="firePit_01" type="entity" x="64" y="32">
    <properties>
-    <property name="entity" value="UnderworldFirepit"/>
+    <property name="animation" value="underworld"/>
+    <property name="behavior" value="AnimateSometimes"/>
+    <property name="fps" value="20"/>
+    <property name="frame_set" value="firePit"/>
+    <property name="graphics" value="Animation"/>
+    <property name="height" value="16"/>
+    <property name="movement" value="Static"/>
+    <property name="width" value="16"/>
    </properties>
   </object>
-  <object id="7" name="firePit_02" type="entity" x="176" y="32">
+  <object id="8" name="firePit_02" type="entity" x="176" y="32">
    <properties>
-    <property name="entity" value="UnderworldFirepit"/>
+    <property name="animation" value="underworld"/>
+    <property name="behavior" value="AnimateSometimes"/>
+    <property name="fps" value="20"/>
+    <property name="frame_set" value="firePit"/>
+    <property name="graphics" value="Animation"/>
+    <property name="height" value="16"/>
+    <property name="movement" value="Static"/>
+    <property name="width" value="16"/>
    </properties>
   </object>
  </objectgroup>

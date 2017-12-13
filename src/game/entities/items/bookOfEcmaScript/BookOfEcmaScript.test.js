@@ -6,7 +6,7 @@ let Entity = BookOfEcmaScript.__proto__.prototype;
 
 beforeEach(async () => {
   fetch.mockResponse("");
-  book = new BookOfEcmaScript("test", new Vector(0, 0));
+  book = new BookOfEcmaScript("test", {}, new Vector(0, 0));
   await book.init();
 });
 

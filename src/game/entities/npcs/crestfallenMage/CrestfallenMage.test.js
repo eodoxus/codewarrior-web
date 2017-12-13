@@ -13,7 +13,7 @@ function makePositive(velocity) {
 
 beforeEach(async () => {
   fetch.mockResponse(JSON.stringify(plist));
-  mage = new CrestfallenMage("test", new Vector(0, 0));
+  mage = new CrestfallenMage("test", {}, new Vector(0, 0));
   mage.getSprite().loadAnimations(plist);
   mage.getBehavior().start();
 });

@@ -16,7 +16,7 @@ export default class CrestfallenMage extends Entity {
   static FPS = 10;
   static ID = "crestfallenMage";
 
-  constructor(id, position, properties) {
+  constructor(id, properties, position) {
     super(CrestfallenMage.ID, properties);
     this.behavior = new BehaviorComponent(this, WalkingState, StoppedState);
     this.graphics = new CrestfallenMageGraphics(

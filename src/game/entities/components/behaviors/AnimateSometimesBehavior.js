@@ -9,6 +9,10 @@ export default class AnimateSometimesBehavior {
     return false;
   }
 
+  isIntent() {
+    return false;
+  }
+
   handleEvent(event) {
     // Do nothing
   }

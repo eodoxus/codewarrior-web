@@ -8,13 +8,22 @@ export default class Tile {
     DOORWAY: "doorway",
     TRANSITION: "transition"
   };
+
   static PROPERTIES = {
+    ANIMATION: "animation",
+    BEHAVIOR: "behavior",
     DIALOG: "dialog",
     ENTITY: "entity",
     FACING: "facing",
+    FPS: "fps",
+    FRAME_SET: "frame_set",
+    GRAPHICS: "graphics",
+    HEIGHT: "height",
+    MOVEMENT: "movement",
     NAME: "name",
     NPC: "npc",
-    SPAWN_HERO: "spawn_hero"
+    SPAWN_HERO: "spawn_hero",
+    WIDTH: "width"
   };
 
   static getOrigin(position, size) {

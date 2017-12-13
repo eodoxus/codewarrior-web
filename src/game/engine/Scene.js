@@ -80,7 +80,7 @@ export default class Scene {
     if (this.map) {
       await this.map.init();
       this.map.getEntities().forEach(tile => {
-        const entity = entities.createEntity(
+        const entity = entities.create(
           tile.getPosition(),
           tile.getProperties()
         );

@@ -73,7 +73,7 @@ describe("Hero", () => {
     it("should route around NPCs", async () => {
       const map = new TiledMap();
       map.loadTMXConfig(tmxConfig);
-      const npc = new CrestfallenMage(null, new Vector(80, 66));
+      const npc = new CrestfallenMage(null, {}, new Vector(80, 66));
       npc.getSprite().loadAnimations(npcPlist);
       npc.setProperties({ npc: true });
 

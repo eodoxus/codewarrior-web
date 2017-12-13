@@ -75,7 +75,14 @@
                  "name":"firePit_01",
                  "properties":
                     {
-                     "entity":"UnderworldFirepit"
+                     "animation":"underworld",
+                     "behavior":"AnimateSometimes",
+                     "fps":"20",
+                     "frame_set":"firePit",
+                     "graphics":"Animation",
+                     "height":"16",
+                     "movement":"Static",
+                     "width":"16"
                     },
                  "rotation":0,
                  "type":"entity",
@@ -86,11 +93,18 @@
                 }, 
                 {
                  "height":0,
-                 "id":7,
+                 "id":8,
                  "name":"firePit_02",
                  "properties":
                     {
-                     "entity":"UnderworldFirepit"
+                     "animation":"underworld",
+                     "behavior":"AnimateSometimes",
+                     "fps":"20",
+                     "frame_set":"firePit",
+                     "graphics":"Animation",
+                     "height":"16",
+                     "movement":"Static",
+                     "width":"16"
                     },
                  "rotation":0,
                  "type":"entity",
@@ -119,7 +133,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":8,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "properties":
     {

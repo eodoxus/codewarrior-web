@@ -21,8 +21,16 @@ export default class Entity {
     return this.behavior;
   }
 
+  setBehavior(behavior) {
+    this.behavior = behavior;
+  }
+
   getGraphics() {
     return this.graphics;
+  }
+
+  setGraphics(graphics) {
+    this.graphics = graphics;
   }
 
   getId() {
@@ -39,6 +47,10 @@ export default class Entity {
 
   getMovement() {
     return this.movement;
+  }
+
+  setMovement(movement) {
+    this.movement = movement;
   }
 
   getOrigin() {

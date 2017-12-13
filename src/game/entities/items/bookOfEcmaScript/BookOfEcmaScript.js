@@ -10,7 +10,7 @@ const VELOCITY = -1.5;
 export default class BookOfEcmaScript extends Entity {
   static ID = "bookOfEcmaScript";
 
-  constructor(id, position, properties) {
+  constructor(id, properties, position) {
     super(BookOfEcmaScript.ID, properties);
     this.behavior = new BehaviorComponent(this);
     this.graphics = new BookOfEcmaScriptGraphics(this);
