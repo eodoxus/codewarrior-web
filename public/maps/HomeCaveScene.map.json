@@ -94,19 +94,28 @@
                  "y":89
                 }, 
                 {
-                 "height":23,
+                 "height":20,
                  "id":6,
-                 "name":"book",
+                 "name":"BookOfEcmaScript",
                  "properties":
                     {
-                     "entity":"BookOfEcmaScript"
+                     "end_x":"112",
+                     "end_y":"60",
+                     "graphics":"ShadowedSprite",
+                     "height":"20",
+                     "movement":"Pacing",
+                     "shadow":"3",
+                     "texture":"items",
+                     "velocity_x":"0",
+                     "velocity_y":"-1.5",
+                     "width":"32"
                     },
                  "rotation":0,
                  "type":"entity",
                  "visible":true,
-                 "width":31,
+                 "width":32,
                  "x":112,
-                 "y":61.6666666666667
+                 "y":62
                 }],
          "opacity":1,
          "type":"objectgroup",

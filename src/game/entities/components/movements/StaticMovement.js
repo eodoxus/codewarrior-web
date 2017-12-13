@@ -1,6 +1,10 @@
 import Vector from "../../../engine/Vector";
 
 export default class StaticMovement {
+  static create(entity, position) {
+    return new StaticMovement(entity, new Vector(), position);
+  }
+
   constructor(entity, orientation, position) {
     this.entity = entity;
     this.orientation = orientation;

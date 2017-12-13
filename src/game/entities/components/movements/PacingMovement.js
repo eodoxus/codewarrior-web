@@ -2,6 +2,18 @@ import MovementComponent from "./MovementComponent";
 import Vector from "../../../engine/Vector";
 
 export default class PacingMovement extends MovementComponent {
+  static create(entity, position) {
+    const endPosition = new Vector(
+      parseFloat(entity.getProperty("end_x")),
+      parseFloat(entity.getProperty("end_y"))
+    );
+    const velocity = new Vector(
+      parseFloat(entity.getProperty("velocity_x")),
+      parseFloat(entity.getProperty("velocity_y"))
+    );
+    return new PacingMovement(entity, position, endPosition, velocity);
+  }
+
   travelDistance;
   endPosition;
   startPosition;
@@ -10,8 +22,8 @@ export default class PacingMovement extends MovementComponent {
   isStopped;
   maxDistance;
 
-  constructor(entity, orientation, position, endPosition, velocity) {
-    super(entity, orientation, position);
+  constructor(entity, position, endPosition, velocity) {
+    super(entity, velocity, position);
     this.startPosition = Vector.copy(position);
     this.endPosition = endPosition;
     this.startingVelocity = Vector.copy(velocity);

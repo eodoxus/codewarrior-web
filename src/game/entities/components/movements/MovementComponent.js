@@ -2,6 +2,10 @@ import Time from "../../../engine/Time";
 import Vector from "../../../engine/Vector";
 
 export default class MovementComponent {
+  static create(entity, position) {
+    return new MovementComponent(entity, new Vector(), position);
+  }
+
   currentMove;
   entity;
   orientation;

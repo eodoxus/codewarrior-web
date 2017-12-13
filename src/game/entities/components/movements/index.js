@@ -3,13 +3,12 @@ import MovementComponent from "./MovementComponent";
 import PacingMovement from "./PacingMovement";
 import PathfindingMovement from "./PathfindingMovement";
 import StaticMovement from "./StaticMovement";
-import Vector from "../../../engine/Vector";
 
 const movements = {
+  BaseMovement: MovementComponent,
   PacingMovement,
   PathfindingMovement,
-  StaticMovement,
-  BaseMovement: MovementComponent
+  StaticMovement
 };
 
 movements.create = (entity, position) => {
@@ -18,13 +17,7 @@ movements.create = (entity, position) => {
   if (!movements[name]) {
     throw new Error(`MovementComponent ${name} does not exist`);
   }
-
-  switch (name) {
-    case "StaticMovement":
-      return new StaticMovement(entity, new Vector(), position);
-    default:
-      return new movements[name](entity);
-  }
+  return movements[name].create(entity, position);
 };
 
 export default movements;

@@ -23,6 +23,7 @@ export default class Tile {
     NAME: "name",
     NPC: "npc",
     SPAWN_HERO: "spawn_hero",
+    TEXTURE: "texture",
     WIDTH: "width"
   };
 

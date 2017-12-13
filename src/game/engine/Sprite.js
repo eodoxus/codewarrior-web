@@ -1,10 +1,27 @@
 import Graphics from "./Graphics";
 import Size from "./Size";
+import Texture from "./Texture";
 import TextureCache from "./TextureCache";
 import Tile from "./map/Tile";
+import Url from "../../lib/Url";
 import Vector from "./Vector";
 
 export default class Sprite {
+  static createFromProperties(properties) {
+    const size = new Size(
+      parseInt(properties[Tile.PROPERTIES.WIDTH], 10),
+      parseInt(properties[Tile.PROPERTIES.HEIGHT], 10)
+    );
+    return new Sprite(
+      size,
+      new Texture(
+        Url.SPRITES + properties[Tile.PROPERTIES.TEXTURE] + ".png",
+        new Vector(),
+        size
+      )
+    );
+  }
+
   outline;
   size;
   texture;

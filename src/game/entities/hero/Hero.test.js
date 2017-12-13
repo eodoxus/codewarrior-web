@@ -14,6 +14,7 @@ import npcPlist from "../../../../public/animations/npcs.json";
 import tmxConfig from "../../engine/map/__mocks__/map.json";
 import outline from "../../engine/__mocks__/SpriteOutline.json";
 import WalkingState from "./states/WalkingState";
+import PacingMovement from "../components/movements/PacingMovement";
 Sprite.prototype.getOutline = jest.fn();
 Sprite.prototype.getOutline.mockReturnValue(outline);
 
@@ -73,9 +74,10 @@ describe("Hero", () => {
     it("should route around NPCs", async () => {
       const map = new TiledMap();
       map.loadTMXConfig(tmxConfig);
-      const npc = new CrestfallenMage(null, {}, new Vector(80, 66));
+      const npc = new CrestfallenMage(null);
       npc.getSprite().loadAnimations(npcPlist);
       npc.setProperties({ npc: true });
+      npc.setMovement(PacingMovement.create(npc, new Vector(80, 66)));
 
       const heroRerouteSpy = jest.spyOn(hero.getMovement(), "reroute");
 

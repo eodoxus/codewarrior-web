@@ -13,8 +13,7 @@ behaviors.create = entity => {
   if (!behaviors[name]) {
     throw new Error(`BehaviorComponent ${name} does not exist`);
   }
-  const behavior = new behaviors[name](entity);
-  return behavior;
+  return new behaviors[name](entity);
 };
 
 export default behaviors;

@@ -1,36 +1,23 @@
 import AnimatedSpriteGraphics from "./AnimatedSpriteGraphics";
 import AnimationGraphics from "./AnimationGraphics";
 import GraphicsComponent from "./GraphicsComponent";
+import ShadowedSpriteGraphics from "./ShadowedSpriteGraphics";
 import Tile from "../../../engine/map/Tile";
-import Size from "../../../engine/Size";
 
 const graphics = {
+  BaseGraphics: GraphicsComponent,
   AnimatedSpriteGraphics,
   AnimationGraphics,
-  BaseGraphics: GraphicsComponent
+  ShadowedSpriteGraphics
 };
 
-graphics.create = entity => {
+graphics.create = (entity, position) => {
   const name =
     (entity.getProperty(Tile.PROPERTIES.GRAPHICS) || "Base") + "Graphics";
   if (!graphics[name]) {
     throw new Error(`GraphicsComponent ${name} does not exist`);
   }
-  switch (name) {
-    case "AnimationGraphics":
-      return new AnimationGraphics(
-        entity,
-        entity.getProperty(Tile.PROPERTIES.ANIMATION),
-        entity.getProperty(Tile.PROPERTIES.FRAME_SET),
-        new Size(
-          entity.getProperty(parseInt(Tile.PROPERTIES.WIDTH, 10)),
-          entity.getProperty(parseInt(Tile.PROPERTIES.HEIGHT, 10))
-        ),
-        entity.getProperty(Tile.PROPERTIES.FPS)
-      );
-    default:
-      return new graphics[name](entity);
-  }
+  return graphics[name].create(entity, position);
 };
 
 export default graphics;

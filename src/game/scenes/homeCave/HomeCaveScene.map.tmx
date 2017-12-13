@@ -37,9 +37,18 @@
     <property name="layer" value="skull"/>
    </properties>
   </object>
-  <object id="6" name="book" type="entity" x="112" y="61.6667" width="31" height="23">
+  <object id="6" name="BookOfEcmaScript" type="entity" x="112" y="62" width="32" height="20">
    <properties>
-    <property name="entity" value="BookOfEcmaScript"/>
+    <property name="end_x" value="112"/>
+    <property name="end_y" value="60"/>
+    <property name="graphics" value="ShadowedSprite"/>
+    <property name="height" value="20"/>
+    <property name="movement" value="Pacing"/>
+    <property name="shadow" value="3"/>
+    <property name="texture" value="items"/>
+    <property name="velocity_x" value="0"/>
+    <property name="velocity_y" value="-1.5"/>
+    <property name="width" value="32"/>
    </properties>
   </object>
  </objectgroup>

@@ -2,6 +2,7 @@ import CrestfallenMage from "./CrestfallenMage";
 
 import plist from "../../../../../public/animations/npcs.json";
 import Vector from "../../../engine/Vector";
+import PacingMovement from "../../components/movements/PacingMovement";
 let mage;
 
 function makePositive(velocity) {
@@ -13,8 +14,12 @@ function makePositive(velocity) {
 
 beforeEach(async () => {
   fetch.mockResponse(JSON.stringify(plist));
-  mage = new CrestfallenMage("test", {}, new Vector(0, 0));
+  mage = new CrestfallenMage("test", {
+    end_x: 40,
+    velocity_x: 10
+  });
   mage.getSprite().loadAnimations(plist);
+  mage.setMovement(PacingMovement.create(mage, new Vector(0, 0)));
   mage.getBehavior().start();
 });
 

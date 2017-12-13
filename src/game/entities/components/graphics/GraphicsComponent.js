@@ -3,6 +3,10 @@ import Tile from "../../../engine/map/Tile";
 import Vector from "../../../engine/Vector";
 
 export default class GraphicsComponent {
+  static create(entity) {
+    return new GraphicsComponent(entity);
+  }
+
   entity;
   sprite;
   zIndex;

@@ -58,16 +58,22 @@
                  "name":"spawn_npc",
                  "properties":
                     {
+                     "actor":"true",
                      "dialog":"CrestfallenHome.CrestfallenMage",
+                     "end_x":"150",
+                     "end_y":"82",
                      "entity":"CrestfallenMage",
-                     "npc":"true"
+                     "movement":"Pacing",
+                     "npc":"true",
+                     "velocity_x":"10",
+                     "velocity_y":"0"
                     },
                  "rotation":0,
                  "type":"entity",
                  "visible":true,
                  "width":0,
-                 "x":109.667,
-                 "y":81
+                 "x":110,
+                 "y":82
                 }, 
                 {
                  "height":0,
