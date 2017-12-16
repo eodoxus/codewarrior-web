@@ -1,6 +1,7 @@
 import BehaviorComponent from "../components/behaviors/BehaviorComponent";
 import Entity from "../../engine/Entity";
 import HeroGraphics from "./HeroGraphics";
+import GameEvent from "../../engine/GameEvent";
 import PathfindingMovement from "../components/movements/PathfindingMovement";
 import StoppedState from "./states/StoppedState";
 import Vector from "../../engine/Vector";
@@ -28,5 +29,15 @@ export default class Hero extends Entity {
       this.movement.setOrientation(orientation);
     }
     this.graphics.stop();
+  }
+
+  update() {
+    super.update();
+
+    const map = this.movement.getMap();
+    const tile = map && map.getTileAt(this.getOrigin());
+    if (tile && tile.isDoorway()) {
+      return GameEvent.fire(GameEvent.DOORWAY, tile);
+    }
   }
 }

@@ -55,25 +55,23 @@ export default class Scene {
     this.size = s;
   }
 
-  detectCollisions(entity) {
-    const tile = this.map.getTileAt(entity.getOrigin());
-    if (tile && tile.isDoorway() && entity.isHero()) {
-      return GameEvent.fire(GameEvent.DOORWAY, tile);
+  detectCollisions() {
+    let len = this.entities.length;
+    for (let iDx = 0; iDx < len - 1; iDx++) {
+      const entity = this.entities[iDx];
+      for (let jDx = iDx + 1; jDx < len; jDx++) {
+        const otherEntity = this.entities[jDx];
+        const isOneMoving =
+          entity.getVelocity().magnitude() ||
+          otherEntity.getVelocity().magnitude();
+        const doesOneHaveIntent = entity.hasIntent() || otherEntity.hasIntent();
+        const shouldHandleCollision = isOneMoving || doesOneHaveIntent;
+        if (shouldHandleCollision && entity.intersects(otherEntity)) {
+          entity.handleEvent(GameEvent.collision(otherEntity));
+          otherEntity.handleEvent(GameEvent.collision(entity));
+        }
+      }
     }
-
-    this.entities.forEach(nextEntity => {
-      if (entity.getId() === nextEntity.getId()) {
-        return;
-      }
-      const isOneMoving =
-        entity.getVelocity().magnitude() ||
-        nextEntity.getVelocity().magnitude();
-      const doesOneHaveIntent = entity.hasIntent() || nextEntity.hasIntent();
-      const shouldHandleCollision = isOneMoving || doesOneHaveIntent;
-      if (shouldHandleCollision && entity.intersects(nextEntity)) {
-        entity.handleEvent(GameEvent.collision(nextEntity));
-      }
-    });
   }
 
   async init() {
@@ -148,8 +146,9 @@ export default class Scene {
     this.map.trackEntities(this.entities);
     this.entities.forEach(entity => {
       entity.update();
-      this.detectCollisions(entity);
     });
+
+    this.detectCollisions();
   }
 
   unload() {
