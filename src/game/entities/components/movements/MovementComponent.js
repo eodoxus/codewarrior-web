@@ -86,9 +86,8 @@ export default class MovementComponent {
     delete this.currentMove;
   }
 
-  update(dt) {
-    const velocity = Vector.multiply(this.velocity, Time.toSeconds(dt));
-    velocity.multiply(Vector.normalize(this.velocity));
+  update() {
+    const velocity = Vector.multiply(this.velocity, Time.FRAME_STEP_SEC);
     this.position.add(velocity);
     this.updateMove();
   }

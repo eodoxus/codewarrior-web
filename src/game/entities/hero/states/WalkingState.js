@@ -3,7 +3,7 @@ import StateHelper from "./StateHelper";
 import StoppedState from "./StoppedState";
 import Vector from "../../../engine/Vector";
 
-const VELOCITY = 70;
+const VELOCITY = 80;
 
 export default class WalkingState extends State {
   handleEvent(hero, event) {

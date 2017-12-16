@@ -21,10 +21,10 @@ export default class AnimateSometimesBehavior {
 
   stop() {}
 
-  update(dt) {
-    this.entity.movement.update(dt);
+  update() {
+    this.entity.movement.update();
     if (Math.random() > 0.5) {
-      this.entity.graphics.update(dt);
+      this.entity.graphics.update();
     }
   }
 }

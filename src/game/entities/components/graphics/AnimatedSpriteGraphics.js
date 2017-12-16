@@ -35,10 +35,10 @@ export default class AnimatedSpriteGraphics extends GraphicsComponent {
     }
   }
 
-  update(dt) {
+  update() {
     const animation = this.sprite.getAnimation();
     if (animation) {
-      animation.update(dt);
+      animation.update();
     }
   }
 

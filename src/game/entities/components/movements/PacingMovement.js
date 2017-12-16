@@ -51,7 +51,7 @@ export default class PacingMovement extends MovementComponent {
     this.isStopped = true;
   }
 
-  update(dt) {
+  update() {
     if (this.isStopped) {
       return;
     }
@@ -67,7 +67,7 @@ export default class PacingMovement extends MovementComponent {
       this.isReturning = !this.isReturning;
     }
 
-    super.update(dt);
+    super.update();
 
     const startPosition = this.isReturning
       ? this.startPosition

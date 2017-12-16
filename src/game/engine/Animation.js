@@ -60,17 +60,18 @@ export default class Animation {
     return this;
   }
 
-  update(dt) {
+  update() {
     if (!this.isRunning) {
       return;
     }
-    this.dt += dt;
-    if (this.dt > this.fpsDelay) {
+
+    this.dt += Time.FRAME_STEP;
+    if (this.dt >= this.fpsDelay) {
       this.curFrame++;
       if (this.curFrame === this.frames.length) {
         this.curFrame = 0;
       }
-      this.dt = 0;
+      this.dt -= this.fpsDelay;
     }
     return this;
   }

@@ -12,7 +12,7 @@ const ANIMATIONS = {
   UP_LEFT: "walking_upLeft",
   UP_RIGHT: "walking_upRight"
 };
-const FPS = 20;
+const FPS = 15;
 const Z_INDEX = 1;
 
 export default class HeroGraphics extends AnimatedSpriteGraphics {

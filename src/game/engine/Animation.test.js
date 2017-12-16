@@ -2,9 +2,24 @@ import Animation from "./Animation";
 import Vector from "./Vector";
 import Size from "./Size";
 import Texture from "./Texture";
+import Time from "./Time";
 
-const dt = 51;
 let animation;
+
+function updateNumTimes(num) {
+  for (let i = 0; i < num; i++) {
+    animation.update();
+  }
+}
+
+let origFrameStep = Time.FRAME_STEP_SEC;
+beforeAll(() => {
+  Time.FRAME_STEP = 10;
+});
+
+afterAll(() => {
+  Time.FRAME_STEP = origFrameStep;
+});
 
 describe("Animation", () => {
   beforeEach(() => {
@@ -51,26 +66,25 @@ describe("Animation", () => {
 
     it("does nothing if the animation is not running", () => {
       animation.stop();
-      animation.update(dt);
+      animation.update();
       const frame = animation.getCurrentFrame();
       expect(frame.getPosition()).toEqual(new Vector(48, 32));
     });
 
     it("does nothing if not enough time has passed to change frames", () => {
-      animation.update(dt - 1);
+      animation.update();
       const frame = animation.getCurrentFrame();
       expect(frame.getPosition()).toEqual(new Vector(48, 32));
     });
 
     it("changes to next frame if it is running and more time has passed than its framerate", () => {
-      animation.update(dt);
+      updateNumTimes(5);
       const frame = animation.getCurrentFrame();
       expect(frame.getPosition()).toEqual(new Vector(72, 32));
     });
 
     it("resets to first frame when it has run through all frames", () => {
-      animation.update(dt);
-      animation.update(dt);
+      updateNumTimes(1);
       const frame = animation.getCurrentFrame();
       expect(frame.getPosition()).toEqual(new Vector(48, 32));
     });

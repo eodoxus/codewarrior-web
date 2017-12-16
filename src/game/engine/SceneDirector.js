@@ -12,25 +12,23 @@ import Vector from "./Vector";
 import { setTimeout } from "core-js/library/web/timers";
 import Tile from "./map/Tile";
 import Url from "../../lib/Url";
+import Time from "./Time";
 
 const DEBUG = false;
 
 export default class SceneDirector extends Component {
+  dt;
   lastTime;
   hero;
   scene;
-  dt;
 
   constructor(props) {
     super(props);
-    this.lastTime = Date.now();
     this.hero = new Entities.Hero();
     this.scene = createScene(this.props.scene, this.hero);
-    this.dt = 0;
 
     this.state = {
       debug: DEBUG,
-      dt: this.dt,
       isLoading: true
     };
   }
@@ -68,6 +66,8 @@ export default class SceneDirector extends Component {
     this.initEventListeners();
     this.setState({ isLoading: false });
     this.hero.spawn();
+    this.dt = 0;
+    this.lastTime = timestamp();
     this.updateScene();
   }
 
@@ -90,23 +90,21 @@ export default class SceneDirector extends Component {
       Graphics.debug = DEBUG;
     }
 
-    const now = Date.now();
-    const dt = now - this.lastTime;
-    this.lastTime = now;
+    const now = timestamp();
+    this.dt += Math.min(Time.SECOND, now - this.lastTime);
+
+    while (this.dt > Time.FRAME_STEP) {
+      this.dt -= Time.FRAME_STEP;
+      this.scene.update();
+    }
 
     const size = new Size(this.props.width, this.props.height);
     this.scene.setSize(size);
     Graphics.setSize(size);
     Graphics.scale(this.props.scale);
-
-    this.scene.update(dt);
-
     Graphics.clear();
     this.scene.render();
-
-    if (this.state.debug) {
-      this.setState({ dt: this.dt });
-    }
+    this.lastTime = now;
 
     window.requestAnimationFrame(() => this.updateScene());
   }
@@ -178,4 +176,10 @@ function toSceneCoordinateSpace(e, hasBorder) {
   return new Vector(e.clientX, e.clientY)
     .subtract(sceneOriginOffset)
     .multiply(Graphics.getScale());
+}
+
+function timestamp() {
+  return window.performance && window.performance.now
+    ? window.performance.now()
+    : new Date().getTime();
 }

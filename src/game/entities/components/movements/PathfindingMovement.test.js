@@ -60,8 +60,7 @@ describe("PathfindingMovement", () => {
 
     it("updates the current move", () => {
       movement.updateMove = jest.fn();
-      const dt = 100;
-      entity.update(dt);
+      entity.update();
       expect(movement.updateMove).toHaveBeenCalledTimes(1);
     });
 

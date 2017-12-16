@@ -8,6 +8,7 @@ import Size from "./Size";
 import Tile from "./map/Tile";
 
 import outline from "./__mocks__/SpriteOutline.json";
+import Time from "./Time";
 Sprite.prototype.getOutline = jest.fn();
 Sprite.prototype.getOutline.mockReturnValue(outline);
 
@@ -115,15 +116,23 @@ describe("Entity", () => {
   });
 
   describe("update", () => {
+    let origFrameStep = Time.FRAME_STEP_SEC;
+    beforeAll(() => {
+      Time.FRAME_STEP_SEC = 1;
+    });
+
+    afterAll(() => {
+      Time.FRAME_STEP_SEC = origFrameStep;
+    });
+
     beforeEach(() => {
       entity = createEntity(entityId, new Vector(10, 10));
       entity.setVelocity(new Vector(100, 300));
     });
 
-    it("increments position by velocity over the time differential", () => {
-      const dt = 100;
-      entity.update(dt);
-      expect(entity.getPosition().round()).toEqual(new Vector(13, 38));
+    it("increments position by velocity over the frame step time", () => {
+      entity.update();
+      expect(entity.getPosition()).toEqual(new Vector(110, 310));
     });
   });
 });

@@ -24,7 +24,7 @@ export default class StaticMovement {
     return this.velocity;
   }
 
-  update(dt) {
+  update() {
     // Do nothing
   }
 }

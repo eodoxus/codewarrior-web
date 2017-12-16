@@ -30,9 +30,9 @@ export default class AnimationGraphics extends GraphicsComponent {
     this.sprite.getAnimation().start();
   }
 
-  update(dt) {
+  update() {
     this.getSprite()
       .getAnimation()
-      .update(dt);
+      .update();
   }
 }

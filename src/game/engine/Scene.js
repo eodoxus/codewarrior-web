@@ -144,10 +144,10 @@ export default class Scene {
     return this.showBorder;
   }
 
-  update(dt) {
+  update() {
     this.map.trackEntities(this.entities);
     this.entities.forEach(entity => {
-      entity.update(dt);
+      entity.update();
       this.detectCollisions(entity);
     });
   }

@@ -135,5 +135,5 @@ export default class GraphicsComponent {
 
   stop() {}
 
-  update(dt) {}
+  update() {}
 }

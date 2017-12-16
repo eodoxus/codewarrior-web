@@ -154,7 +154,7 @@ export default class Entity {
     return this.graphics.translateToOrigin(point);
   }
 
-  update(dt) {
-    this.behavior.update(dt);
+  update() {
+    this.behavior.update();
   }
 }

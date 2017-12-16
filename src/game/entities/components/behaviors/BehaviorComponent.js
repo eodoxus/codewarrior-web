@@ -53,9 +53,9 @@ export default class BehaviorComponent {
     this.state = new this.stopState(this.entity);
   }
 
-  update(dt) {
-    this.state = this.state.update(this.entity, dt);
-    this.entity.movement.update(dt);
-    this.entity.graphics.update(dt);
+  update() {
+    this.state = this.state.update(this.entity);
+    this.entity.movement.update();
+    this.entity.graphics.update();
   }
 }
