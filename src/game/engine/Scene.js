@@ -3,6 +3,7 @@ import entities from "../entities";
 import GameEvent from "./GameEvent";
 import Graphics from "./Graphics";
 import TiledMap from "./map/TiledMap";
+import GameState from "../GameState";
 
 export default class Scene {
   clickedTile;
@@ -47,12 +48,12 @@ export default class Scene {
     return this.entities;
   }
 
-  getSize(s) {
+  getSize() {
     return this.size;
   }
 
-  setSize(s) {
-    this.size = s;
+  setSize(size) {
+    this.size = size;
   }
 
   detectCollisions() {
@@ -92,6 +93,7 @@ export default class Scene {
       Audio.play(music);
     }
     await Promise.all(promises);
+    GameState.restoreScene(this);
   }
 
   onClick(position) {
@@ -153,5 +155,7 @@ export default class Scene {
 
   unload() {
     this.hero.stop();
+    GameState.storeScene(this);
+    GameState.storeHero(this.hero);
   }
 }

@@ -20,6 +20,14 @@ export default class Dialog {
     return text;
   }
 
+  getState() {
+    return this.state;
+  }
+
+  setState(state) {
+    this.state = state;
+  }
+
   next() {
     const maxState = Dialog.text[this.key].length - 1;
     this.state = Math.min(maxState, this.state + 1);
