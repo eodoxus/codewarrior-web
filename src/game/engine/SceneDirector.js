@@ -13,6 +13,7 @@ import { setTimeout } from "core-js/library/web/timers";
 import Tile from "./map/Tile";
 import Url from "../../lib/Url";
 import Time from "./Time";
+import GameState from "../GameState";
 
 const DEBUG = false;
 
@@ -67,7 +68,7 @@ export default class SceneDirector extends Component {
     this.setState({ isLoading: false });
     this.hero.spawn();
     this.dt = 0;
-    this.lastTime = timestamp();
+    this.lastTime = GameState.timestamp();
     this.updateScene();
   }
 
@@ -90,7 +91,7 @@ export default class SceneDirector extends Component {
       Graphics.debug = DEBUG;
     }
 
-    const now = timestamp();
+    const now = GameState.timestamp();
     this.dt += Math.min(Time.SECOND, now - this.lastTime);
 
     while (this.dt > Time.FRAME_STEP) {
@@ -176,10 +177,4 @@ function toSceneCoordinateSpace(e, hasBorder) {
   return new Vector(e.clientX, e.clientY)
     .subtract(sceneOriginOffset)
     .multiply(Graphics.getScale());
-}
-
-function timestamp() {
-  return window.performance && window.performance.now
-    ? window.performance.now()
-    : new Date().getTime();
 }

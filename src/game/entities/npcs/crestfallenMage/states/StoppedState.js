@@ -1,17 +1,18 @@
 import GameEvent from "../../../../engine/GameEvent";
+import GameState from "../../../../GameState";
 import State from "../../../../engine/State";
 import TalkingState from "./TalkingState";
 import Time from "../../../../engine/Time";
 import WalkingState from "./WalkingState";
 
 export default class StoppedState extends State {
-  stoppedTimer;
+  timer;
   restartTime;
 
   enter(mage) {
     mage.movement.stop();
-    this.stoppedTimer = 0;
-    this.restartTime = Math.min((Math.random() * 10 - 5, 1)) * Time.SECOND;
+    this.timer = GameState.timer();
+    this.restartTime = (Math.floor(Math.random() * 5) + 1) * Time.SECOND;
     return this;
   }
 
@@ -25,9 +26,8 @@ export default class StoppedState extends State {
     return this.enter(mage);
   }
 
-  update(mage, dt) {
-    this.stoppedTimer += dt;
-    if (this.stoppedTimer > this.restartTime) {
+  update(mage) {
+    if (this.timer.elapsed() > this.restartTime) {
       return new WalkingState(mage);
     }
     return this;
