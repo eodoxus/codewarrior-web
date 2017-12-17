@@ -12,7 +12,7 @@ export default class Dialog {
 
   constructor(key, state) {
     this.key = key;
-    this.state = state || 0;
+    this.state = state || -1;
   }
 
   getText() {

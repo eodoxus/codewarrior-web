@@ -2,6 +2,7 @@ import GameEvent from "../../../../engine/GameEvent";
 import State from "../../../../engine/State";
 import StoppedState from "./StoppedState";
 import Time from "../../../../engine/Time";
+import GameState from "../../../../GameState";
 
 const DIALOG_TIMEOUT = 2;
 
@@ -14,8 +15,9 @@ export default class TalkingState extends State {
     this.entity = entity;
     this.startTimer = 0;
     mage.movement.faceEntity(entity);
-    GameEvent.fire(GameEvent.DIALOG, mage.behavior.getDialog().getText());
-    mage.behavior.getDialog().next();
+    const dialog = mage.behavior.getDialog();
+    this.updateMageDialog(mage);
+    GameEvent.fire(GameEvent.DIALOG, dialog.getText());
     return this;
   }
 
@@ -39,5 +41,26 @@ export default class TalkingState extends State {
       return new StoppedState(mage);
     }
     return this;
+  }
+
+  updateMageDialog(mage) {
+    const dialog = mage.behavior.getDialog();
+    const caveSceneState = GameState.getSceneState("HomeCaveScene");
+    switch (dialog.getState()) {
+      case 0:
+        const hasEnteredCave = !!caveSceneState;
+        if (hasEnteredCave) {
+          dialog.next();
+        }
+        break;
+      case 1:
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+      default:
+        dialog.next();
+    }
   }
 }
