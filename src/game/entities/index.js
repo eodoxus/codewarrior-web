@@ -32,7 +32,7 @@ entities.create = (position, properties) => {
   if (!entity.getMovement()) {
     entity.setMovement(movements.create(entity, position));
   }
-  if (entity.getProperty("actor")) {
+  if (entity.isNpc()) {
     Entity.makeActor(entity);
   }
   return entity;

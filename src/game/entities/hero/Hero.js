@@ -1,9 +1,8 @@
-import BehaviorComponent from "../components/behaviors/BehaviorComponent";
 import Entity from "../../engine/Entity";
+import HeroBehavior from "./HeroBehavior";
 import HeroGraphics from "./HeroGraphics";
 import GameEvent from "../../engine/GameEvent";
 import PathfindingMovement from "../components/movements/PathfindingMovement";
-import StoppedState from "./states/StoppedState";
 import Vector from "../../engine/Vector";
 
 export default class Hero extends Entity {
@@ -12,10 +11,9 @@ export default class Hero extends Entity {
   constructor() {
     super(Hero.ID);
     this.movement = new PathfindingMovement(this);
-    this.behavior = new BehaviorComponent(this, StoppedState, StoppedState);
+    this.behavior = new HeroBehavior(this);
     this.graphics = new HeroGraphics(this);
     Entity.makeActor(this);
-    this.zIndex = 1;
     this.spawn(new Vector(0, 0), new Vector(0, 1));
   }
 

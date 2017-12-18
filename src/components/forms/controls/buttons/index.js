@@ -1,6 +1,12 @@
 import React from "react";
 import cx from "classnames";
 
+let Button = ({ text, onClick }) => (
+  <button className={cx("btn btn-default btn-confirm")} onClick={onClick}>
+    {text}
+  </button>
+);
+
 let LinkButton = ({ icon, size, target, url }) => (
   <a
     href={url}
@@ -17,4 +23,4 @@ LinkButton.defaultProps = {
   target: "_blank"
 };
 
-export { LinkButton };
+export { Button, LinkButton };

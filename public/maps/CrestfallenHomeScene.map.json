@@ -58,7 +58,6 @@
                  "name":"spawn_npc",
                  "properties":
                     {
-                     "actor":"true",
                      "dialog":"CrestfallenHome.CrestfallenMage",
                      "end_x":"150",
                      "end_y":"82",

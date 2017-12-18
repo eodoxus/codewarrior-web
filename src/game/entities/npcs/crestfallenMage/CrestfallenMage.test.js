@@ -12,6 +12,7 @@ import dialog from "../../../../../public/dialog.json";
 import GameEvent from "../../../engine/GameEvent";
 import Sprite from "../../../engine/Sprite";
 import Dialog from "../../../engine/Dialog";
+import GameState from "../../../GameState";
 
 let mage;
 
@@ -152,7 +153,46 @@ describe("CrestfallenMage", () => {
       state = mage.getBehavior().getState();
       expect(state instanceof StoppedState).toBe(true);
     });
+
+    it("cycles through talking states as entity interacts with it", () => {
+      const mageDialog = dialog["CrestfallenHome.CrestfallenMage"];
+      let dialogStateExpectation = 0;
+
+      GameEvent.on(GameEvent.DIALOG, dialog => {
+        expect(dialog).toEqual(mageDialog[dialogStateExpectation]);
+      });
+
+      // Trigger dialog handler defined above. If HomeCaveScene hasn't
+      // been visited yet, dialog state shouldn't advance
+      mage.handleEvent(GameEvent.collision(entity));
+      mage.handleEvent(GameEvent.collision(entity));
+
+      visitHomeCaveScene();
+
+      dialogStateExpectation = 1;
+      mage.handleEvent(GameEvent.collision(entity));
+
+      dialogStateExpectation = 2;
+      mage.handleEvent(GameEvent.collision(entity));
+
+      GameEvent.on(GameEvent.NPC_INTERACTION, event => {
+        expect(event.interaction).toEqual(
+          mageDialog[dialogStateExpectation].action
+        );
+      });
+      GameEvent.fire(GameEvent.CONFIRM, {
+        dialog: mageDialog[dialogStateExpectation]
+      });
+    });
   });
 
   describe("walking state", () => {});
 });
+
+function visitHomeCaveScene() {
+  const mockScene = {
+    getName: () => "HomeCaveScene",
+    getEntities: () => []
+  };
+  GameState.storeScene(mockScene);
+}

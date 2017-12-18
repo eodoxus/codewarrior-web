@@ -26,7 +26,7 @@ export default class BehaviorComponent {
   }
 
   isIntent(type) {
-    return this.intent && this.intent.getType(type);
+    return this.intent && this.intent.getType() === type;
   }
 
   setIntent(intent) {

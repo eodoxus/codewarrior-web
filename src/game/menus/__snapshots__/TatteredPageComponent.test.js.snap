@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TatteredPageComponent /> Snapshots closes when close button is clicked 1`] = `""`;
+
+exports[`<TatteredPageComponent /> Snapshots matches expected empty snapshot initially 1`] = `""`;
+
+exports[`<TatteredPageComponent /> Snapshots renders empty on close event when opened 1`] = `""`;
+
+exports[`<TatteredPageComponent /> Snapshots renders tattered page graphics container on open event 1`] = `
+<div
+  className={undefined}
+  onClick={[Function]}
+  style={
+    Object {
+      "backgroundImage": "url(/images/tattered-page.png)",
+    }
+  }
+>
+  <div
+    className="undefined close"
+    onClick={[Function]}
+  >
+    <span>
+      x
+    </span>
+  </div>
+</div>
+`;

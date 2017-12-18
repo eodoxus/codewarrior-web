@@ -97,7 +97,6 @@ export default class Scene {
   }
 
   onClick(position) {
-    GameEvent.fire(GameEvent.DIALOG, "");
     this.clickedPosition = position;
     this.clickedTile = this.map.getTileAt(position);
     if (this.clickedTile) {
@@ -155,6 +154,7 @@ export default class Scene {
 
   unload() {
     this.hero.stop();
+    GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
     GameState.storeScene(this);
     GameState.storeHero(this.hero);
   }

@@ -1,0 +1,33 @@
+@import "../../lib/lib.scss";
+
+$color-dialog--border: #fff;
+$color-dialog--font: #fff;
+
+@mixin dialog-container {
+  position: absolute;
+  border: 1px solid $color-dialog--border;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.dialog {
+  @include dialog-container;
+  top: 5%;
+  left: 20%;
+  right: 20%;
+  padding: 10px;
+  min-height: 30px;
+  color: $color-dialog--font;
+
+  .confirm {
+    @include dialog-container;
+    padding: 10px;
+    bottom: -67px;
+    left: 50%;
+    margin-left: -75px;
+
+    button:first-child {
+      margin-right: 10px;
+    }
+  }
+}

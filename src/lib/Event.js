@@ -9,12 +9,17 @@ export default class Event {
     return Event._instance;
   }
 
+  static absorbClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
   static fire(event, obj) {
-    Event.instance().emitter.emit(event, obj);
+    return Event.instance().emitter.emit(event, obj);
   }
 
   static on(event, handler) {
-    Event.instance().emitter.addListener(event, handler);
+    return Event.instance().emitter.addListener(event, handler);
   }
 
   emitter;

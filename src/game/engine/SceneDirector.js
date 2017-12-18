@@ -1,19 +1,18 @@
 import * as _ from "lodash";
 import React, { Component } from "react";
 import styles from "./SceneDirector.scss";
-import DialogComponent from "./DialogComponent";
+import GameMenus from "../menus/GameMenusComponent";
 import Entities from "../entities";
 import GameEvent from "./GameEvent";
+import GameState from "../GameState";
+import Graphics from "./Graphics";
 import Indicators from "../../components/indicators";
 import Scenes from "../scenes";
-import Graphics from "./Graphics";
 import Size from "./Size";
-import Vector from "./Vector";
-import { setTimeout } from "core-js/library/web/timers";
 import Tile from "./map/Tile";
-import Url from "../../lib/Url";
 import Time from "./Time";
-import GameState from "../GameState";
+import Url from "../../lib/Url";
+import Vector from "./Vector";
 
 const DEBUG = false;
 
@@ -35,8 +34,8 @@ export default class SceneDirector extends Component {
   }
 
   onClick = e => {
-    e.preventDefault();
-    e.stopPropagation();
+    GameEvent.absorbClick(e);
+    closeDialog();
     const hasBorder = this.props.canShowBorder && this.scene.shouldShowBorder();
     const position = toSceneCoordinateSpace(e, hasBorder);
     if (this.hero.intersects(position)) {
@@ -70,6 +69,10 @@ export default class SceneDirector extends Component {
     this.dt = 0;
     this.lastTime = GameState.timestamp();
     this.updateScene();
+  }
+
+  componentWillUnmount() {
+    GameEvent.removeAllListeners();
   }
 
   initEventListeners() {
@@ -124,7 +127,7 @@ export default class SceneDirector extends Component {
           onClick={this.onClick}
         >
           <canvas ref={canvas => (this.canvas = canvas)} />
-          <DialogComponent />
+          <GameMenus />
         </div>
       </div>
     );
@@ -150,6 +153,10 @@ SceneDirector.defaultProps = {
   height: 0,
   scale: 1
 };
+
+function closeDialog() {
+  GameEvent.fire(GameEvent.DIALOG, "");
+}
 
 function createScene(name, hero) {
   let sceneName = _.upperFirst(name);

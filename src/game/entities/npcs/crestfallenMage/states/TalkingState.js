@@ -9,26 +9,30 @@ const DIALOG_TIMEOUT = 2;
 export default class TalkingState extends State {
   entity;
   timer;
+  dialogListener;
 
   enter(mage, entity) {
     mage.stop();
     this.entity = entity;
     this.timer = GameState.timer();
     mage.movement.faceEntity(entity);
-    const dialog = mage.behavior.getDialog();
     this.updateMageDialog(mage);
-    GameEvent.fire(GameEvent.DIALOG, dialog.getText());
+    GameEvent.fire(GameEvent.DIALOG, mage.behavior.getDialog().getMessage());
     return this;
   }
 
-  handleEvent(mage, event) {
-    if (event.getType() === GameEvent.COLLISION) {
-      const entity = event.getData();
-      if (entity.behavior.isIntent(GameEvent.TALK)) {
-        return this.enter(mage, entity);
-      }
+  onDialogConfirm(dialog) {
+    this.dialogListener.remove();
+    delete this.dialogListener;
+    GameEvent.fire(GameEvent.NPC_INTERACTION, { interaction: dialog.action });
+  }
+
+  startDialogListener() {
+    if (!this.dialogListener) {
+      this.dialogListener = GameEvent.on(GameEvent.CONFIRM, event =>
+        this.onDialogConfirm(event.dialog)
+      );
     }
-    return this;
   }
 
   update(mage) {
@@ -49,18 +53,20 @@ export default class TalkingState extends State {
       case 0:
         const hasEnteredCave = !!caveSceneState;
         if (hasEnteredCave) {
-          dialog.next();
+          dialog.setState(1);
         }
         break;
       case 1:
-        dialog.next();
+        dialog.setState(2);
+        this.startDialogListener();
         break;
       case 2:
+        this.startDialogListener();
         break;
       case 3:
         break;
       default:
-        dialog.next();
+        dialog.setState(0);
     }
   }
 }

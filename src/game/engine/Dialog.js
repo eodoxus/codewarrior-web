@@ -15,9 +15,8 @@ export default class Dialog {
     this.state = state || -1;
   }
 
-  getText() {
-    const text = Dialog.text[this.key][this.state];
-    return text;
+  getMessage() {
+    return Dialog.text[this.key][this.state];
   }
 
   getState() {

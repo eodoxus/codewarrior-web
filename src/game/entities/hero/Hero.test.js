@@ -1,5 +1,7 @@
 import CrestfallenMage from "../npcs/crestfallenMage/CrestfallenMage";
+import GameEvent from "../../engine/GameEvent";
 import Hero from "./Hero";
+import PacingMovement from "../components/movements/PacingMovement";
 import Rect from "../../engine/Rect";
 import Size from "../../engine/Size";
 import Scene from "../../engine/Scene";
@@ -8,13 +10,15 @@ import StoppedState from "./states/StoppedState";
 import Tile from "../../engine/map/Tile";
 import TiledMap from "../../engine/map/TiledMap";
 import Vector from "../../engine/Vector";
+import WalkingState from "./states/WalkingState";
 
 import plist from "../../../../public/animations/hero.json";
 import npcPlist from "../../../../public/animations/npcs.json";
 import tmxConfig from "../../engine/map/__mocks__/map.json";
 import outline from "../../engine/__mocks__/SpriteOutline.json";
-import WalkingState from "./states/WalkingState";
-import PacingMovement from "../components/movements/PacingMovement";
+
+jest.useFakeTimers();
+
 Sprite.prototype.getOutline = jest.fn();
 Sprite.prototype.getOutline.mockReturnValue(outline);
 
@@ -70,30 +74,80 @@ describe("Hero", () => {
     });
   });
 
-  describe("Collisions", () => {
-    it("should route around NPCs", async () => {
-      const map = new TiledMap();
-      map.loadTMXConfig(tmxConfig);
-      const npc = new CrestfallenMage(null);
+  describe("Behavior", () => {
+    let npc;
+    let map;
+    let scene;
+
+    beforeEach(() => {
+      npc = new CrestfallenMage(null);
       npc.getSprite().loadAnimations(npcPlist);
       npc.setProperties({ npc: true });
+
+      scene = new Scene(hero);
       npc.setMovement(PacingMovement.create(npc, new Vector(80, 66)));
-
-      const heroRerouteSpy = jest.spyOn(hero.getMovement(), "reroute");
-
-      const scene = new Scene(hero);
       scene.addEntity(npc);
+
+      map = new TiledMap();
+      map.loadTMXConfig(tmxConfig);
       scene.setMap(map);
+    });
+
+    it("should route around NPCs", () => {
       hero.setPosition(new Vector(50, 66));
       const state = new WalkingState(hero);
       hero.setState(state);
       const destination = hero.translateToOrigin(new Vector(112, 72));
       hero.getMovement().walkTo(Rect.point(destination));
       npc.getBehavior().start();
+
+      const heroRerouteSpy = jest.spyOn(hero.getMovement(), "reroute");
       while (hero.getState() === state) {
-        scene.update(20);
+        scene.update();
       }
       expect(heroRerouteSpy).toHaveBeenCalled();
+    });
+
+    it("should talk to NPCs when NPC is clicked, then collided with", () => {
+      // Simulate npc click
+      function simulateNpcClick() {
+        const tile = map.getTileAt(new Vector());
+        tile.setEntity(npc);
+        hero.handleEvent(GameEvent.click(tile));
+      }
+
+      function simulateNpcCollision() {
+        hero.handleEvent(GameEvent.collision(npc));
+        jest.runAllTimers();
+      }
+
+      // Hero intent should be "talk" when NPC is clicked
+      hero.setPosition(new Vector(50, 50));
+      npc.setPosition(new Vector(100, 100));
+      simulateNpcClick();
+      expect(hero.getBehavior().isIntent("talk")).toBe(true);
+
+      // Hero should face and talk to entity when they collide and hero's intent is "talk"
+      simulateNpcCollision();
+      expect(hero.getBehavior().getState() instanceof StoppedState).toBe(true);
+      // Check hero is facing entitie's direction
+      expect(hero.getMovement().getOrientation()).toEqual(new Vector(1, 1));
+      expect(hero.getBehavior().hasIntent()).toBe(false);
+
+      npc.setPosition(new Vector(0, 100));
+      simulateNpcClick();
+      simulateNpcCollision();
+      expect(hero.getMovement().getOrientation()).toEqual(new Vector(-1, 1));
+
+      npc.setPosition(new Vector(100, 0));
+      simulateNpcClick();
+      simulateNpcCollision();
+      expect(hero.getMovement().getOrientation()).toEqual(new Vector(1, -1));
+
+      npc.setPosition(new Vector(0, 0));
+      simulateNpcClick();
+      simulateNpcCollision();
+      expect(hero.getMovement().getOrientation()).toEqual(new Vector(-1, -1));
     });
   });
 });

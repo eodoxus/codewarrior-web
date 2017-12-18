@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DialogComponent /> Snapshots closes when dialog is empty 1`] = `
+<div
+  className={undefined}
+>
+  <div>
+    test dialog
+  </div>
+</div>
+`;
+
+exports[`<DialogComponent /> Snapshots closes when dialog is empty 2`] = `""`;
+
+exports[`<DialogComponent /> Snapshots matches expected empty snapshot initially 1`] = `""`;
+
+exports[`<DialogComponent /> Snapshots renders a confirm dialog when confirm is present in dialog event 1`] = `
+<div
+  className={undefined}
+>
+  <div>
+    It is said that a wizard in the north can release the book.
+  </div>
+  <div>
+    If only I could decipher the runes on this tattered page.
+  </div>
+  <div>
+    Perhaps you can try?
+  </div>
+  <div
+    className={undefined}
+  >
+    <button
+      className="btn btn-default btn-confirm"
+      onClick={[Function]}
+    >
+      OK
+    </button>
+    <button
+      className="btn btn-default btn-confirm"
+      onClick={[Function]}
+    >
+      No thanks.
+    </button>
+  </div>
+</div>
+`;
+
+exports[`<DialogComponent /> Snapshots renders multiple divs for each line of dialog 1`] = `
+<div
+  className={undefined}
+>
+  <div>
+    test dialog
+  </div>
+  <div>
+    with
+  </div>
+  <div>
+    multiple lines
+  </div>
+</div>
+`;
+
+exports[`<DialogComponent /> Snapshots renders text dialog on dialog events 1`] = `
+<div
+  className={undefined}
+>
+  <div>
+    test dialog
+  </div>
+</div>
+`;

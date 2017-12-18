@@ -21,7 +21,6 @@
   <object id="2" name="spawn_hero" type="spawn_hero" x="128.333" y="149.333"/>
   <object id="3" name="spawn_npc" type="entity" x="110" y="82">
    <properties>
-    <property name="actor" value="true"/>
     <property name="dialog" value="CrestfallenHome.CrestfallenMage"/>
     <property name="end_x" value="150"/>
     <property name="end_y" value="82"/>
