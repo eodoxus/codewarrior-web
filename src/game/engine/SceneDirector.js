@@ -15,6 +15,7 @@ import Url from "../../lib/Url";
 import Vector from "./Vector";
 
 const DEBUG = false;
+const STARTING_SCENE = "Home";
 
 export default class SceneDirector extends Component {
   dt;
@@ -24,9 +25,6 @@ export default class SceneDirector extends Component {
 
   constructor(props) {
     super(props);
-    this.hero = new Entities.Hero();
-    this.scene = createScene(this.props.scene, this.hero);
-
     this.state = {
       debug: DEBUG,
       isLoading: true
@@ -48,31 +46,58 @@ export default class SceneDirector extends Component {
 
   onDoorwayTransition = doorway => {
     this.setState({ isLoading: true });
+    this.stopEventListeners();
     this.scene.unload();
+
+    // Need to wait until current iteration of requestAnimationFrame
+    // finishes before switching scenes
     setTimeout(async () => {
-      this.scene = createScene(doorway.getProperty("to"), this.hero);
-      await this.scene.init();
-      this.hero.spawn(
+      await this.loadScene(
+        doorway.getProperty("to"),
         doorway.getProperty(Tile.PROPERTIES.SPAWN_HERO),
         doorway.getProperty(Tile.PROPERTIES.FACING)
       );
-      this.setState({ isLoading: false });
-      this.updateScene();
+      this.startGameLoop();
     });
   };
 
   async componentDidMount() {
-    await this.scene.init();
-    this.initEventListeners();
-    this.setState({ isLoading: false });
-    this.hero.spawn();
-    this.dt = 0;
-    this.lastTime = GameState.timestamp();
-    this.updateScene();
+    await this.loadScene(STARTING_SCENE);
+    this.startGameLoop();
   }
 
   componentWillUnmount() {
-    GameEvent.removeAllListeners();
+    this.stopEventListeners();
+  }
+
+  async loadScene(name, heroPosition, heroOrientation) {
+    this.initEventListeners();
+    if (!this.hero) {
+      this.hero = new Entities.Hero();
+    }
+    this.scene = createScene(name, this.hero);
+    await this.scene.init();
+    this.hero.spawn(heroPosition, heroOrientation);
+  }
+
+  gameLoop() {
+    if (this.state.isLoading) {
+      return;
+    }
+
+    // Update scene on a fixed time step
+    const now = GameState.timestamp();
+    this.dt += Math.min(Time.SECOND, now - this.lastTime);
+    while (this.dt > Time.FRAME_STEP) {
+      this.dt -= Time.FRAME_STEP;
+      this.scene.update();
+    }
+
+    Graphics.clear();
+    this.scene.render();
+    this.lastTime = now;
+
+    window.requestAnimationFrame(() => this.gameLoop());
   }
 
   initEventListeners() {
@@ -83,34 +108,25 @@ export default class SceneDirector extends Component {
     return this.state.isLoading;
   }
 
-  updateScene() {
-    if (this.state.isLoading) {
-      return;
-    }
+  startGameLoop() {
+    this.setState({ isLoading: false });
 
-    if (!Graphics.isReady()) {
-      Graphics.init(this.canvas);
-      Graphics.setDrawingSurface(this.canvas);
+    // Need to wait until current React renders DOM elements before
+    // Graphics can begin drawing
+    setTimeout(() => {
+      const size = new Size(this.props.width, this.props.height);
       Graphics.debug = DEBUG;
-    }
+      Graphics.setDrawingSurface(this.canvas);
+      Graphics.setSize(size);
+      Graphics.scale(this.props.scale);
+      this.dt = 0;
+      this.lastTime = GameState.timestamp();
+      this.gameLoop();
+    });
+  }
 
-    const now = GameState.timestamp();
-    this.dt += Math.min(Time.SECOND, now - this.lastTime);
-
-    while (this.dt > Time.FRAME_STEP) {
-      this.dt -= Time.FRAME_STEP;
-      this.scene.update();
-    }
-
-    const size = new Size(this.props.width, this.props.height);
-    this.scene.setSize(size);
-    Graphics.setSize(size);
-    Graphics.scale(this.props.scale);
-    Graphics.clear();
-    this.scene.render();
-    this.lastTime = now;
-
-    window.requestAnimationFrame(() => this.updateScene());
+  stopEventListeners() {
+    GameEvent.removeAllListeners();
   }
 
   render() {

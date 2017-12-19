@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="36">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="37">
  <tileset firstgid="1" name="overworld" tilewidth="8" tileheight="8" tilecount="8645">
   <image source="../../../../public/maps/overworld.png" width="760" height="728"/>
  </tileset>
@@ -54,7 +54,6 @@
     <property name="to" value="BossScene"/>
    </properties>
   </object>
-  <object id="20" name="spawn_hero" type="spawn_hero" x="160" y="142.5" height="1"/>
   <object id="27" name="collision_stumps" type="collidable" x="176.667" y="8.33333" width="38" height="15">
    <properties>
     <property name="layer" value="stumps"/>
@@ -66,6 +65,7 @@
     <property name="layer" value="skulls"/>
    </properties>
   </object>
+  <object id="36" name="spawn_hero" type="spawn_hero" x="98" y="102"/>
  </objectgroup>
  <layer name="collidable" width="32" height="24">
   <data encoding="base64" compression="zlib">

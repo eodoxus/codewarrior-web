@@ -16,7 +16,6 @@ export default class Scene {
     Audio.stop();
     this.hero = hero;
     this.map = new TiledMap(this.getName());
-    this.hero.setMap(this.map);
     this.entities = [hero];
   }
 
@@ -48,14 +47,6 @@ export default class Scene {
     return this.entities;
   }
 
-  getSize() {
-    return this.size;
-  }
-
-  setSize(size) {
-    this.size = size;
-  }
-
   detectCollisions() {
     let len = this.entities.length;
     for (let iDx = 0; iDx < len - 1; iDx++) {
@@ -76,24 +67,24 @@ export default class Scene {
   }
 
   async init() {
-    if (this.map) {
-      await this.map.init();
-      this.map.getEntities().forEach(tile => {
-        const entity = entities.create(
-          tile.getPosition(),
-          tile.getProperties()
-        );
-        this.addEntity(entity);
-      });
-    }
-    const promises = [];
-    this.getEntities().forEach(entity => promises.push(entity.init()));
-    const music = this.getBackgroundMusic();
-    if (music) {
-      Audio.play(music);
-    }
-    await Promise.all(promises);
+    this.startBackgroundMusic();
+    await this.initMap();
+    await this.initEntities();
     GameState.restoreScene(this);
+  }
+
+  async initEntities() {
+    const promises = this.getEntities().map(entity => entity.init());
+    await Promise.all(promises);
+  }
+
+  async initMap() {
+    this.hero.setMap(this.map);
+    await this.map.init();
+    this.map.getEntities().forEach(tile => {
+      const entity = entities.create(tile.getPosition(), tile.getProperties());
+      this.addEntity(entity);
+    });
   }
 
   onClick(position) {
@@ -141,6 +132,13 @@ export default class Scene {
 
   shouldShowBorder() {
     return this.showBorder;
+  }
+
+  startBackgroundMusic() {
+    const music = this.getBackgroundMusic();
+    if (music) {
+      Audio.play(music);
+    }
   }
 
   update() {

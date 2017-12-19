@@ -18,8 +18,7 @@ export default class Hero extends Entity {
   }
 
   spawn(position, orientation) {
-    const spawnPosition =
-      position || this.movement.getMap().getHeroSpawnPoint();
+    const spawnPosition = position || this.getDefaultSpawnPoint();
     if (spawnPosition) {
       this.movement.setPosition(spawnPosition);
     }
@@ -27,6 +26,14 @@ export default class Hero extends Entity {
       this.movement.setOrientation(orientation);
     }
     this.graphics.stop();
+  }
+
+  getDefaultSpawnPoint() {
+    const map = this.movement.getMap();
+    if (map) {
+      return map.getHeroSpawnPoint();
+    }
+    return new Vector();
   }
 
   update() {

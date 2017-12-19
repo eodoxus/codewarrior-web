@@ -6,7 +6,6 @@ import styles from "./App.scss";
 import { AppModel } from "./data";
 import Game from "./game";
 
-const DEFAULT_ROUTE = "Home";
 const GAME_WIDTH = 640;
 const GAME_HEIGHT = 480;
 const CHROME_HEIGHT = 76 + 40; // header + footer
@@ -16,8 +15,7 @@ export default class App extends Component {
     super();
     this.state = {
       isLoading: true,
-      name: "...",
-      route: DEFAULT_ROUTE
+      name: "..."
     };
   }
 
@@ -84,7 +82,6 @@ export default class App extends Component {
     return (
       <div className={styles.game}>
         <Game.SceneDirector
-          scene={this.state.route}
           width={GAME_WIDTH}
           height={GAME_HEIGHT}
           scale="2.5"

@@ -13,25 +13,21 @@ import dialog from "../../../public/dialog.json";
 jest.mock("./Graphics");
 jest.useFakeTimers();
 
-Scene.prototype.init = () => Promise.resolve();
+Scene.prototype.init = () => true;
 Scene.prototype.render = () => true;
 Scene.prototype.update = () => true;
 
-function getController() {
+let ctrl;
+
+beforeEach(() => {
   fetch.mockResponse(JSON.stringify(dialog));
   const div = document.createElement("div");
-  return ReactDOM.render(<SceneDirector scene="home" />, div);
-}
-
-afterEach(() => {
-  setInterval.mockClear();
+  ctrl = ReactDOM.render(<SceneDirector />, div);
 });
 
 describe("<SceneDirector />", () => {
   it("sets default props", () => {
-    const ctrl = getController();
     expect(ctrl.props).toEqual({
-      scene: "home",
       width: 0,
       height: 0,
       scale: 1
@@ -39,7 +35,6 @@ describe("<SceneDirector />", () => {
   });
 
   it("initializes hero", () => {
-    const ctrl = getController();
     const hero = ctrl.scene.getEntities()[0];
     expect(hero.getPosition()).toBeDefined();
   });
@@ -61,7 +56,6 @@ describe("<SceneDirector />", () => {
     };
 
     it("converts click position to scene vector space", () => {
-      const ctrl = getController();
       ctrl.hero.intersects = jest.fn();
       ctrl.scene.onClick = jest.fn();
       ctrl.onClick(mockEvent);
@@ -69,7 +63,6 @@ describe("<SceneDirector />", () => {
     });
 
     it("doesn't send click to scene if hero was clicked", () => {
-      const ctrl = getController();
       ctrl.hero.intersects = jest.fn();
       ctrl.hero.intersects.mockReturnValue(true);
       ctrl.scene.onClick = jest.fn();

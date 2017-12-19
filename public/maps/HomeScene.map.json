@@ -130,21 +130,6 @@
                  "y":97
                 }, 
                 {
-                 "height":1,
-                 "id":20,
-                 "name":"spawn_hero",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"spawn_hero",
-                 "visible":true,
-                 "width":0,
-                 "x":160,
-                 "y":142.5
-                }, 
-                {
                  "height":15,
                  "id":27,
                  "name":"collision_stumps",
@@ -174,6 +159,21 @@
                  "width":14.3333,
                  "x":232,
                  "y":88.3333
+                }, 
+                {
+                 "height":0,
+                 "id":36,
+                 "name":"spawn_hero",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"spawn_hero",
+                 "visible":true,
+                 "width":0,
+                 "x":98,
+                 "y":102
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -195,7 +195,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":36,
+ "nextobjectid":37,
  "orientation":"orthogonal",
  "properties":
     {

@@ -8,10 +8,6 @@ export default class Graphics {
   static _renderer;
   static _scale = 1;
 
-  static init(surface) {
-    Graphics._renderer = new CanvasRenderer(surface);
-  }
-
   static isReady() {
     return !!Graphics._renderer;
   }
@@ -77,7 +73,11 @@ export default class Graphics {
   }
 
   static setDrawingSurface(surface) {
-    Graphics._renderer.setSurface(surface);
+    if (!Graphics._renderer) {
+      Graphics._renderer = new CanvasRenderer(surface);
+    } else {
+      Graphics._renderer.setSurface(surface);
+    }
   }
 
   static setSize(size) {
