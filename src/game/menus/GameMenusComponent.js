@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "./GameMenusComponent.scss";
+import Curtain from "./CurtainComponent";
 import Dialog from "./DialogComponent";
 import TatteredPage from "./TatteredPageComponent";
 
@@ -14,6 +15,7 @@ export default class GameMenusComponent extends Component {
       <div className={styles.menus}>
         <Dialog />
         <TatteredPage />
+        <Curtain />
       </div>
     );
   }

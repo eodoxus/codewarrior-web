@@ -45,6 +45,7 @@ export default class SceneDirector extends Component {
   };
 
   onDoorwayTransition = doorway => {
+    GameEvent.fire(GameEvent.CLOSE_CURTAIN);
     this.setState({ isLoading: true });
     this.stopEventListeners();
     this.scene.unload();
@@ -52,12 +53,17 @@ export default class SceneDirector extends Component {
     // Need to wait until current iteration of requestAnimationFrame
     // finishes before switching scenes
     setTimeout(async () => {
+      const timer = GameState.timestamp();
       await this.loadScene(
         doorway.getProperty("to"),
         doorway.getProperty(Tile.PROPERTIES.SPAWN_HERO),
         doorway.getProperty(Tile.PROPERTIES.FACING)
       );
-      this.startGameLoop();
+      const elapsed = GameState.timestamp() - timer;
+      setTimeout(() => {
+        GameEvent.fire(GameEvent.OPEN_CURTAIN);
+        this.startGameLoop();
+      }, Math.max(0, Time.SECOND - elapsed));
     });
   };
 

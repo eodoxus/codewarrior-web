@@ -8,6 +8,7 @@ $color-dialog--font: #fff;
   border: 1px solid $color-dialog--border;
   border-radius: 4px;
   background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
 }
 
 .dialog {

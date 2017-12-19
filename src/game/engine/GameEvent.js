@@ -5,6 +5,7 @@ const listeners = [];
 export default class GameEvent extends Event {
   static CANCEL = "cancel";
   static CLICK = "click";
+  static CLOSE_CURTAIN = "closeCurtain";
   static CLOSE_TATTERED_PAGE = "closeTatteredPage";
   static CONFIRM = "confirm";
   static COLLISION = "collision";
@@ -13,6 +14,7 @@ export default class GameEvent extends Event {
   static NPC_INTERACTION = "npcInteraction";
   static TALK = "talk";
   static TRANSITION = "transition";
+  static OPEN_CURTAIN = "openCurtain";
   static OPEN_TATTERED_PAGE = "openTatteredPage";
   static STOP = "stop";
 
