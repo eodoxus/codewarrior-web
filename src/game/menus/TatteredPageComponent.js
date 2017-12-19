@@ -2,13 +2,17 @@ import React, { Component } from "react";
 import styles from "./TatteredPageComponent.scss";
 import GameEvent from "../engine/GameEvent";
 import Url from "../../lib/Url";
+import TextureCache from "../engine/TextureCache";
 
 export default class TatteredPageComponent extends Component {
   listeners;
 
   constructor(props) {
     super(props);
-    this.state = { isOpen: false };
+    this.state = {
+      image: `${Url.PUBLIC}/images/tattered-page.png`,
+      isOpen: false
+    };
   }
 
   componentDidMount() {
@@ -16,6 +20,7 @@ export default class TatteredPageComponent extends Component {
       GameEvent.on(GameEvent.OPEN_TATTERED_PAGE, this.onOpen, false),
       GameEvent.on(GameEvent.CLOSE_TATTERED_PAGE, this.onClose, false)
     ];
+    TextureCache.fetch(this.state.image);
   }
 
   componentWillUnmount() {
@@ -49,7 +54,7 @@ export default class TatteredPageComponent extends Component {
       <div
         className={styles.container}
         style={{
-          backgroundImage: `url(${Url.PUBLIC}/images/tattered-page.png)`
+          backgroundImage: `url(${this.state.image})`
         }}
         onClick={GameEvent.absorbClick}
       >
