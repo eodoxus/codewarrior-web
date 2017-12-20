@@ -22,6 +22,10 @@ export default class Event {
     return Event.instance().emitter.addListener(event, handler);
   }
 
+  static once(event, handler) {
+    return Event.instance().emitter.once(event, handler);
+  }
+
   emitter;
   constructor() {
     this.emitter = new EventEmitter();

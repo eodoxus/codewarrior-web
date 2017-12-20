@@ -19,6 +19,7 @@ const DEBUG = false;
 const STARTING_SCENE = "Home";
 
 export default class SceneDirector extends Component {
+  doorwayListener;
   dt;
   lastTime;
   hero;
@@ -33,7 +34,6 @@ export default class SceneDirector extends Component {
   }
 
   async componentDidMount() {
-    this.initEventListeners();
     await this.loadScene(STARTING_SCENE);
     this.startGameLoop();
   }
@@ -64,11 +64,11 @@ export default class SceneDirector extends Component {
     window.requestAnimationFrame(() => this.gameLoop());
   }
 
-  initEventListeners() {
-    GameEvent.on(GameEvent.DOORWAY, this.onDoorwayTransition);
-  }
-
   async loadScene(name, heroPosition, heroOrientation) {
+    this.doorwayListener = GameEvent.once(
+      GameEvent.DOORWAY,
+      this.onDoorwayTransition
+    );
     if (!this.hero) {
       this.hero = new Entities.Hero();
     }
@@ -95,9 +95,11 @@ export default class SceneDirector extends Component {
   };
 
   onDoorwayTransition = doorway => {
-    this.setState({ isLoading: true });
+    this.doorwayListener.remove();
+    delete this.doorwayListener;
     closeHeroMenu();
     closeCurtain();
+    this.setState({ isLoading: true });
     this.stopEventListeners();
     this.scene.unload();
 
