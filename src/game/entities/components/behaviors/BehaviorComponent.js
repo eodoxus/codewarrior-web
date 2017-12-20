@@ -14,7 +14,7 @@ export default class BehaviorComponent {
   }
 
   fulfillIntent() {
-    setTimeout(() => delete this.intent);
+    delete this.intent;
   }
 
   getIntent() {

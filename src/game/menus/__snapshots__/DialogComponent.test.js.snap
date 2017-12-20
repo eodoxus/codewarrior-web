@@ -40,7 +40,7 @@ exports[`<DialogComponent /> Snapshots renders a confirm dialog when confirm is 
       className="btn btn-default btn-confirm"
       onClick={[Function]}
     >
-      No thanks.
+      No thanks
     </button>
   </div>
 </div>

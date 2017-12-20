@@ -12,7 +12,9 @@ export default class CrestfallenMageBehavior extends BehaviorComponent {
   }
 
   handleCollision(entity) {
-    if (entity.isIntent(GameEvent.TALK)) {
+    if (this.entity.isIntent(GameEvent.TALK)) {
+      this.entity.getMovement().faceEntity(entity);
+      this.fulfillIntent();
       this.state = new TalkingState(this.entity, entity);
     } else {
       this.state = new StoppedState(this.entity);

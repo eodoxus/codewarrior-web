@@ -118,12 +118,12 @@ describe("CrestfallenMage", () => {
         name: "entity"
       });
       entity.getGraphics().setSprite(new Sprite());
-      entity.getBehavior().setIntent(GameEvent.talk(mage));
+      mage.getBehavior().setIntent(GameEvent.talk(mage));
       mage.stop();
       mage.handleEvent(GameEvent.collision(entity));
     });
 
-    it("starts talking on a collision event with an entity if entity has TALK intent", () => {
+    it("starts talking on a collision event with an entity if it has TALK intent", () => {
       const state = mage.getBehavior().getState();
       expect(state instanceof TalkingState).toBe(true);
     });

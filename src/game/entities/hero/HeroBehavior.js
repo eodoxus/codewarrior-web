@@ -34,7 +34,9 @@ export default class HeroBehavior extends BehaviorComponent {
     if (event.getType() === GameEvent.CLICK) {
       const tile = event.getData();
       if (tile.hasNpc()) {
-        this.setIntent(GameEvent.talk(tile.getEntity()));
+        const npc = tile.getEntity();
+        this.setIntent(GameEvent.talk(npc));
+        npc.getBehavior().setIntent(GameEvent.talk(this.entity));
       }
       this.beginWalking(tile);
     }

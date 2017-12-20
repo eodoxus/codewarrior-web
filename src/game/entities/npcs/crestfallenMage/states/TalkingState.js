@@ -15,7 +15,6 @@ export default class TalkingState extends State {
     mage.stop();
     this.entity = entity;
     this.timer = GameState.timer();
-    mage.movement.faceEntity(entity);
     this.updateMageDialog(mage);
     GameEvent.fire(GameEvent.DIALOG, mage.behavior.getDialog().getMessage());
     return this;
