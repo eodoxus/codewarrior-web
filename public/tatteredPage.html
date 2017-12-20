@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="/sites/all/modules/custom/codewarrior/codemirror/codemirror.css" media="all">
+  <script src="/sites/all/modules/custom/codewarrior/codemirror/codemirror.js"></script>
+  <script src="/sites/all/modules/custom/codewarrior/codemirror/mode/javascript.js"></script>
+  <style type="text/css" media="all">
+    body {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .CodeMirror {
+      background: none;
+      padding: 0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    function execute(callback) {
+      try {
+        eval(editor.getValue());
+      } catch (e) {
+        callback(e);
+      }
+    }
+
+    const config = {
+      mode: "javascript",
+      tabSize: 2
+    };
+    const editor = CodeMirror(document.body, config);
+    editor.focus();
+  </script>
+</body>
+
+</html>

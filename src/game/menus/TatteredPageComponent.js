@@ -4,6 +4,7 @@ import GameEvent from "../engine/GameEvent";
 import MenuComponent from "./MenuComponent";
 import Url from "../../lib/Url";
 import TextureCache from "../engine/TextureCache";
+import { Button } from "../../components/forms/controls/buttons";
 
 export default class TatteredPageComponent extends MenuComponent {
   constructor(props) {
@@ -21,9 +22,22 @@ export default class TatteredPageComponent extends MenuComponent {
     TextureCache.fetch(this.state.image);
   }
 
-  onClick(position) {
-    console.log("tattered page clicked", position);
-  }
+  onExecuteIncantation = e => {
+    GameEvent.absorbClick(e);
+    const onError = e => {
+      setTimeout(() => {
+        GameEvent.fire(GameEvent.DIALOG, e.message);
+      }, 200);
+    };
+    this.editor.contentWindow.execute(onError);
+  };
+
+  onOpen = () => {
+    if (this.isOpen()) {
+      return;
+    }
+    this.setState({ isOpen: true });
+  };
 
   render() {
     if (!this.state.isOpen) {
@@ -40,6 +54,17 @@ export default class TatteredPageComponent extends MenuComponent {
       >
         <div className={styles.close + " close"} onClick={this.onClose}>
           <span>x</span>
+        </div>
+        <iframe
+          src={Url.PUBLIC + "/tatteredPage.html"}
+          title="Tattered Page"
+          ref={editor => (this.editor = editor)}
+        />
+        <div className={styles.executeButton}>
+          <Button
+            onClick={this.onExecuteIncantation}
+            text="Execute Incantation"
+          />
         </div>
       </div>
     );

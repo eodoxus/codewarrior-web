@@ -15,7 +15,7 @@ import Vector from "./Vector";
 import Rect from "./Rect";
 
 const DEBUG = false;
-const STARTING_SCENE = "CrestfallenHome";
+const STARTING_SCENE = "Home";
 
 export default class SceneDirector extends Component {
   doorwayListener;

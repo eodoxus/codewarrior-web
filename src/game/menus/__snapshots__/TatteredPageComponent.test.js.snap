@@ -24,5 +24,19 @@ exports[`<TatteredPageComponent /> Snapshots renders tattered page graphics cont
       x
     </span>
   </div>
+  <iframe
+    src="/tatteredPage.html"
+    title="Tattered Page"
+  />
+  <div
+    className={undefined}
+  >
+    <button
+      className="btn btn-default btn-confirm"
+      onClick={[Function]}
+    >
+      Execute Incantation
+    </button>
+  </div>
 </div>
 `;

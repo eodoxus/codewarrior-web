@@ -3,7 +3,7 @@ import GameEvent from "../../engine/GameEvent";
 import MenuItemComponent from "../MenuItemComponent";
 
 const HELP_TEXT =
-  "Click anywhere on the screen to move around.\nAs you progress, more items will appear in this menu.";
+  "Click anywhere on the screen to move around.\nAs you progress, more items will appear in Hero's menu.";
 
 export default class HelpItemComponent extends MenuItemComponent {
   onClick() {

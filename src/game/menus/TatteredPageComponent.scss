@@ -8,7 +8,14 @@
   left: 120px;
   box-shadow: 0 0 20px #000;
   cursor: text;
-  z-index: 1;
+  z-index: 3;
+  padding: 5px;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
 
   .close {
     position: absolute;
@@ -16,6 +23,7 @@
     right: -15px;
     cursor: pointer;
     padding: 10px;
+    z-index: 1;
 
     span {
       display: block;
@@ -23,10 +31,17 @@
       height: 20px;
       border: 2px solid #fff;
       border-radius: 10px;
-      background: rgba(0, 0, 0, 0.7);
+      background: #000;
       color: $color-font-inverse;
       text-align: center;
       line-height: 1;
     }
+  }
+
+  .executeButton {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    margin-left: -70px;
   }
 }

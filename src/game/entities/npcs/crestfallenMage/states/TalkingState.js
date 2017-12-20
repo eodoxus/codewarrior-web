@@ -15,6 +15,7 @@ export default class TalkingState extends State {
     mage.stop();
     this.entity = entity;
     this.timer = GameState.timer();
+    this.startDialogListener();
     this.updateMageDialog(mage);
     GameEvent.fire(GameEvent.DIALOG, mage.behavior.getDialog().getMessage());
     return this;
@@ -59,10 +60,8 @@ export default class TalkingState extends State {
         break;
       case 1:
         dialog.next();
-        this.startDialogListener();
         break;
       case 2:
-        this.startDialogListener();
         break;
       case 3:
         break;
