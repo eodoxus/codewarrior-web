@@ -54,11 +54,11 @@ export default class TalkingState extends State {
       case 0:
         const hasEnteredCave = !!caveSceneState;
         if (hasEnteredCave) {
-          dialog.setState(1);
+          dialog.next();
         }
         break;
       case 1:
-        dialog.setState(2);
+        dialog.next();
         this.startDialogListener();
         break;
       case 2:
