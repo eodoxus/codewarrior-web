@@ -12,14 +12,7 @@ const MENU_TEXTURE = Url.SPRITES + "hero-menu.png";
 const POLLING_INTERVAL = 10;
 
 export default class HeroMenuComponent extends MenuComponent {
-  items = [];
   pollingInterval;
-
-  addItem(item) {
-    if (item && !this.items.find(i => i === item)) {
-      this.items.push(item);
-    }
-  }
 
   componentDidMount() {
     this.listeners = [
@@ -34,9 +27,9 @@ export default class HeroMenuComponent extends MenuComponent {
     delete this.listeners;
   }
 
-  getItemAt(position) {
-    return this.items.find(item => item.intersects(position));
-  }
+  onClick = e => {
+    console.log("hero menu click");
+  };
 
   onClose = e => {
     if (!this.state.isOpen) {
@@ -45,14 +38,6 @@ export default class HeroMenuComponent extends MenuComponent {
     this.setState({ isOpen: false });
     clearInterval(this.pollingInterval);
   };
-
-  onClick(position) {
-    position = this.translateToCoordinateSpace(position);
-    const item = this.getItemAt(position);
-    if (item) {
-      item.onClick(position);
-    }
-  }
 
   onOpen = hero => {
     if (this.state.isOpen) {
@@ -75,10 +60,10 @@ export default class HeroMenuComponent extends MenuComponent {
           top: this.state.position.y,
           left: this.state.position.x
         }}
-        ref={el => (this.el = el)}
+        onClick={this.onClick}
       >
         <div className={styles.item}>
-          <HelpItem texture={MENU_TEXTURE} ref={item => this.addItem(item)} />
+          <HelpItem texture={MENU_TEXTURE} />
         </div>
       </div>
     );

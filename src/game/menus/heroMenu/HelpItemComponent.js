@@ -6,7 +6,8 @@ const HELP_TEXT =
   "Click anywhere on the screen to move around.\nAs you progress, more items will appear in Hero's menu.";
 
 export default class HelpItemComponent extends MenuItemComponent {
-  onClick() {
+  onClick(e) {
+    GameEvent.absorbClick(e);
     GameEvent.fire(GameEvent.DIALOG, HELP_TEXT);
   }
 
@@ -19,7 +20,6 @@ export default class HelpItemComponent extends MenuItemComponent {
           height: 16
         }}
         onClick={this.onClick}
-        ref={el => this.setEl(el)}
       />
     );
   }

@@ -1,10 +1,7 @@
 import React from "react";
-import Rect from "../engine/Rect";
 
 export default class MenuComponent extends React.Component {
-  el;
   listeners;
-  rect;
 
   constructor(props) {
     super(props);
@@ -25,7 +22,7 @@ export default class MenuComponent extends React.Component {
     this.setState({ isOpen: false });
   };
 
-  onClick(position) {
+  onClick(e) {
     // Override this
   }
 
@@ -36,26 +33,7 @@ export default class MenuComponent extends React.Component {
     this.setState({ isOpen: true });
   };
 
-  intersects(position) {
-    if (!this.isOpen()) {
-      return false;
-    }
-    const rect = new Rect(
-      this.el.offsetLeft,
-      this.el.offsetTop,
-      this.el.offsetWidth,
-      this.el.offsetHeight
-    );
-    return rect.intersects(position);
-  }
-
   isOpen() {
     return this.state.isOpen;
-  }
-
-  translateToCoordinateSpace(position) {
-    position.x -= this.el.offsetLeft;
-    position.y -= this.el.offsetTop;
-    return position;
   }
 }

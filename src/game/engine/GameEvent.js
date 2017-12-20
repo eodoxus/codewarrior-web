@@ -7,7 +7,6 @@ export default class GameEvent extends Event {
   static CANCEL = "cancel";
   static CLICK = "click";
   static CLICK_HERO = "clickHero";
-  static CLICK_MENU = "clickMenu";
   static CLOSE_CURTAIN = "closeCurtain";
   static CLOSE_HERO_MENU = "closeHeroMenu";
   static CLOSE_TATTERED_PAGE = "closeTatteredPage";
@@ -39,10 +38,6 @@ export default class GameEvent extends Event {
 
   static heroClick(hero) {
     return new EventType(GameEvent.CLICK_HERO, hero);
-  }
-
-  static menuClick(position) {
-    return new EventType(GameEvent.CLICK_MENU, position);
   }
 
   static talk(entity) {

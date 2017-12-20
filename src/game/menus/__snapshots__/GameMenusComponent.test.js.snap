@@ -16,6 +16,7 @@ exports[`<GameMenus /> Snapshots has dialog when a dialog is active 1`] = `
   <div
     className=""
   />
+  
 </div>
 `;
 
@@ -25,6 +26,7 @@ exports[`<GameMenus /> Snapshots has hero menu when hero menu is opened snapshot
 >
   <div
     className={undefined}
+    onClick={[Function]}
     style={
       Object {
         "left": 0,
@@ -52,6 +54,7 @@ exports[`<GameMenus /> Snapshots has hero menu when hero menu is opened snapshot
   <div
     className=""
   />
+  
 </div>
 `;
 
@@ -65,5 +68,6 @@ exports[`<GameMenus /> Snapshots matches default snapshot 1`] = `
   <div
     className=""
   />
+  
 </div>
 `;

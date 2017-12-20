@@ -12,7 +12,6 @@ import Size from "./Size";
 import Tile from "./map/Tile";
 import Time from "./Time";
 import Vector from "./Vector";
-import Rect from "./Rect";
 
 const DEBUG = false;
 const STARTING_SCENE = "Home";
@@ -59,7 +58,7 @@ export default class SceneDirector extends Component {
           onClick={this.onClick}
         >
           <canvas ref={canvas => (this.canvas = canvas)} />
-          <GameMenus ref={menus => (this.menus = menus)} />
+          <GameMenus />
         </div>
       </div>
     );
@@ -102,16 +101,10 @@ export default class SceneDirector extends Component {
   }
 
   onClick = e => {
-    GameEvent.absorbClick(e);
     const position = toSceneCoordinateSpace(e, this.shouldShowBorder());
-    const menuPosition = Rect.point(
-      Vector.multiply(position, Graphics.getInverseScale())
-    );
     const inputQueue = GameEvent.inputQueue();
     if (this.hero.intersects(position)) {
       inputQueue.add(GameEvent.heroClick(this.hero));
-    } else if (this.menus.intersects(menuPosition)) {
-      inputQueue.add(GameEvent.menuClick(menuPosition));
     } else {
       inputQueue.add(GameEvent.click(position));
     }
@@ -153,9 +146,6 @@ export default class SceneDirector extends Component {
           break;
         case GameEvent.CLICK_HERO:
           GameEvent.fire(GameEvent.OPEN_HERO_MENU, event.getData());
-          break;
-        case GameEvent.CLICK_MENU:
-          this.menus.onClick(event.getData());
           break;
         default:
           break;

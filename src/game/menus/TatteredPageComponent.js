@@ -50,7 +50,6 @@ export default class TatteredPageComponent extends MenuComponent {
         style={{
           backgroundImage: `url(${this.state.image})`
         }}
-        onClick={GameEvent.absorbClick}
       >
         <div className={styles.close + " close"} onClick={this.onClose}>
           <span>x</span>
