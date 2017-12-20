@@ -60,10 +60,8 @@ export default class HeroBehavior extends BehaviorComponent {
     this.listeners = [];
     let eventName = GameEvent.NPC_INTERACTION;
     this.listeners.push(
-      GameEvent.on(
-        eventName,
-        data => this.handleEvent(GameEvent.generic(eventName, data)),
-        false
+      GameEvent.on(eventName, data =>
+        this.handleEvent(GameEvent.generic(eventName, data))
       )
     );
   }

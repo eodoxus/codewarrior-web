@@ -13,7 +13,7 @@ export default class DialogComponent extends Component {
   }
 
   async componentDidMount() {
-    this.listener = GameEvent.on(GameEvent.DIALOG, this.onDialogEvent, false);
+    this.listener = GameEvent.on(GameEvent.DIALOG, this.onDialogEvent);
     await Dialog.load();
   }
 

@@ -23,5 +23,9 @@ export default class Graphics {
     return 1;
   }
 
+  static getInverseScale() {
+    return 1;
+  }
+
   static colorize(rect, color) {}
 }

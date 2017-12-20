@@ -1,0 +1,18 @@
+@import "../../../lib/lib.scss";
+
+.menu {
+  width: 140px;
+  height: 50px;
+  position: absolute;
+  margin-top: -44px;
+  margin-left: -42px;
+  /*box-shadow: 0 0 20px #000;*/
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .item {
+    cursor: pointer;
+  }
+}

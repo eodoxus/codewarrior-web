@@ -29,8 +29,10 @@ export default class TalkingState extends State {
 
   startDialogListener() {
     if (!this.dialogListener) {
-      this.dialogListener = GameEvent.on(GameEvent.CONFIRM, event =>
-        this.onDialogConfirm(event.dialog)
+      this.dialogListener = GameEvent.on(
+        GameEvent.CONFIRM,
+        event => this.onDialogConfirm(event.dialog),
+        true
       );
     }
   }

@@ -1,9 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<GameMenus /> matches expected snapshot 1`] = `
+exports[`<GameMenus /> Snapshots has dialog when a dialog is active 1`] = `
 <div
   className={undefined}
 >
+  
+  
+  <div
+    className={undefined}
+  >
+    <div>
+      test dialog
+    </div>
+  </div>
+  <div
+    className=""
+  />
+</div>
+`;
+
+exports[`<GameMenus /> Snapshots has hero menu when hero menu is opened snapshot 1`] = `
+<div
+  className={undefined}
+>
+  <div
+    className={undefined}
+    style={
+      Object {
+        "left": 0,
+        "top": 0,
+      }
+    }
+  >
+    <div
+      className={undefined}
+    >
+      <div
+        onClick={[Function]}
+        style={
+          Object {
+            "background": "url(/sprites/hero-menu.png) no-repeat 0 0",
+            "height": 16,
+            "width": 16,
+          }
+        }
+      />
+    </div>
+  </div>
+  
+  
+  <div
+    className=""
+  />
+</div>
+`;
+
+exports[`<GameMenus /> Snapshots matches default snapshot 1`] = `
+<div
+  className={undefined}
+>
+  
   
   
   <div

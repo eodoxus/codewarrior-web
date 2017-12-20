@@ -13,6 +13,7 @@ import Tile from "./map/Tile";
 import Time from "./Time";
 import Url from "../../lib/Url";
 import Vector from "./Vector";
+import Rect from "./Rect";
 
 const DEBUG = false;
 const STARTING_SCENE = "Home";
@@ -31,43 +32,8 @@ export default class SceneDirector extends Component {
     };
   }
 
-  onClick = e => {
-    GameEvent.absorbClick(e);
-    closeDialog();
-    const hasBorder = this.props.canShowBorder && this.scene.shouldShowBorder();
-    const position = toSceneCoordinateSpace(e, hasBorder);
-    if (this.hero.intersects(position)) {
-      // TODO: handle click on hero
-      console.log("hero clicked");
-    } else {
-      this.scene.onClick(position);
-    }
-  };
-
-  onDoorwayTransition = doorway => {
-    GameEvent.fire(GameEvent.CLOSE_CURTAIN);
-    this.setState({ isLoading: true });
-    this.stopEventListeners();
-    this.scene.unload();
-
-    // Need to wait until current iteration of requestAnimationFrame
-    // finishes before switching scenes
-    setTimeout(async () => {
-      const timer = GameState.timestamp();
-      await this.loadScene(
-        doorway.getProperty("to"),
-        doorway.getProperty(Tile.PROPERTIES.SPAWN_HERO),
-        doorway.getProperty(Tile.PROPERTIES.FACING)
-      );
-      const elapsed = GameState.timestamp() - timer;
-      setTimeout(() => {
-        GameEvent.fire(GameEvent.OPEN_CURTAIN);
-        this.startGameLoop();
-      }, Math.max(0, Time.SECOND - elapsed));
-    });
-  };
-
   async componentDidMount() {
+    this.initEventListeners();
     await this.loadScene(STARTING_SCENE);
     this.startGameLoop();
   }
@@ -76,20 +42,12 @@ export default class SceneDirector extends Component {
     this.stopEventListeners();
   }
 
-  async loadScene(name, heroPosition, heroOrientation) {
-    this.initEventListeners();
-    if (!this.hero) {
-      this.hero = new Entities.Hero();
-    }
-    this.scene = createScene(name, this.hero);
-    await this.scene.init();
-    this.hero.spawn(heroPosition, heroOrientation);
-  }
-
   gameLoop() {
     if (this.state.isLoading) {
       return;
     }
+
+    this.processInput();
 
     // Update scene on a fixed time step
     const now = GameState.timestamp();
@@ -108,6 +66,77 @@ export default class SceneDirector extends Component {
 
   initEventListeners() {
     GameEvent.on(GameEvent.DOORWAY, this.onDoorwayTransition);
+  }
+
+  async loadScene(name, heroPosition, heroOrientation) {
+    if (!this.hero) {
+      this.hero = new Entities.Hero();
+    }
+    this.scene = createScene(name, this.hero);
+    await this.scene.init();
+    this.hero.spawn(heroPosition, heroOrientation);
+  }
+
+  onClick = e => {
+    GameEvent.absorbClick(e);
+    const hasBorder = this.props.canShowBorder && this.scene.shouldShowBorder();
+    const position = toSceneCoordinateSpace(e, hasBorder);
+    const menuPosition = Rect.point(
+      Vector.multiply(position, Graphics.getInverseScale())
+    );
+    const inputQueue = GameEvent.inputQueue();
+    if (this.hero.intersects(position)) {
+      inputQueue.add(GameEvent.heroClick(this.hero));
+    } else if (this.menus.intersects(menuPosition)) {
+      inputQueue.add(GameEvent.menuClick(menuPosition));
+    } else {
+      inputQueue.add(GameEvent.click(position));
+    }
+  };
+
+  onDoorwayTransition = doorway => {
+    this.setState({ isLoading: true });
+    closeHeroMenu();
+    closeCurtain();
+    this.stopEventListeners();
+    this.scene.unload();
+
+    // Need to wait until current iteration of requestAnimationFrame
+    // finishes before switching scenes
+    setTimeout(async () => {
+      const timer = GameState.timestamp();
+      await this.loadScene(
+        doorway.getProperty("to"),
+        doorway.getProperty(Tile.PROPERTIES.SPAWN_HERO),
+        doorway.getProperty(Tile.PROPERTIES.FACING)
+      );
+      const elapsed = GameState.timestamp() - timer;
+      setTimeout(() => {
+        openCurtain();
+        this.startGameLoop();
+      }, Math.max(0, Time.SECOND - elapsed));
+    });
+  };
+
+  processInput() {
+    let event = GameEvent.inputQueue().getNext();
+    while (event) {
+      switch (event.getType()) {
+        case GameEvent.CLICK:
+          closeDialog();
+          this.scene.onClick(event.getData());
+          break;
+        case GameEvent.CLICK_HERO:
+          GameEvent.fire(GameEvent.OPEN_HERO_MENU, event.getData());
+          break;
+        case GameEvent.CLICK_MENU:
+          this.menus.onClick(event.getData());
+          break;
+        default:
+          break;
+      }
+      event = GameEvent.inputQueue().getNext();
+    }
   }
 
   shouldComponentUpdate() {
@@ -149,7 +178,7 @@ export default class SceneDirector extends Component {
           onClick={this.onClick}
         >
           <canvas ref={canvas => (this.canvas = canvas)} />
-          <GameMenus />
+          <GameMenus ref={menus => (this.menus = menus)} />
         </div>
       </div>
     );
@@ -176,8 +205,16 @@ SceneDirector.defaultProps = {
   scale: 1
 };
 
+function closeCurtain() {
+  GameEvent.fire(GameEvent.CLOSE_CURTAIN);
+}
+
 function closeDialog() {
   GameEvent.fire(GameEvent.DIALOG, "");
+}
+
+function closeHeroMenu() {
+  GameEvent.fire(GameEvent.CLOSE_HERO_MENU);
 }
 
 function createScene(name, hero) {
@@ -187,6 +224,10 @@ function createScene(name, hero) {
     throw Error(`SceneDirector does not support the "${sceneName}" scene.`);
   }
   return new Scenes[sceneClass](hero);
+}
+
+function openCurtain() {
+  GameEvent.fire(GameEvent.OPEN_CURTAIN);
 }
 
 function toSceneCoordinateSpace(e, hasBorder) {

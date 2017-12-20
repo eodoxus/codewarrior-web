@@ -13,8 +13,8 @@ export default class CurtainComponent extends Component {
 
   async componentDidMount() {
     this.listeners = [
-      GameEvent.on(GameEvent.OPEN_CURTAIN, this.onOpen, false),
-      GameEvent.on(GameEvent.CLOSE_CURTAIN, this.onClose, false)
+      GameEvent.on(GameEvent.OPEN_CURTAIN, this.onOpen),
+      GameEvent.on(GameEvent.CLOSE_CURTAIN, this.onClose)
     ];
   }
 

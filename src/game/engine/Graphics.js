@@ -93,6 +93,10 @@ export default class Graphics {
     return Graphics._scale;
   }
 
+  static getInverseScale() {
+    return 1 / Graphics._scale;
+  }
+
   static colorize(rect, color) {
     Graphics._renderer.colorize(rect, color);
   }

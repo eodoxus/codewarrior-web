@@ -47,7 +47,6 @@ describe("<TatteredPageComponent />", () => {
       GameEvent.fire(GameEvent.OPEN_TATTERED_PAGE);
       const close = node.root.findAllByType("div")[1];
       close.props.onClick({});
-      expect(GameEvent.absorbClick).toHaveBeenCalledTimes(1);
       const tree = node.toJSON();
       expect(tree).toMatchSnapshot();
     });
