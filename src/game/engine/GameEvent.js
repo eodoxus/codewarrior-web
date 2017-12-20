@@ -15,12 +15,14 @@ export default class GameEvent extends Event {
   static COLLISION = "collision";
   static DIALOG = "dialog";
   static DOORWAY = "doorway";
+  static HIDE_BORDER = "hideBorder";
   static NPC_INTERACTION = "npcInteraction";
   static TALK = "talk";
   static TRANSITION = "transition";
   static OPEN_CURTAIN = "openCurtain";
   static OPEN_HERO_MENU = "openHeroMenu";
   static OPEN_TATTERED_PAGE = "openTatteredPage";
+  static SHOW_BORDER = "showBorder";
   static STOP = "stop";
 
   static click(tile) {

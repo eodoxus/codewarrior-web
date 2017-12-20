@@ -11,12 +11,11 @@ import Scenes from "../scenes";
 import Size from "./Size";
 import Tile from "./map/Tile";
 import Time from "./Time";
-import Url from "../../lib/Url";
 import Vector from "./Vector";
 import Rect from "./Rect";
 
 const DEBUG = false;
-const STARTING_SCENE = "Home";
+const STARTING_SCENE = "CrestfallenHome";
 
 export default class SceneDirector extends Component {
   doorwayListener;
@@ -33,6 +32,7 @@ export default class SceneDirector extends Component {
     };
   }
 
+  // React Component lifecycle
   async componentDidMount() {
     await this.loadScene(STARTING_SCENE);
     this.startGameLoop();
@@ -42,6 +42,30 @@ export default class SceneDirector extends Component {
     this.stopEventListeners();
   }
 
+  shouldComponentUpdate() {
+    return this.state.isLoading;
+  }
+
+  render() {
+    if (this.state.isLoading) {
+      return <Indicators.Loader />;
+    }
+
+    return (
+      <div>
+        <div
+          className={styles.scene}
+          ref={container => (this.container = container)}
+          onClick={this.onClick}
+        >
+          <canvas ref={canvas => (this.canvas = canvas)} />
+          <GameMenus ref={menus => (this.menus = menus)} />
+        </div>
+      </div>
+    );
+  }
+
+  // Game logic
   gameLoop() {
     if (this.state.isLoading) {
       return;
@@ -79,8 +103,7 @@ export default class SceneDirector extends Component {
 
   onClick = e => {
     GameEvent.absorbClick(e);
-    const hasBorder = this.props.canShowBorder && this.scene.shouldShowBorder();
-    const position = toSceneCoordinateSpace(e, hasBorder);
+    const position = toSceneCoordinateSpace(e, this.shouldShowBorder());
     const menuPosition = Rect.point(
       Vector.multiply(position, Graphics.getInverseScale())
     );
@@ -141,8 +164,8 @@ export default class SceneDirector extends Component {
     }
   }
 
-  shouldComponentUpdate() {
-    return this.state.isLoading;
+  shouldShowBorder() {
+    return this.props.canShowBorder && this.scene.shouldShowBorder();
   }
 
   startGameLoop() {
@@ -156,6 +179,7 @@ export default class SceneDirector extends Component {
       Graphics.setDrawingSurface(this.canvas);
       Graphics.setSize(size);
       Graphics.scale(this.props.scale);
+      toggleBorder(this.shouldShowBorder());
       this.dt = 0;
       this.lastTime = GameState.timestamp();
       this.gameLoop();
@@ -164,40 +188,6 @@ export default class SceneDirector extends Component {
 
   stopEventListeners() {
     GameEvent.removeAllListeners();
-  }
-
-  render() {
-    if (this.state.isLoading) {
-      return <Indicators.Loader />;
-    }
-
-    return (
-      <div>
-        {this.renderBorder()}
-        <div
-          className={styles.scene}
-          ref={container => (this.container = container)}
-          onClick={this.onClick}
-        >
-          <canvas ref={canvas => (this.canvas = canvas)} />
-          <GameMenus ref={menus => (this.menus = menus)} />
-        </div>
-      </div>
-    );
-  }
-
-  renderBorder() {
-    if (this.props.canShowBorder && this.scene.shouldShowBorder()) {
-      return (
-        <div
-          className={styles.border}
-          style={{
-            backgroundImage: `url(${Url.PUBLIC}/images/game-border.png)`
-          }}
-          onClick={this.onClick}
-        />
-      );
-    }
   }
 }
 
@@ -232,20 +222,19 @@ function openCurtain() {
   GameEvent.fire(GameEvent.OPEN_CURTAIN);
 }
 
+function toggleBorder(visible) {
+  GameEvent.fire(GameEvent.HIDE_BORDER);
+  if (visible) {
+    GameEvent.fire(GameEvent.SHOW_BORDER);
+  }
+}
+
 function toSceneCoordinateSpace(e, hasBorder) {
   const sceneBoundingRect = e.currentTarget.getBoundingClientRect();
   const sceneOriginOffset = new Vector(
     sceneBoundingRect.x,
     sceneBoundingRect.y
   );
-  if (hasBorder) {
-    const borderOffset = {
-      x: 14,
-      y: 11
-    };
-    sceneOriginOffset.x += borderOffset.x;
-    sceneOriginOffset.y += borderOffset.y;
-  }
   return new Vector(e.clientX, e.clientY)
     .subtract(sceneOriginOffset)
     .multiply(Graphics.getScale());

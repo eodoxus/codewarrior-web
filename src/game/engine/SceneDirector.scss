@@ -1,17 +1,5 @@
 @import "../../lib/lib.scss";
 
-.border {
-  position: absolute;
-  top: -10px;
-  left: -14px;
-  background-size: 100%;
-  width: 668px;
-  height: 500px;
-  z-index: 2;
-  user-select: none;
-  cursor: pointer;
-}
-
 .scene {
   @include fill-container;
   display: flex;
