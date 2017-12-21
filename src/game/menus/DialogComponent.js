@@ -57,7 +57,7 @@ export default class DialogComponent extends Component {
 
     return (
       <div className={styles.dialog}>
-        {lines}
+        <div className={styles.message}>{lines}</div>
         {this.renderConfirm(dialog)}
       </div>
     );
@@ -68,9 +68,11 @@ export default class DialogComponent extends Component {
       return;
     }
     return (
-      <div className={styles.confirm}>
-        <Button text={dialog.confirm} onClick={this.onConfirm} />
-        <Button text={dialog.cancel} onClick={this.onCancel} />
+      <div className={styles.confirmContainer}>
+        <div className={styles.confirm}>
+          <Button text={dialog.confirm} onClick={this.onConfirm} />
+          <Button text={dialog.cancel} onClick={this.onCancel} />
+        </div>
       </div>
     );
   }

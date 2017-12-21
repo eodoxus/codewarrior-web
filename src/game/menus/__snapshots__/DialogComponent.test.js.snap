@@ -4,8 +4,12 @@ exports[`<DialogComponent /> Snapshots closes when dialog is empty 1`] = `
 <div
   className={undefined}
 >
-  <div>
-    test dialog
+  <div
+    className={undefined}
+  >
+    <div>
+      test dialog
+    </div>
   </div>
 </div>
 `;
@@ -18,30 +22,38 @@ exports[`<DialogComponent /> Snapshots renders a confirm dialog when confirm is 
 <div
   className={undefined}
 >
-  <div>
-    It is said that a wizard in the north can release the book.
-  </div>
-  <div>
-    If only I could decipher these runes, I could reach her...
-  </div>
-  <div>
-    Perhaps you can try?
+  <div
+    className={undefined}
+  >
+    <div>
+      It is said that a wizard in the north can release the book.
+    </div>
+    <div>
+      If only I could decipher these runes, I could reach her...
+    </div>
+    <div>
+      Perhaps you can try?
+    </div>
   </div>
   <div
     className={undefined}
   >
-    <button
-      className="btn btn-default btn-confirm"
-      onClick={[Function]}
+    <div
+      className={undefined}
     >
-      OK
-    </button>
-    <button
-      className="btn btn-default btn-confirm"
-      onClick={[Function]}
-    >
-      No thanks
-    </button>
+      <button
+        className="btn btn-default btn-confirm"
+        onClick={[Function]}
+      >
+        OK
+      </button>
+      <button
+        className="btn btn-default btn-confirm"
+        onClick={[Function]}
+      >
+        No thanks
+      </button>
+    </div>
   </div>
 </div>
 `;
@@ -50,14 +62,18 @@ exports[`<DialogComponent /> Snapshots renders multiple divs for each line of di
 <div
   className={undefined}
 >
-  <div>
-    test dialog
-  </div>
-  <div>
-    with
-  </div>
-  <div>
-    multiple lines
+  <div
+    className={undefined}
+  >
+    <div>
+      test dialog
+    </div>
+    <div>
+      with
+    </div>
+    <div>
+      multiple lines
+    </div>
   </div>
 </div>
 `;
@@ -66,8 +82,12 @@ exports[`<DialogComponent /> Snapshots renders text dialog on dialog events 1`] 
 <div
   className={undefined}
 >
-  <div>
-    test dialog
+  <div
+    className={undefined}
+  >
+    <div>
+      test dialog
+    </div>
   </div>
 </div>
 `;

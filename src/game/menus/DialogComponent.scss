@@ -4,31 +4,40 @@ $color-dialog--border: #fff;
 $color-dialog--font: #fff;
 
 @mixin dialog-container {
-  position: absolute;
   border: 1px solid $color-dialog--border;
   border-radius: 4px;
   background: rgba(0, 0, 0, 0.7);
   z-index: 4;
+  padding: 10px;
 }
 
 .dialog {
-  @include dialog-container;
+  position: absolute;
   top: 5%;
   left: 20%;
   right: 20%;
-  padding: 10px;
-  min-height: 30px;
-  color: $color-dialog--font;
+  display: flex;
+  flex-direction: column;
 
-  .confirm {
+  .message {
     @include dialog-container;
-    padding: 10px;
-    bottom: -67px;
-    left: 50%;
-    margin-left: -75px;
 
-    button:first-child {
-      margin-right: 10px;
+    min-height: 30px;
+    color: $color-dialog--font;
+  }
+
+  .confirmContainer {
+    display: flex;
+    justify-content: center;
+
+    .confirm {
+      @include dialog-container;
+
+      margin-top: 10px;
+
+      button:first-child {
+        margin-right: 10px;
+      }
     }
   }
 }

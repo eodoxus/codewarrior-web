@@ -9,8 +9,12 @@ exports[`<GameMenus /> Snapshots has dialog when a dialog is active 1`] = `
   <div
     className={undefined}
   >
-    <div>
-      test dialog
+    <div
+      className={undefined}
+    >
+      <div>
+        test dialog
+      </div>
     </div>
   </div>
   <div
