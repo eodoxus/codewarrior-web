@@ -58,25 +58,50 @@ describe("PathfindingMovement", () => {
       jest.spyOn(entity.getVelocity(), "magnitude");
     });
 
-    it("updates the current move", () => {
+    it("does nothing if moveTo hasn't generated a move", () => {
+      movement.updateMove = jest.fn();
+      entity.update();
+      expect(movement.updateMove).not.toHaveBeenCalled();
+    });
+
+    it("updates the current move if entity has a move", () => {
+      movement.moveTo(new Vector(10, 10));
       movement.updateMove = jest.fn();
       entity.update();
       expect(movement.updateMove).toHaveBeenCalledTimes(1);
     });
 
-    it("does nothing if moveTo hasn't generated a move", () => {
-      movement.updateMove();
-      expect(entity.getVelocity().magnitude).not.toHaveBeenCalled();
-    });
-
     it("updates the currentMove, reducing distance by the amount travelled", () => {
-      movement.moveTo(new Vector(100, 200));
       const nextPosition = new Vector(20, 20);
       entity.setPosition(nextPosition);
+      movement.moveTo(new Vector(100, 200));
       movement.updateMove();
       const move = movement.getCurrentMove();
-      expect(move.distanceRemaining).toEqual(new Vector(80, 180));
-      expect(move.prev).toEqual(nextPosition);
+      expect(move.distanceRemaining).toEqual(new Vector(79.2, 179.2));
+      expect(move.prev).toEqual(nextPosition.add(0.8, 0.8));
+    });
+
+    it("doesn't overshoot destination position", () => {
+      function testOvershoot(destination, distanceExpectation) {
+        entity.setVelocity(new Vector(50, 50));
+        entity.setPosition(nextPosition);
+        movement.moveTo(destination);
+        movement.updateMove();
+        let move = movement.getCurrentMove();
+        expect(move.distanceRemaining).toEqual(distanceExpectation);
+      }
+
+      let nextPosition = new Vector(20, 20);
+      testOvershoot(new Vector(20.7, 200), new Vector(0, 179.2));
+
+      nextPosition = new Vector(20, 20);
+      testOvershoot(new Vector(100, 20.7), new Vector(79.2, 0));
+
+      nextPosition = new Vector(20, 20);
+      testOvershoot(new Vector(19.3, 200), new Vector(0, 179.2));
+
+      nextPosition = new Vector(20, 20);
+      testOvershoot(new Vector(100, 19.3), new Vector(79.2, 0));
     });
 
     it("stops x direction velocity if travelled the total distance in x direction", () => {

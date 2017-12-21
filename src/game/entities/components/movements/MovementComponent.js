@@ -87,15 +87,15 @@ export default class MovementComponent {
   }
 
   update() {
+    if (this.currentMove) {
+      return this.updateMove();
+    }
     const velocity = Vector.multiply(this.velocity, Time.FRAME_STEP_SEC);
     this.position.add(velocity);
-    this.updateMove();
   }
 
   updateMove() {
-    if (!this.currentMove) {
-      return;
-    }
+    this.updatePositionForMove();
 
     const position = new Vector(this.position.x, this.position.y);
     const distance = this.currentMove.prev.distanceTo(position);
@@ -124,5 +124,21 @@ export default class MovementComponent {
     this.orientation.y = this.velocity.y
       ? this.velocity.y / Math.abs(this.velocity.y)
       : 0;
+  }
+
+  updatePositionForMove() {
+    const velocity = Vector.multiply(this.velocity, Time.FRAME_STEP_SEC);
+
+    // prevent entity from overshooting destination on
+    // position update
+    let dx = this.currentMove.end.x - this.position.x;
+    dx = velocity.x > 0 ? Math.min(dx, velocity.x) : Math.max(dx, velocity.x);
+    //dx = parseFloat(dx.toFixed(2));
+
+    let dy = this.currentMove.end.y - this.position.y;
+    dy = velocity.y > 0 ? Math.min(dy, velocity.y) : Math.max(dy, velocity.y);
+    //dy = parseFloat(dy.toFixed(2));
+
+    this.position.add(new Vector(dx, dy));
   }
 }
