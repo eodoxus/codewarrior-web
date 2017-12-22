@@ -59,6 +59,7 @@ describe("<SceneDirector />", () => {
       ctrl.hero.intersects = jest.fn();
       ctrl.scene.onClick = jest.fn();
       ctrl.onClick(mockEvent);
+      ctrl.state.isLoading = false;
       ctrl.gameLoop();
       expect(ctrl.scene.onClick).toHaveBeenCalledWith(new Vector(20, 40));
     });

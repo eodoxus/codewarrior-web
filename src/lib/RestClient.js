@@ -1,6 +1,19 @@
 import "whatwg-fetch";
 
 export default class RestClient {
+  static toQueryString(params) {
+    return (
+      "?" +
+      Object.keys(params)
+        .map(function(key) {
+          return (
+            encodeURIComponent(key) + "=" + encodeURIComponent(params[key])
+          );
+        })
+        .join("&")
+    );
+  }
+
   get(url, config = {}) {
     return executeRequest(url, config);
   }
@@ -9,9 +22,9 @@ export default class RestClient {
     return executeRequest(
       url,
       Object.assign(config, {
-        method: "PUT",
+        method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "text/plain"
         },
         body: JSON.stringify(data)
       })
@@ -24,7 +37,7 @@ export default class RestClient {
       Object.assign(config, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "text/plain"
         },
         body: JSON.stringify(data)
       })
@@ -43,6 +56,7 @@ export default class RestClient {
 
 async function executeRequest(url, config) {
   try {
+    //url += (url.includes("?") ? "&" : "?") + "XDEBUG_SESSION_START=Jason";
     let response = await fetch(url, fetchConfig(config));
     return validate(response);
   } catch (e) {

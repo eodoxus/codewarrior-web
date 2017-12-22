@@ -47,7 +47,7 @@ describe("put", () => {
     fetch.mockReject();
     return client.put(url, putData).catch(e => {
       expect(console.error.mock.calls.length).toBe(1);
-      expect(console.error.mock.calls[0][0]).toBe("REST PUT failed");
+      expect(console.error.mock.calls[0][0]).toBe("REST POST failed");
     });
   });
 
@@ -57,10 +57,10 @@ describe("put", () => {
       expect(fetch.mock.calls.length).toBe(1);
       expect(fetch.mock.calls[0][0]).toEqual(url);
       expect(fetch.mock.calls[0][1]).toEqual({
-        method: "PUT",
+        method: "POST",
         credentials: "same-origin",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "text/plain"
         },
         body: JSON.stringify(putData)
       });
@@ -97,7 +97,7 @@ describe("post", () => {
         method: "POST",
         credentials: "same-origin",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "text/plain"
         },
         body: JSON.stringify(postData)
       });

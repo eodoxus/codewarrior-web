@@ -33,7 +33,8 @@ export default class SceneDirector extends Component {
 
   // React Component lifecycle
   async componentDidMount() {
-    await this.loadScene(STARTING_SCENE);
+    await GameState.load();
+    await this.loadScene(GameState.getLastScene() || STARTING_SCENE);
     this.startGameLoop();
   }
 
@@ -88,6 +89,8 @@ export default class SceneDirector extends Component {
   }
 
   async loadScene(name, heroPosition, heroOrientation) {
+    GameState.setLastScene(name);
+    await GameState.save();
     this.doorwayListener = GameEvent.once(
       GameEvent.DOORWAY,
       this.onDoorwayTransition
@@ -201,7 +204,7 @@ function closeHeroMenu() {
 
 function createScene(name, hero) {
   let sceneName = _.upperFirst(name);
-  let sceneClass = sceneName + "Scene";
+  let sceneClass = sceneName + (sceneName.includes("Scene") ? "" : "Scene");
   if (!Scenes[sceneClass]) {
     throw Error(`SceneDirector does not support the "${sceneName}" scene.`);
   }
