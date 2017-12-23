@@ -1,4 +1,5 @@
 import Entity from "../../engine/Entity";
+import HeroApi from "./HeroApi";
 import HeroBehavior from "./HeroBehavior";
 import HeroGraphics from "./HeroGraphics";
 import GameEvent from "../../engine/GameEvent";
@@ -15,6 +16,10 @@ export default class Hero extends Entity {
     this.graphics = new HeroGraphics(this);
     Entity.makeActor(this);
     this.spawn(new Vector(0, 0), new Vector(0, 1));
+  }
+
+  getApi() {
+    return new HeroApi(this);
   }
 
   spawn(position, orientation) {

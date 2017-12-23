@@ -24,3 +24,9 @@ body {
 .debug {
   position: absolute;
 }
+
+.tattered-page .CodeMirror {
+  background: none;
+  padding: 0;
+  font-weight: bold;
+}

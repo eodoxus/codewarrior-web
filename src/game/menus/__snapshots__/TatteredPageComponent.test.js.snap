@@ -8,8 +8,7 @@ exports[`<TatteredPageComponent /> Snapshots renders empty on close event when o
 
 exports[`<TatteredPageComponent /> Snapshots renders tattered page graphics container on open event 1`] = `
 <div
-  className={undefined}
-  onClick={[Function]}
+  className="tattered-page"
   style={
     Object {
       "backgroundImage": "url(/images/tattered-page.png)",
@@ -24,19 +23,8 @@ exports[`<TatteredPageComponent /> Snapshots renders tattered page graphics cont
       x
     </span>
   </div>
-  <iframe
-    src="/tatteredPage.html"
-    title="Tattered Page"
-  />
   <div
     className={undefined}
-  >
-    <button
-      className="btn btn-default btn-confirm"
-      onClick={[Function]}
-    >
-      Execute Incantation
-    </button>
-  </div>
+  />
 </div>
 `;

@@ -3,8 +3,11 @@ import ReactDOM from "react-dom";
 import renderer from "react-test-renderer";
 import GameEvent from "../engine/GameEvent";
 import TatteredPageComponent from "./TatteredPageComponent";
+import SandboxedEditorComponent from "./SandboxedEditorComponent";
 
-xdescribe("<TatteredPageComponent />", () => {
+SandboxedEditorComponent.prototype.render = jest.fn();
+
+describe("<TatteredPageComponent />", () => {
   it("renders without crashing", () => {
     const div = document.createElement("div");
     ReactDOM.render(<TatteredPageComponent />, div);
@@ -49,13 +52,6 @@ xdescribe("<TatteredPageComponent />", () => {
       close.props.onClick({});
       const tree = node.toJSON();
       expect(tree).toMatchSnapshot();
-    });
-
-    it("absorbs clicks on root node", () => {
-      GameEvent.fire(GameEvent.OPEN_TATTERED_PAGE);
-      const close = node.root.findAllByType("div")[0];
-      close.props.onClick({});
-      expect(GameEvent.absorbClick).toHaveBeenCalledTimes(1);
     });
   });
 });

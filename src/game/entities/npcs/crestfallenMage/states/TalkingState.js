@@ -8,23 +8,61 @@ const DIALOG_TIMEOUT = 2;
 
 export default class TalkingState extends State {
   entity;
+  mage;
   timer;
   dialogListener;
+  tatteredPageListeners;
 
   enter(mage, entity) {
     mage.stop();
+    this.mage = mage;
     this.entity = entity;
     this.timer = GameState.timer();
     this.startDialogListener();
-    this.updateMageDialog(mage);
+    this.startTatteredPageListeners();
+    this.updateDialog();
     GameEvent.fire(GameEvent.DIALOG, mage.behavior.getDialog().getMessage());
     return this;
   }
 
-  onDialogConfirm(dialog) {
-    this.dialogListener.remove();
-    delete this.dialogListener;
+  exit() {
+    this.removeDialogListener();
+    this.removeTatteredPageListeners();
+  }
+
+  onCloseTatteredPage = e => {
+    GameEvent.fireAfterClick(
+      GameEvent.DIALOG,
+      this.mage.behavior.getDialog().getMessage()
+    );
+  };
+
+  onDialogConfirm = dialog => {
+    this.removeDialogListener();
     GameEvent.fire(GameEvent.NPC_INTERACTION, { interaction: dialog.action });
+  };
+
+  onEditorSuccess = e => {
+    this.mage.behavior.getDialog().setState(4);
+    GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
+  };
+
+  onEditorFailure = e => {
+    this.mage.behavior.getDialog().setState(3);
+  };
+
+  removeDialogListener() {
+    if (this.dialogListener) {
+      this.dialogListener.remove();
+      delete this.dialogListener;
+    }
+  }
+
+  removeTatteredPageListeners() {
+    if (this.tatteredPageListeners) {
+      this.tatteredPageListeners.forEach(listener => listener.remove());
+      delete this.tatteredPageListeners;
+    }
   }
 
   startDialogListener() {
@@ -37,19 +75,42 @@ export default class TalkingState extends State {
     }
   }
 
+  startTatteredPageListeners() {
+    if (!this.tatteredPageListeners) {
+      this.tatteredPageListeners = [
+        GameEvent.on(
+          GameEvent.CLOSE_TATTERED_PAGE,
+          () => this.onCloseTatteredPage(),
+          true
+        ),
+        GameEvent.on(
+          GameEvent.EDITOR_SUCCESS,
+          () => this.onEditorSuccess(),
+          true
+        ),
+        GameEvent.on(
+          GameEvent.EDITOR_FAILURE,
+          () => this.onEditorFailure(),
+          true
+        )
+      ];
+    }
+  }
+
   update(mage) {
     if (mage.intersects(this.entity)) {
       return this;
     }
 
     if (this.timer.elapsed() > Time.SECOND * DIALOG_TIMEOUT) {
+      this.exit();
       return new StoppedState(mage);
     }
     return this;
   }
 
-  updateMageDialog(mage) {
-    const dialog = mage.behavior.getDialog();
+  updateDialog() {
+    const dialog = this.mage.behavior.getDialog();
     const caveSceneState = GameState.getSceneState("HomeCaveScene");
     switch (dialog.getState()) {
       case 0:
@@ -64,6 +125,12 @@ export default class TalkingState extends State {
       case 2:
         break;
       case 3:
+        dialog.setState(2);
+        break;
+      case 4:
+        dialog.next();
+        break;
+      case 5:
         break;
       default:
         dialog.setState(0);

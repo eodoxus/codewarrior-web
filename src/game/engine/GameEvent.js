@@ -14,6 +14,8 @@ export default class GameEvent extends Event {
   static COLLISION = "collision";
   static DIALOG = "dialog";
   static DOORWAY = "doorway";
+  static EDITOR_FAILURE = "editorFailure";
+  static EDITOR_SUCCESS = "editorSuccess";
   static HIDE_BORDER = "hideBorder";
   static NPC_INTERACTION = "npcInteraction";
   static TALK = "talk";

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "./DialogComponent.scss";
+import cx from "classnames";
 import Dialog from "../engine/Dialog";
 import GameEvent from "../engine/GameEvent";
 import { Button } from "../../components/forms/controls/buttons/index";
@@ -28,6 +29,11 @@ export default class DialogComponent extends Component {
     this.setState({ dialog: "" });
   };
 
+  onClick = e => {
+    GameEvent.absorbClick(e);
+    this.setState({ dialog: "" });
+  };
+
   onConfirm = e => {
     GameEvent.absorbClick(e);
     GameEvent.fire(GameEvent.CONFIRM, { dialog: this.state.dialog });
@@ -45,10 +51,14 @@ export default class DialogComponent extends Component {
 
     const dialog = this.state.dialog;
     let text = "";
+    let error = false;
     if (typeof dialog === "string") {
       text = dialog;
     } else if (dialog.confirm) {
       text = dialog.msg;
+    } else if (dialog.error) {
+      text = dialog.msg;
+      error = true;
     }
 
     const lines = text
@@ -56,7 +66,10 @@ export default class DialogComponent extends Component {
       .map((line, key) => <div key={key}>{line}</div>);
 
     return (
-      <div className={styles.dialog}>
+      <div
+        className={cx(styles.dialog, error ? styles.error : "")}
+        onClick={this.onClick}
+      >
         <div className={styles.message}>{lines}</div>
         {this.renderConfirm(dialog)}
       </div>

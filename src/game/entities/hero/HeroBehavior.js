@@ -69,6 +69,8 @@ export default class HeroBehavior extends BehaviorComponent {
   }
 
   receiveTatteredPage() {
-    GameEvent.fire(GameEvent.OPEN_TATTERED_PAGE);
+    GameEvent.fire(GameEvent.OPEN_TATTERED_PAGE, {
+      hero: this.entity.getApi()
+    });
   }
 }

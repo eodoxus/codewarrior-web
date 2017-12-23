@@ -158,20 +158,7 @@ module.exports = {
           // in development "style" loader enables hot editing of CSS.
           {
             test: /\.css$/,
-            include: paths.appSrc,
-            use: ExtractTextPlugin.extract({
-              fallback: "style-loader",
-              use: [
-                {
-                  loader: "css-loader",
-                  options: {
-                    modules: true,
-                    localIdentName: "[name]__[local]___[hash:base64:5]"
-                  }
-                },
-                "postcss-loader"
-              ]
-            })
+            use: ["style-loader", "css-loader"]
           },
           // Process Sass
           {

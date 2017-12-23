@@ -2,7 +2,8 @@
 
 exports[`<DialogComponent /> Snapshots closes when dialog is empty 1`] = `
 <div
-  className={undefined}
+  className=""
+  onClick={[Function]}
 >
   <div
     className={undefined}
@@ -20,7 +21,8 @@ exports[`<DialogComponent /> Snapshots matches expected empty snapshot initially
 
 exports[`<DialogComponent /> Snapshots renders a confirm dialog when confirm is present in dialog event 1`] = `
 <div
-  className={undefined}
+  className=""
+  onClick={[Function]}
 >
   <div
     className={undefined}
@@ -60,7 +62,8 @@ exports[`<DialogComponent /> Snapshots renders a confirm dialog when confirm is 
 
 exports[`<DialogComponent /> Snapshots renders multiple divs for each line of dialog 1`] = `
 <div
-  className={undefined}
+  className=""
+  onClick={[Function]}
 >
   <div
     className={undefined}
@@ -80,7 +83,8 @@ exports[`<DialogComponent /> Snapshots renders multiple divs for each line of di
 
 exports[`<DialogComponent /> Snapshots renders text dialog on dialog events 1`] = `
 <div
-  className={undefined}
+  className=""
+  onClick={[Function]}
 >
   <div
     className={undefined}

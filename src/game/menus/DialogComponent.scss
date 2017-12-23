@@ -41,3 +41,8 @@ $color-dialog--font: #fff;
     }
   }
 }
+.error {
+  .message {
+    background-color: rgba(228, 8, 8, 0.7);
+  }
+}

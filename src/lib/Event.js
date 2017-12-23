@@ -1,6 +1,8 @@
 import { EventEmitter } from "fbemitter";
 
 export default class Event {
+  static CLICK_DEBOUNCE = 100;
+
   static _instance;
   static instance() {
     if (!Event._instance) {
@@ -16,6 +18,12 @@ export default class Event {
 
   static fire(event, obj) {
     return Event.instance().emitter.emit(event, obj);
+  }
+
+  static fireAfterClick(event, obj) {
+    setTimeout(() => {
+      Event.fire(event, obj);
+    }, Event.CLICK_DEBOUNCE);
   }
 
   static on(event, handler) {

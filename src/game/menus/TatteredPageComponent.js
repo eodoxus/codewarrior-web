@@ -1,10 +1,15 @@
 import React from "react";
+import cx from "classnames";
 import styles from "./TatteredPageComponent.scss";
 import GameEvent from "../engine/GameEvent";
 import MenuComponent from "./MenuComponent";
 import Url from "../../lib/Url";
 import TextureCache from "../engine/TextureCache";
-import { Button } from "../../components/forms/controls/buttons";
+import SandboxedEditor from "./SandboxedEditorComponent";
+
+const DEFAULT_CODE = `// Hint: type alt+space to see what you can do
+var position = hero.pickTarget();
+hero.jump();`;
 
 export default class TatteredPageComponent extends MenuComponent {
   constructor(props) {
@@ -22,21 +27,11 @@ export default class TatteredPageComponent extends MenuComponent {
     TextureCache.fetch(this.state.image);
   }
 
-  onExecuteIncantation = e => {
-    GameEvent.absorbClick(e);
-    const onError = e => {
-      setTimeout(() => {
-        GameEvent.fire(GameEvent.DIALOG, e.message);
-      }, 200);
-    };
-    this.editor.contentWindow.execute(onError);
-  };
-
-  onOpen = () => {
+  onOpen = api => {
     if (this.isOpen()) {
       return;
     }
-    this.setState({ isOpen: true });
+    this.setState({ isOpen: true, api });
   };
 
   render() {
@@ -46,24 +41,19 @@ export default class TatteredPageComponent extends MenuComponent {
 
     return (
       <div
-        className={styles.container}
+        className={cx(styles.container, "tattered-page")}
         style={{
           backgroundImage: `url(${this.state.image})`
         }}
       >
-        <div className={styles.close + " close"} onClick={this.onClose}>
+        <div
+          className={styles.close + " close"}
+          onClick={() => GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE)}
+        >
           <span>x</span>
         </div>
-        <iframe
-          src={Url.PUBLIC + "/tatteredPage.html"}
-          title="Tattered Page"
-          ref={editor => (this.editor = editor)}
-        />
-        <div className={styles.executeButton}>
-          <Button
-            onClick={this.onExecuteIncantation}
-            text="Execute Incantation"
-          />
+        <div className={styles.sandbox}>
+          <SandboxedEditor code={DEFAULT_CODE} api={this.state.api} />
         </div>
       </div>
     );

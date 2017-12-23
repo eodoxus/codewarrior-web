@@ -9,6 +9,9 @@
       "msg":
         "It is said that a wizard in the north can release the book.\nIf only I could decipher these runes, I could reach her...\nPerhaps you can try?"
     },
+    "No, no that won't do. You'll have to try again.",
+    "Yes. Yes, that's it! I think you've done it!\nNow, go outside and give it a try.",
+    "Any luck getting past those stumps?",
     "You've freed the Great Book!\nOh Hero, a great journey awaits you.\nIt is said the Great book can open many doors.\nGo east!"
   ]
 }
