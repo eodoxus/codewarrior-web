@@ -77,7 +77,7 @@ describe("PathfindingMovement", () => {
       movement.moveTo(new Vector(100, 200));
       movement.updateMove();
       const move = movement.getCurrentMove();
-      expect(move.distanceRemaining).toEqual(new Vector(79.2, 179.2));
+      expect(move.distanceRemaining).toEqual(new Vector(-79.2, -179.2));
       expect(move.prev).toEqual(nextPosition.add(0.8, 0.8));
     });
 
@@ -92,16 +92,16 @@ describe("PathfindingMovement", () => {
       }
 
       let nextPosition = new Vector(20, 20);
-      testOvershoot(new Vector(20.7, 200), new Vector(0, 179.2));
+      testOvershoot(new Vector(20.7, 200), new Vector(0, -179.2));
 
       nextPosition = new Vector(20, 20);
-      testOvershoot(new Vector(100, 20.7), new Vector(79.2, 0));
+      testOvershoot(new Vector(100, 20.7), new Vector(-79.2, 0));
 
       nextPosition = new Vector(20, 20);
-      testOvershoot(new Vector(19.3, 200), new Vector(0, 179.2));
+      testOvershoot(new Vector(19.3, 200), new Vector(0, -179.2));
 
       nextPosition = new Vector(20, 20);
-      testOvershoot(new Vector(100, 19.3), new Vector(79.2, 0));
+      testOvershoot(new Vector(100, 19.3), new Vector(-79.2, 0));
     });
 
     it("stops x direction velocity if travelled the total distance in x direction", () => {

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./HeroMenuComponent.scss";
+import cx from "classnames";
 import GameEvent from "../../engine/GameEvent";
 import Graphics from "../../engine/Graphics";
 import MenuComponent from "../MenuComponent";
@@ -27,10 +28,6 @@ export default class HeroMenuComponent extends MenuComponent {
     delete this.listeners;
   }
 
-  onClick = e => {
-    console.log("hero menu click");
-  };
-
   onClose = e => {
     if (!this.state.isOpen) {
       return;
@@ -49,18 +46,16 @@ export default class HeroMenuComponent extends MenuComponent {
   };
 
   render() {
-    if (!this.state.isOpen) {
+    if (!this.state.position) {
       return "";
     }
-
     return (
       <div
-        className={styles.menu}
+        className={cx(styles.menu, this.state.isOpen ? styles.open : "")}
         style={{
           top: this.state.position.y,
           left: this.state.position.x
         }}
-        onClick={this.onClick}
       >
         <div className={styles.item}>
           <HelpItem texture={MENU_TEXTURE} />

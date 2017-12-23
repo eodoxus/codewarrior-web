@@ -92,7 +92,7 @@ export default class Vector {
   }
 
   distanceTo(v) {
-    return new Vector(Math.abs(this.x - v.x), Math.abs(this.y - v.y));
+    return new Vector(this.x - v.x, this.y - v.y);
   }
 
   normalize() {

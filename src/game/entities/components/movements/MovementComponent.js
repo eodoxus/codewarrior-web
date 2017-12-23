@@ -102,11 +102,11 @@ export default class MovementComponent {
     this.currentMove.distanceRemaining.subtract(distance);
     this.currentMove.prev = position;
 
-    if (this.currentMove.distanceRemaining.x <= 0) {
+    if (Math.abs(this.currentMove.distanceRemaining.x) <= 0) {
       this.velocity.x = 0;
     }
 
-    if (this.currentMove.distanceRemaining.y <= 0) {
+    if (Math.abs(this.currentMove.distanceRemaining.y) <= 0) {
       this.velocity.y = 0;
     }
 

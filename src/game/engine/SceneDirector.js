@@ -12,11 +12,15 @@ import Size from "./Size";
 import Tile from "./map/Tile";
 import Time from "./Time";
 import Vector from "./Vector";
+import Camera from "../Camera";
 
 const DEBUG = false;
 const STARTING_SCENE = "Home";
+const WIDTH = 640;
+const HEIGHT = 480;
 
 export default class SceneDirector extends Component {
+  camera;
   doorwayListener;
   dt;
   lastTime;
@@ -33,12 +37,15 @@ export default class SceneDirector extends Component {
 
   // React Component lifecycle
   async componentDidMount() {
+    window.addEventListener("resize", this.initCamera);
     await GameState.load();
     await this.loadScene(GameState.getLastScene() || STARTING_SCENE);
+    this.initCamera();
     this.startGameLoop();
   }
 
   componentWillUnmount() {
+    window.removeEventListener("resize", this.initCamera);
     this.stopEventListeners();
   }
 
@@ -81,11 +88,21 @@ export default class SceneDirector extends Component {
       this.scene.update();
     }
 
+    if (this.camera) {
+      this.camera.update();
+    }
+
     Graphics.clear();
     this.scene.render();
     this.lastTime = now;
 
     window.requestAnimationFrame(() => this.gameLoop());
+  }
+
+  initCamera() {
+    if (window.innerWidth < WIDTH || window.innerHeight < HEIGHT) {
+      this.camera = new Camera(this);
+    }
   }
 
   async loadScene(name, heroPosition, heroOrientation) {

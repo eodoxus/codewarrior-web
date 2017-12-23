@@ -30,3 +30,7 @@ body {
   padding: 0;
   font-weight: bold;
 }
+
+.loading .CodeMirror {
+  opacity: 0.4;
+}

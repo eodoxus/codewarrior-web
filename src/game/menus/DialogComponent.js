@@ -23,6 +23,10 @@ export default class DialogComponent extends Component {
     delete this.listener;
   }
 
+  isOpen() {
+    return this.state.dialog.length > 0;
+  }
+
   onCancel = e => {
     GameEvent.absorbClick(e);
     GameEvent.fire(GameEvent.CANCEL, e);

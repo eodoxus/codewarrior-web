@@ -4,7 +4,7 @@ import cx from "classnames";
 
 let Loader = ({ size }) => {
   return (
-    <div className={cx(styles.loader, styles["loader--" + size])} title="0">
+    <div className={cx(styles.loader, styles["loader--" + size])}>
       <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"

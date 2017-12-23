@@ -1,15 +1,21 @@
 import React, { Component } from "react";
 import styles from "./SandboxedEditorComponent.scss";
+import cx from "classnames";
 import CodeMirror from "react-codemirror";
 import GameEvent from "../engine/GameEvent";
 import Interpreter from "js-interpreter";
 import { Button } from "../../components/forms/controls/buttons/index";
+import Indicators from "../../components/indicators";
 
 require("codemirror/mode/javascript/javascript");
 require("codemirror/addon/hint/show-hint");
 require("codemirror/addon/hint/javascript-hint");
 require("codemirror/lib/codemirror.css");
 require("codemirror/addon/hint/show-hint.css");
+
+const MAX_EXECUTION_STEPS = 9999;
+const MEMORY_CHECK_INTERVAL = 100;
+const MAX_MEMORY = 1000000;
 
 let output = "";
 
@@ -21,16 +27,25 @@ export default class SandboxedEditorComponent extends Component {
     };
   }
 
+  onClick = e => {
+    if (this.state.isLoading) {
+      GameEvent.absorbClick(e);
+    }
+  };
+
   onExecute = async e => {
     GameEvent.absorbClick(e);
+    this.setState({ isLoading: true });
     try {
       output = "";
       const apiSandbox = sandboxApi(this.props.api);
       const interpreter = new Interpreter(this.state.code, apiSandbox);
       await executeCode(interpreter);
+      this.setState({ isLoading: false });
       GameEvent.fire(GameEvent.DIALOG, output);
       GameEvent.fire(GameEvent.EDITOR_SUCCESS);
     } catch (e) {
+      this.setState({ isLoading: false });
       GameEvent.fire(GameEvent.EDITOR_FAILURE);
       GameEvent.fireAfterClick(GameEvent.DIALOG, {
         error: true,
@@ -51,16 +66,25 @@ export default class SandboxedEditorComponent extends Component {
       tabSize: 2
     };
 
+    const loader = this.state.isLoading ? <Indicators.Loader /> : "";
+    const button = !this.state.isLoading ? (
+      <Button onClick={this.onExecute} text="Execute Incantation" />
+    ) : (
+      ""
+    );
+
     return (
-      <div className={styles.container} onClick={GameEvent.absorbClick}>
+      <div
+        className={cx(styles.container, this.state.isLoading ? "loading" : "")}
+      >
+        {loader}
         <CodeMirror
           value={this.state.code}
           onChange={this.onUpdateCode}
+          onClick={this.onClick}
           options={config}
         />
-        <div className={styles.executeButton}>
-          <Button onClick={this.onExecute} text="Execute Incantation" />
-        </div>
+        <div className={styles.executeButton}>{button}</div>
       </div>
     );
   }
@@ -109,13 +133,47 @@ function sandboxApi(api) {
 
 function executeCode(interpreter) {
   return new Promise((resolve, reject) => {
-    (async function step() {
+    let numSteps = 0;
+    (function step() {
       try {
-        await interpreter.run();
-        resolve();
+        if (numSteps++ > MAX_EXECUTION_STEPS) {
+          throw new Error("Infinite loop detected, incantation will halt");
+        }
+        if (numSteps % MEMORY_CHECK_INTERVAL === 0) {
+          limitMemory(interpreter);
+        }
+        if (interpreter.step()) {
+          setTimeout(step);
+        } else {
+          resolve();
+        }
       } catch (e) {
         reject(e);
       }
     })();
   });
+}
+
+function limitMemory(interpreter) {
+  const json = serialize(interpreter);
+  if (json.length > MAX_MEMORY) {
+    throw new Error("The incantation has grown too large, halting");
+  }
+}
+
+function serialize(interpreter) {
+  let cache = [];
+  const serialized = JSON.stringify(interpreter, function(key, value) {
+    if (typeof value === "object" && value !== null) {
+      if (cache.indexOf(value) !== -1) {
+        // Circular reference found, discard key
+        return;
+      }
+      // Store value in our collection
+      cache.push(value);
+    }
+    return value;
+  });
+  cache = null;
+  return serialized;
 }
