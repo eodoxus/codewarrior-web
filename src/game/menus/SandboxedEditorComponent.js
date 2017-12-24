@@ -6,10 +6,10 @@ import GameEvent from "../engine/GameEvent";
 import Interpreter from "js-interpreter";
 import { Button } from "../../components/forms/controls/buttons/index";
 import Indicators from "../../components/indicators";
+import SandboxedEditorHint from "./SandboxedEditorHint";
 
 require("codemirror/mode/javascript/javascript");
 require("codemirror/addon/hint/show-hint");
-require("codemirror/addon/hint/javascript-hint");
 require("codemirror/lib/codemirror.css");
 require("codemirror/addon/hint/show-hint.css");
 
@@ -27,6 +27,25 @@ export default class SandboxedEditorComponent extends Component {
     };
   }
 
+  componentDidMount() {
+    // Initialize code hints. Must do it on next cycle so refs are resolved
+    // and available.
+    setTimeout(() => this.initCodeHints());
+  }
+
+  createInterpreter(code) {
+    const apiSandbox = sandboxApi(this.props.api);
+    return new Interpreter(code, apiSandbox);
+  }
+
+  initCodeHints() {
+    const hint = new SandboxedEditorHint(
+      this.codemirror.getCodeMirrorInstance()
+    );
+    const interpreter = this.createInterpreter("");
+    hint.init(this.props.api, interpreter);
+  }
+
   onClick = e => {
     if (this.state.isLoading) {
       GameEvent.absorbClick(e);
@@ -38,8 +57,7 @@ export default class SandboxedEditorComponent extends Component {
     this.setState({ isLoading: true });
     try {
       output = "";
-      const apiSandbox = sandboxApi(this.props.api);
-      const interpreter = new Interpreter(this.state.code, apiSandbox);
+      const interpreter = this.createInterpreter(this.state.code);
       await executeCode(interpreter);
       this.setState({ isLoading: false });
       GameEvent.fire(GameEvent.DIALOG, output);
@@ -68,7 +86,9 @@ export default class SandboxedEditorComponent extends Component {
 
     const loader = this.state.isLoading ? <Indicators.Loader /> : "";
     const button = !this.state.isLoading ? (
-      <Button onClick={this.onExecute} text="Execute Incantation" />
+      <div className={styles.executeButton}>
+        <Button onClick={this.onExecute} text="Execute Incantation" />
+      </div>
     ) : (
       ""
     );
@@ -76,15 +96,18 @@ export default class SandboxedEditorComponent extends Component {
     return (
       <div
         className={cx(styles.container, this.state.isLoading ? "loading" : "")}
+        onClick={this.onClick}
       >
         {loader}
         <CodeMirror
           value={this.state.code}
           onChange={this.onUpdateCode}
-          onClick={this.onClick}
           options={config}
+          ref={codemirror => {
+            this.codemirror = codemirror;
+          }}
         />
-        <div className={styles.executeButton}>{button}</div>
+        {button}
       </div>
     );
   }
