@@ -131,13 +131,11 @@ export default class MovementComponent {
 
     // prevent entity from overshooting destination on
     // position update
-    let dx = this.currentMove.end.x - this.position.x;
+    let dx = velocity.x === 0 ? 0 : this.currentMove.end.x - this.position.x;
     dx = velocity.x > 0 ? Math.min(dx, velocity.x) : Math.max(dx, velocity.x);
-    //dx = parseFloat(dx.toFixed(2));
 
-    let dy = this.currentMove.end.y - this.position.y;
+    let dy = velocity.y === 0 ? 0 : this.currentMove.end.y - this.position.y;
     dy = velocity.y > 0 ? Math.min(dy, velocity.y) : Math.max(dy, velocity.y);
-    //dy = parseFloat(dy.toFixed(2));
 
     this.position.add(new Vector(dx, dy));
   }

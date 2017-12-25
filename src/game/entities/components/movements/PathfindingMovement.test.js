@@ -82,8 +82,8 @@ describe("PathfindingMovement", () => {
     });
 
     it("doesn't overshoot destination position", () => {
-      function testOvershoot(destination, distanceExpectation) {
-        entity.setVelocity(new Vector(50, 50));
+      function testOvershoot(velocity, destination, distanceExpectation) {
+        entity.setVelocity(velocity);
         entity.setPosition(nextPosition);
         movement.moveTo(destination);
         movement.updateMove();
@@ -92,16 +92,49 @@ describe("PathfindingMovement", () => {
       }
 
       let nextPosition = new Vector(20, 20);
-      testOvershoot(new Vector(20.7, 200), new Vector(0, -179.2));
+      testOvershoot(
+        new Vector(50, 50),
+        new Vector(20.7, 200),
+        new Vector(0, -179.2)
+      );
 
       nextPosition = new Vector(20, 20);
-      testOvershoot(new Vector(100, 20.7), new Vector(-79.2, 0));
+      testOvershoot(
+        new Vector(50, 50),
+        new Vector(100, 20.7),
+        new Vector(-79.2, 0)
+      );
 
       nextPosition = new Vector(20, 20);
-      testOvershoot(new Vector(19.3, 200), new Vector(0, -179.2));
+      testOvershoot(
+        new Vector(50, 50),
+        new Vector(19.3, 200),
+        new Vector(0, -179.2)
+      );
 
       nextPosition = new Vector(20, 20);
-      testOvershoot(new Vector(100, 19.3), new Vector(-79.2, 0));
+      testOvershoot(
+        new Vector(50, 50),
+        new Vector(100, 19.3),
+        new Vector(-79.2, 0)
+      );
+
+      // Check that zero velocity-x is handled correctly
+      nextPosition = new Vector(20, 20);
+      testOvershoot(
+        new Vector(0, 50),
+        new Vector(100, 100),
+        new Vector(-80, -79.2)
+      );
+
+      // Check that zero velocity-y is handled correctly
+      nextPosition = new Vector(20, 20);
+      nextPosition = new Vector(20, 20);
+      testOvershoot(
+        new Vector(50, 0),
+        new Vector(100, 100),
+        new Vector(-79.2, -80)
+      );
     });
 
     it("stops x direction velocity if travelled the total distance in x direction", () => {

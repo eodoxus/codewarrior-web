@@ -83,9 +83,12 @@ export default class SceneDirector extends Component {
     // Update scene on a fixed time step
     const now = GameState.timestamp();
     this.dt += Math.min(Time.SECOND, now - this.lastTime);
+    this.lastTime = now;
     while (this.dt > Time.FRAME_STEP) {
-      this.dt -= Time.FRAME_STEP;
+      const beforeFrame = GameState.timestamp();
       this.scene.update();
+      const frameRunTime = GameState.timestamp() - beforeFrame;
+      this.dt -= Time.FRAME_STEP - frameRunTime;
     }
 
     if (this.camera) {
@@ -94,7 +97,6 @@ export default class SceneDirector extends Component {
 
     Graphics.clear();
     this.scene.render();
-    this.lastTime = now;
 
     window.requestAnimationFrame(() => this.gameLoop());
   }
