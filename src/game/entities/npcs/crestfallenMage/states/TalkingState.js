@@ -5,6 +5,17 @@ import StoppedState from "./StoppedState";
 import Time from "../../../../engine/Time";
 
 const DIALOG_TIMEOUT = 2;
+const JUMP_CODE = `/**
+* Jump Command
+* To jump, pick a target where you want to
+* land, then pass that position to the
+* hero's jump command.
+*
+* Helpful Hint: type alt+space to see what
+* other things you can do.
+*/
+var position = hero.pickTarget();
+hero.jump();`;
 
 export default class TalkingState extends State {
   entity;
@@ -30,7 +41,7 @@ export default class TalkingState extends State {
     this.removeTatteredPageListeners();
   }
 
-  onCloseTatteredPage = e => {
+  onCloseTatteredPage = () => {
     GameEvent.fireAfterClick(
       GameEvent.DIALOG,
       this.mage.behavior.getDialog().getMessage()
@@ -39,15 +50,24 @@ export default class TalkingState extends State {
 
   onDialogConfirm = dialog => {
     this.removeDialogListener();
-    GameEvent.fire(GameEvent.NPC_INTERACTION, { interaction: dialog.action });
+    const mageDialog = this.mage.behavior.getDialog();
+    let spellCode;
+    if (mageDialog.getState() === 2) {
+      spellCode = JUMP_CODE;
+    }
+    GameEvent.fire(
+      GameEvent.NPC_INTERACTION,
+      GameEvent.generic(dialog.action, spellCode)
+    );
+    mageDialog.next();
   };
 
-  onEditorSuccess = e => {
+  onEditorSuccess = () => {
     this.mage.behavior.getDialog().setState(4);
     GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
   };
 
-  onEditorFailure = e => {
+  onEditorFailure = () => {
     this.mage.behavior.getDialog().setState(3);
   };
 

@@ -106,7 +106,6 @@ exports[`<App /> matches expected snapshot 1`] = `
   >
     <div
       className=""
-      title="0"
     >
       <svg
         enableBackground="new 0 0 40 40"

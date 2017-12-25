@@ -176,7 +176,7 @@ describe("CrestfallenMage", () => {
       mage.handleEvent(GameEvent.collision(entity));
 
       GameEvent.on(GameEvent.NPC_INTERACTION, event => {
-        expect(event.interaction).toEqual(
+        expect(event.getType()).toEqual(
           mageDialog[dialogStateExpectation].action
         );
       });

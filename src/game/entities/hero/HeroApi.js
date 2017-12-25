@@ -19,15 +19,19 @@ export default class HeroApi {
 
   jump(position) {
     if (!position) {
-      throw new Error("I don't know what position to jump to");
+      throw new Error("You must pass a position (x, y) to my jump command ");
     }
 
     if (!position.x) {
-      throw new Error("I don't know what x coordinate to jump to");
+      throw new Error(
+        "The position passed to my jump command requires an x coordinate"
+      );
     }
 
     if (!position.x) {
-      throw new Error("I don't know what y coordinate to jump to");
+      throw new Error(
+        "The position passed to my jump command requires a y coordinate"
+      );
     }
 
     console.log("jump hero to", position);

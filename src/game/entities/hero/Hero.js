@@ -5,9 +5,12 @@ import HeroGraphics from "./HeroGraphics";
 import GameEvent from "../../engine/GameEvent";
 import PathfindingMovement from "../components/movements/PathfindingMovement";
 import Vector from "../../engine/Vector";
+import HeroInventory from "./HeroInventory";
 
 export default class Hero extends Entity {
   static ID = "hero";
+
+  inventory;
 
   constructor() {
     super(Hero.ID);
@@ -16,10 +19,15 @@ export default class Hero extends Entity {
     this.graphics = new HeroGraphics(this);
     Entity.makeActor(this);
     this.spawn(new Vector(0, 0), new Vector(0, 1));
+    this.inventory = new HeroInventory();
   }
 
   getApi() {
     return new HeroApi(this);
+  }
+
+  getInventory() {
+    return this.inventory;
   }
 
   spawn(position, orientation) {

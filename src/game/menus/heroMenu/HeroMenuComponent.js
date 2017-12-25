@@ -3,8 +3,10 @@ import styles from "./HeroMenuComponent.scss";
 import cx from "classnames";
 import GameEvent from "../../engine/GameEvent";
 import Graphics from "../../engine/Graphics";
-import MenuComponent from "../MenuComponent";
 import HelpItem from "./HelpItemComponent";
+import HeroInventory from "../../entities/hero/HeroInventory";
+import MenuComponent from "../MenuComponent";
+import SpellItem from "./SpellItemComponent";
 import TextureCache from "../../engine/TextureCache";
 import Url from "../../../lib/Url";
 import Vector from "../../engine/Vector";
@@ -40,6 +42,7 @@ export default class HeroMenuComponent extends MenuComponent {
     if (this.state.isOpen) {
       return this.onClose();
     }
+    this.hero = hero;
     this.updatePosition(hero.getPosition());
     this.startPollingPosition(hero);
     this.setState({ isOpen: true });
@@ -57,11 +60,25 @@ export default class HeroMenuComponent extends MenuComponent {
           left: this.state.position.x
         }}
       >
-        <div className={styles.item}>
+        {this.renderSpells()}
+        <div className={styles.item} key={"help"}>
           <HelpItem texture={MENU_TEXTURE} />
         </div>
       </div>
     );
+  }
+
+  renderSpells() {
+    let numSpells = 0;
+    return this.hero
+      .getInventory()
+      .getItems()
+      .filter(item => item.isA(HeroInventory.TYPE_SPELL))
+      .map(item => (
+        <div className={styles.item} key={"spell" + numSpells++}>
+          <SpellItem texture={MENU_TEXTURE} spell={item.getItem()} />
+        </div>
+      ));
   }
 
   updatePosition(heroPosition) {

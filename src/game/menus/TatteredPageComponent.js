@@ -7,10 +7,6 @@ import Url from "../../lib/Url";
 import TextureCache from "../engine/TextureCache";
 import SandboxedEditor from "./SandboxedEditorComponent";
 
-const DEFAULT_CODE = `// Hint: type alt+space to see what you can do
-var position = hero.pickTarget();
-hero.jump();`;
-
 export default class TatteredPageComponent extends MenuComponent {
   constructor(props) {
     super(props);
@@ -27,11 +23,24 @@ export default class TatteredPageComponent extends MenuComponent {
     TextureCache.fetch(this.state.image);
   }
 
-  onOpen = api => {
+  onClose = e => {
+    if (!this.isOpen()) {
+      return;
+    }
+    this.spell.setCode(this.editor.getCode());
+    this.setState({ isOpen: false });
+  };
+
+  onOpen = spell => {
+    this.spell = spell;
     if (this.isOpen()) {
       return;
     }
-    this.setState({ isOpen: true, api });
+    this.setState({
+      isOpen: true,
+      code: spell.getCode(),
+      api: spell.getApi()
+    });
   };
 
   render() {
@@ -45,6 +54,7 @@ export default class TatteredPageComponent extends MenuComponent {
         style={{
           backgroundImage: `url(${this.state.image})`
         }}
+        onClick={GameEvent.absorbClick}
       >
         <div
           className={styles.close + " close"}
@@ -53,7 +63,11 @@ export default class TatteredPageComponent extends MenuComponent {
           <span>x</span>
         </div>
         <div className={styles.sandbox}>
-          <SandboxedEditor code={DEFAULT_CODE} api={this.state.api} />
+          <SandboxedEditor
+            code={this.state.code}
+            api={this.state.api}
+            ref={editor => (this.editor = editor)}
+          />
         </div>
       </div>
     );
