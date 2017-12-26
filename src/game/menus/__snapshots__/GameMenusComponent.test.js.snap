@@ -30,8 +30,7 @@ exports[`<GameMenus /> Snapshots has hero menu when hero menu is opened snapshot
   className={undefined}
 >
   <div
-    className={undefined}
-    onClick={[Function]}
+    className=""
     style={
       Object {
         "left": 0,

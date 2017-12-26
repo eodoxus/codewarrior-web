@@ -123,7 +123,6 @@ export default class TalkingState extends State {
     }
 
     if (this.timer.elapsed() > Time.SECOND * DIALOG_TIMEOUT) {
-      this.exit();
       return new StoppedState(mage);
     }
     return this;

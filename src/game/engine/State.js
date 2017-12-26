@@ -1,5 +1,9 @@
 export default class State {
-  constructor() {
+  constructor(entity) {
+    if (entity) {
+      const state = entity.getBehavior().getState();
+      state && state.exit();
+    }
     this.enter(...arguments);
   }
 

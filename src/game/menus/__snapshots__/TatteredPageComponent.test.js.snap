@@ -9,6 +9,7 @@ exports[`<TatteredPageComponent /> Snapshots renders empty on close event when o
 exports[`<TatteredPageComponent /> Snapshots renders tattered page graphics container on open event 1`] = `
 <div
   className="tattered-page"
+  onClick={[Function]}
   style={
     Object {
       "backgroundImage": "url(/images/tattered-page.png)",

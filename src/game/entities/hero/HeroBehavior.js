@@ -17,7 +17,6 @@ export default class HeroBehavior extends BehaviorComponent {
   beginWalking(tile) {
     tile.clear();
     if (this.entity.getMovement().walkTo(tile)) {
-      this.state.exit();
       this.state = new WalkingState(this.entity);
     }
   }
@@ -28,7 +27,6 @@ export default class HeroBehavior extends BehaviorComponent {
       if (this.isIntent(GameEvent.TALK)) {
         movement.faceEntity(entity);
         this.fulfillIntent();
-        this.state.exit();
         this.state = new StoppedState(this.entity);
       }
       movement.reroute();
@@ -80,8 +78,5 @@ export default class HeroBehavior extends BehaviorComponent {
     inventory.remove(TATTERED_PAGE);
     inventory.add(spell);
     spell.edit();
-    spell.onDoneEditing(() => {
-      GameEvent.fire(GameEvent.OPEN_HERO_MENU, this.entity);
-    });
   }
 }

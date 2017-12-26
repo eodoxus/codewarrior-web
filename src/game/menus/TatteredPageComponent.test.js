@@ -4,8 +4,11 @@ import renderer from "react-test-renderer";
 import GameEvent from "../engine/GameEvent";
 import TatteredPageComponent from "./TatteredPageComponent";
 import SandboxedEditorComponent from "./SandboxedEditorComponent";
+import Spell from "../entities/items/Spell";
 
 SandboxedEditorComponent.prototype.render = jest.fn();
+
+const spell = new Spell({}, "");
 
 describe("<TatteredPageComponent />", () => {
   it("renders without crashing", () => {
@@ -34,20 +37,20 @@ describe("<TatteredPageComponent />", () => {
     });
 
     it("renders tattered page graphics container on open event", () => {
-      GameEvent.fire(GameEvent.OPEN_TATTERED_PAGE);
+      GameEvent.fire(GameEvent.OPEN_TATTERED_PAGE, spell);
       const tree = node.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it("renders empty on close event when opened", () => {
-      GameEvent.fire(GameEvent.OPEN_TATTERED_PAGE);
+      GameEvent.fire(GameEvent.OPEN_TATTERED_PAGE, spell);
       GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
       const tree = node.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it("closes when close button is clicked", () => {
-      GameEvent.fire(GameEvent.OPEN_TATTERED_PAGE);
+      GameEvent.fire(GameEvent.OPEN_TATTERED_PAGE, spell);
       const close = node.root.findAllByType("div")[1];
       close.props.onClick({});
       const tree = node.toJSON();

@@ -8,7 +8,12 @@ import GameEvent from "../engine/GameEvent";
 import Vector from "../engine/Vector";
 
 const mockHero = {
-  getPosition: () => new Vector(0, 0)
+  getPosition: () => new Vector(0, 0),
+  getInventory: () => {
+    return {
+      getItems: () => []
+    };
+  }
 };
 
 beforeEach(() => {
