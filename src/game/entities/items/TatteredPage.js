@@ -24,6 +24,10 @@ export default class TatteredPage {
     return this.spells[iDx];
   }
 
+  getSpells() {
+    return this.spells;
+  }
+
   removeSpell(spell) {
     const iDx = this.spells.findIndex(s => s.getId() === spell.getId());
     if (iDx > -1) {

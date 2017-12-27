@@ -40,17 +40,38 @@ exports[`<GameMenus /> Snapshots has hero menu when hero menu is opened snapshot
   >
     <div
       className={undefined}
+    />
+    <div
+      className={undefined}
     >
       <div
-        onClick={[Function]}
-        style={
-          Object {
-            "background": "url(/sprites/hero-menu.png) no-repeat 0 0",
-            "height": 16,
-            "width": 16,
+        className={undefined}
+      >
+        <div
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "url(/sprites/hero-menu.png) no-repeat -32px 0",
+              "height": 16,
+              "width": 16,
+            }
           }
-        }
-      />
+        />
+      </div>
+      <div
+        className={undefined}
+      >
+        <div
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "url(/sprites/hero-menu.png) no-repeat 0 0",
+              "height": 16,
+              "width": 16,
+            }
+          }
+        />
+      </div>
     </div>
   </div>
   

@@ -11,7 +11,11 @@ const mockHero = {
   getPosition: () => new Vector(0, 0),
   getInventory: () => {
     return {
-      getItems: () => []
+      get: () => {
+        return {
+          getSpells: () => []
+        };
+      }
     };
   }
 };

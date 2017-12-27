@@ -4,9 +4,10 @@ import cx from "classnames";
 import GameEvent from "../../engine/GameEvent";
 import Graphics from "../../engine/Graphics";
 import HelpItem from "./HelpItemComponent";
-import HeroInventory from "../../entities/hero/HeroInventory";
 import MenuComponent from "../MenuComponent";
 import SpellItem from "./SpellItemComponent";
+import TatteredPage from "../../entities/items/TatteredPage";
+import TatteredPageItem from "./TatteredPageItem";
 import TextureCache from "../../engine/TextureCache";
 import Url from "../../../lib/Url";
 import Vector from "../../engine/Vector";
@@ -60,25 +61,41 @@ export default class HeroMenuComponent extends MenuComponent {
           left: this.state.position.x
         }}
       >
-        {this.renderSpells()}
-        <div className={styles.item} key={"help"}>
-          <HelpItem texture={MENU_TEXTURE} />
+        <div className={styles.topMenu}>{this.renderSpells()}</div>
+        <div className={styles.sideMenu}>
+          {this.renderEditItem()}
+          <div className={styles.item} key={"help"}>
+            <HelpItem texture={MENU_TEXTURE} />
+          </div>
         </div>
       </div>
     );
   }
 
+  renderEditItem() {
+    const tatteredPage = this.hero.getInventory().get(TatteredPage.NAME);
+    if (tatteredPage) {
+      return (
+        <div className={styles.item} key={"tatteredPage"}>
+          <TatteredPageItem
+            texture={MENU_TEXTURE}
+            tatteredPage={tatteredPage}
+          />
+        </div>
+      );
+    }
+  }
+
   renderSpells() {
     let numSpells = 0;
-    return this.hero
-      .getInventory()
-      .getItems()
-      .filter(item => item.isA(HeroInventory.TYPE_SPELL))
-      .map(item => (
+    const tatteredPage = this.hero.getInventory().get(TatteredPage.NAME);
+    if (tatteredPage) {
+      return tatteredPage.getSpells().map(spell => (
         <div className={styles.item} key={"spell" + numSpells++}>
-          <SpellItem texture={MENU_TEXTURE} spell={item.getItem()} />
+          <SpellItem texture={MENU_TEXTURE} spell={spell} num={numSpells} />
         </div>
       ));
+    }
   }
 
   updatePosition(heroPosition) {

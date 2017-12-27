@@ -1,23 +1,42 @@
 @import "../../../lib/lib.scss";
 
 .menu {
-  width: 140px;
-  height: 50px;
   position: absolute;
-  margin-top: -44px;
-  margin-left: -42px;
   /*box-shadow: 0 0 20px #000;*/
   cursor: default;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 3;
   opacity: 0;
   transition: opacity 0.5s;
 
+  .topMenu {
+    width: 140px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: -24px;
+    margin-left: -42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sideMenu {
+    height: 70px;
+    position: absolute;
+    right: -80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
   .item {
     cursor: pointer;
     padding: 5px;
+    color: $color-font-inverse;
+    font-size: 9px;
+    line-height: 1.8;
+    text-align: center;
   }
 }
 
