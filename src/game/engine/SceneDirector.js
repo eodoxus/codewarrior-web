@@ -23,8 +23,9 @@ export default class SceneDirector extends Component {
   camera;
   doorwayListener;
   dt;
-  lastTime;
+  gameSaveSlot = 0;
   hero;
+  lastTime;
   scene;
 
   constructor(props) {
@@ -37,8 +38,9 @@ export default class SceneDirector extends Component {
 
   // React Component lifecycle
   async componentDidMount() {
+    GameEvent.on(GameEvent.SAVE_GAME, () => GameState.save(this.gameSaveSlot));
     window.addEventListener("resize", this.initCamera);
-    await GameState.load();
+    await GameState.load(this.gameSaveSlot);
     await this.loadScene(GameState.getLastScene() || STARTING_SCENE);
     this.initCamera();
     this.startGameLoop();
@@ -109,13 +111,14 @@ export default class SceneDirector extends Component {
 
   async loadScene(name, heroPosition, heroOrientation) {
     GameState.setLastScene(name);
-    await GameState.save();
+    await GameState.save(this.gameSaveSlot);
     this.doorwayListener = GameEvent.once(
       GameEvent.DOORWAY,
       this.onDoorwayTransition
     );
     if (!this.hero) {
       this.hero = new Entities.Hero();
+      await GameState.restoreHero(this.hero);
     }
     this.scene = createScene(name, this.hero);
     await this.scene.init();

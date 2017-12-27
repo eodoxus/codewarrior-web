@@ -35,8 +35,8 @@ export default class SandboxedEditorComponent extends Component {
     const hint = new SandboxedEditorHint(
       this.codemirror.getCodeMirrorInstance()
     );
-    const spell = new Spell("hints", this.props.api, "");
-    const interpreter = spell.createInterpreter();
+    const spell = new Spell();
+    const interpreter = spell.createInterpreter(this.props.api);
     hint.init(this.props.api, interpreter);
   }
 
@@ -50,7 +50,7 @@ export default class SandboxedEditorComponent extends Component {
     GameEvent.absorbClick(e);
     this.setState({ isLoading: true });
     try {
-      const spell = new Spell("edit", this.props.api, this.state.code);
+      const spell = new Spell(this.state.code);
       await spell.cast();
       this.setState({ isLoading: false });
       GameEvent.fire(GameEvent.EDITOR_SUCCESS);

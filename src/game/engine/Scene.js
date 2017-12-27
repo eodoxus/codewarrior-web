@@ -23,6 +23,17 @@ export default class Scene {
     this.entities.push(entity);
   }
 
+  getApi() {
+    const api = {};
+    this.getEntities().forEach(entity => {
+      const entityApi = entity.getApi();
+      if (entityApi) {
+        api[entity.getId()] = entityApi;
+      }
+    });
+    return api;
+  }
+
   getBackgroundMusic() {
     // Override this
   }
@@ -71,6 +82,7 @@ export default class Scene {
     await this.initMap();
     await this.initEntities();
     GameState.restoreScene(this);
+    GameState.setSceneApi(this.getApi());
   }
 
   async initEntities() {

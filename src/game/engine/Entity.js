@@ -17,6 +17,10 @@ export default class Entity {
     this.properties = properties;
   }
 
+  getApi() {
+    // Override this
+  }
+
   getBehavior() {
     return this.behavior;
   }

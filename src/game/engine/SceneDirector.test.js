@@ -9,6 +9,7 @@ import TextureCache from "./TextureCache";
 import Vector from "./Vector";
 
 import dialog from "../../../public/dialog.json";
+import GameState from "../GameState";
 
 jest.mock("./Graphics");
 jest.useFakeTimers();
@@ -16,11 +17,14 @@ jest.useFakeTimers();
 Scene.prototype.init = () => true;
 Scene.prototype.render = () => true;
 Scene.prototype.update = () => true;
+GameState.load = () => true;
+GameState.restoreHero = () => true;
+GameState.save = () => true;
 
 let ctrl;
 
 beforeEach(() => {
-  fetch.mockResponse(JSON.stringify(dialog));
+  fetch.mockResponse("{}");
   const div = document.createElement("div");
   ctrl = ReactDOM.render(<SceneDirector />, div);
 });

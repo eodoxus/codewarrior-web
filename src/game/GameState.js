@@ -1,7 +1,13 @@
+import * as _ from "lodash";
 import GameSaveModel from "../data/GameSaveModel";
 import DataCollection from "../data/DataCollection";
+import GameScriptModel from "../data/GameScriptModel";
+import Spell from "./entities/items/Spell";
+import TatteredPage from "./entities/items/TatteredPage";
 
 let gameSave;
+let gameSaveSlot = 0;
+let sceneApi;
 let state = {
   scenes: {}
 };
@@ -25,7 +31,8 @@ export default class GameState {
     }
   }
 
-  static async getGameSave(slot) {
+  static async getGameSave() {
+    const slot = gameSaveSlot + "";
     if (!gameSave || gameSave.slot !== slot) {
       const token = GameSaveModel.getToken();
       let saves = await DataCollection.create(GameSaveModel).list({ token });
@@ -42,12 +49,17 @@ export default class GameState {
     return state.lastScene;
   }
 
+  static getSceneApi() {
+    return sceneApi;
+  }
+
   static getSceneState(sceneName) {
     return state.scenes[sceneName];
   }
 
-  static async load(slot = 0) {
-    const save = await GameState.getGameSave(slot);
+  static async load(slot) {
+    gameSaveSlot = slot;
+    const save = await GameState.getGameSave();
     if (save && save.data) {
       state = save.data;
     }
@@ -72,7 +84,30 @@ export default class GameState {
     });
   }
 
-  static restoreHero(hero) {}
+  static async restoreHero(hero) {
+    if (!state.hero || !state.hero.inventory) {
+      return;
+    }
+    await state.hero.inventory.forEach(async item => {
+      const restoreFn = "restore" + _.upperFirst(item.id);
+      await GameState[restoreFn](hero);
+    });
+  }
+
+  static async restoreTatteredPage(hero) {
+    const scriptsCollection = DataCollection.create(GameScriptModel);
+    const token = GameSaveModel.getToken();
+    const scripts = await scriptsCollection.list({ token });
+    const tatteredPage = new TatteredPage();
+    if (scripts.length) {
+      scripts.forEach(script => {
+        const spell = new Spell();
+        spell.setScript(script);
+        tatteredPage.addSpell(spell);
+      });
+    }
+    hero.getInventory().add(TatteredPage.NAME, tatteredPage);
+  }
 
   static restoreScene(scene) {
     const sceneState = state.scenes[scene.getName()];
@@ -93,8 +128,9 @@ export default class GameState {
     });
   }
 
-  static async save(slot = 0) {
-    const save = await GameState.getGameSave(slot);
+  static async save(slot) {
+    gameSaveSlot = slot;
+    const save = await GameState.getGameSave();
     save.data = state;
     save.save();
   }
@@ -103,7 +139,19 @@ export default class GameState {
     return (state.lastScene = scene);
   }
 
-  static storeHero() {}
+  static setSceneApi(api) {
+    sceneApi = api;
+  }
+
+  static storeHero(hero) {
+    state.hero = { inventory: [] };
+    const inventory = hero.getInventory();
+    inventory.getItems().forEach(item => {
+      state.hero.inventory.push({
+        id: item.getId()
+      });
+    });
+  }
 
   static storeScene(scene) {
     const sceneState = {};

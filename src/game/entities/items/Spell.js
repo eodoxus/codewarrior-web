@@ -1,26 +1,28 @@
 import Interpreter from "js-interpreter";
 import GameEvent from "../../engine/GameEvent";
+import GameScriptModel from "../../../data/GameScriptModel";
+import GameState from "../../GameState";
 
 const MAX_EXECUTION_STEPS = 9999;
-const MEMORY_CHECK_INTERVAL = 100;
 const MAX_MEMORY = 1000000;
+const MAX_STACK_SIZE = 99;
+const SANITY_CHECK_INTERVAL = 100;
 
 export default class Spell {
   static results = "";
 
-  api;
-  code;
+  script;
 
-  constructor(name, api, code) {
-    this.name = name;
-    this.api = api;
-    this.code = code;
+  constructor(code = "") {
+    this.script = new GameScriptModel({
+      data: code
+    });
   }
 
   async cast() {
     Spell.results = "";
     try {
-      const interpreter = this.createInterpreter();
+      const interpreter = this.createInterpreter(this.getApi());
       await executeCode(interpreter);
       GameEvent.fire(GameEvent.DIALOG, Spell.results);
     } catch (e) {
@@ -32,40 +34,43 @@ export default class Spell {
     }
   }
 
-  createInterpreter() {
-    const apiSandbox = sandboxApi(this.api);
-    return new Interpreter(this.code, apiSandbox);
+  createInterpreter(api) {
+    const apiSandbox = sandboxApi(api);
+    return new Interpreter(this.getCode(), apiSandbox);
   }
 
   getApi() {
-    return this.api;
+    return GameState.getSceneApi();
   }
 
   getCode() {
-    return this.code;
+    return this.script.data;
   }
 
   setCode(code) {
-    this.code = code;
+    this.script.data = code;
   }
 
-  getName() {
-    return this.name;
+  setScript(script) {
+    this.script = script;
   }
 
   edit() {
     GameEvent.fire(GameEvent.OPEN_TATTERED_PAGE, this);
+    this.onDoneEditing(this.save);
   }
 
-  save() {
-    GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE, this);
-  }
+  save = async () => {
+    const gameSave = await GameState.getGameSave();
+    this.script.game_save_id = gameSave.id;
+    return this.script.save();
+  };
 
   onDoneEditing(callback) {
-    this.listener = GameEvent.on(GameEvent.CLOSE_TATTERED_PAGE, () => {
+    let listener = GameEvent.on(GameEvent.CLOSE_TATTERED_PAGE, () => {
       callback();
-      this.listener.remove();
-      delete this.listener;
+      listener.remove();
+      listener = null;
     });
   }
 }
@@ -116,12 +121,7 @@ function executeCode(interpreter) {
     let numSteps = 0;
     (function step() {
       try {
-        if (numSteps++ > MAX_EXECUTION_STEPS) {
-          throw new Error("Infinite loop detected, incantation will halt");
-        }
-        if (numSteps % MEMORY_CHECK_INTERVAL === 0) {
-          limitMemory(interpreter);
-        }
+        executionSanityChecks(interpreter, numSteps++);
         if (interpreter.step()) {
           setTimeout(step);
         } else {
@@ -134,10 +134,31 @@ function executeCode(interpreter) {
   });
 }
 
+function executionSanityChecks(interpreter, numSteps) {
+  if (numSteps % SANITY_CHECK_INTERVAL === 0) {
+    limitMemory(interpreter);
+    limitRunTime(numSteps);
+    limitStackSize(interpreter);
+  }
+}
+
 function limitMemory(interpreter) {
   const json = serialize(interpreter);
   if (json.length > MAX_MEMORY) {
     throw new Error("The incantation has grown too large, halting");
+  }
+}
+
+function limitRunTime(numSteps) {
+  if (numSteps > MAX_EXECUTION_STEPS) {
+    throw new Error("Infinite loop detected, incantation will halt");
+  }
+}
+
+function limitStackSize(interpreter) {
+  const stackSize = interpreter.stateStack.length;
+  if (stackSize > MAX_STACK_SIZE) {
+    throw new Error("Infinite recursion detected, halting");
   }
 }
 

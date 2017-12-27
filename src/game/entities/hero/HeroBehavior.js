@@ -3,8 +3,8 @@ import GameEvent from "../../engine/GameEvent";
 import Spell from "../items/Spell";
 import StoppedState from "./states/StoppedState";
 import WalkingState from "./states/WalkingState";
-
-const TATTERED_PAGE = "tatteredPage";
+import TatteredPage from "../items/TatteredPage";
+import GameState from "../../GameState";
 
 export default class HeroBehavior extends BehaviorComponent {
   listeners;
@@ -54,7 +54,12 @@ export default class HeroBehavior extends BehaviorComponent {
   handleNpcInteraction(interaction) {
     switch (interaction.getType()) {
       case "CrestfallenMage.GivePage":
-        this.receiveTatteredPage(interaction.getData());
+        if (!this.entity.getInventory().get(TatteredPage.NAME)) {
+          this.receiveTatteredPage(interaction.getData());
+        } else {
+          const spellIdx = 0;
+          this.openTatteredPage(spellIdx);
+        }
         break;
       default:
         return false;
@@ -71,12 +76,24 @@ export default class HeroBehavior extends BehaviorComponent {
     );
   }
 
+  openTatteredPage(spellIdx) {
+    const spell = this.entity
+      .getInventory()
+      .get(TatteredPage.NAME)
+      .getSpell(spellIdx);
+    spell.edit();
+  }
+
   receiveTatteredPage(spellCode) {
     const inventory = this.entity.getInventory();
-    const api = { hero: this.entity.getApi() };
-    const spell = new Spell(TATTERED_PAGE, api, spellCode);
-    inventory.remove(TATTERED_PAGE);
-    inventory.add(spell);
+    const tatteredPage = new TatteredPage();
+    inventory.add(TatteredPage.NAME, tatteredPage);
+    const spell = new Spell(spellCode);
+    tatteredPage.addSpell(spell);
     spell.edit();
+    spell.onDoneEditing(() => {
+      GameState.storeHero(this.entity);
+      GameEvent.fire(GameEvent.SAVE_GAME);
+    });
   }
 }
