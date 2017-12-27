@@ -28,9 +28,13 @@ export default class Camera {
       window.innerHeight / 2
     );
     const distanceToScreenCenter = heroScreenPosition.distanceTo(screenCenter);
-    window.scroll({
-      top: window.scrollY + distanceToScreenCenter.y,
-      left: window.scrollX + distanceToScreenCenter.x
-    });
+    const top = window.scrollY + distanceToScreenCenter.y;
+    const left = window.scrollX + distanceToScreenCenter.x;
+    if (top !== window.scrollY || left !== window.scrollX) {
+      window.scroll({
+        top,
+        left
+      });
+    }
   }
 }
