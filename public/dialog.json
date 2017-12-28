@@ -13,5 +13,6 @@
     "Yes. Yes, that's it! I think you've done it!\nNow, go outside and give it a try.",
     "Any luck getting past those stumps?",
     "You've freed the Great Book!\nOh Hero, a great journey awaits you.\nIt is said the Great book can open many doors.\nGo east!"
-  ]
+  ],
+  "Home.JumpHint": ["Hrm...maybe this is a good place to try that jump"]
 }

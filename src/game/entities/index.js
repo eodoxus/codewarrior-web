@@ -5,12 +5,14 @@ import movements from "../entities/components/movements";
 import CrestfallenMage from "./npcs/crestfallenMage/CrestfallenMage";
 import Entity from "../engine/Entity";
 import Hero from "./hero/Hero";
+import JumpHint from "./hints/JumpHint";
 import Tile from "../engine/map/Tile";
 
 const entities = {
   BaseEntity: Entity,
   CrestfallenMage,
-  Hero
+  Hero,
+  JumpHint
 };
 
 entities.create = (position, properties) => {

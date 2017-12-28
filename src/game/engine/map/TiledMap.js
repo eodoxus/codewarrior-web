@@ -253,6 +253,8 @@ function parseObjects(objects) {
       case Tile.PROPERTIES.ENTITY:
         const properties = {};
         properties[Tile.PROPERTIES.NAME] = object.name;
+        properties[Tile.PROPERTIES.WIDTH] = object.width;
+        properties[Tile.PROPERTIES.HEIGHT] = object.height;
         Object.assign(properties, object.properties);
         tile.setProperties(properties);
         this.addEntity(tile);

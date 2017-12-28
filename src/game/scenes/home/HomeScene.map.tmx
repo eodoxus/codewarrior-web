@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="37">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="38">
  <tileset firstgid="1" name="overworld" tilewidth="8" tileheight="8" tilecount="8645">
   <image source="../../../../public/maps/overworld.png" width="760" height="728"/>
  </tileset>
@@ -66,6 +66,13 @@
    </properties>
   </object>
   <object id="36" name="spawn_hero" type="spawn_hero" x="98" y="102"/>
+  <object id="37" name="JumpHint" type="entity" x="160" y="16" width="72" height="24">
+   <properties>
+    <property name="dialog" value="Home.JumpHint"/>
+    <property name="entity" value="JumpHint"/>
+    <property name="graphics" value="No"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="collidable" width="32" height="24">
   <data encoding="base64" compression="zlib">

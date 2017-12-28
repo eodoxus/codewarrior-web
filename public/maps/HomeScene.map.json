@@ -174,6 +174,23 @@
                  "width":0,
                  "x":98,
                  "y":102
+                }, 
+                {
+                 "height":24,
+                 "id":37,
+                 "name":"JumpHint",
+                 "properties":
+                    {
+                     "dialog":"Home.JumpHint",
+                     "entity":"JumpHint",
+                     "graphics":"No"
+                    },
+                 "rotation":0,
+                 "type":"entity",
+                 "visible":true,
+                 "width":72,
+                 "x":160,
+                 "y":16
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -195,7 +212,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":37,
+ "nextobjectid":38,
  "orientation":"orthogonal",
  "properties":
     {
