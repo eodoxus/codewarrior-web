@@ -139,6 +139,7 @@ export default class SceneDirector extends Component {
     this.doorwayListener.remove();
     delete this.doorwayListener;
     closeHeroMenu();
+    closeDialog();
     closeCurtain();
     this.setState({ isLoading: true });
     this.stopEventListeners();

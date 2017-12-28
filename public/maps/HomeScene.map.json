@@ -182,7 +182,7 @@
                  "properties":
                     {
                      "dialog":"Home.JumpHint",
-                     "entity":"JumpHint",
+                     "entity":"TatteredPageHint",
                      "graphics":"No"
                     },
                  "rotation":0,
@@ -191,6 +191,23 @@
                  "width":72,
                  "x":160,
                  "y":16
+                }, 
+                {
+                 "height":16,
+                 "id":38,
+                 "name":"spell_hint",
+                 "properties":
+                    {
+                     "dialog":"Home.SpellHint",
+                     "entity":"TatteredPageHint",
+                     "graphics":"No"
+                    },
+                 "rotation":0,
+                 "type":"entity",
+                 "visible":true,
+                 "width":47.3333333333333,
+                 "x":40,
+                 "y":160
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -212,7 +229,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":38,
+ "nextobjectid":39,
  "orientation":"orthogonal",
  "properties":
     {

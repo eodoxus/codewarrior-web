@@ -4,12 +4,10 @@ import GameEvent from "../../engine/GameEvent";
 import Tile from "../../engine/map/Tile";
 
 export default class Hint extends Entity {
-  static ID = "hint";
-
   dialog;
 
   constructor(id, properties) {
-    super(Hint.ID, properties);
+    super(id, properties);
     this.dialog = new Dialog(properties[Tile.PROPERTIES.DIALOG]);
   }
 

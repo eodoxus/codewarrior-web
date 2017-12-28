@@ -2,14 +2,7 @@ import GameEvent from "../../engine/GameEvent";
 import Hint from "./Hint";
 import TatteredPage from "../items/TatteredPage";
 
-export default class JumpHint extends Hint {
-  static ID = "hint";
-
-  constructor(id, properties) {
-    super(id, properties);
-    this.id = JumpHint.ID;
-  }
-
+export default class TatteredPageHint extends Hint {
   handleEvent(event) {
     if (!this.isEventCollisionWithHero(event)) {
       return;

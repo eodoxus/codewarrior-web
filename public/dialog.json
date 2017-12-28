@@ -14,5 +14,8 @@
     "Any luck getting past those stumps?",
     "You've freed the Great Book!\nOh Hero, a great journey awaits you.\nIt is said the Great book can open many doors.\nGo east!"
   ],
-  "Home.JumpHint": ["Hrm...maybe this is a good place to try that jump"]
+  "Home.JumpHint": ["Hrm...maybe this is a good place to try that jump"],
+  "Home.SpellHint": [
+    "You've received a spell!\nThere are two ways to cast it:\n1) Open the Hero menu by clicking on the Hero, then click the spell's icon.\n2) Press the number key associated with the spell (overlaid on the spell's icon)."
+  ]
 }
