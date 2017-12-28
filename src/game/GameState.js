@@ -132,7 +132,7 @@ export default class GameState {
     gameSaveSlot = slot;
     const save = await GameState.getGameSave();
     save.data = state;
-    save.save();
+    return save.save();
   }
 
   static setLastScene(scene) {

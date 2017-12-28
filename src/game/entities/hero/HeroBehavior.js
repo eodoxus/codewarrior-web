@@ -5,6 +5,7 @@ import StoppedState from "./states/StoppedState";
 import WalkingState from "./states/WalkingState";
 import TatteredPage from "../items/TatteredPage";
 import GameState from "../../GameState";
+import PickingState from "./states/PickingState";
 
 export default class HeroBehavior extends BehaviorComponent {
   listeners;
@@ -36,6 +37,11 @@ export default class HeroBehavior extends BehaviorComponent {
   handleEvent(event) {
     if (event.getType() === GameEvent.CLICK) {
       const tile = event.getData();
+      if (this.state instanceof PickingState) {
+        this.state.setTarget(tile.getPosition());
+        this.state = new StoppedState(this.entity);
+        return;
+      }
       if (tile.hasNpc()) {
         const npc = tile.getEntity();
         this.setIntent(GameEvent.talk(npc));

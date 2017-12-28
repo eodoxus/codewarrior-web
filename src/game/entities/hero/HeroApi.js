@@ -1,20 +1,25 @@
-import Vector from "../../engine/Vector";
+import StoppedState from "./states/StoppedState";
+import PickingState from "./states/PickingState";
 
 export default class HeroApi {
   functions;
   hero;
+
   constructor(hero) {
     this.hero = hero;
-    this.functions = ["pickTarget", "jump"];
+    this.functions = ["~pickTarget", "jump"];
   }
 
   getFunctions() {
     return this.functions;
   }
 
-  pickTarget() {
-    console.log("this should bring up a target cursor");
-    return new Vector(10, 15);
+  async pickTarget(callback) {
+    this.hero.behavior.setState(new StoppedState(this.hero));
+    const pickingState = new PickingState(this.hero);
+    this.hero.behavior.setState(pickingState);
+    const target = await pickingState.getTarget();
+    callback(target);
   }
 
   jump(position) {

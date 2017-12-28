@@ -82,38 +82,74 @@ function sandboxApi(api) {
       const apiObj = interpreter.createObject(Interpreter.OBJECT);
       interpreter.setProperty(scope, objName, apiObj);
       obj.getFunctions().forEach(functionName => {
-        const wrapper = (...pseudoArgs) => {
-          let nativeArgs = [];
-          for (var i = 0; i < pseudoArgs.length; i++) {
-            nativeArgs[i] = interpreter.pseudoToNative(pseudoArgs[i]);
-          }
-          return interpreter.nativeToPseudo(obj[functionName](...nativeArgs));
-        };
-        interpreter.setProperty(
-          apiObj,
-          functionName,
-          interpreter.createNativeFunction(wrapper),
-          Interpreter.NONENUMERABLE_DESCRIPTOR
-        );
+        if (functionName[0] === "~") {
+          functionName = functionName.substr(1);
+          wrapAsyncFn(interpreter, apiObj, obj, functionName);
+        } else {
+          wrapFn(interpreter, apiObj, obj, functionName);
+        }
       });
     });
-    interpreter.setProperty(
-      scope,
-      "log",
-      interpreter.createNativeFunction((...pseudoArgs) => {
-        let nativeArgs = [];
-        for (var i = 0; i < pseudoArgs.length; i++) {
-          nativeArgs[i] = JSON.stringify(
-            interpreter.pseudoToNative(pseudoArgs[i])
-          );
-        }
-        if (Spell.results) {
-          Spell.results += "\n";
-        }
-        Spell.results += nativeArgs.join(" ");
-      })
-    );
+    addLogFn(interpreter, scope);
   };
+}
+
+function wrapFn(interpreter, scope, obj, functionName) {
+  const wrapper = (...pseudoArgs) => {
+    const nativeArgs = pseudoToNativeArgs(interpreter, pseudoArgs);
+    return interpreter.nativeToPseudo(obj[functionName](...nativeArgs));
+  };
+  interpreter.setProperty(
+    scope,
+    functionName,
+    interpreter.createNativeFunction(wrapper),
+    Interpreter.NONENUMERABLE_DESCRIPTOR
+  );
+}
+
+function wrapAsyncFn(interpreter, scope, obj, functionName) {
+  const wrapper = (...pseudoArgs) => {
+    const callback = pseudoArgs.pop();
+    const nativeArgs = pseudoToNativeArgs(interpreter, pseudoArgs);
+    nativeArgs.push((...args) => {
+      callback(interpreter.nativeToPseudo(...args));
+    });
+    obj[functionName](...nativeArgs);
+  };
+  interpreter.setProperty(
+    scope,
+    functionName,
+    interpreter.createAsyncFunction(wrapper),
+    Interpreter.NONENUMERABLE_DESCRIPTOR
+  );
+}
+
+function pseudoToNativeArgs(interpreter, pseudoArgs) {
+  const nativeArgs = [];
+  for (var i = 0; i < pseudoArgs.length; i++) {
+    nativeArgs[i] = interpreter.pseudoToNative(pseudoArgs[i]);
+  }
+  return nativeArgs;
+}
+
+function addLogFn(interpreter, scope) {
+  interpreter.setProperty(
+    scope,
+    "log",
+    interpreter.createNativeFunction((...pseudoArgs) => {
+      let nativeArgs = [];
+      for (var i = 0; i < pseudoArgs.length; i++) {
+        nativeArgs[i] = JSON.stringify(
+          interpreter.pseudoToNative(pseudoArgs[i])
+        );
+      }
+      console.log(nativeArgs);
+      if (Spell.results) {
+        Spell.results += "\n";
+      }
+      Spell.results += nativeArgs.join(" ");
+    })
+  );
 }
 
 function executeCode(interpreter) {
@@ -151,7 +187,7 @@ function limitMemory(interpreter) {
 
 function limitRunTime(numSteps) {
   if (numSteps > MAX_EXECUTION_STEPS) {
-    throw new Error("Infinite loop detected, incantation will halt");
+    throw new Error("It's taking too long, incantation will halt");
   }
 }
 

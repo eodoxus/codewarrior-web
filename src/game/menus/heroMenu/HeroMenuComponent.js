@@ -64,7 +64,7 @@ export default class HeroMenuComponent extends MenuComponent {
         <div className={styles.topMenu}>{this.renderSpells()}</div>
         <div className={styles.sideMenu}>
           {this.renderEditItem()}
-          <div className={styles.item} key={"help"}>
+          <div className={cx(styles.item, "menu-item")} key={"help"}>
             <HelpItem texture={MENU_TEXTURE} />
           </div>
         </div>
@@ -76,7 +76,7 @@ export default class HeroMenuComponent extends MenuComponent {
     const tatteredPage = this.hero.getInventory().get(TatteredPage.NAME);
     if (tatteredPage) {
       return (
-        <div className={styles.item} key={"tatteredPage"}>
+        <div className={cx(styles.item, "menu-item")} key={"tatteredPage"}>
           <TatteredPageItem
             texture={MENU_TEXTURE}
             tatteredPage={tatteredPage}
@@ -91,12 +91,17 @@ export default class HeroMenuComponent extends MenuComponent {
     const tatteredPage = this.hero.getInventory().get(TatteredPage.NAME);
     if (tatteredPage) {
       return tatteredPage.getSpells().map(spell => (
-        <div className={styles.item} key={"spell" + numSpells++}>
+        <div
+          className={cx(styles.item, "menu-item")}
+          key={"spell" + numSpells++}
+        >
           <SpellItem texture={MENU_TEXTURE} spell={spell} num={numSpells} />
         </div>
       ));
     }
   }
+
+  renderItem(item) {}
 
   updatePosition(heroPosition) {
     let position = Vector.multiply(heroPosition, Graphics.getInverseScale());

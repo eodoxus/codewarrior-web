@@ -67,6 +67,7 @@ export default class SceneDirector extends Component {
       <div>
         <div
           className={styles.scene}
+          id="scene"
           ref={container => (this.container = container)}
           onClick={this.onClick}
         >
