@@ -1,4 +1,7 @@
 {
+  "HeroMenu.Help": [
+    "Tips:\n- Click anywhere on the screen to move around.\n- You can also open Hero's menu by pressing the space bar.\n- Close menus by hitting esc key.\n- As you progress, more items will appear in Hero's menu."
+  ],
   "CrestfallenHome.CrestfallenMage": [
     "Hope...\nHope is forever lost...",
     "The Great Book of ECMAScript has been captured.\nAll I have left is this tattered page...",

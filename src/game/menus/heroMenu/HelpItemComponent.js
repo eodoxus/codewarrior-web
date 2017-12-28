@@ -1,15 +1,23 @@
 import React from "react";
 import GameEvent from "../../engine/GameEvent";
 import MenuItemComponent from "../MenuItemComponent";
+import Dialog from "../../engine/Dialog";
 
-const HELP_TEXT =
-  "Click anywhere on the screen to move around.\nAs you progress, more items will appear in Hero's menu.";
+const DIALOG = "HeroMenu.Help";
 
 export default class HelpItemComponent extends MenuItemComponent {
-  onClick(e) {
-    GameEvent.absorbClick(e);
-    GameEvent.fire(GameEvent.DIALOG, HELP_TEXT);
+  dialog;
+
+  constructor(props) {
+    super(props);
+    this.dialog = new Dialog(DIALOG);
+    this.dialog.setState(0);
   }
+
+  onClick = e => {
+    GameEvent.absorbClick(e);
+    GameEvent.fire(GameEvent.DIALOG, this.dialog.getMessage());
+  };
 
   render() {
     return (

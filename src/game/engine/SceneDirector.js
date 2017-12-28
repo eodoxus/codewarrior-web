@@ -139,9 +139,19 @@ export default class SceneDirector extends Component {
   };
 
   onKeyUp = e => {
-    const spellKeys = ["1", "2", "3", "4", "5"];
-    if (spellKeys.includes(e.key)) {
-      this.onSpellKeyPressed(e.key);
+    switch (e.key) {
+      case " ":
+        return GameEvent.inputQueue().add(GameEvent.heroClick(this.hero));
+      case "Escape":
+        closeDialog();
+        closeHeroMenu();
+        closeTatteredPage();
+        break;
+      default:
+        const spellKeys = ["1", "2", "3", "4", "5"];
+        if (spellKeys.includes(e.key)) {
+          return this.onSpellKeyPressed(e.key);
+        }
     }
   };
 
@@ -247,6 +257,10 @@ function closeDialog() {
 
 function closeHeroMenu() {
   GameEvent.fire(GameEvent.CLOSE_HERO_MENU);
+}
+
+function closeTatteredPage() {
+  GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
 }
 
 function createScene(name, hero) {
