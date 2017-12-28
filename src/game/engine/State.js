@@ -12,17 +12,22 @@ export default class State {
     return this;
   }
 
+  exit() {
+    // Override this
+    return this;
+  }
+
   handleEvent(subject, input) {
     // Override this
     return this;
   }
 
-  update(subject, dt) {
+  pickAnimation(subject) {
     // Override this
     return this;
   }
 
-  exit() {
+  update(subject, dt) {
     // Override this
     return this;
   }

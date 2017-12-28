@@ -1,11 +1,16 @@
+import AnimatedSpriteGraphics from "../components/graphics/AnimatedSpriteGraphics";
 import Entity from "../../engine/Entity";
 import HeroApi from "./HeroApi";
 import HeroBehavior from "./HeroBehavior";
-import HeroGraphics from "./HeroGraphics";
+import HeroInventory from "./HeroInventory";
 import GameEvent from "../../engine/GameEvent";
 import PathfindingMovement from "../components/movements/PathfindingMovement";
+import Size from "../../engine/Size";
 import Vector from "../../engine/Vector";
-import HeroInventory from "./HeroInventory";
+
+const ANIMATION = "hero";
+const FPS = 15;
+const Z_INDEX = 1;
 
 export default class Hero extends Entity {
   static ID = "hero";
@@ -16,7 +21,13 @@ export default class Hero extends Entity {
     super(Hero.ID);
     this.movement = new PathfindingMovement(this);
     this.behavior = new HeroBehavior(this);
-    this.graphics = new HeroGraphics(this);
+    this.graphics = new AnimatedSpriteGraphics(
+      this,
+      ANIMATION,
+      new Size(24, 32),
+      FPS,
+      Z_INDEX
+    );
     Entity.makeActor(this);
     this.spawn(new Vector(0, 0), new Vector(0, 1));
     this.inventory = new HeroInventory();

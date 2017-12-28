@@ -4,11 +4,23 @@ import StoppedState from "./states/StoppedState";
 import TalkingState from "./states/TalkingState";
 import WalkingState from "./states/WalkingState";
 
+const ANIMATIONS = {
+  DOWN: "down",
+  LEFT: "left",
+  RIGHT: "right",
+  UP: "up"
+};
+const STOPPED_ANIMATION = "down";
+
 export default class CrestfallenMageBehavior extends BehaviorComponent {
   listeners;
 
   constructor(entity) {
     super(entity, WalkingState, StoppedState);
+  }
+
+  getStoppedAnimation() {
+    return STOPPED_ANIMATION;
   }
 
   handleCollision(entity) {
@@ -26,5 +38,21 @@ export default class CrestfallenMageBehavior extends BehaviorComponent {
       const entity = event.getData();
       this.handleCollision(entity);
     }
+  }
+
+  pickAnimation() {
+    const orientation = this.entity.movement.getOrientation();
+    let animationName = ANIMATIONS.DOWN;
+    if (orientation.y < 0) {
+      animationName = ANIMATIONS.UP;
+    }
+    if (orientation.y === 0) {
+      if (orientation.x > 0) {
+        animationName = ANIMATIONS.RIGHT;
+      } else if (orientation.x < 0) {
+        animationName = ANIMATIONS.LEFT;
+      }
+    }
+    return "crestfallenMage_" + animationName;
   }
 }

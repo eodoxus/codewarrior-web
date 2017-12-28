@@ -31,7 +31,7 @@ export default class AnimatedSpriteGraphics extends GraphicsComponent {
     if (animation) {
       animation.stop().reset();
     } else {
-      this.sprite.setAnimation(this.getStoppedAnimation());
+      this.sprite.setAnimation(this.entity.getBehavior().getStoppedAnimation());
     }
   }
 
@@ -43,7 +43,7 @@ export default class AnimatedSpriteGraphics extends GraphicsComponent {
   }
 
   updateAnimation() {
-    const animationName = this.pickAnimation();
+    const animationName = this.entity.getBehavior().pickAnimation();
     this.sprite.changeAnimationTo(animationName);
   }
 
