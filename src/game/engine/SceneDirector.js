@@ -13,6 +13,7 @@ import Tile from "./map/Tile";
 import Time from "./Time";
 import Vector from "./Vector";
 import Camera from "../Camera";
+import TatteredPage from "../entities/items/TatteredPage";
 
 const DEBUG = false;
 const STARTING_SCENE = "Home";
@@ -40,6 +41,7 @@ export default class SceneDirector extends Component {
   async componentDidMount() {
     GameEvent.on(GameEvent.SAVE_GAME, () => GameState.save(this.gameSaveSlot));
     window.addEventListener("resize", this.initCamera);
+    document.addEventListener("keyup", this.onKeyUp);
     await GameState.load(this.gameSaveSlot);
     await this.loadScene(GameState.getLastScene() || STARTING_SCENE);
     this.initCamera();
@@ -48,6 +50,7 @@ export default class SceneDirector extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.initCamera);
+    document.removeEventListener("keyup", this.onKeyUp);
     this.stopEventListeners();
   }
 
@@ -135,6 +138,13 @@ export default class SceneDirector extends Component {
     }
   };
 
+  onKeyUp = e => {
+    const spellKeys = ["1", "2", "3", "4", "5"];
+    if (spellKeys.includes(e.key)) {
+      this.onSpellKeyPressed(e.key);
+    }
+  };
+
   onDoorwayTransition = doorway => {
     this.doorwayListener.remove();
     delete this.doorwayListener;
@@ -161,6 +171,20 @@ export default class SceneDirector extends Component {
       }, Math.max(0, Time.SECOND - elapsed));
     });
   };
+
+  async onSpellKeyPressed(spellNum) {
+    spellNum = parseInt(spellNum, 10) - 1;
+    const inventory = this.hero.getInventory();
+    const tatteredPage = inventory.get(TatteredPage.NAME);
+    if (tatteredPage) {
+      const spell = tatteredPage.getSpell(spellNum);
+      if (spell) {
+        try {
+          await spell.cast();
+        } catch (e) {}
+      }
+    }
+  }
 
   processInput() {
     let event = GameEvent.inputQueue().getNext();
