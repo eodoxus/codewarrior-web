@@ -24,8 +24,8 @@ export default class HelpItemComponent extends MenuItemComponent {
       <div
         style={{
           background: `url(${this.props.texture}) no-repeat 0 0`,
-          width: 16,
-          height: 16
+          width: 20,
+          height: 20
         }}
         onClick={this.onClick}
       />

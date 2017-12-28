@@ -14,9 +14,9 @@ export default class SpellItemComponent extends MenuItemComponent {
     return (
       <div
         style={{
-          background: `url(${this.props.texture}) no-repeat -16px 0`,
-          width: 16,
-          height: 16
+          background: `url(${this.props.texture}) no-repeat -20px 0`,
+          width: 20,
+          height: 20
         }}
         onClick={this.onClick}
       >

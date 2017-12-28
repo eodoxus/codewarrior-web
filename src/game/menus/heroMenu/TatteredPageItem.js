@@ -12,9 +12,9 @@ export default class TatteredPageItemComponent extends MenuItemComponent {
     return (
       <div
         style={{
-          background: `url(${this.props.texture}) no-repeat -32px 0`,
-          width: 16,
-          height: 16
+          background: `url(${this.props.texture}) no-repeat -40px 0`,
+          width: 20,
+          height: 20
         }}
         onClick={this.onClick}
       />
