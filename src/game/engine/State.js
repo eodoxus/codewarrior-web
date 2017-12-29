@@ -1,18 +1,18 @@
 export default class State {
-  constructor(entity) {
-    if (entity) {
-      const state = entity.getBehavior().getState();
-      state && state.exit();
+  constructor(subject) {
+    if (subject) {
+      const state = subject.getBehavior().getState();
+      state && state.exit(subject);
     }
     this.enter(...arguments);
   }
 
-  enter() {
+  enter(subject) {
     // Override this
     return this;
   }
 
-  exit() {
+  exit(subject) {
     // Override this
     return this;
   }

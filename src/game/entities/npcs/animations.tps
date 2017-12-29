@@ -150,7 +150,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>animations.json</filename>
+                <filename>../../../../public/animations/npcs.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -198,9 +198,60 @@
             <false/>
         </struct>
         <key>individualSpriteSettings</key>
-        <map type="IndividualSpriteSettingsMap"/>
+        <map type="IndividualSpriteSettingsMap">
+            <key type="filename">animations/crestfallenMage/down/01.png</key>
+            <key type="filename">animations/crestfallenMage/down/02.png</key>
+            <key type="filename">animations/crestfallenMage/left/01.png</key>
+            <key type="filename">animations/crestfallenMage/left/02.png</key>
+            <key type="filename">animations/crestfallenMage/left/03.png</key>
+            <key type="filename">animations/crestfallenMage/right/01.png</key>
+            <key type="filename">animations/crestfallenMage/right/02.png</key>
+            <key type="filename">animations/crestfallenMage/right/03.png</key>
+            <key type="filename">animations/crestfallenMage/up/01.png</key>
+            <key type="filename">animations/crestfallenMage/up/02.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>5,6,10,12</rect>
+                <key>scale9Paddings</key>
+                <rect>5,6,10,12</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">animations/crestfallenMage/down/03.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>5,6,11,12</rect>
+                <key>scale9Paddings</key>
+                <rect>5,6,11,12</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">animations/crestfallenMage/up/03.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>5,6,9,12</rect>
+                <key>scale9Paddings</key>
+                <rect>5,6,9,12</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+        </map>
         <key>fileList</key>
-        <array/>
+        <array>
+            <filename>animations</filename>
+        </array>
         <key>ignoreFileList</key>
         <array/>
         <key>replaceList</key>

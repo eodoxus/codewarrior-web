@@ -31,7 +31,6 @@ export default class HeroBehavior extends BehaviorComponent {
   handleClick(tile) {
     if (this.state instanceof PickingState) {
       this.state.setTarget(tile.getPosition());
-      this.state = new StoppedState(this.entity);
       return;
     }
     if (tile.hasNpc()) {

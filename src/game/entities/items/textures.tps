@@ -150,7 +150,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>textures.json</filename>
+                <filename>../../../../public/sprites/items.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
