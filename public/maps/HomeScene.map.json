@@ -135,6 +135,7 @@
                  "name":"collision_stumps",
                  "properties":
                     {
+                     "jumpable":"true",
                      "layer":"stumps"
                     },
                  "rotation":0,
@@ -231,7 +232,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":39,
+ "nextobjectid":48,
  "orientation":"orthogonal",
  "properties":
     {

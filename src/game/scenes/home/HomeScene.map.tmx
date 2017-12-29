@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="39">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="48">
  <tileset firstgid="1" name="overworld" tilewidth="8" tileheight="8" tilecount="8645">
   <image source="../../../../public/maps/overworld.png" width="760" height="728"/>
  </tileset>
@@ -56,6 +56,7 @@
   </object>
   <object id="27" name="collision_stumps" type="collidable" x="176.667" y="8.33333" width="38" height="15">
    <properties>
+    <property name="jumpable" value="true"/>
     <property name="layer" value="stumps"/>
    </properties>
   </object>

@@ -1,12 +1,14 @@
 import BehaviorComponent from "../components/behaviors/BehaviorComponent";
 import GameEvent from "../../engine/GameEvent";
 import GameState from "../../GameState";
+import Hint from "../hints/Hint";
 import JumpingState from "./states/JumpingState";
 import PickingState from "./states/PickingState";
 import Spell from "../items/Spell";
 import StoppedState from "./states/StoppedState";
 import TatteredPage from "../items/TatteredPage";
 import WalkingState from "./states/WalkingState";
+import BounceState from "./states/BounceState";
 
 const STOPPED_ANIMATION = "walking_down";
 
@@ -43,6 +45,11 @@ export default class HeroBehavior extends BehaviorComponent {
   }
 
   handleCollision(entity) {
+    if (!(entity instanceof Hint) && this.state instanceof JumpingState) {
+      this.state = new BounceState(this.entity);
+      return;
+    }
+
     if (entity.isNpc()) {
       const movement = this.entity.getMovement();
       if (this.isIntent(GameEvent.TALK)) {

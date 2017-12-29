@@ -36,7 +36,7 @@
         <key>dataFormat</key>
         <string>json</string>
         <key>textureFileName</key>
-        <filename></filename>
+        <filename>../../../../public/animations/hero.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -150,7 +150,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>walking.json</filename>
+                <filename>../../../../public/animations/hero.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -199,6 +199,26 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">animations/bouncing/down/01.png</key>
+            <key type="filename">animations/bouncing/left/01.png</key>
+            <key type="filename">animations/bouncing/right/01.png</key>
+            <key type="filename">animations/bouncing/up/01.png</key>
+            <key type="filename">animations/jumping/down/01.png</key>
+            <key type="filename">animations/jumping/left/01.png</key>
+            <key type="filename">animations/jumping/right/01.png</key>
+            <key type="filename">animations/jumping/up/01.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>6,8,11,16</rect>
+                <key>scale9Paddings</key>
+                <rect>6,8,11,16</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">animations/pickingUp/01.png</key>
             <key type="filename">animations/reading/01.png</key>
             <key type="filename">animations/walking/downLeft/01.png</key>

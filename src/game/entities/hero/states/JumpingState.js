@@ -1,4 +1,6 @@
+import BounceState from "./BounceState";
 import State from "../../../engine/State";
+import Tile from "../../../engine/map/Tile";
 import Vector from "../../../engine/Vector";
 import WalkingState from "./WalkingState";
 
@@ -16,6 +18,13 @@ export default class JumpingState extends State {
     hero.setVelocity(new Vector(VELOCITY, VELOCITY));
     hero.getMovement().moveTo(tileLandingPosition(hero, tile));
     startJump(hero);
+  }
+
+  handleCollision(hero, tile) {
+    if (!tile.getProperty(Tile.PROPERTIES.JUMPABLE)) {
+      return new BounceState(hero);
+    }
+    return this;
   }
 
   pickAnimation(hero) {
@@ -39,6 +48,10 @@ export default class JumpingState extends State {
   }
 
   update(hero) {
+    const tile = getTileInFrontOfHero(hero);
+    if (tile && !tile.isWalkable()) {
+      return this.handleCollision(hero, tile);
+    }
     if (!hero.getMovement().isMoving()) {
       return endJump(hero);
     }
@@ -49,6 +62,24 @@ export default class JumpingState extends State {
 function endJump(hero) {
   hero.getPosition().add(new Vector(0, JUMP_HEIGHT));
   return new WalkingState(hero);
+}
+
+function getTileInFrontOfHero(hero) {
+  const velocity = hero.getVelocity();
+  const size = hero.getSprite().getSize();
+  let position = hero.getPosition();
+  if (velocity.x >= 0) {
+    if (velocity.y >= 0) {
+      position = Vector.add(position, new Vector(size.width / 2, 0));
+    }
+    position = Vector.add(
+      position,
+      new Vector(size.width / 2, size.height / 2)
+    );
+  } else if (velocity.y >= 0) {
+    position = Vector.add(position, new Vector(0, size.height / 2));
+  }
+  return hero.getMap().getTileAt(position);
 }
 
 function startJump(hero) {

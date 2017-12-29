@@ -19,6 +19,7 @@ export default class Tile {
     FRAME_SET: "frame_set",
     GRAPHICS: "graphics",
     HEIGHT: "height",
+    JUMPABLE: "jumpable",
     MOVEMENT: "movement",
     NAME: "name",
     NPC: "npc",

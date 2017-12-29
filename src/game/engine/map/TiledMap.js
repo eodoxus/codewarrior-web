@@ -283,9 +283,7 @@ function parseTileProperties(tile, collidableTiles, objects) {
       switch (object.type) {
         case Tile.OBJECT_TYPES.COLLIDABLE:
           properties.isCollidable = true;
-          if (object.properties.layer) {
-            properties.layer = object.properties.layer;
-          }
+          Object.assign(properties, object.properties);
           break;
         case Tile.OBJECT_TYPES.DOORWAY:
           properties.isDoorway = true;
