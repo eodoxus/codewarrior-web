@@ -9,11 +9,9 @@ export default class GraphicsComponent {
 
   entity;
   sprite;
-  zIndex;
 
-  constructor(entity, zIndex = 0) {
+  constructor(entity) {
     this.entity = entity;
-    this.zIndex = zIndex;
   }
 
   getOrigin() {
@@ -57,10 +55,6 @@ export default class GraphicsComponent {
 
   setSprite(s) {
     this.sprite = s;
-  }
-
-  getZIndex() {
-    return this.zIndex;
   }
 
   async init() {

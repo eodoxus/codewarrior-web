@@ -10,7 +10,6 @@ import Vector from "../../engine/Vector";
 
 const ANIMATION = "hero";
 const FPS = 15;
-const Z_INDEX = 1;
 
 export default class Hero extends Entity {
   static ID = "hero";
@@ -25,8 +24,7 @@ export default class Hero extends Entity {
       this,
       ANIMATION,
       new Size(24, 32),
-      FPS,
-      Z_INDEX
+      FPS
     );
     Entity.makeActor(this);
     this.spawn(new Vector(0, 0), new Vector(0, 1));

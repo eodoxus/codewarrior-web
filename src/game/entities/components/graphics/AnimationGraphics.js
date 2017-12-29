@@ -18,8 +18,8 @@ export default class AnimationGraphics extends GraphicsComponent {
   }
   textureName;
 
-  constructor(entity, animationName, textureName, size, fps, zIndex = 0) {
-    super(entity, zIndex);
+  constructor(entity, animationName, textureName, size, fps) {
+    super(entity);
     this.sprite = new AnimatedSprite(animationName, size, fps);
     this.textureName = textureName;
   }

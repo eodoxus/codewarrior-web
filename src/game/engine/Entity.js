@@ -109,10 +109,6 @@ export default class Entity {
     this.movement.setVelocity(v);
   }
 
-  getZIndex() {
-    return this.graphics.getZIndex();
-  }
-
   handleEvent(event) {
     this.behavior.handleEvent(event);
   }

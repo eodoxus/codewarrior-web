@@ -130,10 +130,11 @@ export default class Scene {
   renderEntities() {
     const renderOrder = {};
     this.entities.forEach(entity => {
-      if (!renderOrder[entity.getZIndex()]) {
-        renderOrder[entity.getZIndex()] = [];
+      const yPos = entity.getPosition().y;
+      if (!renderOrder[yPos]) {
+        renderOrder[yPos] = [];
       }
-      renderOrder[entity.getZIndex()].push(entity);
+      renderOrder[yPos].push(entity);
     });
     Object.keys(renderOrder).forEach(iDx => {
       renderOrder[iDx].forEach(entity => {

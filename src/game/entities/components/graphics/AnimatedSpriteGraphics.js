@@ -2,8 +2,8 @@ import AnimatedSprite from "../../../engine/AnimatedSprite";
 import GraphicsComponent from "./GraphicsComponent";
 
 export default class AnimatedSpriteGraphics extends GraphicsComponent {
-  constructor(entity, animation, size, fps, zIndex = 0) {
-    super(entity, zIndex);
+  constructor(entity, animation, size, fps) {
+    super(entity);
     this.sprite = new AnimatedSprite(animation, size, fps);
   }
 
