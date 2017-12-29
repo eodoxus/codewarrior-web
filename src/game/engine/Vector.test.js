@@ -22,6 +22,12 @@ describe("Vector", () => {
       expect(v.x).toBe(1);
       expect(v.y).toBe(2);
     });
+
+    it("it fixes decimals at 2", () => {
+      v.add(new Vector(1.12345, 2.67891));
+      expect(v.x).toBe(1.12);
+      expect(v.y).toBe(2.68);
+    });
   });
 
   describe("subtract", () => {
@@ -35,6 +41,12 @@ describe("Vector", () => {
       v.subtract(new Vector(1, 2));
       expect(v.x).toBe(-1);
       expect(v.y).toBe(-2);
+    });
+
+    it("it fixes decimals at 2", () => {
+      v.subtract(new Vector(1.12345, 2.67891));
+      expect(v.x).toBe(-1.12);
+      expect(v.y).toBe(-2.68);
     });
   });
 
@@ -54,6 +66,12 @@ describe("Vector", () => {
       expect(v.x).toBe(4);
       expect(v.y).toBe(9);
     });
+
+    it("it fixes decimals at 2", () => {
+      v.multiply(new Vector(1.12345, 2.67891));
+      expect(v.x).toBe(2.25);
+      expect(v.y).toBe(8.04);
+    });
   });
 
   describe("divide", () => {
@@ -72,6 +90,12 @@ describe("Vector", () => {
       expect(v.x).toBe(1);
       expect(v.y).toBe(1);
     });
+
+    it("it fixes decimals at 2", () => {
+      v.divide(new Vector(1.12345, 2.67891));
+      expect(v.x).toBe(1.78);
+      expect(v.y).toBe(1.12);
+    });
   });
 
   describe("limit", () => {
@@ -89,12 +113,23 @@ describe("Vector", () => {
       v.limit(5);
       expect(v.magnitude()).toBe(magnitude);
     });
+
+    it("it fixes decimals at 2 as a result of inner operations", () => {
+      v.limit(0.88675);
+      expect(v.x).toBe(0.49);
+      expect(v.y).toBe(0.74);
+    });
   });
 
   describe("magnitude", () => {
     it("calculates the length of the vector", () => {
       v = new Vector(2, 3).normalize();
       expect(v.magnitude()).toBe(1);
+    });
+
+    it("it fixes decimals at 2", () => {
+      v = new Vector(2.25678, 3.87345);
+      expect(v.magnitude()).toBe(4.48);
     });
   });
 
@@ -108,6 +143,12 @@ describe("Vector", () => {
     it("does nothing if magnitude is 0", () => {
       v.normalize();
       expect(v.magnitude()).toBe(0);
+    });
+
+    it("it fixes decimals at 2", () => {
+      v = new Vector(1, 3).normalize();
+      expect(v.x).toBe(0.32);
+      expect(v.y).toBe(0.95);
     });
   });
 });

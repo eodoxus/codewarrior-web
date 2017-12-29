@@ -71,6 +71,7 @@
     <property name="dialog" value="Home.JumpHint"/>
     <property name="entity" value="TatteredPageHint"/>
     <property name="graphics" value="No"/>
+    <property name="movement" value="Static"/>
    </properties>
   </object>
   <object id="38" name="spell_hint" type="entity" x="40" y="160" width="47.3333" height="16">
@@ -78,6 +79,7 @@
     <property name="dialog" value="Home.SpellHint"/>
     <property name="entity" value="TatteredPageHint"/>
     <property name="graphics" value="No"/>
+    <property name="movement" value="Static"/>
    </properties>
   </object>
  </objectgroup>

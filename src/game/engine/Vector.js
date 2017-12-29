@@ -43,7 +43,7 @@ export default class Vector {
       this.x += v.x;
       this.y += v.y;
     }
-    return this;
+    return this.toFixed();
   }
 
   subtract(v) {
@@ -54,7 +54,7 @@ export default class Vector {
       this.x -= v.x;
       this.y -= v.y;
     }
-    return this;
+    return this.toFixed();
   }
 
   multiply(v) {
@@ -65,7 +65,7 @@ export default class Vector {
       this.x *= v.x;
       this.y *= v.y;
     }
-    return this;
+    return this.toFixed();
   }
 
   divide(v) {
@@ -76,7 +76,7 @@ export default class Vector {
       this.x /= v.x;
       this.y /= v.y;
     }
-    return this;
+    return this.toFixed();
   }
 
   limit(max) {
@@ -88,7 +88,9 @@ export default class Vector {
   }
 
   magnitude() {
-    return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+    return parseFloat(
+      Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2)).toFixed(2)
+    );
   }
 
   distanceTo(v) {
@@ -102,12 +104,22 @@ export default class Vector {
       this.x = Math.abs(this.x);
       this.y = Math.abs(this.y);
     }
-    return this;
+    return this.toFixed();
   }
 
   round() {
     this.x = Math.round(this.x);
     this.y = Math.round(this.y);
+    return this;
+  }
+
+  isEqual(v) {
+    return this.x === v.x && this.y === v.y;
+  }
+
+  toFixed() {
+    this.x = parseFloat(this.x.toFixed(2));
+    this.y = parseFloat(this.y.toFixed(2));
     return this;
   }
 }

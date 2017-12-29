@@ -183,7 +183,8 @@
                     {
                      "dialog":"Home.JumpHint",
                      "entity":"TatteredPageHint",
-                     "graphics":"No"
+                     "graphics":"No",
+                     "movement":"Static"
                     },
                  "rotation":0,
                  "type":"entity",
@@ -200,7 +201,8 @@
                     {
                      "dialog":"Home.SpellHint",
                      "entity":"TatteredPageHint",
-                     "graphics":"No"
+                     "graphics":"No",
+                     "movement":"Static"
                     },
                  "rotation":0,
                  "type":"entity",
