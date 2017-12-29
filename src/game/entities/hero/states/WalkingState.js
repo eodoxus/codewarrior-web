@@ -15,7 +15,7 @@ const ANIMATIONS = {
 const VELOCITY = 80;
 
 export default class WalkingState extends State {
-  pickAnimation(hero) {
+  static animationForOrientation(hero) {
     const orientation = hero.movement.getOrientation();
     if (orientation.y > 0) {
       if (orientation.x > 0) {
@@ -42,6 +42,10 @@ export default class WalkingState extends State {
     }
 
     return ANIMATIONS.UP;
+  }
+
+  pickAnimation(hero) {
+    return WalkingState.animationForOrientation(hero);
   }
 
   update(hero) {

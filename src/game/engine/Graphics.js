@@ -33,7 +33,7 @@ export default class Graphics {
   }
 
   static drawEllipse(position, size, color) {
-    Graphics._renderer.drawEllipse(position, size, color);
+    Graphics._renderer.drawEllipseStroke(position, size, color);
   }
 
   static drawPoint(position) {
@@ -114,6 +114,7 @@ class CanvasRenderer {
 
   clear() {
     this.context.clearRect(0, 0, this.size.width, this.size.height);
+    this.context.beginPath();
   }
 
   drawEllipseFilled(position, size, color = "#fff", alpha = 1.0) {
@@ -143,7 +144,7 @@ class CanvasRenderer {
       0,
       2 * Math.PI
     );
-    this.context.strokeStyle = "#1e1e1e";
+    this.context.strokeStyle = color;
     this.context.stroke();
     this.context.globalAlpha = 1.0;
   }

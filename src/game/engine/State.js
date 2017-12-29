@@ -24,7 +24,6 @@ export default class State {
 
   pickAnimation(subject) {
     // Override this
-    return this;
   }
 
   update(subject, dt) {
