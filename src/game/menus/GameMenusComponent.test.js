@@ -7,13 +7,14 @@ import dialog from "../../../public/dialog.json";
 import GameEvent from "../engine/GameEvent";
 import Vector from "../engine/Vector";
 
+let spells = [];
 const mockHero = {
   getPosition: () => new Vector(0, 0),
   getInventory: () => {
     return {
       get: () => {
         return {
-          getSpells: () => []
+          getSpells: () => spells
         };
       }
     };
@@ -50,6 +51,15 @@ describe("<GameMenus />", () => {
     it("has dialog when a dialog is active", () => {
       const node = renderer.create(<GameMenus />);
       GameEvent.fire(GameEvent.DIALOG, "test dialog");
+      const tree = node.toJSON();
+      expect(tree).toMatchSnapshot();
+      node.unmount();
+    });
+
+    it("has spell icon in hero menu when hero menu is opened and Hero has a spell snapshot", () => {
+      spells = [{}];
+      const node = renderer.create(<GameMenus />);
+      GameEvent.fire(GameEvent.OPEN_HERO_MENU, mockHero);
       const tree = node.toJSON();
       expect(tree).toMatchSnapshot();
       node.unmount();

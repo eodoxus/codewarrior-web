@@ -1,4 +1,5 @@
 import CrestfallenMage from "../npcs/crestfallenMage/CrestfallenMage";
+import Dialog from "../../engine/Dialog";
 import GameEvent from "../../engine/GameEvent";
 import Hero from "./Hero";
 import PacingMovement from "../components/movements/PacingMovement";
@@ -7,15 +8,18 @@ import Size from "../../engine/Size";
 import Scene from "../../engine/Scene";
 import Sprite from "../../engine/Sprite";
 import StoppedState from "./states/StoppedState";
+import TatteredPageHint from "../hints/TatteredPageHint";
 import Tile from "../../engine/map/Tile";
 import TiledMap from "../../engine/map/TiledMap";
 import Vector from "../../engine/Vector";
 import WalkingState from "./states/WalkingState";
+import entities from "../index";
 
-import plist from "../../../../public/animations/hero.json";
+import dialog from "../../../../public/dialog.json";
 import npcPlist from "../../../../public/animations/npcs.json";
-import tmxConfig from "../../engine/map/__mocks__/map.json";
 import outline from "../../engine/__mocks__/SpriteOutline.json";
+import plist from "../../../../public/animations/hero.json";
+import tmxConfig from "../../engine/map/__mocks__/map.json";
 
 jest.useFakeTimers();
 
@@ -213,6 +217,52 @@ describe("Hero", () => {
           );
           jest.runAllTimers();
           expect(scene.style.cursor).toBe("pointer");
+        });
+      });
+    });
+  });
+
+  describe("Hints", () => {
+    beforeAll(async () => {
+      fetch.mockResponse(JSON.stringify(dialog));
+      return Dialog.load();
+    });
+
+    describe("Jump hint", () => {
+      it("should fire dialog with spell message on collision with hero", async () => {
+        hero.getBehavior().receiveTatteredPage("");
+        const hint = entities.create(new Vector(100, 100), {
+          dialog: "Home.JumpHint",
+          entity: "TatteredPageHint",
+          graphics: "No",
+          movement: "Static"
+        });
+        return new Promise(resolve => {
+          GameEvent.once(GameEvent.DIALOG, dialog => {
+            expect(dialog).toEqual(hint.dialog.getMessage());
+            resolve();
+          });
+          hint.handleEvent(GameEvent.collision(hero));
+        });
+      });
+    });
+
+    describe("Spell hint", () => {
+      it("should fire dialog with spell message on collision with hero", async () => {
+        hero.getBehavior().receiveTatteredPage("");
+        const hint = entities.create(new Vector(100, 100), {
+          dialog: "Home.SpellHint",
+          entity: "TatteredPageHint",
+          graphics: "No",
+          movement: "Static"
+        });
+
+        return new Promise(resolve => {
+          GameEvent.once(GameEvent.DIALOG, dialog => {
+            expect(dialog).toEqual(hint.dialog.getMessage());
+            resolve();
+          });
+          hint.handleEvent(GameEvent.collision(hero));
         });
       });
     });
