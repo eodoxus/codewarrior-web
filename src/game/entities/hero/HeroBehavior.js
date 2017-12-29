@@ -1,11 +1,12 @@
 import BehaviorComponent from "../components/behaviors/BehaviorComponent";
 import GameEvent from "../../engine/GameEvent";
+import GameState from "../../GameState";
+import JumpingState from "./states/JumpingState";
+import PickingState from "./states/PickingState";
 import Spell from "../items/Spell";
 import StoppedState from "./states/StoppedState";
-import WalkingState from "./states/WalkingState";
 import TatteredPage from "../items/TatteredPage";
-import GameState from "../../GameState";
-import PickingState from "./states/PickingState";
+import WalkingState from "./states/WalkingState";
 
 const STOPPED_ANIMATION = "walking_down";
 
@@ -80,6 +81,10 @@ export default class HeroBehavior extends BehaviorComponent {
     }
   }
 
+  jump(tile) {
+    this.state = new JumpingState(this.entity, tile);
+  }
+
   initListeners() {
     this.listeners = [];
     let eventName = GameEvent.NPC_INTERACTION;
@@ -113,5 +118,11 @@ export default class HeroBehavior extends BehaviorComponent {
 
   pickAnimation() {
     return this.state && this.state.pickAnimation(this.entity);
+  }
+
+  async pickTarget() {
+    this.stop();
+    this.state = new PickingState(this.entity);
+    return await this.state.getTarget();
   }
 }

@@ -150,4 +150,71 @@ describe("Hero", () => {
       expect(hero.getMovement().getOrientation()).toEqual(new Vector(-1, -1));
     });
   });
+
+  describe("Api", () => {
+    let api;
+    beforeEach(() => {
+      api = hero.getApi();
+      const scene = document.createElement("div");
+      scene.id = "scene";
+      document.body.appendChild(scene);
+    });
+
+    describe("jump", () => {
+      function jumpFailExpectation(position, msg) {
+        try {
+          api.jump(position);
+          fail("Expected jump to fail");
+        } catch (e) {
+          expect(e.message).toBe(msg);
+        }
+      }
+
+      it("should fail if no tile is passed", () => {
+        const msg = "You must pass a position (x, y) to my jump command";
+        jumpFailExpectation(null, msg);
+      });
+
+      it("should fail if tile doesn't have x-coord", () => {
+        const msg =
+          "The position passed to my jump command requires an x coordinate";
+        jumpFailExpectation({}, msg);
+      });
+
+      it("should fail if tile doesn't have y-coord", () => {
+        const msg =
+          "The position passed to my jump command requires a y coordinate";
+        jumpFailExpectation({ x: 1 }, msg);
+      });
+
+      it("should fail if tile is too far", () => {
+        const msg = "That's too far";
+        jumpFailExpectation({ x: 29, y: 0 }, msg);
+        jumpFailExpectation({ x: -37, y: 0 }, msg);
+        jumpFailExpectation({ x: 0, y: 27 }, msg);
+        jumpFailExpectation({ x: 0, y: -39 }, msg);
+      });
+
+      it("should move hero to tile", () => {});
+    });
+
+    describe("pickTarget", () => {
+      it("should bring up target cursor and wait for tile to be clicked", async () => {
+        return new Promise(resolve => {
+          api.pickTarget(target => {
+            expect(target.x).toBe(10);
+            expect(target.y).toBe(20);
+            resolve();
+          });
+          const scene = document.getElementById("scene");
+          expect(scene.style.cursor).toBe("crosshair");
+          hero.handleEvent(
+            GameEvent.click(new Tile(new Vector(10, 20), new Size(8, 8)))
+          );
+          jest.runAllTimers();
+          expect(scene.style.cursor).toBe("pointer");
+        });
+      });
+    });
+  });
 });

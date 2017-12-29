@@ -49,8 +49,7 @@ export default class WalkingState extends State {
   }
 
   update(hero) {
-    const didMoveEnd = !hero.getMovement().getCurrentMove();
-    if (didMoveEnd) {
+    if (!hero.getMovement().isMoving()) {
       hero.setVelocity(new Vector(VELOCITY, VELOCITY));
       const hasMoreSteps = hero.getMovement().walkToNextStep();
       if (!hasMoreSteps) {

@@ -39,6 +39,9 @@ export default class PathfindingMovement extends MovementComponent {
 
   walkTo(tile) {
     const curTile = this.map.getTileAt(this.entity.getOrigin());
+    if (!curTile) {
+      return;
+    }
     this.pathFinder.findPath(curTile.getPosition(), tile.getPosition());
     return this.walkToNextStep();
   }

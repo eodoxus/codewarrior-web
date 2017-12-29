@@ -8,42 +8,55 @@ const ANIMATIONS = {
   RIGHT: "jumping_right",
   UP: "jumping_up"
 };
+const JUMP_HEIGHT = 8;
 const VELOCITY = 160;
 
 export default class JumpingState extends State {
-  enter(hero) {
+  enter(hero, tile) {
     hero.setVelocity(new Vector(VELOCITY, VELOCITY));
-    hero.getPosition().subtract(new Vector(0, 4));
+    hero.getMovement().moveTo(tileLandingPosition(hero, tile));
+    startJump(hero);
   }
 
   pickAnimation(hero) {
-    const orientation = hero.movement.getOrientation();
-    if (orientation.y > 0) {
-      return ANIMATIONS.DOWN;
-    }
-
-    if (orientation.y === 0) {
+    let animation = ANIMATIONS.DOWN;
+    const orientation = hero.getMovement().getOrientation();
+    if (orientation.y < 0) {
+      animation = ANIMATIONS.UP;
+    } else if (orientation.y === 0) {
       if (orientation.x > 0) {
-        return ANIMATIONS.RIGHT;
+        animation = ANIMATIONS.RIGHT;
       } else if (orientation.x < 0) {
-        return ANIMATIONS.LEFT;
+        animation = ANIMATIONS.LEFT;
       }
-      return ANIMATIONS.DOWN;
     }
 
-    return ANIMATIONS.UP;
-  }
-
-  update(hero) {
-    const didMoveEnd = !hero.getMovement().getCurrentMove();
-    if (didMoveEnd) {
-      hero.getPosition().add(new Vector(0, 4));
-      return new WalkingState(hero);
-    }
     hero
       .getGraphics()
       .getSprite()
-      .setAnimation(this.pickAnimation(hero));
+      .setAnimation(animation);
     return this;
   }
+
+  update(hero) {
+    if (!hero.getMovement().isMoving()) {
+      return endJump(hero);
+    }
+    return this.pickAnimation(hero);
+  }
+}
+
+function endJump(hero) {
+  hero.getPosition().add(new Vector(0, JUMP_HEIGHT));
+  return new WalkingState(hero);
+}
+
+function startJump(hero) {
+  hero.getPosition().subtract(new Vector(0, JUMP_HEIGHT));
+}
+
+function tileLandingPosition(hero, tile) {
+  const position = hero.translateToOrigin(tile);
+  position.add(new Vector(4, -12));
+  return position;
 }
