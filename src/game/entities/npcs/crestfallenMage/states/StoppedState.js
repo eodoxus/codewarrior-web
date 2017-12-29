@@ -1,4 +1,3 @@
-import GameState from "../../../../GameState";
 import State from "../../../../engine/State";
 import Time from "../../../../engine/Time";
 import WalkingState from "./WalkingState";
@@ -9,7 +8,7 @@ export default class StoppedState extends State {
 
   enter(mage) {
     mage.movement.stop();
-    this.timer = GameState.timer();
+    this.timer = Time.timer();
     this.restartTime = (Math.floor(Math.random() * 5) + 1) * Time.SECOND;
     return this;
   }

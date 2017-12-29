@@ -28,7 +28,7 @@ export default class TalkingState extends State {
     mage.stop();
     this.mage = mage;
     this.entity = entity;
-    this.timer = GameState.timer();
+    this.timer = Time.timer();
     this.startDialogListener();
     this.startTatteredPageListeners();
     this.updateDialog();

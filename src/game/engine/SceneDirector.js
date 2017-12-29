@@ -87,13 +87,13 @@ export default class SceneDirector extends Component {
     this.processInput();
 
     // Update scene on a fixed time step
-    const now = timestamp || GameState.timestamp();
+    const now = timestamp || Time.timestamp();
     this.dt += Math.min(Time.SECOND, now - this.lastTime);
     this.lastTime = now;
     while (this.dt > Time.FRAME_STEP) {
-      const beforeFrame = GameState.timestamp();
+      const beforeFrame = Time.timestamp();
       this.scene.update();
-      const frameRunTime = GameState.timestamp() - beforeFrame;
+      const frameRunTime = Time.timestamp() - beforeFrame;
       this.dt -= Time.FRAME_STEP - frameRunTime;
     }
 
@@ -169,13 +169,13 @@ export default class SceneDirector extends Component {
     // Need to wait until current iteration of requestAnimationFrame
     // finishes before switching scenes
     setTimeout(async () => {
-      const timer = GameState.timestamp();
+      const timer = Time.timestamp();
       await this.loadScene(
         doorway.getProperty("to"),
         doorway.getProperty(Tile.PROPERTIES.SPAWN_HERO),
         doorway.getProperty(Tile.PROPERTIES.FACING)
       );
-      const elapsed = GameState.timestamp() - timer;
+      const elapsed = Time.timestamp() - timer;
       setTimeout(() => {
         openCurtain();
         this.startGameLoop();
@@ -232,7 +232,7 @@ export default class SceneDirector extends Component {
       Graphics.scale(this.props.scale);
       toggleBorder(this.shouldShowBorder());
       this.dt = 0;
-      this.lastTime = GameState.timestamp();
+      this.lastTime = Time.timestamp();
       this.gameLoop();
     });
   }

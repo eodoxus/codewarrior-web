@@ -170,31 +170,4 @@ export default class GameState {
     }
     state.scenes[scene.getName()] = sceneState;
   }
-
-  static timer() {
-    return new Timer();
-  }
-
-  static timestamp() {
-    return window.performance && window.performance.now
-      ? window.performance.now()
-      : new Date().getTime();
-  }
-}
-
-class Timer {
-  dt;
-  time;
-
-  constructor() {
-    this.dt = 0;
-    this.time = GameState.timestamp();
-  }
-
-  elapsed() {
-    const now = GameState.timestamp();
-    this.dt += now - this.time;
-    this.time = now;
-    return this.dt;
-  }
 }
