@@ -79,7 +79,7 @@ export default class SceneDirector extends Component {
   }
 
   // Game logic
-  gameLoop() {
+  gameLoop(timestamp) {
     if (this.state.isLoading) {
       return;
     }
@@ -87,7 +87,7 @@ export default class SceneDirector extends Component {
     this.processInput();
 
     // Update scene on a fixed time step
-    const now = GameState.timestamp();
+    const now = timestamp || GameState.timestamp();
     this.dt += Math.min(Time.SECOND, now - this.lastTime);
     this.lastTime = now;
     while (this.dt > Time.FRAME_STEP) {
