@@ -1,7 +1,8 @@
-import Interpreter from "js-interpreter";
 import GameEvent from "../../engine/GameEvent";
 import GameScriptModel from "../../../data/GameScriptModel";
 import GameState from "../../GameState";
+import HeroBehavior from "../hero/HeroBehavior";
+import Interpreter from "js-interpreter";
 
 const MAX_EXECUTION_STEPS = 9999;
 const MAX_MEMORY = 1000000;
@@ -10,6 +11,12 @@ const SANITY_CHECK_INTERVAL = 100;
 
 export default class Spell {
   static results = "";
+  static log(...args) {
+    if (Spell.results) {
+      Spell.results += "\n";
+    }
+    Spell.results += args.join(" ");
+  }
 
   script;
 
@@ -24,12 +31,13 @@ export default class Spell {
     try {
       const interpreter = this.createInterpreter(this.getApi());
       await executeCode(interpreter);
-      GameEvent.fire(GameEvent.SPELL_CAST, this);
-      GameEvent.fire(GameEvent.DIALOG, Spell.results);
+      HeroBehavior.isReading()
+        ? GameEvent.fireAfterClick(GameEvent.DIALOG, Spell.results)
+        : GameEvent.fire(GameEvent.SPELL_CAST, this);
     } catch (e) {
       GameEvent.fireAfterClick(GameEvent.DIALOG, {
         error: true,
-        msg: e.message
+        msg: Spell.results + "\n" + e.message
       });
       throw new Error("Spell cast failure");
     }
@@ -145,10 +153,7 @@ function addLogFn(interpreter, scope) {
         );
       }
       console.log(nativeArgs);
-      if (Spell.results) {
-        Spell.results += "\n";
-      }
-      Spell.results += nativeArgs.join(" ");
+      Spell.log(nativeArgs);
     })
   );
 }

@@ -1,18 +1,23 @@
 import BehaviorComponent from "../components/behaviors/BehaviorComponent";
+import BounceState from "./states/BounceState";
 import GameEvent from "../../engine/GameEvent";
 import GameState from "../../GameState";
 import Hint from "../hints/Hint";
 import JumpingState from "./states/JumpingState";
 import PickingState from "./states/PickingState";
+import ReadingState from "./states/ReadingState";
 import Spell from "../items/Spell";
 import StoppedState from "./states/StoppedState";
 import TatteredPage from "../items/TatteredPage";
 import WalkingState from "./states/WalkingState";
-import BounceState from "./states/BounceState";
 
 const STOPPED_ANIMATION = "walking_down";
 
 export default class HeroBehavior extends BehaviorComponent {
+  static isReading() {
+    return ReadingState.isReading;
+  }
+
   listeners;
 
   constructor(entity) {
@@ -88,6 +93,10 @@ export default class HeroBehavior extends BehaviorComponent {
     }
   }
 
+  isReading() {
+    return ReadingState.isReading;
+  }
+
   jump(tile) {
     this.state = new JumpingState(this.entity, tile);
   }
@@ -98,6 +107,10 @@ export default class HeroBehavior extends BehaviorComponent {
     this.listeners.push(
       GameEvent.on(eventName, data =>
         this.handleEvent(GameEvent.generic(eventName, data))
+      ),
+      GameEvent.on(
+        GameEvent.OPEN_TATTERED_PAGE,
+        () => (this.state = new ReadingState(this.entity))
       )
     );
 

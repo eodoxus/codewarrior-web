@@ -38,4 +38,15 @@
     width: 98%;
     height: 100%;
   }
+
+  button {
+    background-color: #e7d9b2;
+    border-color: #873c35;
+    box-shadow: 0 0 20px #000;
+  }
+
+  button:hover {
+    background-color: #f3e6c2;
+    border-color: #873c35;
+  }
 }

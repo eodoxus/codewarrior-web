@@ -1,3 +1,4 @@
+import ReadingState from "./ReadingState";
 import State from "../../../engine/State";
 import StoppedState from "./StoppedState";
 import Vector from "../../../engine/Vector";
@@ -53,7 +54,9 @@ export default class WalkingState extends State {
       hero.setVelocity(new Vector(VELOCITY, VELOCITY));
       const hasMoreSteps = hero.getMovement().walkToNextStep();
       if (!hasMoreSteps) {
-        return new StoppedState(hero);
+        return hero.getBehavior().isReading()
+          ? new ReadingState(hero)
+          : new StoppedState(hero);
       }
       return this;
     }

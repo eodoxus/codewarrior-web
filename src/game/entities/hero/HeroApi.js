@@ -1,3 +1,4 @@
+import Spell from "../items/Spell";
 import Vector from "../../engine/Vector";
 
 const MAX_JUMP_DISTANCE = 24;
@@ -8,7 +9,10 @@ export default class HeroApi {
 
   constructor(hero) {
     this.hero = hero;
-    this.functions = ["~pickTarget", "jump"];
+    this.functions = [
+      "~pickTarget", // "~" prefix denotes async
+      "jump"
+    ];
   }
 
   getFunctions() {
@@ -16,26 +20,40 @@ export default class HeroApi {
   }
 
   async pickTarget(callback) {
-    const target = await this.hero.getBehavior().pickTarget();
+    const behavior = this.hero.getBehavior();
+    const target = behavior.isReading()
+      ? await this.mockPickTarget()
+      : await behavior.pickTarget();
     callback(target);
+  }
+
+  mockPickTarget() {
+    return new Promise(resolve =>
+      setTimeout(() => {
+        Spell.log("You'll choose a target, then...");
+        resolve(Vector.copy(this.hero.getPosition()));
+      })
+    );
   }
 
   jump(tile) {
     const behavior = this.hero.getBehavior();
     try {
       if (!tile) {
-        throw new Error("You must pass a position (x, y) to my jump command");
+        throw new Error(
+          "You must pass a position (x, y) to Hero's jump command"
+        );
       }
 
       if (typeof tile.x === "undefined") {
         throw new Error(
-          "The position passed to my jump command requires an x coordinate"
+          "The position passed to Hero's jump command requires an x coordinate"
         );
       }
 
       if (typeof tile.y === "undefined") {
         throw new Error(
-          "The position passed to my jump command requires a y coordinate"
+          "The position passed to Hero's jump command requires a y coordinate"
         );
       }
 
@@ -52,10 +70,14 @@ export default class HeroApi {
         throw new Error("That's too far");
       }
 
-      behavior.jump(tile);
+      behavior.isReading() ? this.mockJump(tile) : behavior.jump(tile);
     } catch (e) {
       behavior.stop();
       throw e;
     }
+  }
+
+  mockJump(tile) {
+    Spell.log(`Hero will jump to the targeted position`);
   }
 }

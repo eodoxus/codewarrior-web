@@ -175,19 +175,19 @@ describe("Hero", () => {
       }
 
       it("should fail if no tile is passed", () => {
-        const msg = "You must pass a position (x, y) to my jump command";
+        const msg = "You must pass a position (x, y) to Hero's jump command";
         jumpFailExpectation(null, msg);
       });
 
       it("should fail if tile doesn't have x-coord", () => {
         const msg =
-          "The position passed to my jump command requires an x coordinate";
+          "The position passed to Hero's jump command requires an x coordinate";
         jumpFailExpectation({}, msg);
       });
 
       it("should fail if tile doesn't have y-coord", () => {
         const msg =
-          "The position passed to my jump command requires a y coordinate";
+          "The position passed to Hero's jump command requires a y coordinate";
         jumpFailExpectation({ x: 1 }, msg);
       });
 
@@ -199,7 +199,22 @@ describe("Hero", () => {
         jumpFailExpectation({ x: 0, y: -39 }, msg);
       });
 
-      it("should move hero to tile", () => {});
+      it("should move hero to tile", () => {
+        hero.getMovement().getMap = () => ({
+          getTileAt: () => {
+            return {
+              isDoorway: () => false,
+              isWalkable: () => true
+            };
+          }
+        });
+        api.jump(new Vector(20, 20));
+        const movement = hero.getMovement();
+        while (movement.isMoving()) {
+          hero.update();
+        }
+        expect(hero.getPosition()).toEqual(new Vector(12, -8));
+      });
     });
 
     describe("pickTarget", () => {

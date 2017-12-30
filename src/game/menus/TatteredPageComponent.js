@@ -37,6 +37,7 @@ export default class TatteredPageComponent extends MenuComponent {
     if (this.isOpen()) {
       return;
     }
+    GameEvent.fire(GameEvent.CLOSE_HERO_MENU);
     this.setState({
       isOpen: true,
       code: spell.getCode(),
