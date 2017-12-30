@@ -1,6 +1,6 @@
 import Vector from "../../engine/Vector";
 
-const MAX_JUMP_DISTANCE = 32;
+const MAX_JUMP_DISTANCE = 24;
 
 export default class HeroApi {
   functions;
@@ -42,7 +42,7 @@ export default class HeroApi {
       // Offset to top left of current tile
       const startingTile = Vector.subtract(
         this.hero.getOrigin(),
-        new Vector(4, 6)
+        new Vector(4, 4)
       );
       const distance = startingTile.distanceTo(tile);
       if (

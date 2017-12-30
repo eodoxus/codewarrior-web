@@ -8,7 +8,7 @@ const ANIMATIONS = {
   RIGHT: "bouncing_right",
   UP: "bouncing_up"
 };
-const BOUNCE_DISTANCE = 4;
+const BOUNCE_DISTANCE = 8;
 
 export default class BounceState extends State {
   timer;
@@ -53,7 +53,7 @@ function endBounce(hero) {
 }
 
 function startBounce(hero) {
-  const velocity = Vector.multiply(hero.getVelocity(), -0.25);
+  const velocity = Vector.multiply(hero.getVelocity(), -0.5);
   const distance = Vector.multiply(
     hero.getMovement().getOrientation(),
     -1 * BOUNCE_DISTANCE

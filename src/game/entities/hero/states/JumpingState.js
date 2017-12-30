@@ -11,7 +11,7 @@ const ANIMATIONS = {
   UP: "jumping_up"
 };
 const JUMP_HEIGHT = 8;
-const VELOCITY = 160;
+const VELOCITY = 80;
 
 export default class JumpingState extends State {
   enter(hero, tile) {
@@ -66,18 +66,17 @@ function endJump(hero) {
 
 function getTileInFrontOfHero(hero) {
   const velocity = hero.getVelocity();
-  const size = hero.getSprite().getSize();
-  let position = hero.getPosition();
+  const size = Vector.copy(hero.getSprite().getSize());
+  size.width /= 3;
+  size.height /= 3;
+  let position = hero.getOrigin();
   if (velocity.x >= 0) {
     if (velocity.y >= 0) {
-      position = Vector.add(position, new Vector(size.width / 2, 0));
+      position = Vector.add(position, new Vector(size.width, 0));
     }
-    position = Vector.add(
-      position,
-      new Vector(size.width / 2, size.height / 2)
-    );
+    position = Vector.add(position, new Vector(size.width, size.height));
   } else if (velocity.y >= 0) {
-    position = Vector.add(position, new Vector(0, size.height / 2));
+    position = Vector.add(position, new Vector(0, size.height));
   }
   return hero.getMap().getTileAt(position);
 }
