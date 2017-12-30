@@ -24,6 +24,7 @@ export default class Spell {
     try {
       const interpreter = this.createInterpreter(this.getApi());
       await executeCode(interpreter);
+      GameEvent.fire(GameEvent.SPELL_CAST, this);
       GameEvent.fire(GameEvent.DIALOG, Spell.results);
     } catch (e) {
       GameEvent.fireAfterClick(GameEvent.DIALOG, {

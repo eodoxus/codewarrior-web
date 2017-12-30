@@ -46,8 +46,8 @@ describe("GameState", () => {
     GameState.storeScene(scene);
     const sceneState = GameState.getSceneState(SCENE_NAME);
     expect(sceneState).toBeDefined();
-    expect(sceneState.entities.length).toBe(DIALOG_STATE);
-    expect(sceneState.entities[0].behavior.dialog).toBe(DIALOG_STATE);
+    expect(sceneState.entities.length).toBe(2);
+    expect(sceneState.entities[1].behavior.dialog).toBe(DIALOG_STATE);
   });
 
   it("restores a scene and its entities", () => {

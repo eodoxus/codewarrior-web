@@ -9,6 +9,12 @@ export default class TatteredPageHint extends Hint {
     }
 
     const entity = event.getData();
+
+    if (this.isFulfilled(entity)) {
+      this.kill();
+      return;
+    }
+
     if (!entity.getInventory().has(TatteredPage.NAME)) {
       return;
     }

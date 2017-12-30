@@ -23,12 +23,14 @@ export default class GameState {
   }
 
   static getEntityState(entity) {
+    const state = {
+      isDead: entity.isDead
+    };
     const behaviorState = GameState.getBehaviorState(entity.getBehavior());
     if (behaviorState) {
-      return {
-        behavior: behaviorState
-      };
+      state.behavior = behaviorState;
     }
+    return state;
   }
 
   static async getGameSave() {
@@ -80,18 +82,29 @@ export default class GameState {
     Object.keys(state).forEach(key => {
       if (key === "behavior") {
         GameState.restoreBehavior(entity.getBehavior(), state.behavior);
+      } else {
+        entity[key] = state[key];
       }
     });
   }
 
   static async restoreHero(hero) {
-    if (!state.hero || !state.hero.inventory) {
+    if (!state.hero) {
       return;
     }
-    await state.hero.inventory.forEach(async item => {
-      const restoreFn = "restore" + _.upperFirst(item.id);
-      await GameState[restoreFn](hero);
-    });
+
+    if (state.hero.experiences) {
+      state.hero.experiences.forEach(experience => {
+        hero.fulfillExperience(experience);
+      });
+    }
+
+    if (state.hero.inventory) {
+      await state.hero.inventory.forEach(async item => {
+        const restoreFn = "restore" + _.upperFirst(item.id);
+        await GameState[restoreFn](hero);
+      });
+    }
   }
 
   static async restoreTatteredPage(hero) {
@@ -144,7 +157,10 @@ export default class GameState {
   }
 
   static storeHero(hero) {
-    state.hero = { inventory: [] };
+    state.hero = { experiences: [], inventory: [] };
+    Object.keys(hero.getExperiences()).forEach(experience => {
+      state.hero.experiences.push(experience);
+    });
     const inventory = hero.getInventory();
     inventory.getItems().forEach(item => {
       state.hero.inventory.push({

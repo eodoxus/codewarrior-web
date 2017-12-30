@@ -8,6 +8,7 @@ export default class Entity {
 
   behavior;
   id;
+  isDead;
   graphics;
   movement;
   properties;
@@ -140,6 +141,10 @@ export default class Entity {
 
   render() {
     this.graphics.render();
+  }
+
+  kill() {
+    this.isDead = true;
   }
 
   start() {

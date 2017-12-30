@@ -29,4 +29,11 @@ export default class Hint extends Entity {
 
     return true;
   }
+
+  isFulfilled(entity) {
+    const isFulfilled = entity.getExperienceStatus(
+      this.getProperty("fulfilledOn")
+    );
+    return isFulfilled;
+  }
 }

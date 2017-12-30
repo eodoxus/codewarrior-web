@@ -14,6 +14,7 @@ const FPS = 15;
 export default class Hero extends Entity {
   static ID = "hero";
 
+  experiences = {};
   inventory;
 
   constructor() {
@@ -31,8 +32,28 @@ export default class Hero extends Entity {
     this.inventory = new HeroInventory();
   }
 
+  fulfillExperience(experienceName) {
+    this.experiences[experienceName] = true;
+  }
+
   getApi() {
     return new HeroApi(this);
+  }
+
+  getDefaultSpawnPoint() {
+    const map = this.movement.getMap();
+    if (map) {
+      return map.getHeroSpawnPoint();
+    }
+    return new Vector();
+  }
+
+  getExperiences() {
+    return this.experiences;
+  }
+
+  getExperienceStatus(experienceName) {
+    return this.experiences[experienceName];
   }
 
   getInventory() {
@@ -48,14 +69,6 @@ export default class Hero extends Entity {
       this.movement.setOrientation(orientation);
     }
     this.graphics.stop();
-  }
-
-  getDefaultSpawnPoint() {
-    const map = this.movement.getMap();
-    if (map) {
-      return map.getHeroSpawnPoint();
-    }
-    return new Vector();
   }
 
   update() {

@@ -25,6 +25,7 @@ export default class GameEvent extends Event {
   static OPEN_TATTERED_PAGE = "openTatteredPage";
   static SAVE_GAME = "saveGame";
   static SHOW_BORDER = "showBorder";
+  static SPELL_CAST = "spellCast";
   static STOP = "stop";
 
   static click(tile) {

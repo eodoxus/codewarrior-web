@@ -100,6 +100,11 @@ export default class HeroBehavior extends BehaviorComponent {
         this.handleEvent(GameEvent.generic(eventName, data))
       )
     );
+
+    let spellEvent = GameEvent.on(GameEvent.SPELL_CAST, spell => {
+      this.entity.fulfillExperience("castSpell");
+      spellEvent.remove();
+    });
   }
 
   openTatteredPage(spellIdx) {

@@ -179,11 +179,12 @@
                 {
                  "height":24,
                  "id":37,
-                 "name":"JumpHint",
+                 "name":"jump_hint",
                  "properties":
                     {
                      "dialog":"Home.JumpHint",
                      "entity":"TatteredPageHint",
+                     "fulfilledOn":"jumped",
                      "graphics":"No",
                      "movement":"Static"
                     },
@@ -202,6 +203,7 @@
                     {
                      "dialog":"Home.SpellHint",
                      "entity":"TatteredPageHint",
+                     "fulfilledOn":"castSpell",
                      "graphics":"No",
                      "movement":"Static"
                     },
