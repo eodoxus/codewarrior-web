@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import renderer from "react-test-renderer";
+import GameState from "../GameState";
 import Graphics from "./Graphics";
 import Time from "./Time";
 import Scene from "./Scene";
@@ -9,24 +10,20 @@ import TextureCache from "./TextureCache";
 import Vector from "./Vector";
 
 import dialog from "../../../public/dialog.json";
-import GameState from "../GameState";
+import Camera from "../Camera";
+import { setTimeout } from "timers";
+import GameEvent from "./GameEvent";
 
 jest.mock("./Graphics");
+jest.mock("./Scene");
+jest.mock("../GameState");
 jest.useFakeTimers();
-
-Scene.prototype.init = () => true;
-Scene.prototype.render = () => true;
-Scene.prototype.update = () => true;
-GameState.load = () => true;
-GameState.restoreHero = () => true;
-GameState.save = () => true;
-
+fetch.mockResponse("{}");
 let ctrl;
 
-beforeEach(() => {
-  fetch.mockResponse("{}");
+beforeEach(async () => {
   const div = document.createElement("div");
-  ctrl = ReactDOM.render(<SceneDirector />, div);
+  ctrl = await ReactDOM.render(<SceneDirector />, div);
 });
 
 describe("<SceneDirector />", () => {
@@ -74,6 +71,77 @@ describe("<SceneDirector />", () => {
       ctrl.scene.onClick = jest.fn();
       ctrl.onClick(mockEvent);
       expect(ctrl.scene.onClick).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("Camera", () => {
+    let windowDimensions;
+    beforeEach(() => {
+      windowDimensions = {
+        width: window.innerWidth,
+        height: window.innerHeight
+      };
+      window.scroll = jest.fn();
+    });
+
+    afterEach(() => {
+      window.innerWidth = windowDimensions.width;
+      window.innerHeight = windowDimensions.height;
+      window.scroll.mockRestore();
+    });
+
+    it("is not created when window width is >= 640 and window height is >= 480", () => {
+      expect(ctrl.camera).not.toBeDefined();
+    });
+
+    it("is created when window width is < 640", async () => {
+      window.innerWidth = 639;
+      await window.dispatchEvent(new Event("resize"));
+      expect(ctrl.camera).toBeDefined();
+    });
+
+    it("is created  when window height is < 480", async () => {
+      window.innerHeight = 479;
+      await window.dispatchEvent(new Event("resize"));
+      expect(ctrl.camera).toBeDefined();
+    });
+
+    describe("update", () => {
+      it("scrolls window", async () => {
+        window.innerHeight = 479;
+        await window.dispatchEvent(new Event("resize"));
+        ctrl.gameLoop();
+        expect(window.scroll).toHaveBeenCalledTimes(1);
+      });
+
+      it("does nothing if window is scrolled to appropriate spot already", async () => {
+        window.innerHeight = 479;
+        await window.dispatchEvent(new Event("resize"));
+        ctrl.hero.getPosition = () => ({
+          x: 512,
+          y: 239.5
+        });
+        ctrl.gameLoop();
+        expect(window.scroll).not.toHaveBeenCalled();
+      });
+
+      it("does nothing if menus are open", async () => {
+        function waitForCamera() {
+          return new Promise(resolve => {
+            (function wait() {
+              ctrl.camera ? resolve() : setTimeout(wait);
+            })();
+          });
+        }
+
+        window.innerHeight = 479;
+        const div = document.createElement("div");
+        ctrl = ReactDOM.render(<SceneDirector />, div);
+        await waitForCamera();
+        GameEvent.fire(GameEvent.DIALOG, "test");
+        ctrl.gameLoop();
+        expect(window.scroll).not.toHaveBeenCalled();
+      });
     });
   });
 });

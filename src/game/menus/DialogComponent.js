@@ -27,7 +27,7 @@ export default class DialogComponent extends Component {
   }
 
   isOpen() {
-    return this.state.dialog.length > 0;
+    return this.state.dialog && this.state.dialog.length > 0;
   }
 
   onCancel = e => {

@@ -20,8 +20,8 @@ export default class Camera {
       Graphics.getInverseScale()
     );
     const heroScreenPosition = new Vector(
-      sceneBoundingRect.x + heroPosition.x,
-      sceneBoundingRect.y + heroPosition.y
+      sceneBoundingRect.left + heroPosition.x,
+      sceneBoundingRect.top + heroPosition.y
     );
     const screenCenter = new Vector(
       window.innerWidth / 2,

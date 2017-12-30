@@ -6,10 +6,8 @@ import { AppModel } from "./data";
 import Scene from "./game/engine/Scene";
 
 jest.mock("./game/engine/Graphics");
-
-Scene.prototype.init = () => Promise.resolve();
-Scene.prototype.render = () => true;
-Scene.prototype.update = () => true;
+jest.mock("./game/engine/Scene");
+jest.mock("./game/GameState");
 
 describe("<App />", () => {
   beforeEach(function() {

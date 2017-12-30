@@ -9,11 +9,11 @@ import Graphics from "./Graphics";
 import Indicators from "../../components/indicators";
 import Scenes from "../scenes";
 import Size from "./Size";
+import TatteredPage from "../entities/items/TatteredPage";
 import Tile from "./map/Tile";
 import Time from "./Time";
 import Vector from "./Vector";
 import Camera from "../Camera";
-import TatteredPage from "../entities/items/TatteredPage";
 
 const DEBUG = false;
 const STARTING_SCENE = "Home";
@@ -107,11 +107,11 @@ export default class SceneDirector extends Component {
     window.requestAnimationFrame(() => this.gameLoop());
   }
 
-  initCamera() {
+  initCamera = e => {
     if (window.innerWidth < WIDTH || window.innerHeight < HEIGHT) {
       this.camera = new Camera(this);
     }
-  }
+  };
 
   async loadScene(name, heroPosition, heroOrientation) {
     GameState.setLastScene(name);
