@@ -6,7 +6,7 @@ import GameEvent from "../engine/GameEvent";
 import { Button } from "../../components/forms/controls/buttons/index";
 
 export default class DialogComponent extends Component {
-  listener;
+  listeners;
 
   constructor(props) {
     super(props);
@@ -14,13 +14,16 @@ export default class DialogComponent extends Component {
   }
 
   async componentDidMount() {
-    this.listener = GameEvent.on(GameEvent.DIALOG, this.onDialogEvent);
+    this.listeners = [
+      GameEvent.on(GameEvent.CLOSE_DIALOG, this.onDialogEvent),
+      GameEvent.on(GameEvent.DIALOG, this.onDialogEvent)
+    ];
     await Dialog.load();
   }
 
   componentWillUnmount() {
-    this.listener.remove();
-    delete this.listener;
+    this.listeners.forEach(listener => listener.remove());
+    delete this.listeners;
   }
 
   isOpen() {

@@ -27,6 +27,7 @@ export default class TatteredPageComponent extends MenuComponent {
     if (!this.isOpen()) {
       return;
     }
+    GameEvent.fire(GameEvent.CLOSE_DIALOG);
     this.spell.setCode(this.editor.getCode());
     this.setState({ isOpen: false });
   };

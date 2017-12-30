@@ -253,7 +253,7 @@ function closeCurtain() {
 }
 
 function closeDialog() {
-  GameEvent.fire(GameEvent.DIALOG, "");
+  GameEvent.fire(GameEvent.CLOSE_DIALOG);
 }
 
 function closeHeroMenu() {

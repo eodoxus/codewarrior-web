@@ -8,6 +8,7 @@ export default class GameEvent extends Event {
   static CLICK = "click";
   static CLICK_HERO = "clickHero";
   static CLOSE_CURTAIN = "closeCurtain";
+  static CLOSE_DIALOG = "closeDialog";
   static CLOSE_HERO_MENU = "closeHeroMenu";
   static CLOSE_TATTERED_PAGE = "closeTatteredPage";
   static CONFIRM = "confirm";

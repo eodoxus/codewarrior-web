@@ -61,7 +61,7 @@ describe("<DialogComponent />", () => {
       let tree = node.toJSON();
       expect(tree).toMatchSnapshot();
 
-      GameEvent.fire(GameEvent.DIALOG, "");
+      GameEvent.fire(GameEvent.CLOSE_DIALOG);
       tree = node.toJSON();
       expect(tree).toMatchSnapshot();
     });
