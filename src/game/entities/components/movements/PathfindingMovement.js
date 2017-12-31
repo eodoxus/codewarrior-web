@@ -1,6 +1,7 @@
 import MovementComponent from "./MovementComponent";
 import PathFinder from "../../../engine/map/PathFinder";
 import Rect from "../../../engine/Rect";
+import GameEvent from "../../../engine/GameEvent";
 
 export default class PathfindingMovement extends MovementComponent {
   map;
@@ -38,11 +39,23 @@ export default class PathfindingMovement extends MovementComponent {
   }
 
   walkTo(tile) {
+    if (tile.isWalkable && !tile.isWalkable()) {
+      return GameEvent.fire(GameEvent.DIALOG, {
+        error: true,
+        msg: "I can't walk there"
+      });
+    }
     const curTile = this.map.getTileAt(this.entity.getOrigin());
     if (!curTile) {
       return;
     }
     this.pathFinder.findPath(curTile.getPosition(), tile.getPosition());
+    if (this.pathFinder.getPath().length === 0) {
+      GameEvent.fire(GameEvent.DIALOG, {
+        error: true,
+        msg: "I couldn't find a path there"
+      });
+    }
     return this.walkToNextStep();
   }
 

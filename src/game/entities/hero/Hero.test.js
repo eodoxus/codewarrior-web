@@ -102,7 +102,7 @@ describe("Hero", () => {
       const state = new WalkingState(hero);
       hero.setState(state);
       const destination = hero.translateToOrigin(new Vector(112, 72));
-      hero.getMovement().walkTo(Rect.point(destination));
+      hero.getMovement().walkTo(new Tile(destination, new Size(8, 8)));
       npc.getBehavior().start();
 
       const heroRerouteSpy = jest.spyOn(hero.getMovement(), "reroute");
