@@ -2,6 +2,13 @@ import "whatwg-fetch";
 import Url from "../../lib/Url";
 
 export default class Audio {
+  static EFFECTS = {
+    CLOSE_BOOK: "effects/close-book.ogg",
+    JUMP: "effects/jump.ogg",
+    JUMP_COLLIDE: "effects/jump-collide.ogg",
+    OPEN_BOOK: "effects/open-book.ogg"
+  };
+
   static cache = [];
   static _context;
   static _currentlyPlaying = {};

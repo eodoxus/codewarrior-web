@@ -7,10 +7,17 @@ import GameState from "../GameState";
 
 export default class Scene {
   clickedTile;
+  entities;
   hero;
   map;
   size;
-  entities;
+
+  soundEffects = [
+    Audio.EFFECTS.CLOSE_BOOK,
+    Audio.EFFECTS.JUMP,
+    Audio.EFFECTS.JUMP_COLLIDE,
+    Audio.EFFECTS.OPEN_BOOK
+  ];
 
   constructor(hero) {
     Audio.stop();
@@ -87,6 +94,7 @@ export default class Scene {
 
   async init() {
     this.startBackgroundMusic();
+    this.loadSoundEffects();
     await this.initMap();
     await this.initEntities();
     GameState.restoreScene(this);
@@ -105,6 +113,10 @@ export default class Scene {
       const entity = entities.create(tile.getPosition(), tile.getProperties());
       this.addEntity(entity);
     });
+  }
+
+  loadSoundEffects() {
+    this.soundEffects.forEach(effect => Audio.load(effect));
   }
 
   onClick(position) {

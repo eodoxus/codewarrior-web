@@ -6,6 +6,7 @@ import MenuComponent from "./MenuComponent";
 import Url from "../../lib/Url";
 import TextureCache from "../engine/TextureCache";
 import SandboxedEditor from "./SandboxedEditorComponent";
+import Audio from "../engine/Audio";
 
 export default class TatteredPageComponent extends MenuComponent {
   constructor(props) {
@@ -27,6 +28,7 @@ export default class TatteredPageComponent extends MenuComponent {
     if (!this.isOpen()) {
       return;
     }
+    Audio.play(Audio.EFFECTS.CLOSE_BOOK);
     GameEvent.fire(GameEvent.CLOSE_DIALOG);
     this.spell.setCode(this.editor.getCode());
     this.setState({ isOpen: false });
@@ -37,6 +39,7 @@ export default class TatteredPageComponent extends MenuComponent {
     if (this.isOpen()) {
       return;
     }
+    Audio.play(Audio.EFFECTS.OPEN_BOOK);
     GameEvent.fire(GameEvent.CLOSE_HERO_MENU);
     this.setState({
       isOpen: true,

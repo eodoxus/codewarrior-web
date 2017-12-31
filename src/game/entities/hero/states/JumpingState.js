@@ -3,6 +3,7 @@ import State from "../../../engine/State";
 import Vector from "../../../engine/Vector";
 import WalkingState from "./WalkingState";
 import Graphics from "../../../engine/Graphics";
+import Audio from "../../../engine/Audio";
 
 const ANIMATIONS = {
   DOWN: "jumping_down",
@@ -36,6 +37,7 @@ export default class JumpingState extends State {
 
   enter(hero, tile) {
     this.startPosition = Vector.copy(hero.getPosition());
+    Audio.play(Audio.EFFECTS.JUMP);
     startJump(hero, tile);
   }
 
@@ -47,6 +49,7 @@ export default class JumpingState extends State {
       tile.getPosition()
     );
     movement.setOrientation(facingDirection);
+    Audio.play(Audio.EFFECTS.JUMP_COLLIDE);
     return new BounceState(hero);
   }
 
