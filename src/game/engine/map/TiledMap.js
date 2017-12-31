@@ -133,7 +133,7 @@ export default class TiledMap {
 
   renderTileDebug(tile) {
     Graphics.drawPoint(Tile.getOrigin(tile.getPosition(), this.getTileSize()));
-    //Graphics.drawRect(tile.getPosition(), this.getTileSize());
+    //Graphics.drawRect(tile.getRect());
 
     if (!tile.isWalkable()) {
       Graphics.colorize(tile.getRect(), "red");

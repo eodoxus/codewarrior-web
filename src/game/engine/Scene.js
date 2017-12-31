@@ -144,7 +144,7 @@ export default class Scene {
           Graphics.colorize(this.clickedTile.getRect(), "black");
         }
         if (Graphics.debugTile) {
-          Graphics.colorize(Graphics.debugTile.getRect(), "purple");
+          Graphics.colorize(Graphics.debugTile.getRect(), "cyan");
         }
       }
     }

@@ -9,6 +9,7 @@ const ANIMATIONS = {
   UP: "bouncing_up"
 };
 const BOUNCE_DISTANCE = 8;
+const VELOCITY = 40;
 
 export default class BounceState extends State {
   timer;
@@ -53,12 +54,22 @@ function endBounce(hero) {
 }
 
 function startBounce(hero) {
-  const velocity = Vector.multiply(hero.getVelocity(), -0.5);
+  const velocity = Vector.multiply(
+    hero.getMovement().getOrientation(),
+    VELOCITY
+  );
   const distance = Vector.multiply(
     hero.getMovement().getOrientation(),
     -1 * BOUNCE_DISTANCE
   );
-  const landingPosition = Vector.add(hero.getPosition(), distance);
+  const map = hero.getMap();
+
+  let landingPosition = Vector.copy(hero.getOrigin()).add(distance);
+  let landingTile;
+  do {
+    landingTile = map.getTileAt(landingPosition);
+    landingPosition.add(distance);
+  } while (!landingTile.isWalkable());
   hero.setVelocity(velocity);
-  hero.getMovement().moveTo(landingPosition);
+  hero.getMovement().moveTo(hero.translateToOrigin(landingTile.getPosition()));
 }

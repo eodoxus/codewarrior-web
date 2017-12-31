@@ -6,6 +6,8 @@ import TatteredPageComponent from "./TatteredPageComponent";
 import SandboxedEditorComponent from "./SandboxedEditorComponent";
 import Spell from "../entities/items/Spell";
 
+jest.mock("../engine/Audio");
+
 SandboxedEditorComponent.prototype.render = jest.fn();
 
 const spell = new Spell({}, "");

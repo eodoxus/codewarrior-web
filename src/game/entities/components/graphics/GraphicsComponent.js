@@ -116,6 +116,10 @@ export default class GraphicsComponent {
   render() {
     this.sprite.render(this.entity.getPosition());
 
+    if (Graphics.debug) {
+      Graphics.drawRect(this.getOutline().rect);
+    }
+
     if (this.shadow) {
       this.renderShadow();
     }

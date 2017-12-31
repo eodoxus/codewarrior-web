@@ -60,6 +60,20 @@ export default class Hero extends Entity {
     return this.inventory;
   }
 
+  render() {
+    let outline = this.graphics.getSprite().getOutline();
+    const canModifyOutline = !!!outline;
+    this.graphics.render();
+
+    // Hero's outline is to big because the sample sprite is too big,
+    // so downsize it a tad.
+    if (canModifyOutline) {
+      outline = this.graphics.getSprite().getOutline();
+      outline.min += 1;
+      outline.max -= 5;
+    }
+  }
+
   spawn(position, orientation) {
     const spawnPosition = position || this.getDefaultSpawnPoint();
     if (spawnPosition) {

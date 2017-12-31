@@ -22,6 +22,7 @@ import plist from "../../../../public/animations/hero.json";
 import tmxConfig from "../../engine/map/__mocks__/map.json";
 
 jest.useFakeTimers();
+jest.mock("../../engine/Audio");
 
 Sprite.prototype.getOutline = jest.fn();
 Sprite.prototype.getOutline.mockReturnValue(outline);

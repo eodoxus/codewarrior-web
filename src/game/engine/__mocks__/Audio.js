@@ -1,4 +1,6 @@
-export default class Audio {
+export default class MockAudio {
+  static EFFECTS = {};
+
   static play() {}
 
   static stop() {}

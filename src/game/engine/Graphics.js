@@ -30,8 +30,8 @@ export default class Graphics {
     return Graphics._renderer.closeBuffer();
   }
 
-  static drawRect(position, size) {
-    Graphics._renderer.drawRect(position, size);
+  static drawRect(rect) {
+    Graphics._renderer.drawRect(rect);
   }
 
   static drawEllipse(position, size, color) {
@@ -146,8 +146,8 @@ class CanvasRenderer {
     this.context.globalAlpha = 1.0;
   }
 
-  drawRect(position, size) {
-    this.context.rect(position.x, position.y, size.width, size.height);
+  drawRect(rect) {
+    this.context.rect(rect.x, rect.y, rect.width, rect.height);
     this.context.stroke();
   }
 

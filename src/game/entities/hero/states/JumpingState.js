@@ -1,9 +1,8 @@
+import Audio from "../../../engine/Audio";
 import BounceState from "./BounceState";
 import State from "../../../engine/State";
 import Vector from "../../../engine/Vector";
 import WalkingState from "./WalkingState";
-import Graphics from "../../../engine/Graphics";
-import Audio from "../../../engine/Audio";
 
 const ANIMATIONS = {
   DOWN: "jumping_down",
@@ -15,16 +14,16 @@ const JUMP_HEIGHT = 8;
 const VELOCITY = 80;
 
 export default class JumpingState extends State {
-  startPosition;
-
   detectCollisions(hero) {
     const graphics = hero.getGraphics();
+    const outline = graphics.getOutline();
     const layers = hero.getMap().getLayers();
     for (let iDx = 0; iDx < layers.length; iDx++) {
       const tiles = layers[iDx].getTiles();
       for (let jDx = 0; jDx < tiles.length; jDx++) {
         const tile = tiles[jDx];
         if (
+          tile.getPosition().y >= outline.rect.y &&
           graphics.outlinesIntersect(tile.getOutline()) &&
           !tile.isWalkable() &&
           !tile.isJumpable()
@@ -36,18 +35,13 @@ export default class JumpingState extends State {
   }
 
   enter(hero, tile) {
-    this.startPosition = Vector.copy(hero.getPosition());
     Audio.play(Audio.EFFECTS.JUMP);
     startJump(hero, tile);
   }
 
   handleCollision(hero, tile) {
-    Graphics.debugTile = tile;
     const movement = hero.getMovement();
-    const facingDirection = getFaceTowardDirection(
-      hero.getPosition(),
-      tile.getPosition()
-    );
+    const facingDirection = getFaceTowardDirection(hero, tile);
     movement.setOrientation(facingDirection);
     Audio.play(Audio.EFFECTS.JUMP_COLLIDE);
     return new BounceState(hero);
@@ -103,13 +97,13 @@ function tileLandingPosition(hero, tile) {
   return position;
 }
 
-function getFaceTowardDirection(heroPos, tilePos) {
-  const distance = heroPos.distanceTo(tilePos);
+function getFaceTowardDirection(hero, tile) {
+  const distance = hero.getOrigin().distanceTo(tile.getOrigin());
 
   // If the y distance is greater than x distance
   // it's either above or below, otherwise it's
   // either left or right
-  if (Math.abs(distance.y) > Math.abs(distance.x)) {
+  if (Math.abs(distance.y) >= Math.abs(distance.x)) {
     // If it's above, face up
     if (distance.y > 0) {
       return new Vector(0, -1);

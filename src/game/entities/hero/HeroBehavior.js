@@ -1,8 +1,6 @@
 import BehaviorComponent from "../components/behaviors/BehaviorComponent";
-import BounceState from "./states/BounceState";
 import GameEvent from "../../engine/GameEvent";
 import GameState from "../../GameState";
-import Hint from "../hints/Hint";
 import JumpingState from "./states/JumpingState";
 import PickingState from "./states/PickingState";
 import ReadingState from "./states/ReadingState";
@@ -50,14 +48,6 @@ export default class HeroBehavior extends BehaviorComponent {
   }
 
   handleCollision(entity) {
-    if (!(entity instanceof Hint) && this.state instanceof JumpingState) {
-      const heroOutline = this.entity.getGraphics().getOutline();
-      if (entity.getGraphics().outlinesIntersect(heroOutline)) {
-        this.state = new BounceState(this.entity);
-      }
-      return;
-    }
-
     if (entity.isNpc()) {
       const movement = this.entity.getMovement();
       if (this.isIntent(GameEvent.TALK)) {

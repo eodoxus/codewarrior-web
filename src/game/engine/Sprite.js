@@ -5,6 +5,7 @@ import TextureCache from "./TextureCache";
 import Tile from "./map/Tile";
 import Url from "../../lib/Url";
 import Vector from "./Vector";
+import Rect from "./Rect";
 
 export default class Sprite {
   static createFromProperties(properties) {
@@ -79,14 +80,15 @@ export default class Sprite {
 
     if (Graphics.debug) {
       const size = texture.getSize();
-      Graphics.drawRect(position, size);
+      Graphics.drawRect(
+        new Rect(position.x, position.y, size.width, size.height)
+      );
       Graphics.drawPoint(Tile.getOrigin(position, size));
     }
   }
 }
 
 function generateOutline(texture) {
-  const VISUAL_CORRECTION = 4;
   const size = texture.getSize();
   Graphics.openBuffer();
   Graphics.drawTexture(
@@ -128,12 +130,8 @@ function generateOutline(texture) {
       if (!rows[y].end) {
         rows[y].end = rows[y].start;
       }
-      rows[y].start -= Math.min(VISUAL_CORRECTION, rows[y].start);
-      rows[y].end -= Math.min(VISUAL_CORRECTION, rows[y].end);
     }
   }
-  min -= Math.min(VISUAL_CORRECTION, min);
-  max -= Math.min(VISUAL_CORRECTION, max);
   Graphics.closeBuffer();
   return { min, max, rows };
 }
