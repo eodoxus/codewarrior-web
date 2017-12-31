@@ -206,7 +206,8 @@ describe("Hero", () => {
               isDoorway: () => false,
               isWalkable: () => true
             };
-          }
+          },
+          getLayers: () => []
         });
         api.jump(new Vector(20, 20));
         const movement = hero.getMovement();

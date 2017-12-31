@@ -1,8 +1,8 @@
 import BounceState from "./BounceState";
 import State from "../../../engine/State";
-import Tile from "../../../engine/map/Tile";
 import Vector from "../../../engine/Vector";
 import WalkingState from "./WalkingState";
+import Graphics from "../../../engine/Graphics";
 
 const ANIMATIONS = {
   DOWN: "jumping_down",
@@ -14,17 +14,42 @@ const JUMP_HEIGHT = 8;
 const VELOCITY = 80;
 
 export default class JumpingState extends State {
+  startPosition;
+
+  detectCollisions(hero) {
+    const graphics = hero.getGraphics();
+    const layers = hero.getMap().getLayers();
+    for (let iDx = 0; iDx < layers.length; iDx++) {
+      const tiles = layers[iDx].getTiles();
+      for (let jDx = 0; jDx < tiles.length; jDx++) {
+        const tile = tiles[jDx];
+        if (
+          graphics.outlinesIntersect(tile.getOutline()) &&
+          !tile.isWalkable() &&
+          !tile.isJumpable()
+        ) {
+          return tile;
+        }
+      }
+    }
+  }
+
   enter(hero, tile) {
+    this.startPosition = Vector.copy(hero.getPosition());
     hero.setVelocity(new Vector(VELOCITY, VELOCITY));
     hero.getMovement().moveTo(tileLandingPosition(hero, tile));
     startJump(hero);
   }
 
   handleCollision(hero, tile) {
-    if (!tile.getProperty(Tile.PROPERTIES.JUMPABLE)) {
-      return new BounceState(hero);
-    }
-    return this;
+    Graphics.debugTile = tile;
+    const movement = hero.getMovement();
+    const facingDirection = getFaceTowardDirection(
+      hero.getPosition(),
+      tile.getPosition()
+    );
+    movement.setOrientation(facingDirection);
+    return new BounceState(hero);
   }
 
   pickAnimation(hero) {
@@ -44,41 +69,25 @@ export default class JumpingState extends State {
       .getGraphics()
       .getSprite()
       .setAnimation(animation);
-    return this;
+    return animation;
   }
 
   update(hero) {
-    const tile = getTileInFrontOfHero(hero);
-    if (tile && !tile.isWalkable()) {
+    const tile = this.detectCollisions(hero);
+    if (tile) {
       return this.handleCollision(hero, tile);
     }
     if (!hero.getMovement().isMoving()) {
       return endJump(hero);
     }
-    return this.pickAnimation(hero);
+    this.pickAnimation(hero);
+    return this;
   }
 }
 
 function endJump(hero) {
   hero.getPosition().add(new Vector(0, JUMP_HEIGHT));
   return new WalkingState(hero);
-}
-
-function getTileInFrontOfHero(hero) {
-  const velocity = hero.getVelocity();
-  const size = Vector.copy(hero.getSprite().getSize());
-  size.width /= 3;
-  size.height /= 3;
-  let position = hero.getOrigin();
-  if (velocity.x >= 0) {
-    if (velocity.y >= 0) {
-      position = Vector.add(position, new Vector(size.width, 0));
-    }
-    position = Vector.add(position, new Vector(size.width, size.height));
-  } else if (velocity.y >= 0) {
-    position = Vector.add(position, new Vector(0, size.height));
-  }
-  return hero.getMap().getTileAt(position);
 }
 
 function startJump(hero) {
@@ -89,4 +98,27 @@ function tileLandingPosition(hero, tile) {
   const position = hero.translateToOrigin(tile);
   position.add(new Vector(4, -12));
   return position;
+}
+
+function getFaceTowardDirection(heroPos, tilePos) {
+  const distance = heroPos.distanceTo(tilePos);
+
+  // If the y distance is greater than x distance
+  // it's either above or below, otherwise it's
+  // either left or right
+  if (Math.abs(distance.y) > Math.abs(distance.x)) {
+    // If it's above, face up
+    if (distance.y > 0) {
+      return new Vector(0, -1);
+    }
+    // Otherwise, it's below, face down
+    return new Vector(0, 1);
+  } else {
+    // If it's to the right, face right
+    if (distance.x < 0) {
+      return new Vector(1, 0);
+    }
+    // Otherwise, it's to the left, face left
+    return new Vector(-1, 0);
+  }
 }

@@ -34,14 +34,15 @@ export default class BounceState extends State {
       .getGraphics()
       .getSprite()
       .setAnimation(animation);
-    return this;
+    return animation;
   }
 
   update(hero) {
     if (!hero.getMovement().isMoving()) {
       return endBounce(hero);
     }
-    return this.pickAnimation(hero);
+    this.pickAnimation(hero);
+    return this;
   }
 }
 

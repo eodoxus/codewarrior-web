@@ -51,7 +51,10 @@ export default class HeroBehavior extends BehaviorComponent {
 
   handleCollision(entity) {
     if (!(entity instanceof Hint) && this.state instanceof JumpingState) {
-      this.state = new BounceState(this.entity);
+      const heroOutline = this.entity.getGraphics().getOutline();
+      if (entity.getGraphics().outlinesIntersect(heroOutline)) {
+        this.state = new BounceState(this.entity);
+      }
       return;
     }
 

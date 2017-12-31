@@ -39,16 +39,18 @@ export default class Tile {
 
   gid;
   entity;
+  outline;
   position;
-  tilesetPosition;
-  size;
   properties;
+  size;
+  tilesetPosition;
 
   constructor(position, size, gid = 0, properties = {}) {
     this.position = position;
     this.size = size;
     this.gid = gid;
     this.properties = properties;
+    this.outline = generateOutline(this);
   }
 
   clear() {
@@ -65,6 +67,14 @@ export default class Tile {
 
   getGid() {
     return this.gid;
+  }
+
+  getOrigin() {
+    return Tile.getOrigin(this.position, this.size);
+  }
+
+  getOutline() {
+    return this.outline;
   }
 
   getPosition() {
@@ -140,6 +150,10 @@ export default class Tile {
     return this.properties.isDoorway;
   }
 
+  isJumpable() {
+    return !!this.properties[Tile.PROPERTIES.JUMPABLE];
+  }
+
   isTransition() {
     return this.properties.isTransition;
   }
@@ -157,4 +171,23 @@ export default class Tile {
   setProperties(properties) {
     this.properties = properties;
   }
+}
+
+function generateOutline(tile) {
+  const rows = [];
+  for (let y = tile.position.y; y < tile.position.y + tile.size.height; y++) {
+    rows[y] = {
+      start: tile.position.x,
+      end: tile.position.x + tile.size.width
+    };
+  }
+  return {
+    rows,
+    rect: new Rect(
+      tile.position.x,
+      tile.position.y,
+      tile.size.width,
+      tile.size.height
+    )
+  };
 }

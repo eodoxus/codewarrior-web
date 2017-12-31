@@ -4,6 +4,7 @@ export default class Graphics {
     shadowBorder: "#1e1e1e"
   };
   static debug = false;
+  static debugTile;
 
   static _renderer;
   static _scale = 1;

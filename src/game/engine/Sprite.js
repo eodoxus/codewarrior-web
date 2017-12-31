@@ -86,6 +86,7 @@ export default class Sprite {
 }
 
 function generateOutline(texture) {
+  const VISUAL_CORRECTION = 4;
   const size = texture.getSize();
   Graphics.openBuffer();
   Graphics.drawTexture(
@@ -123,10 +124,16 @@ function generateOutline(texture) {
         max = x;
       }
     }
-    if (rows[y] && !rows[y].end) {
-      rows[y].end = rows[y].start;
+    if (rows[y]) {
+      if (!rows[y].end) {
+        rows[y].end = rows[y].start;
+      }
+      rows[y].start -= Math.min(VISUAL_CORRECTION, rows[y].start);
+      rows[y].end -= Math.min(VISUAL_CORRECTION, rows[y].end);
     }
   }
+  min -= Math.min(VISUAL_CORRECTION, min);
+  max -= Math.min(VISUAL_CORRECTION, max);
   Graphics.closeBuffer();
   return { min, max, rows };
 }

@@ -131,6 +131,9 @@ export default class Scene {
         if (this.clickedTile) {
           Graphics.colorize(this.clickedTile.getRect(), "black");
         }
+        if (Graphics.debugTile) {
+          Graphics.colorize(Graphics.debugTile.getRect(), "purple");
+        }
       }
     }
   }
