@@ -27,13 +27,17 @@ export default class ShadowedSpriteGraphics extends GraphicsComponent {
 
   renderShadow() {
     const size = this.getSprite().getSize();
-    const curPos = this.entity.movement.getPosition();
+    const curPos = this.entity.getMovement().getPosition();
     const startPos = this.startPos;
     const shadowPosition = new Vector(
       curPos.x + size.width / 2,
       startPos.y + size.height + this.shadowGap
     );
     const dy = Math.max(0.5, startPos.y - curPos.y);
-    Graphics.drawShadow(shadowPosition, new Size(size.width, 5 * dy / 2));
+    Graphics.drawShadow(
+      shadowPosition,
+      new Size(size.width, 5 * dy / 2),
+      Graphics.COLORS.shadowBrown
+    );
   }
 }

@@ -36,9 +36,7 @@ export default class JumpingState extends State {
 
   enter(hero, tile) {
     this.startPosition = Vector.copy(hero.getPosition());
-    hero.setVelocity(new Vector(VELOCITY, VELOCITY));
-    hero.getMovement().moveTo(tileLandingPosition(hero, tile));
-    startJump(hero);
+    startJump(hero, tile);
   }
 
   handleCollision(hero, tile) {
@@ -64,11 +62,6 @@ export default class JumpingState extends State {
         animation = ANIMATIONS.LEFT;
       }
     }
-
-    hero
-      .getGraphics()
-      .getSprite()
-      .setAnimation(animation);
     return animation;
   }
 
@@ -80,17 +73,24 @@ export default class JumpingState extends State {
     if (!hero.getMovement().isMoving()) {
       return endJump(hero);
     }
-    this.pickAnimation(hero);
+    hero
+      .getGraphics()
+      .getSprite()
+      .setAnimation(this.pickAnimation(hero));
     return this;
   }
 }
 
 function endJump(hero) {
+  hero.getGraphics().toggleShadow(false);
   hero.getPosition().add(new Vector(0, JUMP_HEIGHT));
   return new WalkingState(hero);
 }
 
-function startJump(hero) {
+function startJump(hero, tile) {
+  hero.getGraphics().toggleShadow();
+  hero.setVelocity(new Vector(VELOCITY, VELOCITY));
+  hero.getMovement().moveTo(tileLandingPosition(hero, tile));
   hero.getPosition().subtract(new Vector(0, JUMP_HEIGHT));
 }
 

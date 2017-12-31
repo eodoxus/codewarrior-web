@@ -1,4 +1,6 @@
+import Graphics from "../../../engine/Graphics";
 import Rect from "../../../engine/Rect";
+import Size from "../../../engine/Size";
 import Tile from "../../../engine/map/Tile";
 import Vector from "../../../engine/Vector";
 
@@ -8,6 +10,7 @@ export default class GraphicsComponent {
   }
 
   entity;
+  shadow;
   sprite;
 
   constructor(entity) {
@@ -112,6 +115,25 @@ export default class GraphicsComponent {
 
   render() {
     this.sprite.render(this.entity.getPosition());
+
+    if (this.shadow) {
+      this.renderShadow();
+    }
+  }
+
+  renderShadow() {
+    const size = this.getSprite().getSize();
+    const width = size.width / 2;
+    const position = this.entity.getMovement().getPosition();
+    const shadowPosition = new Vector(
+      position.x + width,
+      position.y + size.height - 2
+    );
+    Graphics.drawShadow(shadowPosition, new Size(width, 5));
+  }
+
+  toggleShadow(isOn = true) {
+    this.shadow = isOn;
   }
 
   translateToOrigin(position) {

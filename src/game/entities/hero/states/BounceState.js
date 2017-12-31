@@ -29,11 +29,6 @@ export default class BounceState extends State {
         animation = ANIMATIONS.LEFT;
       }
     }
-
-    hero
-      .getGraphics()
-      .getSprite()
-      .setAnimation(animation);
     return animation;
   }
 
@@ -41,12 +36,16 @@ export default class BounceState extends State {
     if (!hero.getMovement().isMoving()) {
       return endBounce(hero);
     }
-    this.pickAnimation(hero);
+    hero
+      .getGraphics()
+      .getSprite()
+      .setAnimation(this.pickAnimation(hero));
     return this;
   }
 }
 
 function endBounce(hero) {
+  hero.getGraphics().toggleShadow(false);
   const movement = hero.getMovement();
   const orientation = movement.getOrientation();
   movement.setOrientation(Vector.multiply(orientation, -1));

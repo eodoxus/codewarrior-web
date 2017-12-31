@@ -1,6 +1,7 @@
 export default class Graphics {
   static COLORS = {
-    shadow: "#493d30",
+    shadow: "#282828",
+    shadowBrown: "#493d30",
     shadowBorder: "#1e1e1e"
   };
   static debug = false;
@@ -47,13 +48,8 @@ export default class Graphics {
     Graphics._renderer.colorize(rect, "white", 1.0);
   }
 
-  static drawShadow(position, size) {
-    Graphics._renderer.drawEllipseFilled(
-      position,
-      size,
-      Graphics.COLORS.shadow,
-      0.7
-    );
+  static drawShadow(position, size, color = Graphics.COLORS.shadow) {
+    Graphics._renderer.drawEllipseFilled(position, size, color, 0.7);
   }
 
   static drawTexture(tex, size, sPos, dPos, alpha = 1.0) {
