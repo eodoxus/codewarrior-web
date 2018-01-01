@@ -7,7 +7,7 @@ import Sprite from "../../../engine/Sprite";
 export default class ShadowedSpriteGraphics extends GraphicsComponent {
   static create(entity, position) {
     const graphics = new ShadowedSpriteGraphics(entity, position);
-    graphics.setSprite(Sprite.createFromProperties(entity.getProperties()));
+    graphics.setSprite(Sprite.create(entity.getProperties()));
     return graphics;
   }
 

@@ -102,19 +102,18 @@
                      "end_x":"112",
                      "end_y":"60",
                      "graphics":"ShadowedSprite",
-                     "height":"20",
                      "movement":"Pacing",
                      "shadow":"3",
-                     "texture":"items",
+                     "sprite_collection":"items",
+                     "texture":"bookOfEcmaScript.png",
                      "velocity_x":"0",
-                     "velocity_y":"-1.5",
-                     "width":"32"
+                     "velocity_y":"-1.5"
                     },
                  "rotation":0,
                  "type":"entity",
                  "visible":true,
-                 "width":32,
-                 "x":112,
+                 "width":30,
+                 "x":113,
                  "y":62
                 }],
          "opacity":1,
@@ -137,7 +136,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":8,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "properties":
     {
@@ -166,7 +165,7 @@
          "firstgid":2117,
          "image":"..\/sprites\/items.png",
          "imageheight":20,
-         "imagewidth":30,
+         "imagewidth":66,
          "margin":0,
          "name":"items",
          "properties":
@@ -174,7 +173,7 @@
 
             },
          "spacing":0,
-         "tilecount":1024,
+         "tilecount":2173,
          "tileheight":8,
          "tilewidth":8
         }],

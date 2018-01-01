@@ -1,29 +1,22 @@
 import Graphics from "./Graphics";
+import Rect from "./Rect";
+import RestClient from "../../lib/RestClient";
 import Size from "./Size";
 import Texture from "./Texture";
 import TextureCache from "./TextureCache";
 import Tile from "./map/Tile";
 import Url from "../../lib/Url";
 import Vector from "./Vector";
-import Rect from "./Rect";
 
 export default class Sprite {
-  static createFromProperties(properties) {
-    const size = new Size(
-      parseInt(properties[Tile.PROPERTIES.WIDTH], 10),
-      parseInt(properties[Tile.PROPERTIES.HEIGHT], 10)
-    );
-    return new Sprite(
-      size,
-      new Texture(
-        Url.SPRITES + properties[Tile.PROPERTIES.TEXTURE] + ".png",
-        new Vector(),
-        size
-      )
-    );
+  static create(properties) {
+    const sprite = new Sprite();
+    sprite.setProperties(properties);
+    return sprite;
   }
 
   outline;
+  properties;
   size;
   texture;
 
@@ -34,6 +27,10 @@ export default class Sprite {
 
   getOutline() {
     return this.outline;
+  }
+
+  setProperties(properties) {
+    this.properties = properties;
   }
 
   getSize() {
@@ -61,6 +58,23 @@ export default class Sprite {
   }
 
   async init() {
+    if (this.properties) {
+      const plistFile =
+        Url.SPRITES +
+        this.properties[Tile.PROPERTIES.SPRITE_COLLECTION] +
+        ".json";
+      const plist = await new RestClient().get(plistFile);
+      const frame =
+        plist.frames[this.properties[Tile.PROPERTIES.TEXTURE]].frame;
+      const width = this.properties[Tile.PROPERTIES.WIDTH] || frame.w;
+      const height = this.properties[Tile.PROPERTIES.HEIGHT] || frame.h;
+      this.size = new Size(width, height);
+      this.texture = new Texture(
+        Url.SPRITES + plist.meta.image,
+        new Vector(frame.x, frame.y),
+        this.size
+      );
+    }
     await TextureCache.fetch(this.getTexture());
   }
 

@@ -52,9 +52,6 @@ export default class AnimatedSprite extends Sprite {
   }
 
   async init() {
-    if (this.sprite && this.sprite.getAnimations()) {
-      return;
-    }
     const plistFile = Url.ANIMATIONS + this.name + ".json";
     const plist = await new RestClient().get(plistFile);
     const textureUrl = Url.ANIMATIONS + plist.meta.image;

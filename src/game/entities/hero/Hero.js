@@ -1,6 +1,7 @@
 import AnimatedSpriteGraphics from "../components/graphics/AnimatedSpriteGraphics";
 import Entity from "../../engine/Entity";
 import HeroApi from "./HeroApi";
+import HeroHud from "./HeroHud";
 import HeroBehavior from "./HeroBehavior";
 import HeroInventory from "./HeroInventory";
 import GameEvent from "../../engine/GameEvent";
@@ -10,11 +11,13 @@ import Vector from "../../engine/Vector";
 
 const ANIMATION = "hero";
 const FPS = 15;
+const STARTING_HEALTH = 12;
 
 export default class Hero extends Entity {
   static ID = "hero";
 
   experiences = {};
+  hud;
   inventory;
 
   constructor() {
@@ -30,6 +33,8 @@ export default class Hero extends Entity {
     Entity.makeActor(this);
     this.spawn(new Vector(0, 0), new Vector(0, 1));
     this.inventory = new HeroInventory();
+    this.health = this.totalHealth = STARTING_HEALTH;
+    this.hud = new HeroHud(this);
   }
 
   fulfillExperience(experienceName) {
@@ -60,6 +65,11 @@ export default class Hero extends Entity {
     return this.inventory;
   }
 
+  async init() {
+    await Entity.prototype.init.call(this);
+    return this.hud.init();
+  }
+
   render() {
     let outline = this.graphics.getSprite().getOutline();
     const canModifyOutline = !!!outline;
@@ -72,6 +82,8 @@ export default class Hero extends Entity {
       outline.min += 1;
       outline.max -= 5;
     }
+
+    this.hud.render();
   }
 
   spawn(position, orientation) {

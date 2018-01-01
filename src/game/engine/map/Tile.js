@@ -23,7 +23,10 @@ export default class Tile {
     MOVEMENT: "movement",
     NAME: "name",
     NPC: "npc",
+    OFFSET_X: "offset_x",
+    OFFSET_Y: "offset_y",
     SPAWN_HERO: "spawn_hero",
+    SPRITE_COLLECTION: "sprite_collection",
     TEXTURE: "texture",
     WIDTH: "width"
   };
