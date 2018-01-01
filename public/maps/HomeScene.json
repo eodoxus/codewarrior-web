@@ -68,11 +68,11 @@
                 {
                  "height":13.3333,
                  "id":3,
-                 "name":"crestfallen_home",
+                 "name":"crestfallenHome",
                  "properties":
                     {
-                     "facing_x":"0",
-                     "facing_y":"-1",
+                     "orientationX":"0",
+                     "orientationY":"-1",
                      "to":"CrestfallenHome"
                     },
                  "rotation":0,
@@ -88,8 +88,8 @@
                  "name":"cave",
                  "properties":
                     {
-                     "facing_x":"0",
-                     "facing_y":"-1",
+                     "orientationX":"0",
+                     "orientationY":"-1",
                      "to":"HomeCave"
                     },
                  "rotation":0,
@@ -100,9 +100,9 @@
                  "y":13.6667
                 }, 
                 {
-                 "height":8.5,
+                 "height":10,
                  "id":5,
-                 "name":"transition_up",
+                 "name":"transitionUp",
                  "properties":
                     {
                      "to":"LakeScene"
@@ -110,14 +110,14 @@
                  "rotation":0,
                  "type":"transition",
                  "visible":true,
-                 "width":39.8333,
-                 "x":175.667,
-                 "y":-1.5
+                 "width":40,
+                 "x":176,
+                 "y":0
                 }, 
                 {
                  "height":30,
                  "id":6,
-                 "name":"transition_right",
+                 "name":"transitionRight",
                  "properties":
                     {
                      "to":"BossScene"
@@ -126,13 +126,13 @@
                  "type":"transition",
                  "visible":true,
                  "width":9,
-                 "x":247.5,
-                 "y":97
+                 "x":247,
+                 "y":96
                 }, 
                 {
                  "height":15,
                  "id":27,
-                 "name":"collision_stumps",
+                 "name":"collisionStumps",
                  "properties":
                     {
                      "jumpable":"true",
@@ -142,13 +142,13 @@
                  "type":"collidable",
                  "visible":true,
                  "width":38,
-                 "x":176.667,
-                 "y":8.33333
+                 "x":176,
+                 "y":9
                 }, 
                 {
-                 "height":39.3334,
+                 "height":40,
                  "id":28,
-                 "name":"collision_skulls",
+                 "name":"collisionSkulls",
                  "properties":
                     {
                      "collidable":"true",
@@ -157,20 +157,20 @@
                  "rotation":0,
                  "type":"collidable",
                  "visible":true,
-                 "width":14.3333,
+                 "width":14,
                  "x":232,
-                 "y":88.3333
+                 "y":88
                 }, 
                 {
                  "height":0,
                  "id":36,
-                 "name":"spawn_hero",
+                 "name":"spawnHero",
                  "properties":
                     {
 
                     },
                  "rotation":0,
-                 "type":"spawn_hero",
+                 "type":"spawnHero",
                  "visible":true,
                  "width":0,
                  "x":98,
@@ -179,7 +179,7 @@
                 {
                  "height":24,
                  "id":37,
-                 "name":"jump_hint",
+                 "name":"jumpHint",
                  "properties":
                     {
                      "dialog":"Home.JumpHint",
@@ -198,7 +198,7 @@
                 {
                  "height":16,
                  "id":38,
-                 "name":"spell_hint",
+                 "name":"spellHint",
                  "properties":
                     {
                      "dialog":"Home.SpellHint",
@@ -210,7 +210,7 @@
                  "rotation":0,
                  "type":"entity",
                  "visible":true,
-                 "width":47.3333333333333,
+                 "width":47.3333,
                  "x":40,
                  "y":160
                 }],
@@ -238,7 +238,9 @@
  "orientation":"orthogonal",
  "properties":
     {
-
+     "backgroundMusic":"overworld",
+     "name":"Home",
+     "showBorder":"true"
     },
  "renderorder":"right-down",
  "tileheight":8,

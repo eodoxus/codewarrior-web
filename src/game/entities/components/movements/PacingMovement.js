@@ -4,12 +4,12 @@ import Vector from "../../../engine/Vector";
 export default class PacingMovement extends MovementComponent {
   static create(entity, position) {
     const endPosition = new Vector(
-      parseFloat(entity.getProperty("end_x")),
-      parseFloat(entity.getProperty("end_y"))
+      parseFloat(entity.getProperty("endX")),
+      parseFloat(entity.getProperty("endY"))
     );
     const velocity = new Vector(
-      parseFloat(entity.getProperty("velocity_x")),
-      parseFloat(entity.getProperty("velocity_y"))
+      parseFloat(entity.getProperty("velocityX")),
+      parseFloat(entity.getProperty("velocityY"))
     );
     return new PacingMovement(entity, position, endPosition, velocity);
   }

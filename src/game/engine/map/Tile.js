@@ -11,22 +11,24 @@ export default class Tile {
 
   static PROPERTIES = {
     ANIMATION: "animation",
+    BACKGROUND_MUSIC: "backgroundMusic",
     BEHAVIOR: "behavior",
     DIALOG: "dialog",
     ENTITY: "entity",
-    FACING: "facing",
     FPS: "fps",
-    FRAME_SET: "frame_set",
+    FRAME_SET: "frameSet",
     GRAPHICS: "graphics",
     HEIGHT: "height",
     JUMPABLE: "jumpable",
     MOVEMENT: "movement",
     NAME: "name",
     NPC: "npc",
-    OFFSET_X: "offset_x",
-    OFFSET_Y: "offset_y",
-    SPAWN_HERO: "spawn_hero",
-    SPRITE_COLLECTION: "sprite_collection",
+    OFFSET_X: "offsetX",
+    OFFSET_Y: "offsetX",
+    ORIENTATION: "orientation",
+    SHOW_BORDER: "showBorder",
+    SPAWN_HERO: "spawnHero",
+    SPRITE_COLLECTION: "spriteCollection",
     TEXTURE: "texture",
     WIDTH: "width"
   };
@@ -87,18 +89,18 @@ export default class Tile {
   getProperty(name) {
     switch (name) {
       case Tile.PROPERTIES.FACING:
-        if (this.properties[name + "_x"] && this.properties[name + "_y"]) {
+        if (this.properties[name + "X"] && this.properties[name + "Y"]) {
           return new Vector(
-            this.properties[name + "_x"],
-            this.properties[name + "_y"]
+            this.properties[name + "X"],
+            this.properties[name + "Y"]
           );
         }
         break;
       case Tile.PROPERTIES.SPAWN_HERO:
-        if (this.properties[name + "_x"] && this.properties[name + "_y"]) {
+        if (this.properties[name + "X"] && this.properties[name + "Y"]) {
           return new Vector(
-            this.properties[name + "_x"],
-            this.properties[name + "_y"]
+            this.properties[name + "X"],
+            this.properties[name + "Y"]
           );
         }
         break;

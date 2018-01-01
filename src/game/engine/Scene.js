@@ -1,9 +1,10 @@
 import Audio from "./Audio";
-import entities from "../entities";
+import Entities from "../entities";
 import GameEvent from "./GameEvent";
-import Graphics from "./Graphics";
-import TiledMap from "./map/TiledMap";
 import GameState from "../GameState";
+import Graphics from "./Graphics";
+import Tile from "./map/Tile";
+import TiledMap from "./map/TiledMap";
 
 export default class Scene {
   clickedTile;
@@ -20,10 +21,10 @@ export default class Scene {
     Audio.EFFECTS.OUT_OF_MAGIC
   ];
 
-  constructor(hero) {
+  constructor(mapName, hero) {
     Audio.stop();
     this.hero = hero;
-    this.map = new TiledMap(this.getName());
+    this.map = new TiledMap(mapName);
     this.entities = [hero];
   }
 
@@ -43,12 +44,14 @@ export default class Scene {
   }
 
   getBackgroundMusic() {
-    // Override this
+    const song = this.map.getProperty(Tile.PROPERTIES.BACKGROUND_MUSIC);
+    if (song) {
+      return `music/${song}.ogg`;
+    }
   }
 
   getName() {
-    // Override this
-    return "Base Scene";
+    return this.map.getProperty(Tile.PROPERTIES.NAME);
   }
 
   getMap() {
@@ -94,9 +97,9 @@ export default class Scene {
   }
 
   async init() {
-    this.startBackgroundMusic();
     this.loadSoundEffects();
     await this.initMap();
+    this.startBackgroundMusic();
     await this.initEntities();
     GameState.restoreScene(this);
     GameState.setSceneApi(this.getApi());
@@ -111,7 +114,7 @@ export default class Scene {
     this.hero.setMap(this.map);
     await this.map.init();
     this.map.getEntities().forEach(tile => {
-      const entity = entities.create(tile.getPosition(), tile.getProperties());
+      const entity = Entities.create(tile.getPosition(), tile.getProperties());
       this.addEntity(entity);
     });
   }
@@ -172,7 +175,7 @@ export default class Scene {
   }
 
   shouldShowBorder() {
-    return this.showBorder;
+    return this.map.getProperty(Tile.PROPERTIES.SHOW_BORDER);
   }
 
   startBackgroundMusic() {

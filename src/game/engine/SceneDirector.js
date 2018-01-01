@@ -1,19 +1,18 @@
-import * as _ from "lodash";
 import React, { Component } from "react";
 import styles from "./SceneDirector.scss";
+import Camera from "../Camera";
 import GameMenus from "../menus/GameMenusComponent";
 import Entities from "../entities";
 import GameEvent from "./GameEvent";
 import GameState from "../GameState";
 import Graphics from "./Graphics";
 import Indicators from "../../components/indicators";
-import Scenes from "../scenes";
+import Scene from "./Scene";
 import Size from "./Size";
 import TatteredPage from "../entities/items/TatteredPage";
 import Tile from "./map/Tile";
 import Time from "./Time";
 import Vector from "./Vector";
-import Camera from "../Camera";
 
 const DEBUG = false;
 const STARTING_SCENE = "Home";
@@ -265,12 +264,8 @@ function closeTatteredPage() {
 }
 
 function createScene(name, hero) {
-  let sceneName = _.upperFirst(name);
-  let sceneClass = sceneName + (sceneName.includes("Scene") ? "" : "Scene");
-  if (!Scenes[sceneClass]) {
-    throw Error(`SceneDirector does not support the "${sceneName}" scene.`);
-  }
-  return new Scenes[sceneClass](hero);
+  let sceneName = name + (name.includes("Scene") ? "" : "Scene");
+  return new Scene(sceneName, hero);
 }
 
 function openCurtain() {

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="9">
+ <properties>
+  <property name="backgroundMusic" value="cave"/>
+  <property name="name" value="HomeCave"/>
+ </properties>
  <tileset firstgid="1" name="underworld" tilewidth="8" tileheight="8" tilecount="2116">
-  <image source="../../../../public/maps/underworld.png" width="368" height="368"/>
+  <image source="../../../public/maps/underworld.png" width="368" height="368"/>
  </tileset>
- <tileset firstgid="2117" name="items" tilewidth="8" tileheight="8" tilecount="2173">
-  <image source="../../../../public/sprites/items.png" width="66" height="20"/>
+ <tileset firstgid="2117" name="items" tilewidth="8" tileheight="8" tilecount="30">
+  <image source="../../../public/sprites/items.png" width="84" height="29"/>
  </tileset>
  <layer name="map" width="32" height="24">
   <data encoding="base64" compression="zlib">
@@ -24,30 +28,30 @@
  <objectgroup name="objects">
   <object id="1" name="door" type="doorway" x="113.667" y="160.333" width="27.3333" height="17.6667">
    <properties>
-    <property name="facing_x" value="0"/>
-    <property name="facing_y" value="1"/>
-    <property name="spawn_hero_x" value="40"/>
-    <property name="spawn_hero_y" value="40"/>
+    <property name="orientationY" value="1"/>
+    <property name="orientationx" value="0"/>
+    <property name="spawnHeroX" value="40"/>
+    <property name="spawnHeroY" value="40"/>
     <property name="to" value="Home"/>
    </properties>
   </object>
-  <object id="2" name="spawn_hero" type="spawn_hero" x="128.333" y="149.333"/>
-  <object id="4" name="collision_skull" type="collidable" x="113" y="89" width="31" height="31">
+  <object id="2" name="spawnHero" type="spawnHero" x="128.333" y="149.333"/>
+  <object id="4" name="collisionSkull" type="collidable" x="113" y="89" width="31" height="31">
    <properties>
     <property name="layer" value="skull"/>
    </properties>
   </object>
   <object id="6" name="BookOfEcmaScript" type="entity" x="113" y="62" width="30" height="20">
    <properties>
-    <property name="end_x" value="112"/>
-    <property name="end_y" value="60"/>
+    <property name="endX" value="112"/>
+    <property name="endY" value="60"/>
     <property name="graphics" value="ShadowedSprite"/>
     <property name="movement" value="Pacing"/>
     <property name="shadow" value="3"/>
-    <property name="sprite_collection" value="items"/>
+    <property name="spriteCollection" value="items"/>
     <property name="texture" value="bookOfEcmaScript.png"/>
-    <property name="velocity_x" value="0"/>
-    <property name="velocity_y" value="-1.5"/>
+    <property name="velocityX" value="0"/>
+    <property name="velocityY" value="-1.5"/>
    </properties>
   </object>
  </objectgroup>

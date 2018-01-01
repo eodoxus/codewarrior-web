@@ -24,10 +24,10 @@
                  "name":"door",
                  "properties":
                     {
-                     "facing_x":"0",
-                     "facing_y":"1",
-                     "spawn_hero_x":"34",
-                     "spawn_hero_y":"168",
+                     "orientationX":"0",
+                     "orientationY":"1",
+                     "spawnHeroX":"34",
+                     "spawnHeroY":"168",
                      "to":"Home"
                     },
                  "rotation":0,
@@ -40,13 +40,13 @@
                 {
                  "height":0,
                  "id":2,
-                 "name":"spawn_hero",
+                 "name":"spawnHero",
                  "properties":
                     {
 
                     },
                  "rotation":0,
-                 "type":"spawn_hero",
+                 "type":"spawnHero",
                  "visible":true,
                  "width":0,
                  "x":128.333,
@@ -55,17 +55,17 @@
                 {
                  "height":0,
                  "id":3,
-                 "name":"spawn_npc",
+                 "name":"spawnNpc",
                  "properties":
                     {
                      "dialog":"CrestfallenHome.CrestfallenMage",
-                     "end_x":"150",
-                     "end_y":"82",
+                     "endX":"150",
+                     "endY":"82",
                      "entity":"CrestfallenMage",
                      "movement":"Pacing",
                      "npc":"true",
-                     "velocity_x":"10",
-                     "velocity_y":"0"
+                     "velocityX":"10",
+                     "velocityY":"0"
                     },
                  "rotation":0,
                  "type":"entity",
@@ -77,13 +77,13 @@
                 {
                  "height":0,
                  "id":5,
-                 "name":"firePit_01",
+                 "name":"firePit01",
                  "properties":
                     {
                      "animation":"underworld",
                      "behavior":"AnimateSometimes",
                      "fps":"20",
-                     "frame_set":"firePit",
+                     "frameSet":"firePit",
                      "graphics":"Animation",
                      "height":"16",
                      "movement":"Static",
@@ -99,13 +99,13 @@
                 {
                  "height":0,
                  "id":8,
-                 "name":"firePit_02",
+                 "name":"firePit02",
                  "properties":
                     {
                      "animation":"underworld",
                      "behavior":"AnimateSometimes",
                      "fps":"20",
-                     "frame_set":"firePit",
+                     "frameSet":"firePit",
                      "graphics":"Animation",
                      "height":"16",
                      "movement":"Static",
@@ -133,7 +133,7 @@
          "name":"collidable",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":32,
          "x":0,
          "y":0
@@ -142,7 +142,7 @@
  "orientation":"orthogonal",
  "properties":
     {
-
+     "name":"crestfallenHome"
     },
  "renderorder":"right-down",
  "tileheight":8,

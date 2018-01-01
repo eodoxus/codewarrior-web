@@ -91,14 +91,14 @@ function getHeartPosition(offset) {
 
 function createHeart(name) {
   return Sprite.create({
-    sprite_collection: "items",
+    spriteCollection: "items",
     texture: `hearts/${name}.png`
   });
 }
 
 function createMagicBar(name) {
   return Sprite.create({
-    sprite_collection: "items",
+    spriteCollection: "items",
     texture: `magicBars/${name}.png`
   });
 }

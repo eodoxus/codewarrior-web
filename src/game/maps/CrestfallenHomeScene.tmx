@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="9">
+ <properties>
+  <property name="name" value="crestfallenHome"/>
+ </properties>
  <tileset firstgid="1" name="underworld" tilewidth="8" tileheight="8" tilecount="2116">
-  <image source="../../../../public/maps/underworld.png" width="368" height="368"/>
+  <image source="../../../public/maps/underworld.png" width="368" height="368"/>
  </tileset>
  <layer name="map" width="32" height="24">
   <data encoding="base64" compression="zlib">
@@ -11,44 +14,44 @@
  <objectgroup name="objects">
   <object id="1" name="door" type="doorway" x="113.667" y="160.333" width="27.3333" height="17.6667">
    <properties>
-    <property name="facing_x" value="0"/>
-    <property name="facing_y" value="1"/>
-    <property name="spawn_hero_x" value="34"/>
-    <property name="spawn_hero_y" value="168"/>
+    <property name="orientationX" value="0"/>
+    <property name="orientationY" value="1"/>
+    <property name="spawnHeroX" value="34"/>
+    <property name="spawnHeroY" value="168"/>
     <property name="to" value="Home"/>
    </properties>
   </object>
-  <object id="2" name="spawn_hero" type="spawn_hero" x="128.333" y="149.333"/>
-  <object id="3" name="spawn_npc" type="entity" x="110" y="82">
+  <object id="2" name="spawnHero" type="spawnHero" x="128.333" y="149.333"/>
+  <object id="3" name="spawnNpc" type="entity" x="110" y="82">
    <properties>
     <property name="dialog" value="CrestfallenHome.CrestfallenMage"/>
-    <property name="end_x" value="150"/>
-    <property name="end_y" value="82"/>
+    <property name="endX" value="150"/>
+    <property name="endY" value="82"/>
     <property name="entity" value="CrestfallenMage"/>
     <property name="movement" value="Pacing"/>
     <property name="npc" value="true"/>
-    <property name="velocity_x" value="10"/>
-    <property name="velocity_y" value="0"/>
+    <property name="velocityX" value="10"/>
+    <property name="velocityY" value="0"/>
    </properties>
   </object>
-  <object id="5" name="firePit_01" type="entity" x="64" y="32">
+  <object id="5" name="firePit01" type="entity" x="64" y="32">
    <properties>
     <property name="animation" value="underworld"/>
     <property name="behavior" value="AnimateSometimes"/>
     <property name="fps" value="20"/>
-    <property name="frame_set" value="firePit"/>
+    <property name="frameSet" value="firePit"/>
     <property name="graphics" value="Animation"/>
     <property name="height" value="16"/>
     <property name="movement" value="Static"/>
     <property name="width" value="16"/>
    </properties>
   </object>
-  <object id="8" name="firePit_02" type="entity" x="176" y="32">
+  <object id="8" name="firePit02" type="entity" x="176" y="32">
    <properties>
     <property name="animation" value="underworld"/>
     <property name="behavior" value="AnimateSometimes"/>
     <property name="fps" value="20"/>
-    <property name="frame_set" value="firePit"/>
+    <property name="frameSet" value="firePit"/>
     <property name="graphics" value="Animation"/>
     <property name="height" value="16"/>
     <property name="movement" value="Static"/>
@@ -56,7 +59,7 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="collidable" width="32" height="24" visible="0">
+ <layer name="collidable" width="32" height="24">
   <data encoding="base64" compression="zlib">
    eJxjYBh8wJGDNnjUfvLtJxUMF/spBaP2j9o/av+o/aP2j9o/FO0nti1B6/bHSLKfngAAGag/4Q==
   </data>

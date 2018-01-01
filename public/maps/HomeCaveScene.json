@@ -50,10 +50,10 @@
                  "name":"door",
                  "properties":
                     {
-                     "facing_x":"0",
-                     "facing_y":"1",
-                     "spawn_hero_x":"40",
-                     "spawn_hero_y":"40",
+                     "orientationY":"1",
+                     "orientationx":"0",
+                     "spawnHeroX":"40",
+                     "spawnHeroY":"40",
                      "to":"Home"
                     },
                  "rotation":0,
@@ -66,13 +66,13 @@
                 {
                  "height":0,
                  "id":2,
-                 "name":"spawn_hero",
+                 "name":"spawnHero",
                  "properties":
                     {
 
                     },
                  "rotation":0,
-                 "type":"spawn_hero",
+                 "type":"spawnHero",
                  "visible":true,
                  "width":0,
                  "x":128.333,
@@ -81,7 +81,7 @@
                 {
                  "height":31,
                  "id":4,
-                 "name":"collision_skull",
+                 "name":"collisionSkull",
                  "properties":
                     {
                      "layer":"skull"
@@ -99,15 +99,15 @@
                  "name":"BookOfEcmaScript",
                  "properties":
                     {
-                     "end_x":"112",
-                     "end_y":"60",
+                     "endX":"112",
+                     "endY":"60",
                      "graphics":"ShadowedSprite",
                      "movement":"Pacing",
                      "shadow":"3",
-                     "sprite_collection":"items",
+                     "spriteCollection":"items",
                      "texture":"bookOfEcmaScript.png",
-                     "velocity_x":"0",
-                     "velocity_y":"-1.5"
+                     "velocityX":"0",
+                     "velocityY":"-1.5"
                     },
                  "rotation":0,
                  "type":"entity",
@@ -140,7 +140,8 @@
  "orientation":"orthogonal",
  "properties":
     {
-
+     "backgroundMusic":"cave",
+     "name":"HomeCave"
     },
  "renderorder":"right-down",
  "tileheight":8,
@@ -164,8 +165,8 @@
         {
          "firstgid":2117,
          "image":"..\/sprites\/items.png",
-         "imageheight":20,
-         "imagewidth":66,
+         "imageheight":29,
+         "imagewidth":84,
          "margin":0,
          "name":"items",
          "properties":
@@ -173,7 +174,7 @@
 
             },
          "spacing":0,
-         "tilecount":2173,
+         "tilecount":30,
          "tileheight":8,
          "tilewidth":8
         }],
