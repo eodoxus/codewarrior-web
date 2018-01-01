@@ -12,6 +12,7 @@ import Vector from "../../engine/Vector";
 const ANIMATION = "hero";
 const FPS = 15;
 const STARTING_HEALTH = 12;
+const STARTING_MAGIC = 36;
 
 export default class Hero extends Entity {
   static ID = "hero";
@@ -34,6 +35,7 @@ export default class Hero extends Entity {
     this.spawn(new Vector(0, 0), new Vector(0, 1));
     this.inventory = new HeroInventory();
     this.health = this.totalHealth = STARTING_HEALTH;
+    this.magic = this.totalMagic = STARTING_MAGIC;
     this.hud = new HeroHud(this);
   }
 

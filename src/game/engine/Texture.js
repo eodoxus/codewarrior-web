@@ -23,6 +23,10 @@ export default class Texture {
     return this.size;
   }
 
+  setSize(size) {
+    this.size = size;
+  }
+
   getUrl() {
     return this.url;
   }

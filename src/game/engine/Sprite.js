@@ -37,8 +37,9 @@ export default class Sprite {
     return this.size;
   }
 
-  setSize(s) {
-    this.size = s;
+  setSize(size) {
+    this.size = size;
+    this.texture.setSize(size);
   }
 
   getTexture() {

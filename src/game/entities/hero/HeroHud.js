@@ -2,17 +2,12 @@ import Sprite from "../../engine/Sprite";
 import Vector from "../../engine/Vector";
 
 const HEALTH_PER_HEART = 4;
+const HEALTH_POSITION = new Vector(22, 2);
 const HEART_WIDTH = 10;
 const HEART_PADDING = 1;
-const HEALTH_POSITION = new Vector(22, 2);
+const MAGIC_POSITION = new Vector(22, 14);
 
 export default class HeroHud {
-  static EMPTY_HEART = createHeart("empty");
-  static HALF_HEART = createHeart("half");
-  static QUARTER_HEART = createHeart("quarter");
-  static THREE_QUARTER_HEART = createHeart("threeQuarter");
-  static WHOLE_HEART = createHeart("whole");
-
   hero;
   sprites;
 
@@ -32,16 +27,19 @@ export default class HeroHud {
 
   async init() {
     return Promise.all([
-      HeroHud.EMPTY_HEART.init(),
-      HeroHud.HALF_HEART.init(),
-      HeroHud.QUARTER_HEART.init(),
-      HeroHud.THREE_QUARTER_HEART.init(),
-      HeroHud.WHOLE_HEART.init()
+      this.sprites.emptyHeart.init(),
+      this.sprites.halfHeart.init(),
+      this.sprites.quarterHeart.init(),
+      this.sprites.threeQuarterHeart.init(),
+      this.sprites.wholeHeart.init(),
+      this.sprites.currentMagicBar.init(),
+      this.sprites.totalMagicBar.init()
     ]);
   }
 
   render() {
     this.renderHealth();
+    this.renderMagic();
   }
 
   renderHealth() {
@@ -52,12 +50,12 @@ export default class HeroHud {
     let offset = 0;
 
     for (iDx = 0; iDx < totalHearts; iDx++) {
-      HeroHud.EMPTY_HEART.render(getHeartPosition(offset++));
+      HeroHud.HEART_EMPTY.render(getHeartPosition(offset++));
     }
 
     offset = 0;
     for (iDx = 0; iDx < wholeHearts; iDx++) {
-      HeroHud.WHOLE_HEART.render(getHeartPosition(offset++));
+      HeroHud.HEART_WHOLE.render(getHeartPosition(offset++));
     }
 
     const partialHeart = this.hero.health % HEALTH_PER_HEART;
@@ -65,13 +63,13 @@ export default class HeroHud {
       const position = getHeartPosition(offset++);
       switch (partialHeart) {
         case 1:
-          HeroHud.QUARTER_HEART.render(position);
+          this.sprites.quarterHeart.render(position);
           break;
         case 2:
-          HeroHud.HALF_HEART.render(position);
+          this.sprites.halfHeart.render(position);
           break;
         default:
-          HeroHud.THREE_QUARTER_HEART.render(position);
+          this.sprites.threeQuarterHeart.render(position);
           break;
       }
     }
@@ -101,5 +99,12 @@ function createHeart(name) {
   return Sprite.create({
     sprite_collection: "items",
     texture: `hearts/${name}.png`
+  });
+}
+
+function createMagicBar(name) {
+  return Sprite.create({
+    sprite_collection: "items",
+    texture: `magicBars/${name}.png`
   });
 }
