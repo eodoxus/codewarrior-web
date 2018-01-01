@@ -1,6 +1,9 @@
 import Dialog from "../../../engine/Dialog";
 import Tile from "../../../engine/map/Tile";
 import Vector from "../../../engine/Vector";
+import Time from "../../../engine/Time";
+
+const MAGIC_REGENERATION_RATE = 512;
 
 export default class ActorMixin {
   static applyTo(entity) {
@@ -8,6 +11,13 @@ export default class ActorMixin {
     overwriteMethod(entity.graphics, "intersectsEntity", intersectsEntity);
     entity.movement.getFaceTowardDirection = getFaceTowardDirection;
     entity.movement.faceEntity = faceEntity;
+    entity.getHealth = getHealth;
+    entity.getMagic = getMagic;
+    entity.hasMagic = hasMagic;
+    entity.spendMagic = spendMagic;
+    entity.origUpdate = entity.update;
+    entity.update = update;
+    entity.updateMagic = updateMagic;
   }
 }
 
@@ -86,6 +96,25 @@ function getFaceTowardDirection(position) {
   return new Vector(1, 1);
 }
 
+function getHealth() {
+  return this.health;
+}
+
+function getMagic() {
+  return this.magic;
+}
+
+function hasMagic() {
+  return this.magic > 0;
+}
+
+function spendMagic(points) {
+  this.magic -= points;
+  if (this.magic <= 0) {
+    this.magic = 0;
+  }
+}
+
 function intersectsEntity(entity) {
   if (!this.getRect().intersects(entity.graphics.getRect())) {
     return false;
@@ -94,4 +123,22 @@ function intersectsEntity(entity) {
     return true;
   }
   return this.outlinesIntersect(entity.graphics.getOutline());
+}
+
+function update() {
+  this.origUpdate();
+  this.updateMagic();
+}
+
+function updateMagic() {
+  if (!this.magicTimer) {
+    this.magicTimer = Time.timer();
+  }
+  if (this.magicTimer.elapsed() >= MAGIC_REGENERATION_RATE) {
+    this.magic += 1;
+    if (this.magic > this.totalMagic) {
+      this.magic = this.totalMagic;
+    }
+    this.magicTimer.reset();
+  }
 }

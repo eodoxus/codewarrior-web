@@ -20,8 +20,7 @@ class Timer {
   time;
 
   constructor() {
-    this.dt = 0;
-    this.time = Time.timestamp();
+    this.reset();
   }
 
   elapsed() {
@@ -29,5 +28,10 @@ class Timer {
     this.dt += now - this.time;
     this.time = now;
     return this.dt;
+  }
+
+  reset() {
+    this.dt = 0;
+    this.time = Time.timestamp();
   }
 }

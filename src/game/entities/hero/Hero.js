@@ -4,7 +4,6 @@ import HeroApi from "./HeroApi";
 import HeroHud from "./HeroHud";
 import HeroBehavior from "./HeroBehavior";
 import HeroInventory from "./HeroInventory";
-import GameEvent from "../../engine/GameEvent";
 import PathfindingMovement from "../components/movements/PathfindingMovement";
 import Size from "../../engine/Size";
 import Vector from "../../engine/Vector";
@@ -12,7 +11,7 @@ import Vector from "../../engine/Vector";
 const ANIMATION = "hero";
 const FPS = 15;
 const STARTING_HEALTH = 12;
-const STARTING_MAGIC = 36;
+const STARTING_MAGIC = 0;
 
 export default class Hero extends Entity {
   static ID = "hero";
@@ -97,15 +96,5 @@ export default class Hero extends Entity {
       this.movement.setOrientation(orientation);
     }
     this.graphics.stop();
-  }
-
-  update() {
-    super.update();
-
-    const map = this.movement.getMap();
-    const tile = map && map.getTileAt(this.getOrigin());
-    if (tile && tile.isDoorway()) {
-      return GameEvent.fire(GameEvent.DOORWAY, tile);
-    }
   }
 }

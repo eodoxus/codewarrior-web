@@ -2,10 +2,10 @@ import Sprite from "../../engine/Sprite";
 import Vector from "../../engine/Vector";
 
 const HEALTH_PER_HEART = 4;
-const HEALTH_POSITION = new Vector(22, 2);
+const HEALTH_POSITION = new Vector(24, 2);
 const HEART_WIDTH = 10;
 const HEART_PADDING = 1;
-const MAGIC_POSITION = new Vector(22, 14);
+const MAGIC_POSITION = new Vector(24, 14);
 
 export default class HeroHud {
   hero;
@@ -26,15 +26,9 @@ export default class HeroHud {
   }
 
   async init() {
-    return Promise.all([
-      this.sprites.emptyHeart.init(),
-      this.sprites.halfHeart.init(),
-      this.sprites.quarterHeart.init(),
-      this.sprites.threeQuarterHeart.init(),
-      this.sprites.wholeHeart.init(),
-      this.sprites.currentMagicBar.init(),
-      this.sprites.totalMagicBar.init()
-    ]);
+    return Promise.all(
+      Object.keys(this.sprites).map(sprite => this.sprites[sprite].init())
+    );
   }
 
   render() {
@@ -50,12 +44,12 @@ export default class HeroHud {
     let offset = 0;
 
     for (iDx = 0; iDx < totalHearts; iDx++) {
-      HeroHud.HEART_EMPTY.render(getHeartPosition(offset++));
+      this.sprites.emptyHeart.render(getHeartPosition(offset++));
     }
 
     offset = 0;
     for (iDx = 0; iDx < wholeHearts; iDx++) {
-      HeroHud.HEART_WHOLE.render(getHeartPosition(offset++));
+      this.sprites.wholeHeart.render(getHeartPosition(offset++));
     }
 
     const partialHeart = this.hero.health % HEALTH_PER_HEART;

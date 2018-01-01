@@ -43,7 +43,7 @@ export default class SandboxedEditorHint {
 function parseScope(obj) {
   const scope = {};
   if (obj.functions) {
-    obj.functions.forEach(key => {
+    obj.getFunctions().forEach(key => {
       scope[key] = "";
     });
   } else {

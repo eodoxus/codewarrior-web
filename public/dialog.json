@@ -19,6 +19,6 @@
   ],
   "Home.JumpHint": ["Hrm...maybe this is a good place to try that jump"],
   "Home.SpellHint": [
-    "You've received a spell!\nThere are two ways to cast it:\n1) Open the Hero menu by clicking on the Hero (or pressing space bar), then click the spell's icon.\n2) Press the number key associated with the spell (overlaid on the spell's icon)."
+    "You've received a spell!\nThere are two ways to cast it:\n1) Open the Hero menu by clicking on the Hero (or pressing space bar), then click the spell's icon.\n2) Press the number key associated with the spell (overlaid on the spell's icon).\n......\nNote: casting spells uses up your magic power."
   ]
 }

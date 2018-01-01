@@ -9,14 +9,28 @@ export default class HeroApi {
 
   constructor(hero) {
     this.hero = hero;
-    this.functions = [
-      "~pickTarget", // "~" prefix denotes async
-      "jump"
-    ];
+    this.functions = {
+      "~pickTarget": 6, // "~" prefix denotes async
+      jump: 12
+    };
+  }
+
+  getCost(functionName) {
+    let cost = 0;
+    if (this.hero.getBehavior().isReading()) {
+      return cost;
+    }
+    if (this.functions[functionName]) {
+      return this.functions[functionName];
+    }
+    if (this.functions["~" + functionName]) {
+      return this.functions["~" + functionName];
+    }
+    return cost;
   }
 
   getFunctions() {
-    return this.functions;
+    return Object.keys(this.functions);
   }
 
   async pickTarget(callback) {

@@ -1,3 +1,4 @@
+const MAGIC_PER_SPELL = 36;
 const MAX_SPELLS = 2;
 
 export default class TatteredPage {
@@ -26,6 +27,10 @@ export default class TatteredPage {
 
   getSpells() {
     return this.spells;
+  }
+
+  getTotalMagic() {
+    return this.spells.length * MAGIC_PER_SPELL;
   }
 
   removeSpell(spell) {

@@ -6,7 +6,8 @@ export default class Audio {
     CLOSE_BOOK: "effects/close-book.ogg",
     JUMP: "effects/jump.ogg",
     JUMP_COLLIDE: "effects/jump-collide.ogg",
-    OPEN_BOOK: "effects/open-book.ogg"
+    OPEN_BOOK: "effects/open-book.ogg",
+    OUT_OF_MAGIC: "effects/out-of-magic.ogg"
   };
 
   static cache = [];

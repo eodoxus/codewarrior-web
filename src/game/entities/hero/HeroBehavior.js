@@ -37,6 +37,7 @@ export default class HeroBehavior extends BehaviorComponent {
   handleClick(tile) {
     if (this.state instanceof PickingState) {
       this.state.setTarget(tile.getPosition());
+      this.state = new WalkingState(this.entity);
       return;
     }
     if (tile.hasNpc()) {
@@ -107,9 +108,9 @@ export default class HeroBehavior extends BehaviorComponent {
       )
     );
 
-    let spellEvent = GameEvent.on(GameEvent.SPELL_CAST, spell => {
+    GameEvent.on(GameEvent.SPELL_CAST, spell => {
+      this.entity.spendMagic(spell.getCost());
       this.entity.fulfillExperience("castSpell");
-      spellEvent.remove();
     });
   }
 
@@ -127,6 +128,7 @@ export default class HeroBehavior extends BehaviorComponent {
     inventory.add(TatteredPage.NAME, tatteredPage);
     const spell = new Spell(spellCode);
     tatteredPage.addSpell(spell);
+    this.entity.magic = this.entity.totalMagic = tatteredPage.getTotalMagic();
     spell.edit();
     spell.onDoneEditing(() => {
       GameState.storeHero(this.entity);
@@ -142,5 +144,15 @@ export default class HeroBehavior extends BehaviorComponent {
     this.stop();
     this.state = new PickingState(this.entity);
     return await this.state.getTarget();
+  }
+
+  update() {
+    super.update();
+
+    const map = this.entity.getMovement().getMap();
+    const tile = map && map.getTileAt(this.entity.getOrigin());
+    if (tile && tile.isDoorway()) {
+      return GameEvent.fire(GameEvent.DOORWAY, tile);
+    }
   }
 }

@@ -16,7 +16,8 @@ export default class Scene {
     Audio.EFFECTS.CLOSE_BOOK,
     Audio.EFFECTS.JUMP,
     Audio.EFFECTS.JUMP_COLLIDE,
-    Audio.EFFECTS.OPEN_BOOK
+    Audio.EFFECTS.OPEN_BOOK,
+    Audio.EFFECTS.OUT_OF_MAGIC
   ];
 
   constructor(hero) {

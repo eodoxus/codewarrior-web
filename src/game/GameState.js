@@ -5,6 +5,7 @@ import GameScriptModel from "../data/GameScriptModel";
 import Spell from "./entities/items/Spell";
 import TatteredPage from "./entities/items/TatteredPage";
 
+let _hero;
 let gameSave;
 let gameSaveSlot = 0;
 let sceneApi;
@@ -45,6 +46,10 @@ export default class GameState {
       }
     }
     return gameSave;
+  }
+
+  static getHero() {
+    return _hero;
   }
 
   static getLastScene() {
@@ -89,6 +94,8 @@ export default class GameState {
   }
 
   static async restoreHero(hero) {
+    _hero = hero;
+
     if (!state.hero) {
       return;
     }
@@ -105,6 +112,11 @@ export default class GameState {
         await GameState[restoreFn](hero);
       });
     }
+
+    hero.health = state.hero.health;
+    hero.totalHealth = state.hero.totalHealth;
+    hero.magic = state.hero.magic;
+    hero.totalMagic = state.hero.totalMagic;
   }
 
   static async restoreTatteredPage(hero) {
@@ -161,6 +173,10 @@ export default class GameState {
     Object.keys(hero.getExperiences()).forEach(experience => {
       state.hero.experiences.push(experience);
     });
+    state.hero.health = hero.health;
+    state.hero.totalHealth = hero.totalHealth;
+    state.hero.magic = hero.magic;
+    state.hero.totalMagic = hero.totalMagic;
     const inventory = hero.getInventory();
     inventory.getItems().forEach(item => {
       state.hero.inventory.push({
