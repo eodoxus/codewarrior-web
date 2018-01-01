@@ -62,14 +62,8 @@ function startBounce(hero) {
     hero.getMovement().getOrientation(),
     -1 * BOUNCE_DISTANCE
   );
-  const map = hero.getMap();
-
-  let landingPosition = Vector.copy(hero.getOrigin()).add(distance);
-  let landingTile;
-  do {
-    landingTile = map.getTileAt(landingPosition);
-    landingPosition.add(distance);
-  } while (!landingTile.isWalkable());
+  const landingPosition = Vector.copy(hero.getOrigin()).add(distance);
+  const landingTile = hero.getMap().getClosestWalkableTile(landingPosition);
   hero.setVelocity(velocity);
   hero.getMovement().moveTo(hero.translateToOrigin(landingTile.getPosition()));
 }

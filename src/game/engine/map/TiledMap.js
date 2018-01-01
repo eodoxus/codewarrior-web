@@ -72,6 +72,26 @@ export default class TiledMap {
     }
   }
 
+  getClosestWalkableTile(position) {
+    let min = new Vector(this.size.width, this.size.height).magnitude();
+    let tile;
+    for (let iDx = this.layers.length - 1; iDx >= 0; iDx--) {
+      const tiles = this.layers[iDx].getTiles();
+      for (let jDx = 0; jDx < tiles.length; jDx++) {
+        if (!tiles[jDx].isWalkable()) {
+          continue;
+        }
+        const tilePosition = tiles[jDx].getPosition();
+        const distance = tilePosition.distanceTo(position);
+        if (distance.magnitude() < min) {
+          tile = tiles[jDx];
+          min = distance.magnitude();
+        }
+      }
+    }
+    return tile;
+  }
+
   getTileSize() {
     return this.tileSize;
   }
