@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="48">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="49">
  <properties>
   <property name="backgroundMusic" value="overworld"/>
   <property name="name" value="Home"/>
@@ -51,6 +51,8 @@
   </object>
   <object id="5" name="transitionUp" type="transition" x="176" y="0" width="40" height="10">
    <properties>
+    <property name="orientationX" value="0"/>
+    <property name="orientationY" value="-1"/>
     <property name="to" value="LakeScene"/>
    </properties>
   </object>
@@ -76,7 +78,7 @@
    <properties>
     <property name="dialog" value="Home.JumpHint"/>
     <property name="entity" value="TatteredPageHint"/>
-    <property name="fulfilledOn" value="jumped"/>
+    <property name="fulfilledOn" value="transitioned"/>
     <property name="graphics" value="No"/>
     <property name="movement" value="Static"/>
    </properties>

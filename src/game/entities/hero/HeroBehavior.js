@@ -21,6 +21,7 @@ export default class HeroBehavior extends BehaviorComponent {
   }
 
   beginTransition(velocity, orientation) {
+    this.entity.fulfillExperience("transitioned");
     this.state = new TransitioningState(this.entity, velocity, orientation);
   }
 

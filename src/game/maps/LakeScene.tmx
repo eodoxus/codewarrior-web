@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="49">
+ <properties>
+  <property name="backgroundMusic" value="overworld"/>
+  <property name="name" value="Lake"/>
+  <property name="showBorder" value="true"/>
+ </properties>
+ <tileset firstgid="1" name="overworld" tilewidth="8" tileheight="8" tilecount="8645">
+  <image source="../../../public/maps/overworld.png" width="760" height="728"/>
+ </tileset>
+ <layer name="background" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztwzENAAAMA6D+81L/8ipkkNBLqqqqvjh9LasB
+  </data>
+ </layer>
+ <layer name="map" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxbwsrAkMjGwJDARn96OSsELwFiJXYGhgNAsf1stKeV2RH2wuymN4C5QX4A7IYBOaDddQNofy37qP9H/T9w9o/6f9T/o/4fOPtH/T/qf1AbKAnYJktmo5+9KUC7UoH4CBuk/QdyQyPQLYuA9GJWymlcfgHZC1KTimTvQSQ2I5DNxEY5fQiH/Q3sEDVLoPaC/A8AF95MLg==
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="5" name="transitionDown" type="transition" x="176" y="182" width="40" height="10">
+   <properties>
+    <property name="orientationX" value="0"/>
+    <property name="orientationY" value="1"/>
+    <property name="to" value="HomeScene"/>
+   </properties>
+  </object>
+  <object id="48" name="spawnHero" type="spawnHero" x="194" y="170"/>
+ </objectgroup>
+ <layer name="collidable" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjZWBgYB3FdAcDaTe6G0btH7V/1P5R+0ftH7V/1P5R++lt/0C3v+jVnhzo9iw2dQApJAMr
+  </data>
+ </layer>
+</map>

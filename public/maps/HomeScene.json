@@ -105,6 +105,8 @@
                  "name":"transitionUp",
                  "properties":
                     {
+                     "orientationX":"0",
+                     "orientationY":"-1",
                      "to":"LakeScene"
                     },
                  "rotation":0,
@@ -184,7 +186,7 @@
                     {
                      "dialog":"Home.JumpHint",
                      "entity":"TatteredPageHint",
-                     "fulfilledOn":"jumped",
+                     "fulfilledOn":"transitioned",
                      "graphics":"No",
                      "movement":"Static"
                     },
@@ -234,7 +236,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":48,
+ "nextobjectid":49,
  "orientation":"orthogonal",
  "properties":
     {
