@@ -6,9 +6,9 @@ export default class Entity {
     ActorMixin.applyTo(entity);
   }
 
+  _isDead;
   behavior;
   id;
-  isDead;
   graphics;
   movement;
   properties;
@@ -130,25 +130,33 @@ export default class Entity {
     return this.behavior.hasIntent();
   }
 
+  async init() {
+    await this.graphics.init();
+    this.start();
+  }
+
   intersects(obj) {
     return this.graphics.intersects(obj);
   }
 
-  isIntent(type) {
-    return this.behavior.isIntent(type);
-  }
-
-  async init() {
-    await this.graphics.init();
-    this.start();
+  isDead() {
+    return this._isDead;
   }
 
   isHero(entity) {
     return this.id === "hero";
   }
 
+  isIntent(type) {
+    return this.behavior.isIntent(type);
+  }
+
   isNpc() {
     return !!this.getProperty(Tile.PROPERTIES.NPC);
+  }
+
+  isWalkable() {
+    return false;
   }
 
   render() {
@@ -156,7 +164,7 @@ export default class Entity {
   }
 
   kill() {
-    this.isDead = true;
+    this._isDead = true;
   }
 
   start() {

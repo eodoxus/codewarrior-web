@@ -77,13 +77,13 @@ export default class Scene {
     let len = this.entities.length;
     for (let iDx = 0; iDx < len - 1; iDx++) {
       const entity = this.entities[iDx];
-      if (entity.isDead) {
+      if (entity.isDead()) {
         continue;
       }
 
       for (let jDx = iDx + 1; jDx < len; jDx++) {
         const otherEntity = this.entities[jDx];
-        if (otherEntity.isDead) {
+        if (otherEntity.isDead()) {
           continue;
         }
 
@@ -162,7 +162,7 @@ export default class Scene {
     const renderOrder = {};
     for (let iDx = this.entities.length - 1; iDx >= 0; iDx--) {
       const entity = this.entities[iDx];
-      if (entity.isDead) {
+      if (entity.isDead()) {
         continue;
       }
       const yPos = entity.getPosition().y;

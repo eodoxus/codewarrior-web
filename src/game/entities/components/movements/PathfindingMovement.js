@@ -39,12 +39,6 @@ export default class PathfindingMovement extends MovementComponent {
   }
 
   walkTo(tile) {
-    if (tile.isWalkable && !tile.isWalkable()) {
-      return GameEvent.fire(GameEvent.DIALOG, {
-        error: true,
-        msg: "I can't walk there"
-      });
-    }
     const curTile = this.map.getTileAt(this.entity.getOrigin());
     if (!curTile) {
       return;

@@ -131,8 +131,12 @@ export default class Tile {
     this.tilesetPosition = position;
   }
 
+  hasEntity() {
+    return !!this.entity && !this.entity.isHero() && !this.entity.isDead();
+  }
+
   hasNpc() {
-    return this.entity && this.entity.isNpc();
+    return this.hasEntity() && this.entity.isNpc();
   }
 
   intersects(tile) {
@@ -156,7 +160,11 @@ export default class Tile {
   }
 
   isJumpable() {
-    return !!this.properties[Tile.PROPERTIES.JUMPABLE];
+    const jumpable = Tile.PROPERTIES.JUMPABLE;
+    if (this.hasEntity()) {
+      return !!this.entity.getProperty(jumpable);
+    }
+    return !!this.properties[jumpable];
   }
 
   isTransition() {
@@ -167,8 +175,8 @@ export default class Tile {
     if (this.properties.isCollidable) {
       return false;
     }
-    if (this.hasNpc()) {
-      return false;
+    if (this.hasEntity()) {
+      return this.entity.isWalkable();
     }
     return true;
   }

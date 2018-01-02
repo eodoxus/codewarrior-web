@@ -36,4 +36,8 @@ export default class Hint extends Entity {
     );
     return isFulfilled;
   }
+
+  isWalkable() {
+    return true;
+  }
 }

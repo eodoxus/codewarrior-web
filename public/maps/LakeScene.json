@@ -32,7 +32,7 @@
          "name":"objects",
          "objects":[
                 {
-                 "height":10,
+                 "height":16,
                  "id":5,
                  "name":"transitionDown",
                  "properties":
@@ -46,7 +46,7 @@
                  "visible":true,
                  "width":40,
                  "x":176,
-                 "y":182
+                 "y":176
                 }, 
                 {
                  "height":0,

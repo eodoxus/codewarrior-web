@@ -19,7 +19,7 @@
   </data>
  </layer>
  <objectgroup name="objects">
-  <object id="5" name="transitionDown" type="transition" x="176" y="182" width="40" height="10">
+  <object id="5" name="transitionDown" type="transition" x="176" y="176" width="40" height="16">
    <properties>
     <property name="orientationX" value="0"/>
     <property name="orientationY" value="1"/>

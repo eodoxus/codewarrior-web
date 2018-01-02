@@ -44,23 +44,6 @@
          "y":0
         }, 
         {
-         "compression":"zlib",
-         "data":"eJztxrENACAIAMFvYRHZfwrdygHoNSF\/1cFMO+BE\/ysrobJfkiRJ+ukCsMAEDQ==",
-         "encoding":"base64",
-         "height":24,
-         "name":"stumps",
-         "opacity":1,
-         "properties":
-            {
-             "collidable":"true"
-            },
-         "type":"tilelayer",
-         "visible":true,
-         "width":32,
-         "x":0,
-         "y":0
-        }, 
-        {
          "draworder":"topdown",
          "height":0,
          "name":"objects",
@@ -100,7 +83,7 @@
                  "y":13.6667
                 }, 
                 {
-                 "height":10,
+                 "height":16,
                  "id":5,
                  "name":"transitionUp",
                  "properties":
@@ -127,25 +110,9 @@
                  "rotation":0,
                  "type":"transition",
                  "visible":true,
-                 "width":9,
-                 "x":247,
+                 "width":8,
+                 "x":248,
                  "y":96
-                }, 
-                {
-                 "height":15,
-                 "id":27,
-                 "name":"collisionStumps",
-                 "properties":
-                    {
-                     "jumpable":"true",
-                     "layer":"stumps"
-                    },
-                 "rotation":0,
-                 "type":"collidable",
-                 "visible":true,
-                 "width":38,
-                 "x":176,
-                 "y":9
                 }, 
                 {
                  "height":40,
@@ -215,6 +182,69 @@
                  "width":47.3333,
                  "x":40,
                  "y":160
+                }, 
+                {
+                 "height":16,
+                 "id":49,
+                 "name":"stump01",
+                 "properties":
+                    {
+                     "entity":"Barrier",
+                     "fulfilledOn":"secondSpell",
+                     "graphics":"Sprite",
+                     "jumpable":"true",
+                     "movement":"Static",
+                     "spriteCollection":"items",
+                     "texture":"overworldStump.png"
+                    },
+                 "rotation":0,
+                 "type":"entity",
+                 "visible":true,
+                 "width":16,
+                 "x":168,
+                 "y":8
+                }, 
+                {
+                 "height":16,
+                 "id":50,
+                 "name":"stump02",
+                 "properties":
+                    {
+                     "entity":"Barrier",
+                     "fulfilledOn":"secondSpell",
+                     "graphics":"Sprite",
+                     "jumpable":"true",
+                     "movement":"Static",
+                     "spriteCollection":"items",
+                     "texture":"overworldStump.png"
+                    },
+                 "rotation":0,
+                 "type":"entity",
+                 "visible":true,
+                 "width":16,
+                 "x":188,
+                 "y":8
+                }, 
+                {
+                 "height":16,
+                 "id":51,
+                 "name":"stump03",
+                 "properties":
+                    {
+                     "entity":"Barrier",
+                     "fulfilledOn":"secondSpell",
+                     "graphics":"Sprite",
+                     "jumpable":"true",
+                     "movement":"Static",
+                     "spriteCollection":"items",
+                     "texture":"overworldStump.png"
+                    },
+                 "rotation":0,
+                 "type":"entity",
+                 "visible":true,
+                 "width":16,
+                 "x":208,
+                 "y":8
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -236,7 +266,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":49,
+ "nextobjectid":52,
  "orientation":"orthogonal",
  "properties":
     {

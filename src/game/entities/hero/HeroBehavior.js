@@ -46,6 +46,11 @@ export default class HeroBehavior extends BehaviorComponent {
       const npc = tile.getEntity();
       this.setIntent(GameEvent.talk(npc));
       npc.getBehavior().setIntent(GameEvent.talk(this.entity));
+    } else if (!tile.isWalkable()) {
+      return GameEvent.fire(GameEvent.DIALOG, {
+        error: true,
+        msg: "I can't walk there"
+      });
     }
     this.beginWalking(tile);
   }

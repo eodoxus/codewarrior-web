@@ -3,6 +3,7 @@ import AnimationGraphics from "./AnimationGraphics";
 import GraphicsComponent from "./GraphicsComponent";
 import NoGraphics from "./NoGraphicsComponent";
 import ShadowedSpriteGraphics from "./ShadowedSpriteGraphics";
+import SpriteGraphics from "./SpriteGraphicsComponent";
 import Tile from "../../../engine/map/Tile";
 
 const graphics = {
@@ -10,6 +11,7 @@ const graphics = {
   AnimatedSpriteGraphics,
   AnimationGraphics,
   NoGraphics,
+  SpriteGraphics,
   ShadowedSpriteGraphics
 };
 

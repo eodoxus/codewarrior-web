@@ -25,7 +25,7 @@ export default class GameState {
 
   static getEntityState(entity) {
     const state = {
-      isDead: entity.isDead
+      _isDead: entity.isDead()
     };
     const behaviorState = GameState.getBehaviorState(entity.getBehavior());
     if (behaviorState) {

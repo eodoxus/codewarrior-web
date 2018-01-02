@@ -2,7 +2,7 @@
 
 "bookOfEcmaScript.png":
 {
-	"frame": {"x":0,"y":0,"w":31,"h":21},
+	"frame": {"x":68,"y":0,"w":31,"h":21},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":21},
@@ -11,16 +11,16 @@
 },
 "hearts/empty.png":
 {
-	"frame": {"x":31,"y":0,"w":10,"h":10},
+	"frame": {"x":40,"y":0,"w":11,"h":11},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":10},
-	"sourceSize": {"w":10,"h":10},
+	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":11},
+	"sourceSize": {"w":11,"h":11},
 	"pivot": {"x":0.5,"y":0.5}
 },
 "hearts/half.png":
 {
-	"frame": {"x":41,"y":0,"w":10,"h":10},
+	"frame": {"x":20,"y":0,"w":10,"h":10},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":10},
@@ -29,7 +29,7 @@
 },
 "hearts/quarter.png":
 {
-	"frame": {"x":51,"y":0,"w":10,"h":10},
+	"frame": {"x":0,"y":0,"w":10,"h":10},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":10},
@@ -38,7 +38,7 @@
 },
 "hearts/threeQuarter.png":
 {
-	"frame": {"x":61,"y":0,"w":10,"h":10},
+	"frame": {"x":30,"y":0,"w":10,"h":10},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":10},
@@ -47,7 +47,7 @@
 },
 "hearts/whole.png":
 {
-	"frame": {"x":71,"y":0,"w":10,"h":10},
+	"frame": {"x":10,"y":0,"w":10,"h":10},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":10},
@@ -56,7 +56,7 @@
 },
 "magicBars/current.png":
 {
-	"frame": {"x":0,"y":21,"w":84,"h":4},
+	"frame": {"x":0,"y":25,"w":84,"h":4},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":4},
@@ -65,11 +65,20 @@
 },
 "magicBars/total.png":
 {
-	"frame": {"x":0,"y":25,"w":84,"h":4},
+	"frame": {"x":0,"y":21,"w":84,"h":4},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":4},
 	"sourceSize": {"w":84,"h":4},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"overworldStump.png":
+{
+	"frame": {"x":51,"y":0,"w":17,"h":17},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":17,"h":17},
+	"sourceSize": {"w":17,"h":17},
 	"pivot": {"x":0.5,"y":0.5}
 }},
 "meta": {
@@ -77,8 +86,8 @@
 	"version": "1.0",
 	"image": "items.png",
 	"format": "RGBA8888",
-	"size": {"w":84,"h":29},
+	"size": {"w":99,"h":29},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:ff2eb18c83c8f2f6e89c750bcd7923d1:546c6a36774b150dfe79ea7d1998551c:110e074689c9edd2c54833ce2e4d9270$"
+	"smartupdate": "$TexturePacker:SmartUpdate:1aec03f481261f64daeaa3720775b960:a9791c8c94ee59b279c095a4ddece88f:110e074689c9edd2c54833ce2e4d9270$"
 }
 }
