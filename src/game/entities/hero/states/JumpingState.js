@@ -14,10 +14,10 @@ const JUMP_HEIGHT = 8;
 const VELOCITY = 80;
 
 export default class JumpingState extends State {
-  detectCollisions(hero) {
-    const graphics = hero.getGraphics();
+  detectCollisions() {
+    const graphics = this.subject.getGraphics();
     const outline = graphics.getOutline();
-    const layers = hero.getMap().getLayers();
+    const layers = this.subject.getMap().getLayers();
     for (let iDx = 0; iDx < layers.length; iDx++) {
       const tiles = layers[iDx].getTiles();
       for (let jDx = 0; jDx < tiles.length; jDx++) {
@@ -34,22 +34,30 @@ export default class JumpingState extends State {
     }
   }
 
-  enter(hero, tile) {
+  enter(tile) {
     Audio.play(Audio.EFFECTS.JUMP);
-    startJump(hero, tile);
+    this.subject.getGraphics().toggleShadow();
+    this.subject.setVelocity(new Vector(VELOCITY, VELOCITY));
+    this.subject.getMovement().moveTo(tileLandingPosition(this.subject, tile));
+    this.subject.getPosition().subtract(new Vector(0, JUMP_HEIGHT));
   }
 
-  handleCollision(hero, tile) {
-    const movement = hero.getMovement();
-    const facingDirection = getFaceTowardDirection(hero, tile);
+  exit() {
+    this.subject.getGraphics().toggleShadow(false);
+    this.subject.getPosition().add(new Vector(0, JUMP_HEIGHT));
+  }
+
+  handleCollision(tile) {
+    const movement = this.subject.getMovement();
+    const facingDirection = getFaceTowardDirection(this.subject, tile);
     movement.setOrientation(facingDirection);
     Audio.play(Audio.EFFECTS.JUMP_COLLIDE);
-    return new BounceState(hero);
+    return new BounceState(this.subject);
   }
 
-  pickAnimation(hero) {
+  pickAnimation() {
     let animation = ANIMATIONS.DOWN;
-    const orientation = hero.getMovement().getOrientation();
+    const orientation = this.subject.getMovement().getOrientation();
     if (orientation.y < 0) {
       animation = ANIMATIONS.UP;
     } else if (orientation.y === 0) {
@@ -62,33 +70,20 @@ export default class JumpingState extends State {
     return animation;
   }
 
-  update(hero) {
-    const tile = this.detectCollisions(hero);
+  update() {
+    const tile = this.detectCollisions();
     if (tile) {
-      return this.handleCollision(hero, tile);
+      return this.handleCollision(tile);
     }
-    if (!hero.getMovement().isMoving()) {
-      return endJump(hero);
+    if (!this.subject.getMovement().isMoving()) {
+      return new WalkingState(this.subject);
     }
-    hero
+    this.subject
       .getGraphics()
       .getSprite()
-      .setAnimation(this.pickAnimation(hero));
+      .setAnimation(this.pickAnimation());
     return this;
   }
-}
-
-function endJump(hero) {
-  hero.getGraphics().toggleShadow(false);
-  hero.getPosition().add(new Vector(0, JUMP_HEIGHT));
-  return new WalkingState(hero);
-}
-
-function startJump(hero, tile) {
-  hero.getGraphics().toggleShadow();
-  hero.setVelocity(new Vector(VELOCITY, VELOCITY));
-  hero.getMovement().moveTo(tileLandingPosition(hero, tile));
-  hero.getPosition().subtract(new Vector(0, JUMP_HEIGHT));
 }
 
 function tileLandingPosition(hero, tile) {

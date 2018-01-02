@@ -1,33 +1,42 @@
 export default class State {
+  subject;
+
   constructor(subject) {
-    if (subject) {
-      const state = subject.getBehavior().getState();
-      state && state.exit(subject);
-    }
-    this.enter(...arguments);
+    this.subject = subject;
+    const state = this.subject.getBehavior().getState();
+    state && state.exit();
+    this.enter(...stripSubjectFrom(arguments));
   }
 
-  enter(subject) {
+  enter() {
     // Override this
     return this;
   }
 
-  exit(subject) {
+  exit() {
     // Override this
     return this;
   }
 
-  handleEvent(subject, input) {
+  handleEvent(input) {
     // Override this
     return this;
   }
 
-  pickAnimation(subject) {
+  pickAnimation() {
     // Override this
   }
 
-  update(subject, dt) {
+  update() {
     // Override this
     return this;
   }
+}
+
+function stripSubjectFrom(inArgs) {
+  const outArgs = [];
+  for (let iDx = 1; iDx < inArgs.length; iDx++) {
+    outArgs.push(inArgs[iDx]);
+  }
+  return outArgs;
 }

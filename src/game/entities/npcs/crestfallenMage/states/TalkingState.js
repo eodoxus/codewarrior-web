@@ -19,20 +19,21 @@ hero.jump();`;
 
 export default class TalkingState extends State {
   entity;
-  mage;
   timer;
   dialogListener;
   tatteredPageListeners;
 
-  enter(mage, entity) {
-    mage.stop();
-    this.mage = mage;
+  enter(entity) {
+    this.subject.stop();
     this.entity = entity;
     this.timer = Time.timer();
     this.startDialogListener();
     this.startTatteredPageListeners();
     this.updateDialog();
-    GameEvent.fire(GameEvent.DIALOG, mage.behavior.getDialog().getMessage());
+    GameEvent.fire(
+      GameEvent.DIALOG,
+      this.subject.behavior.getDialog().getMessage()
+    );
     return this;
   }
 
@@ -44,13 +45,13 @@ export default class TalkingState extends State {
   onCloseTatteredPage = () => {
     GameEvent.fireAfterClick(
       GameEvent.DIALOG,
-      this.mage.behavior.getDialog().getMessage()
+      this.subject.behavior.getDialog().getMessage()
     );
   };
 
   onDialogConfirm = dialog => {
     this.removeDialogListener();
-    const mageDialog = this.mage.behavior.getDialog();
+    const mageDialog = this.subject.behavior.getDialog();
     let spellCode;
     if (mageDialog.getState() === 2) {
       spellCode = JUMP_CODE;
@@ -63,12 +64,12 @@ export default class TalkingState extends State {
   };
 
   onEditorSuccess = () => {
-    this.mage.behavior.getDialog().setState(4);
+    this.subject.behavior.getDialog().setState(4);
     GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
   };
 
   onEditorFailure = () => {
-    this.mage.behavior.getDialog().setState(3);
+    this.subject.behavior.getDialog().setState(3);
   };
 
   removeDialogListener() {
@@ -117,19 +118,19 @@ export default class TalkingState extends State {
     }
   }
 
-  update(mage) {
-    if (mage.intersects(this.entity)) {
+  update() {
+    if (this.subject.intersects(this.entity)) {
       return this;
     }
 
     if (this.timer.elapsed() > Time.SECOND * DIALOG_TIMEOUT) {
-      return new StoppedState(mage);
+      return new StoppedState(this.subject);
     }
     return this;
   }
 
   updateDialog() {
-    const dialog = this.mage.behavior.getDialog();
+    const dialog = this.subject.behavior.getDialog();
     const caveSceneState = GameState.getSceneState("HomeCaveScene");
     switch (dialog.getState()) {
       case 0:

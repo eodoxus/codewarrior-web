@@ -3,34 +3,30 @@ import State from "../../../engine/State";
 import Vector from "../../../engine/Vector";
 import WalkingState from "./WalkingState";
 
+let isReading = false;
 const ANIMATION = "reading";
 
-GameEvent.on(
-  GameEvent.CLOSE_TATTERED_PAGE,
-  () => (ReadingState.isReading = false)
-);
+GameEvent.on(GameEvent.CLOSE_TATTERED_PAGE, () => (isReading = false));
 
 export default class ReadingState extends State {
-  static isReading;
-
-  enter(hero) {
-    ReadingState.isReading = true;
-    hero.setVelocity(new Vector());
+  enter() {
+    isReading = true;
+    this.subject.setOrientation(new Vector(0, -1));
+    this.subject.setVelocity(new Vector());
   }
 
-  pickAnimation(hero) {
-    hero
+  pickAnimation() {
+    return ANIMATION;
+  }
+
+  update() {
+    if (!isReading) {
+      return new WalkingState(this.subject);
+    }
+    this.subject
       .getGraphics()
       .getSprite()
-      .setAnimation(ANIMATION);
+      .setAnimation(this.pickAnimation());
     return this;
-  }
-
-  update(hero) {
-    if (!ReadingState.isReading) {
-      hero.getMovement().setOrientation(new Vector(0, -1));
-      return new WalkingState(hero);
-    }
-    return this.pickAnimation(hero);
   }
 }

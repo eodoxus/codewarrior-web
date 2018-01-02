@@ -12,15 +12,29 @@ const BOUNCE_DISTANCE = 8;
 const VELOCITY = 40;
 
 export default class BounceState extends State {
-  timer;
-
-  enter(hero) {
-    startBounce(hero);
+  enter() {
+    const movement = this.subject.getMovement();
+    const orientation = movement.getOrientation();
+    const velocity = Vector.multiply(orientation, VELOCITY);
+    const distance = Vector.multiply(orientation, -1 * BOUNCE_DISTANCE);
+    const landingPosition = Vector.copy(this.subject.getOrigin()).add(distance);
+    const landingTile = this.subject
+      .getMap()
+      .getClosestWalkableTile(landingPosition);
+    this.subject.setVelocity(velocity);
+    movement.moveTo(this.subject.translateToOrigin(landingTile.getPosition()));
   }
 
-  pickAnimation(hero) {
+  exit() {
+    this.subject.getGraphics().toggleShadow(false);
+    const movement = this.subject.getMovement();
+    const orientation = movement.getOrientation();
+    movement.setOrientation(Vector.multiply(orientation, -1));
+  }
+
+  pickAnimation() {
     let animation = ANIMATIONS.DOWN;
-    const orientation = hero.getMovement().getOrientation();
+    const orientation = this.subject.getMovement().getOrientation();
     if (orientation.y < 0) {
       animation = ANIMATIONS.UP;
     } else if (orientation.y === 0) {
@@ -33,37 +47,14 @@ export default class BounceState extends State {
     return animation;
   }
 
-  update(hero) {
-    if (!hero.getMovement().isMoving()) {
-      return endBounce(hero);
+  update() {
+    if (!this.subject.getMovement().isMoving()) {
+      return new WalkingState(this.subject);
     }
-    hero
+    this.subject
       .getGraphics()
       .getSprite()
-      .setAnimation(this.pickAnimation(hero));
+      .setAnimation(this.pickAnimation());
     return this;
   }
-}
-
-function endBounce(hero) {
-  hero.getGraphics().toggleShadow(false);
-  const movement = hero.getMovement();
-  const orientation = movement.getOrientation();
-  movement.setOrientation(Vector.multiply(orientation, -1));
-  return new WalkingState(hero);
-}
-
-function startBounce(hero) {
-  const velocity = Vector.multiply(
-    hero.getMovement().getOrientation(),
-    VELOCITY
-  );
-  const distance = Vector.multiply(
-    hero.getMovement().getOrientation(),
-    -1 * BOUNCE_DISTANCE
-  );
-  const landingPosition = Vector.copy(hero.getOrigin()).add(distance);
-  const landingTile = hero.getMap().getClosestWalkableTile(landingPosition);
-  hero.setVelocity(velocity);
-  hero.getMovement().moveTo(hero.translateToOrigin(landingTile.getPosition()));
 }

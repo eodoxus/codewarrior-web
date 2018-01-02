@@ -16,7 +16,7 @@ const ANIMATIONS = {
 const VELOCITY = 80;
 
 export default class WalkingState extends State {
-  static animationForOrientation(hero) {
+  static getAnimationFor(hero) {
     const orientation = hero.movement.getOrientation();
     if (orientation.y > 0) {
       if (orientation.x > 0) {
@@ -45,22 +45,22 @@ export default class WalkingState extends State {
     return ANIMATIONS.UP;
   }
 
-  pickAnimation(hero) {
-    return WalkingState.animationForOrientation(hero);
+  pickAnimation() {
+    return WalkingState.getAnimationFor(this.subject);
   }
 
-  update(hero) {
-    if (!hero.getMovement().isMoving()) {
-      hero.setVelocity(new Vector(VELOCITY, VELOCITY));
-      const hasMoreSteps = hero.getMovement().walkToNextStep();
+  update() {
+    if (!this.subject.getMovement().isMoving()) {
+      this.subject.setVelocity(new Vector(VELOCITY, VELOCITY));
+      const hasMoreSteps = this.subject.getMovement().walkToNextStep();
       if (!hasMoreSteps) {
-        return hero.getBehavior().isReading()
-          ? new ReadingState(hero)
-          : new StoppedState(hero);
+        return this.subject.getBehavior().isReading()
+          ? new ReadingState(this.subject)
+          : new StoppedState(this.subject);
       }
       return this;
     }
-    hero.getGraphics().start();
+    this.subject.getGraphics().start();
     return this;
   }
 }

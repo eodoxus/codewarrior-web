@@ -8,7 +8,7 @@ const TARGET_CURSOR = "crosshair";
 export default class PickingState extends State {
   target;
 
-  enter(hero) {
+  enter() {
     changeCursorTo(TARGET_CURSOR);
     return this;
   }

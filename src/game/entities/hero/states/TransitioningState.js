@@ -6,25 +6,25 @@ import Vector from "../../../engine/Vector";
 const PADDING = 20;
 
 export default class TransitioningState extends State {
-  enter(hero, velocity, orientation) {
-    hero.setVelocity(velocity);
-    hero.setOrientation(orientation);
-    hero.getGraphics().start();
+  enter(velocity, orientation) {
+    this.subject.setVelocity(velocity);
+    this.subject.setOrientation(orientation);
+    this.subject.getGraphics().start();
   }
 
-  exit(hero) {
-    hero.setVelocity(new Vector());
+  exit() {
+    this.subject.setVelocity(new Vector());
   }
 
-  pickAnimation(hero) {
-    return WalkingState.animationForOrientation(hero);
+  pickAnimation() {
+    return WalkingState.getAnimationFor(this.subject);
   }
 
-  update(hero) {
-    if (detectSceneBoundaryCollision(hero)) {
-      return new WalkingState(hero);
+  update() {
+    if (detectSceneBoundaryCollision(this.subject)) {
+      return new WalkingState(this.subject);
     }
-    hero.getPosition().add(hero.getVelocity());
+    this.subject.getPosition().add(this.subject.getVelocity());
     return this;
   }
 }

@@ -90,7 +90,7 @@ export default class HeroBehavior extends BehaviorComponent {
   }
 
   isReading() {
-    return ReadingState.isReading;
+    return this.state instanceof ReadingState;
   }
 
   jump(tile) {
