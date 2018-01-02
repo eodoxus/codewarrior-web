@@ -71,6 +71,11 @@ export default class HeroApi {
         );
       }
 
+      const mapTile = this.hero.getMap().getTileAt(tile);
+      if (!mapTile.isWalkable()) {
+        throw new Error("I can't jump there");
+      }
+
       // Offset to top left of current tile
       const startingTile = Vector.subtract(
         this.hero.getOrigin(),
