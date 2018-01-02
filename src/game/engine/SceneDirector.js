@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "./SceneDirector.scss";
+import Audio from "./Audio";
 import Camera from "../Camera";
 import GameMenus from "../menus/GameMenusComponent";
 import Entities from "../entities";
@@ -44,6 +45,7 @@ export default class SceneDirector extends Component {
     window.addEventListener("resize", this.initCamera);
     document.addEventListener("keyup", this.onKeyUp);
     await GameState.load(this.gameSaveSlot);
+    await this.loadSoundEffects();
     await this.loadScene(GameState.getLastScene() || STARTING_SCENE);
     this.hero.spawn();
     this.initCamera();
@@ -134,6 +136,13 @@ export default class SceneDirector extends Component {
     }
     this.scene = createScene(name, this.hero);
     await this.scene.init();
+  }
+
+  async loadSoundEffects() {
+    const effects = Object.keys(Audio.EFFECTS).map(
+      effect => Audio.EFFECTS[effect]
+    );
+    return Promise.all(effects.map(effect => Audio.load(effect)));
   }
 
   onClick = e => {

@@ -17,14 +17,6 @@ export default class Scene {
   hero;
   map;
 
-  soundEffects = [
-    Audio.EFFECTS.CLOSE_BOOK,
-    Audio.EFFECTS.JUMP,
-    Audio.EFFECTS.JUMP_COLLIDE,
-    Audio.EFFECTS.OPEN_BOOK,
-    Audio.EFFECTS.OUT_OF_MAGIC
-  ];
-
   constructor(mapName, hero) {
     Audio.stop();
     this.hero = hero;
@@ -101,7 +93,6 @@ export default class Scene {
   }
 
   async init() {
-    this.loadSoundEffects();
     await this.initMap();
     this.startBackgroundMusic();
     await this.initEntities();
@@ -121,10 +112,6 @@ export default class Scene {
       const entity = Entities.create(tile.getPosition(), tile.getProperties());
       this.addEntity(entity);
     });
-  }
-
-  loadSoundEffects() {
-    this.soundEffects.forEach(effect => Audio.load(effect));
   }
 
   onClick(position) {
