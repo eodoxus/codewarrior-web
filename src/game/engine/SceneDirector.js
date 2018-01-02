@@ -8,6 +8,7 @@ import GameState from "../GameState";
 import Graphics from "./Graphics";
 import Indicators from "../../components/indicators";
 import Scene from "./Scene";
+import SceneTransitioner from "./SceneTransitioner";
 import Size from "./Size";
 import TatteredPage from "../entities/items/TatteredPage";
 import Tile from "./map/Tile";
@@ -20,8 +21,9 @@ const WIDTH = 640;
 const HEIGHT = 480;
 
 export default class SceneDirector extends Component {
+  static SIZE = new Size(WIDTH, HEIGHT);
+
   camera;
-  doorwayListener;
   dt;
   gameSaveSlot = 0;
   hero;
@@ -43,6 +45,7 @@ export default class SceneDirector extends Component {
     document.addEventListener("keyup", this.onKeyUp);
     await GameState.load(this.gameSaveSlot);
     await this.loadScene(GameState.getLastScene() || STARTING_SCENE);
+    this.hero.spawn();
     this.initCamera();
     this.startGameLoop();
   }
@@ -112,12 +115,18 @@ export default class SceneDirector extends Component {
     }
   };
 
-  async loadScene(name, heroPosition, heroOrientation) {
+  async loadScene(name) {
     GameState.setLastScene(name);
     await GameState.save(this.gameSaveSlot);
+    this.doorwayListener && this.doorwayListener.remove();
     this.doorwayListener = GameEvent.once(
       GameEvent.DOORWAY,
       this.onDoorwayTransition
+    );
+    this.transitionListener && this.transitionListener.remove();
+    this.transitionListener = GameEvent.once(
+      GameEvent.TRANSITION,
+      this.onSceneTransition
     );
     if (!this.hero) {
       this.hero = new Entities.Hero();
@@ -125,7 +134,6 @@ export default class SceneDirector extends Component {
     }
     this.scene = createScene(name, this.hero);
     await this.scene.init();
-    this.hero.spawn(heroPosition, heroOrientation);
   }
 
   onClick = e => {
@@ -136,6 +144,31 @@ export default class SceneDirector extends Component {
     } else {
       inputQueue.add(GameEvent.click(position));
     }
+  };
+
+  onDoorwayTransition = doorway => {
+    closeHeroMenu();
+    closeDialog();
+    closeCurtain();
+    this.setState({ isLoading: true });
+    this.stopEventListeners();
+    this.scene.unload();
+
+    // Need to wait until current iteration of requestAnimationFrame
+    // finishes before switching scenes
+    setTimeout(async () => {
+      const timer = Time.timestamp();
+      await this.loadScene(doorway.getProperty("to"));
+      this.hero.spawn(
+        doorway.getProperty(Tile.PROPERTIES.SPAWN_HERO),
+        doorway.getProperty(Tile.PROPERTIES.ORIENTATION)
+      );
+      const elapsed = Time.timestamp() - timer;
+      setTimeout(() => {
+        openCurtain();
+        this.startGameLoop();
+      }, Math.max(0, Time.SECOND - elapsed));
+    });
   };
 
   onKeyUp = e => {
@@ -155,12 +188,9 @@ export default class SceneDirector extends Component {
     }
   };
 
-  onDoorwayTransition = doorway => {
-    this.doorwayListener.remove();
-    delete this.doorwayListener;
+  onSceneTransition = transition => {
     closeHeroMenu();
     closeDialog();
-    closeCurtain();
     this.setState({ isLoading: true });
     this.stopEventListeners();
     this.scene.unload();
@@ -168,17 +198,16 @@ export default class SceneDirector extends Component {
     // Need to wait until current iteration of requestAnimationFrame
     // finishes before switching scenes
     setTimeout(async () => {
-      const timer = Time.timestamp();
-      await this.loadScene(
-        doorway.getProperty("to"),
-        doorway.getProperty(Tile.PROPERTIES.SPAWN_HERO),
-        doorway.getProperty(Tile.PROPERTIES.FACING)
-      );
-      const elapsed = Time.timestamp() - timer;
-      setTimeout(() => {
-        openCurtain();
-        this.startGameLoop();
-      }, Math.max(0, Time.SECOND - elapsed));
+      const prevScene = this.scene;
+      await this.loadScene(transition.getProperty("to"));
+      await new SceneTransitioner(
+        this.hero,
+        prevScene,
+        this.scene,
+        transition,
+        SceneDirector.SIZE
+      ).animate();
+      this.startGameLoop();
     });
   };
 

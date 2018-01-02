@@ -100,6 +100,7 @@ export default class Graphics {
 }
 
 class CanvasRenderer {
+  bufferStack;
   canvas;
   context;
   size;
@@ -107,6 +108,7 @@ class CanvasRenderer {
   constructor(canvas) {
     this.canvas = canvas;
     this.setSurface(this.canvas);
+    this.bufferStack = [this.canvas];
   }
 
   clear() {
@@ -168,19 +170,25 @@ class CanvasRenderer {
   }
 
   openBuffer() {
-    this.buffer = this.context.canvas.cloneNode();
-    this.setSurface(this.buffer);
+    const buffer = this.context.canvas.cloneNode();
+    buffer.style.display = "none";
+    this.bufferStack.push(buffer);
+    this.setSurface(buffer);
   }
 
   drawBuffer() {
-    this.canvas.getContext("2d").drawImage(this.buffer, 0, 0);
+    this.canvas.getContext("2d").drawImage(this.currentBuffer(), 0, 0);
+  }
+
+  currentBuffer() {
+    return this.bufferStack[this.bufferStack.length - 1];
   }
 
   closeBuffer() {
-    const data = this.buffer.toDataURL();
-    this.buffer.remove();
-    delete this.buffer;
-    this.setSurface(this.canvas);
+    const buffer = this.bufferStack.pop();
+    const data = buffer.toDataURL();
+    buffer.remove();
+    this.setSurface(this.currentBuffer());
     return data;
   }
 

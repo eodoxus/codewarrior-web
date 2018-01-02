@@ -30,6 +30,10 @@ export default class Entity {
     this.behavior = behavior;
   }
 
+  getBoundingBox() {
+    return this.getGraphics().getOutline().rect;
+  }
+
   getGraphics() {
     return this.graphics;
   }
@@ -60,6 +64,14 @@ export default class Entity {
 
   getOrigin() {
     return this.graphics.getOrigin();
+  }
+
+  getOrientation() {
+    return this.movement.getOrientation();
+  }
+
+  setOrientation(orientation) {
+    this.movement.setOrientation(orientation);
   }
 
   getPosition() {

@@ -19,8 +19,6 @@ export default class GameEvent extends Event {
   static EDITOR_SUCCESS = "editorSuccess";
   static HIDE_BORDER = "hideBorder";
   static NPC_INTERACTION = "npcInteraction";
-  static TALK = "talk";
-  static TRANSITION = "transition";
   static OPEN_CURTAIN = "openCurtain";
   static OPEN_HERO_MENU = "openHeroMenu";
   static OPEN_TATTERED_PAGE = "openTatteredPage";
@@ -28,6 +26,8 @@ export default class GameEvent extends Event {
   static SHOW_BORDER = "showBorder";
   static SPELL_CAST = "spellCast";
   static STOP = "stop";
+  static TALK = "talk";
+  static TRANSITION = "transition";
 
   static click(tile) {
     return new EventType(GameEvent.CLICK, tile);

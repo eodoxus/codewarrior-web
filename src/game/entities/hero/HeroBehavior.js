@@ -7,20 +7,21 @@ import ReadingState from "./states/ReadingState";
 import Spell from "../items/Spell";
 import StoppedState from "./states/StoppedState";
 import TatteredPage from "../items/TatteredPage";
+import TransitioningState from "./states/TransitioningState";
 import WalkingState from "./states/WalkingState";
 
 const STOPPED_ANIMATION = "walking_down";
 
 export default class HeroBehavior extends BehaviorComponent {
-  static isReading() {
-    return ReadingState.isReading;
-  }
-
   listeners;
 
   constructor(entity) {
     super(entity, StoppedState, StoppedState);
     this.initListeners();
+  }
+
+  beginTransition(velocity, orientation) {
+    this.state = new TransitioningState(this.entity, velocity, orientation);
   }
 
   beginWalking(tile) {
@@ -149,10 +150,20 @@ export default class HeroBehavior extends BehaviorComponent {
   update() {
     super.update();
 
+    if (this.state instanceof TransitioningState) {
+      return;
+    }
+
     const map = this.entity.getMovement().getMap();
     const tile = map && map.getTileAt(this.entity.getOrigin());
-    if (tile && tile.isDoorway()) {
+    if (!tile) {
+      return;
+    }
+    if (tile.isDoorway()) {
       return GameEvent.fire(GameEvent.DOORWAY, tile);
+    }
+    if (tile.isTransition()) {
+      return GameEvent.fire(GameEvent.TRANSITION, tile);
     }
   }
 }

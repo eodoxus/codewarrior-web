@@ -3,15 +3,19 @@ import Entities from "../entities";
 import GameEvent from "./GameEvent";
 import GameState from "../GameState";
 import Graphics from "./Graphics";
+import SceneDirector from "./SceneDirector";
+import Size from "./Size";
 import Tile from "./map/Tile";
 import TiledMap from "./map/TiledMap";
+import Texture from "./Texture";
+import TextureCache from "./TextureCache";
+import Vector from "./Vector";
 
 export default class Scene {
   clickedTile;
   entities;
   hero;
   map;
-  size;
 
   soundEffects = [
     Audio.EFFECTS.CLOSE_BOOK,
@@ -172,6 +176,25 @@ export default class Scene {
         entity.render();
       });
     });
+  }
+
+  renderToTexture() {
+    const name = this.getName() + "FrameTexture";
+    Graphics.openBuffer();
+    this.render();
+    TextureCache.put(name, Graphics.closeBuffer());
+    return new Texture(
+      name,
+      new Vector(),
+      Size.scale(SceneDirector.SIZE, Graphics.getScale())
+    );
+  }
+
+  removeEntity(entity) {
+    const iDx = this.entities.findIndex(e => e === entity);
+    if (iDx > -1) {
+      this.entities.splice(iDx, 1);
+    }
   }
 
   shouldShowBorder() {

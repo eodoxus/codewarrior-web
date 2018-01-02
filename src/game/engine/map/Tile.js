@@ -88,19 +88,19 @@ export default class Tile {
 
   getProperty(name) {
     switch (name) {
-      case Tile.PROPERTIES.FACING:
+      case Tile.PROPERTIES.ORIENTATION:
         if (this.properties[name + "X"] && this.properties[name + "Y"]) {
           return new Vector(
-            this.properties[name + "X"],
-            this.properties[name + "Y"]
+            parseInt(this.properties[name + "X"], 10),
+            parseInt(this.properties[name + "Y"], 10)
           );
         }
         break;
       case Tile.PROPERTIES.SPAWN_HERO:
         if (this.properties[name + "X"] && this.properties[name + "Y"]) {
           return new Vector(
-            this.properties[name + "X"],
-            this.properties[name + "Y"]
+            parseInt(this.properties[name + "X"], 10),
+            parseInt(this.properties[name + "Y"], 10)
           );
         }
         break;
