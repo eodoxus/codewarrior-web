@@ -90,7 +90,7 @@ export default class MovementComponent {
     if (this.currentMove) {
       return this.updateMove();
     }
-    const velocity = Vector.multiply(this.velocity, Time.FRAME_STEP_SEC);
+    const velocity = normalizeVelocity(this.velocity);
     this.position.add(velocity);
   }
 
@@ -127,7 +127,7 @@ export default class MovementComponent {
   }
 
   updatePositionForMove() {
-    const velocity = Vector.multiply(this.velocity, Time.FRAME_STEP_SEC);
+    const velocity = normalizeVelocity(this.velocity);
 
     // prevent entity from overshooting destination on
     // position update
@@ -139,4 +139,9 @@ export default class MovementComponent {
 
     this.position.add(new Vector(dx, dy));
   }
+}
+
+function normalizeVelocity(velocity) {
+  const normalized = Vector.normalize(velocity);
+  return Vector.multiply(velocity, Time.FRAME_STEP_SEC).multiply(normalized);
 }
