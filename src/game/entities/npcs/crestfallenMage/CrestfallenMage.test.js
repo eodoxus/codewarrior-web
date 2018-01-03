@@ -45,13 +45,13 @@ beforeEach(async () => {
   mage = entities.create(new Vector(0, 0), {
     actor: "true",
     dialog: "CrestfallenHome.CrestfallenMage",
-    end_x: "40",
-    end_y: "0",
+    endX: "40",
+    endY: "0",
     entity: "CrestfallenMage",
     movement: "Pacing",
     npc: "true",
-    velocity_x: "10",
-    velocity_y: "0"
+    velocityX: "10",
+    velocityY: "0"
   });
 
   mage.getSprite().loadAnimations(plist);

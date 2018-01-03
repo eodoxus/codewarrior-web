@@ -6,7 +6,7 @@ import Hero from "./entities/hero/Hero";
 import CrestfallenMage from "./entities/npcs/crestfallenMage/CrestfallenMage";
 import Vector from "./engine/Vector";
 
-const SCENE_NAME = "Base Scene";
+const SCENE_NAME = "test";
 const DIALOG_STATE = 1;
 let scene;
 let hero;
@@ -16,7 +16,7 @@ let mage;
 describe("GameState", () => {
   beforeEach(() => {
     hero = new Hero();
-    scene = new Scene(hero);
+    scene = new Scene(SCENE_NAME, hero);
     entity = entities.create(new Vector(0, 0), {
       name: "entity"
     });

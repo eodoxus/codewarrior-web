@@ -14,6 +14,7 @@ import Camera from "../Camera";
 import { setTimeout } from "timers";
 import GameEvent from "./GameEvent";
 
+jest.mock("./Audio");
 jest.mock("./Graphics");
 jest.mock("./Scene");
 jest.mock("../GameState");

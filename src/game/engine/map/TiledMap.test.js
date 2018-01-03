@@ -21,8 +21,8 @@ describe("TiledMap", () => {
   it("parses tileset and layer info from TMX config file", () => {
     expect(map.getTexture()).toBe("/maps/overworld.png");
     expect(map.getTileSize()).toEqual(new Size(8, 8));
-    expect(map.getHeroSpawnPoint()).toEqual(new Vector(160, 142.5));
-    expect(map.getLayers().length).toBe(4);
+    expect(map.getHeroSpawnPoint()).toEqual(new Vector(98, 102));
+    expect(map.getLayers().length).toBe(3);
     expect(map.getName()).toBe("test");
   });
 
@@ -30,7 +30,7 @@ describe("TiledMap", () => {
     it("renders all layers", () => {
       map.renderLayer = jest.fn();
       map.render();
-      expect(map.renderLayer).toHaveBeenCalledTimes(4);
+      expect(map.renderLayer).toHaveBeenCalledTimes(3);
     });
   });
 

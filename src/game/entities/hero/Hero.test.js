@@ -23,6 +23,7 @@ import tmxConfig from "../../engine/map/__mocks__/map.json";
 
 jest.useFakeTimers();
 jest.mock("../../engine/Audio");
+jest.mock("./HeroHud");
 
 Sprite.prototype.getOutline = jest.fn();
 Sprite.prototype.getOutline.mockReturnValue(outline);
@@ -61,13 +62,6 @@ describe("Hero", () => {
   });
 
   describe("update", () => {
-    it("calls parent class update.", () => {
-      jest.spyOn(Entity, "update");
-      hero.update();
-      expect(Entity.update).toHaveBeenCalled();
-      Entity.update.mockRestore();
-    });
-
     it("should update animation if velocity is > 0 and hero is moving", () => {
       hero.setVelocity(new Vector(1, 1));
       hero.setState(new WalkingState(hero));
@@ -89,7 +83,7 @@ describe("Hero", () => {
       npc.getSprite().loadAnimations(npcPlist);
       npc.setProperties({ npc: true });
 
-      scene = new Scene(hero);
+      scene = new Scene("test", hero);
       npc.setMovement(PacingMovement.create(npc, new Vector(80, 66)));
       scene.addEntity(npc);
 
@@ -159,6 +153,16 @@ describe("Hero", () => {
   describe("Api", () => {
     let api;
     beforeEach(() => {
+      const mockTile = {
+        isDoorway: () => false,
+        isWalkable: () => true,
+        isTransition: () => false
+      };
+      hero.getMovement().getMap = () => ({
+        getTileAt: () => mockTile,
+        getLayers: () => []
+      });
+
       api = hero.getApi();
       const scene = document.createElement("div");
       scene.id = "scene";
@@ -201,15 +205,6 @@ describe("Hero", () => {
       });
 
       it("should move hero to tile", () => {
-        hero.getMovement().getMap = () => ({
-          getTileAt: () => {
-            return {
-              isDoorway: () => false,
-              isWalkable: () => true
-            };
-          },
-          getLayers: () => []
-        });
         api.jump(new Vector(20, 20));
         const movement = hero.getMovement();
         while (movement.isMoving()) {

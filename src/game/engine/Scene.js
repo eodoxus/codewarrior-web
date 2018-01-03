@@ -47,7 +47,7 @@ export default class Scene {
   }
 
   getName() {
-    return this.map.getProperty(Tile.PROPERTIES.NAME);
+    return this.map.getName();
   }
 
   getMap() {

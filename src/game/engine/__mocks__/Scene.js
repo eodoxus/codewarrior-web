@@ -1,5 +1,6 @@
 export default class Scene {
-  constructor(hero) {
+  constructor(name, hero) {
+    this.name = name;
     this.hero = hero;
   }
   getEntities() {

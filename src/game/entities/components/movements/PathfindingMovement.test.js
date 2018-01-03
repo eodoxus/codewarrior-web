@@ -77,8 +77,8 @@ describe("PathfindingMovement", () => {
       movement.moveTo(new Vector(100, 200));
       movement.updateMove();
       const move = movement.getCurrentMove();
-      expect(move.distanceRemaining).toEqual(new Vector(-79.2, -179.2));
-      expect(move.prev).toEqual(nextPosition.add(0.8, 0.8));
+      expect(move.distanceRemaining).toEqual(new Vector(-79.43, -179.43));
+      expect(move.prev).toEqual(nextPosition.add(0.57, 0.57));
     });
 
     it("doesn't overshoot destination position", () => {
@@ -93,47 +93,47 @@ describe("PathfindingMovement", () => {
 
       let nextPosition = new Vector(20, 20);
       testOvershoot(
-        new Vector(50, 50),
+        new Vector(100, 100),
         new Vector(20.7, 200),
-        new Vector(0, -179.2)
+        new Vector(0, -178.86)
       );
 
       nextPosition = new Vector(20, 20);
       testOvershoot(
-        new Vector(50, 50),
+        new Vector(100, 100),
         new Vector(100, 20.7),
-        new Vector(-79.2, 0)
+        new Vector(-78.86, 0)
       );
 
       nextPosition = new Vector(20, 20);
       testOvershoot(
-        new Vector(50, 50),
+        new Vector(100, 100),
         new Vector(19.3, 200),
-        new Vector(0, -179.2)
+        new Vector(0, -178.86)
       );
 
       nextPosition = new Vector(20, 20);
       testOvershoot(
-        new Vector(50, 50),
+        new Vector(100, 100),
         new Vector(100, 19.3),
-        new Vector(-79.2, 0)
+        new Vector(-78.86, 0)
       );
 
       // Check that zero velocity-x is handled correctly
       nextPosition = new Vector(20, 20);
       testOvershoot(
-        new Vector(0, 50),
+        new Vector(0, 100),
         new Vector(100, 100),
-        new Vector(-80, -79.2)
+        new Vector(-80, -78.4)
       );
 
       // Check that zero velocity-y is handled correctly
       nextPosition = new Vector(20, 20);
       nextPosition = new Vector(20, 20);
       testOvershoot(
-        new Vector(50, 0),
+        new Vector(100, 0),
         new Vector(100, 100),
-        new Vector(-79.2, -80)
+        new Vector(-78.4, -80)
       );
     });
 

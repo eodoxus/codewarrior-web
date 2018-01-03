@@ -46,23 +46,6 @@
       "y": 0
     },
     {
-      "compression": "zlib",
-      "data":
-        "eJztxrENACAIAMFvYRHZfwrdygHoNSF/1cFMO+BE/ysrobJfkiRJ+ukCsMAEDQ==",
-      "encoding": "base64",
-      "height": 24,
-      "name": "stumps",
-      "opacity": 1,
-      "properties": {
-        "collidable": "true"
-      },
-      "type": "tilelayer",
-      "visible": true,
-      "width": 32,
-      "x": 0,
-      "y": 0
-    },
-    {
       "draworder": "topdown",
       "height": 0,
       "name": "objects",
@@ -70,10 +53,10 @@
         {
           "height": 13.3333,
           "id": 3,
-          "name": "woodcutters_house",
+          "name": "crestfallenHome",
           "properties": {
-            "facing_x": "0",
-            "facing_y": "-1",
+            "orientationX": "0",
+            "orientationY": "-1",
             "to": "CrestfallenHome"
           },
           "rotation": 0,
@@ -88,8 +71,8 @@
           "id": 4,
           "name": "cave",
           "properties": {
-            "facing_x": "0",
-            "facing_y": "-1",
+            "orientationX": "0",
+            "orientationY": "-1",
             "to": "HomeCave"
           },
           "rotation": 0,
@@ -100,63 +83,39 @@
           "y": 13.6667
         },
         {
-          "height": 8.5,
+          "height": 16,
           "id": 5,
-          "name": "transition_up",
+          "name": "transitionUp",
           "properties": {
+            "orientationX": "0",
+            "orientationY": "-1",
             "to": "LakeScene"
           },
           "rotation": 0,
           "type": "transition",
           "visible": true,
-          "width": 39.8333,
-          "x": 175.667,
-          "y": -1.5
+          "width": 40,
+          "x": 176,
+          "y": 0
         },
         {
           "height": 30,
           "id": 6,
-          "name": "transition_right",
+          "name": "transitionRight",
           "properties": {
             "to": "BossScene"
           },
           "rotation": 0,
           "type": "transition",
           "visible": true,
-          "width": 9,
-          "x": 247.5,
-          "y": 97
+          "width": 8,
+          "x": 248,
+          "y": 96
         },
         {
-          "height": 1,
-          "id": 20,
-          "name": "spawn_hero",
-          "properties": {},
-          "rotation": 0,
-          "type": "spawn_hero",
-          "visible": true,
-          "width": 0,
-          "x": 160,
-          "y": 142.5
-        },
-        {
-          "height": 14.9999666666667,
-          "id": 27,
-          "name": "collision_stumps",
-          "properties": {
-            "layer": "stumps"
-          },
-          "rotation": 0,
-          "type": "collidable",
-          "visible": true,
-          "width": 54.6667,
-          "x": 168.333,
-          "y": 8.33333333333333
-        },
-        {
-          "height": 31.6667,
+          "height": 40,
           "id": 28,
-          "name": "collision_skulls",
+          "name": "collisionSkulls",
           "properties": {
             "collidable": "true",
             "layer": "skulls"
@@ -164,9 +123,117 @@
           "rotation": 0,
           "type": "collidable",
           "visible": true,
-          "width": 14.3333333333333,
+          "width": 14,
           "x": 232,
-          "y": 96
+          "y": 88
+        },
+        {
+          "height": 0,
+          "id": 36,
+          "name": "spawnHero",
+          "properties": {},
+          "rotation": 0,
+          "type": "spawnHero",
+          "visible": true,
+          "width": 0,
+          "x": 98,
+          "y": 102
+        },
+        {
+          "height": 24,
+          "id": 37,
+          "name": "jumpHint",
+          "properties": {
+            "dialog": "Home.JumpHint",
+            "entity": "TatteredPageHint",
+            "fulfilledOn": "transitioned",
+            "graphics": "No",
+            "movement": "Static"
+          },
+          "rotation": 0,
+          "type": "entity",
+          "visible": true,
+          "width": 72,
+          "x": 160,
+          "y": 16
+        },
+        {
+          "height": 16,
+          "id": 38,
+          "name": "spellHint",
+          "properties": {
+            "dialog": "Home.SpellHint",
+            "entity": "TatteredPageHint",
+            "fulfilledOn": "castSpell",
+            "graphics": "No",
+            "movement": "Static"
+          },
+          "rotation": 0,
+          "type": "entity",
+          "visible": true,
+          "width": 47.3333,
+          "x": 40,
+          "y": 160
+        },
+        {
+          "height": 16,
+          "id": 49,
+          "name": "stump01",
+          "properties": {
+            "entity": "Barrier",
+            "fulfilledOn": "secondSpell",
+            "graphics": "Sprite",
+            "jumpable": "true",
+            "movement": "Static",
+            "spriteCollection": "items",
+            "texture": "overworldStump.png"
+          },
+          "rotation": 0,
+          "type": "entity",
+          "visible": true,
+          "width": 16,
+          "x": 168,
+          "y": 8
+        },
+        {
+          "height": 16,
+          "id": 50,
+          "name": "stump02",
+          "properties": {
+            "entity": "Barrier",
+            "fulfilledOn": "secondSpell",
+            "graphics": "Sprite",
+            "jumpable": "true",
+            "movement": "Static",
+            "spriteCollection": "items",
+            "texture": "overworldStump.png"
+          },
+          "rotation": 0,
+          "type": "entity",
+          "visible": true,
+          "width": 16,
+          "x": 188,
+          "y": 8
+        },
+        {
+          "height": 16,
+          "id": 51,
+          "name": "stump03",
+          "properties": {
+            "entity": "Barrier",
+            "fulfilledOn": "secondSpell",
+            "graphics": "Sprite",
+            "jumpable": "true",
+            "movement": "Static",
+            "spriteCollection": "items",
+            "texture": "overworldStump.png"
+          },
+          "rotation": 0,
+          "type": "entity",
+          "visible": true,
+          "width": 16,
+          "x": 208,
+          "y": 8
         }
       ],
       "opacity": 1,
@@ -179,7 +246,7 @@
     {
       "compression": "zlib",
       "data":
-        "eJzl1FEKwDAIA1B/vP+VewGhURMpNeDPSvuk23Qzc0FFUTiojfTQ7TcTtp8Ny+/kdgbTqvjqsP3sfTH9zr+ostHva6tvwPqEz5gv1f2/+NFZlT3qmZuxVbPpVT96rsyUg/iTPSDvfUsdwFQGHg==",
+        "eJzt1VsKQCEIBFB/2v+W24DSmDMW1EA/gR7pPhpmNgTLi8JBbWSG6ryZsP1sWH4lqx5Ma8dXh+1nz4vpV75FlY2+X98/41drkT7K2W/yvV47NYp/btRPfb9Ezq2+t69Ml4P4nTMgz/2VNQEUXwYy",
       "encoding": "base64",
       "height": 24,
       "name": "collidable",
@@ -191,9 +258,13 @@
       "y": 0
     }
   ],
-  "nextobjectid": 36,
+  "nextobjectid": 52,
   "orientation": "orthogonal",
-  "properties": {},
+  "properties": {
+    "backgroundMusic": "overworld",
+    "name": "Home",
+    "showBorder": "true"
+  },
   "renderorder": "right-down",
   "tileheight": 8,
   "tilesets": [

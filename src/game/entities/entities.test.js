@@ -8,15 +8,15 @@ describe("BookOfEcmaScript", () => {
   beforeEach(async () => {
     book = entities.create(new Vector(0, 0), {
       name: "BookOfEcmaScript",
-      end_x: "0",
-      end_y: "-5",
+      endX: "0",
+      endY: "-5",
       graphics: "ShadowedSprite",
       height: "20",
       movement: "Pacing",
       shadow: "3",
       texture: "items",
-      velocity_x: "0",
-      velocity_y: "-1",
+      velocityX: "0",
+      velocityY: "-1",
       width: "32"
     });
     book.start();

@@ -127,12 +127,23 @@ describe("Entity", () => {
 
     beforeEach(() => {
       entity = createEntity(entityId, new Vector(10, 10));
-      entity.setVelocity(new Vector(100, 300));
     });
 
     it("increments position by velocity over the frame step time", () => {
+      // Horizontal movement
+      entity.setVelocity(new Vector(100, 0));
       entity.update();
-      expect(entity.getPosition()).toEqual(new Vector(110, 310));
+      expect(entity.getPosition()).toEqual(new Vector(110, 10));
+
+      // Vertical movement
+      entity.setVelocity(new Vector(0, 100));
+      entity.update();
+      expect(entity.getPosition()).toEqual(new Vector(110, 110));
+
+      // Diagonal movement
+      entity.setVelocity(new Vector(100, 100));
+      entity.update();
+      expect(entity.getPosition()).toEqual(new Vector(181, 181));
     });
   });
 });

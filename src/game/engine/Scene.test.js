@@ -8,12 +8,13 @@ const mockHero = {
   getPosition: () => new Vector(100, 100),
   getVelocity: () => new Vector(100, 100),
   hasIntent: () => false,
-  intersects: () => false
+  intersects: () => false,
+  isDead: () => false
 };
 
 describe("Scene", () => {
   it("instantiates without crashing", () => {
-    const scene = new Scene(mockHero);
+    const scene = new Scene("test", mockHero);
   });
 
   describe("Rendering and Collision Detection", () => {
@@ -25,7 +26,7 @@ describe("Scene", () => {
     beforeEach(() => {
       renderOrder = [];
       mockHero.render = () => renderOrder.push("hero");
-      scene = new Scene(mockHero);
+      scene = new Scene("test", mockHero);
       entity1 = entities.create(new Vector(10, 1), {
         animation: "underworld",
         behavior: "AnimateSometimes",
