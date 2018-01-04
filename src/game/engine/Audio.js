@@ -1,6 +1,9 @@
 import "whatwg-fetch";
 import Url from "../../lib/Url";
 
+let _context;
+let _currentlyPlaying = {};
+
 export default class Audio {
   static EFFECTS = {
     CLOSE_BOOK: "effects/close-book.ogg",
@@ -11,14 +14,17 @@ export default class Audio {
   };
 
   static cache = [];
-  static _context;
-  static _currentlyPlaying = {};
+
+  static getCurrentlyPlaying() {
+    return Object.keys(_currentlyPlaying).length;
+  }
 
   static async play(url) {
     const sound = await Audio.load(url);
     sound.connect(Audio.context().destination);
     sound.start(0);
-    Audio._currentlyPlaying[url] = sound;
+    _currentlyPlaying[url] = sound;
+    return sound;
   }
 
   static stop(url) {
@@ -26,16 +32,16 @@ export default class Audio {
   }
 
   static stopAll() {
-    Object.keys(Audio._currentlyPlaying).forEach(track => {
-      Audio._currentlyPlaying[track].stop(0);
+    Object.keys(_currentlyPlaying).forEach(track => {
+      _currentlyPlaying[track].stop(0);
     });
-    Audio._currentlyPlaying = {};
+    _currentlyPlaying = {};
   }
 
   static stopTrack(url) {
-    if (Audio._currentlyPlaying[url]) {
-      Audio._currentlyPlaying[url].stop(0);
-      delete Audio._currentlyPlaying[url];
+    if (_currentlyPlaying[url]) {
+      _currentlyPlaying[url].stop(0);
+      delete _currentlyPlaying[url];
     }
   }
 
@@ -64,10 +70,12 @@ export default class Audio {
     }
   }
 
-  static context() {
-    if (!Audio._context) {
-      Audio._context = new (window.AudioContext || window.webkitAudioContext)();
+  static context(context) {
+    if (typeof context !== "undefined") {
+      _context = context;
+    } else if (!_context) {
+      _context = new (window.AudioContext || window.webkitAudioContext)();
     }
-    return Audio._context;
+    return _context;
   }
 }

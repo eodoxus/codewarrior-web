@@ -97,6 +97,10 @@ export default class Graphics {
   static colorize(rect, color) {
     Graphics._renderer.colorize(rect, color);
   }
+
+  static reset() {
+    delete Graphics._renderer;
+  }
 }
 
 class CanvasRenderer {

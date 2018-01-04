@@ -1,5 +1,4 @@
 import { Component } from "react";
-import { setTimeout } from "core-js/library/web/timers";
 
 const TRANSITION_DELAY = 600;
 
@@ -11,13 +10,9 @@ export default class AutoCollapse extends Component {
 
   render() {
     if (this.props.hide && !this.state.collapsed) {
-      setTimeout(() => {
-        this.setState({ collapsed: true });
-      }, TRANSITION_DELAY);
+      setTimeout(() => this.setState({ collapsed: true }), TRANSITION_DELAY);
     } else if (!this.props.hide && this.state.collapsed) {
-      setTimeout(() => {
-        this.setState({ collapsed: false });
-      }, TRANSITION_DELAY);
+      setTimeout(() => this.setState({ collapsed: false }), TRANSITION_DELAY);
     }
     return;
   }

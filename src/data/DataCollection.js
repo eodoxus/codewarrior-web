@@ -3,6 +3,7 @@ import RestClient from "../lib/RestClient";
 
 export default class DataCollection {
   $className;
+  $url;
 
   static create(className) {
     return new DataCollection(className);

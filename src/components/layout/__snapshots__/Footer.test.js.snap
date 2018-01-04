@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Collapsed after 600ms 1`] = `
+<footer
+  className="collapsible collapsed footer"
+>
+  footy
+</footer>
+`;
+
+exports[`Open 1`] = `
+<footer
+  className="collapsible footer"
+>
+  footy
+</footer>
+`;
+
+exports[`Open after 600ms 1`] = `
+<footer
+  className="collapsible footer"
+>
+  footy
+</footer>
+`;
+
+exports[`Still open after 500ms 1`] = `
+<footer
+  className="collapsible footer"
+>
+  footy
+</footer>
+`;
+
+exports[`Still sclosed after 500ms 1`] = `
+<footer
+  className="collapsible collapsed footer"
+>
+  footy
+</footer>
+`;
