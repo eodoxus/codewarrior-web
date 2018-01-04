@@ -10,8 +10,8 @@ export default class AnimationGraphics extends GraphicsComponent {
       entity.getProperty(Tile.PROPERTIES.ANIMATION),
       entity.getProperty(Tile.PROPERTIES.FRAME_SET),
       new Size(
-        entity.getProperty(parseInt(Tile.PROPERTIES.WIDTH, 10)),
-        entity.getProperty(parseInt(Tile.PROPERTIES.HEIGHT, 10))
+        entity.getProperty(parseFloat(Tile.PROPERTIES.WIDTH)),
+        entity.getProperty(parseFloat(Tile.PROPERTIES.HEIGHT))
       ),
       entity.getProperty(Tile.PROPERTIES.FPS)
     );

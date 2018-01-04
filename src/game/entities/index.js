@@ -24,8 +24,7 @@ entities.create = (position, properties) => {
   }
   const entity = new entities[name](
     properties[Tile.PROPERTIES.NAME],
-    properties,
-    position
+    properties
   );
   if (!entity.getBehavior()) {
     entity.setBehavior(behaviors.create(entity));

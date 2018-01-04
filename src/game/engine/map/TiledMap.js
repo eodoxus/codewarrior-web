@@ -22,6 +22,7 @@ export default class TiledMap {
   constructor(name) {
     this.name = name;
     this.entities = [];
+    this.properties = {};
   }
 
   addEntity(entity) {
@@ -54,6 +55,10 @@ export default class TiledMap {
 
   getProperty(name) {
     return this.properties[name];
+  }
+
+  setProperty(name, value) {
+    this.properties[name] = value;
   }
 
   getSize() {

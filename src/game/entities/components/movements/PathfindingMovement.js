@@ -4,7 +4,6 @@ import Rect from "../../../engine/Rect";
 import GameEvent from "../../../engine/GameEvent";
 
 export default class PathfindingMovement extends MovementComponent {
-  map;
   pathFinder;
 
   constructor(entity, orientation, position) {
@@ -12,12 +11,8 @@ export default class PathfindingMovement extends MovementComponent {
     this.pathFinder = new PathFinder();
   }
 
-  getMap() {
-    return this.map;
-  }
-
   setMap(map) {
-    this.map = map;
+    super.setMap(map);
     this.pathFinder.setMap(map);
   }
 

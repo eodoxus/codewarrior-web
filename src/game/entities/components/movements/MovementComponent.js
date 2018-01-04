@@ -8,6 +8,7 @@ export default class MovementComponent {
 
   currentMove;
   entity;
+  map;
   orientation;
   position;
   velocity;
@@ -21,6 +22,14 @@ export default class MovementComponent {
 
   getCurrentMove() {
     return this.currentMove;
+  }
+
+  getMap() {
+    return this.map;
+  }
+
+  setMap(map) {
+    this.map = map;
   }
 
   getPosition() {

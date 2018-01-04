@@ -28,7 +28,7 @@ export default class GraphicsComponent {
     const top = parseInt(rowIndexes[0], 10);
     const pos = this.entity.movement.getPosition();
     rowIndexes.forEach(y => {
-      const newY = Math.floor(parseInt(y, 10) + pos.y);
+      const newY = Math.floor(parseFloat(y) + pos.y);
       const row = outline.rows[y];
       translatedRows[newY] = {
         start: row.start + pos.x,

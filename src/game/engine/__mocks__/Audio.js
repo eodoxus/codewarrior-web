@@ -1,13 +1,8 @@
 export default class MockAudio {
   static EFFECTS = {};
-
-  static play() {}
-
-  static stop() {}
-
-  static stopAll() {}
-
-  static stopTrack() {}
-
-  static load() {}
+  static play = jest.fn();
+  static stop = jest.fn();
+  static stopAll = jest.fn();
+  static stopTrack = jest.fn();
+  static load = jest.fn();
 }

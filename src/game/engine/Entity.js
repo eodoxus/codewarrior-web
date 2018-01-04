@@ -51,7 +51,7 @@ export default class Entity {
   }
 
   setMap(map) {
-    this.movement.setMap && this.movement.setMap(map);
+    this.movement.setMap(map);
   }
 
   getMovement() {
@@ -88,6 +88,10 @@ export default class Entity {
 
   getProperty(name) {
     return this.properties[name];
+  }
+
+  setProperty(name, value) {
+    this.properties[name] = value;
   }
 
   setProperties(properties) {

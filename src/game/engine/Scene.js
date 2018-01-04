@@ -46,8 +46,8 @@ export default class Scene {
     }
   }
 
-  getName() {
-    return this.map.getName();
+  getEntities() {
+    return this.entities;
   }
 
   getMap() {
@@ -61,8 +61,8 @@ export default class Scene {
     });
   }
 
-  getEntities() {
-    return this.entities;
+  getName() {
+    return this.map.getName();
   }
 
   detectCollisions() {
@@ -185,7 +185,7 @@ export default class Scene {
   }
 
   shouldShowBorder() {
-    return this.map.getProperty(Tile.PROPERTIES.SHOW_BORDER);
+    return !!this.map.getProperty(Tile.PROPERTIES.SHOW_BORDER);
   }
 
   startBackgroundMusic() {
@@ -195,6 +195,13 @@ export default class Scene {
     }
   }
 
+  unload() {
+    this.hero.stop();
+    GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
+    GameState.storeScene(this);
+    GameState.storeHero(this.hero);
+  }
+
   update() {
     this.map.trackEntities(this.entities);
     this.entities.forEach(entity => {
@@ -202,12 +209,5 @@ export default class Scene {
     });
 
     this.detectCollisions();
-  }
-
-  unload() {
-    this.hero.stop();
-    GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
-    GameState.storeScene(this);
-    GameState.storeHero(this.hero);
   }
 }

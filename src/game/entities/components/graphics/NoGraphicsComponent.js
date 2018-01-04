@@ -13,8 +13,8 @@ export default class NoGraphicsComponent extends GraphicsComponent {
   constructor(entity) {
     super(entity);
 
-    const width = entity.getProperty(Tile.PROPERTIES.WIDTH);
-    const height = entity.getProperty(Tile.PROPERTIES.HEIGHT);
+    const width = parseFloat(entity.getProperty(Tile.PROPERTIES.WIDTH));
+    const height = parseFloat(entity.getProperty(Tile.PROPERTIES.HEIGHT));
     const size = new Size(width, height);
     this.sprite = new Sprite(size);
     const outline = generateOutline(size);
