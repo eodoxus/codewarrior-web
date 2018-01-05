@@ -5,6 +5,7 @@ import App from "./App";
 import { AppModel } from "./data";
 import Scene from "./game/engine/Scene";
 
+jest.mock("./game/engine/Audio");
 jest.mock("./game/engine/Graphics");
 jest.mock("./game/engine/Scene");
 jest.mock("./game/GameState");

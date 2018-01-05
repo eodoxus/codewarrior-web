@@ -142,7 +142,7 @@ export default class SceneDirector extends Component {
     const effects = Object.keys(Audio.EFFECTS).map(
       effect => Audio.EFFECTS[effect]
     );
-    return Promise.all(effects.map(effect => Audio.load(effect)));
+    return Promise.all(effects.map(effect => Audio.loadEffect(effect)));
   }
 
   onClick = e => {

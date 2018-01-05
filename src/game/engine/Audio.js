@@ -6,11 +6,12 @@ let _currentlyPlaying = {};
 
 export default class Audio {
   static EFFECTS = {
-    CLOSE_BOOK: "effects/close-book.ogg",
-    JUMP: "effects/jump.ogg",
-    JUMP_COLLIDE: "effects/jump-collide.ogg",
-    OPEN_BOOK: "effects/open-book.ogg",
-    OUT_OF_MAGIC: "effects/out-of-magic.ogg"
+    CLOSE_BOOK: "close-book",
+    JUMP: "jump",
+    JUMP_COLLIDE: "jump-collide",
+    OPEN_BOOK: "open-book",
+    OUT_OF_MAGIC: "out-of-magic",
+    SECRET: "secret"
   };
 
   static cache = [];
@@ -25,6 +26,10 @@ export default class Audio {
     sound.start(0);
     _currentlyPlaying[url] = sound;
     return sound;
+  }
+
+  static async playEffect(effect) {
+    Audio.play("effects/" + effect + ".ogg");
   }
 
   static stop(url) {
@@ -58,6 +63,10 @@ export default class Audio {
     const source = Audio.context().createBufferSource();
     source.buffer = buffer;
     return source;
+  }
+
+  static async loadEffect(effect) {
+    Audio.load("effects/" + effect + ".ogg");
   }
 
   static async fetch(url) {

@@ -1,3 +1,4 @@
+import Audio from "../../../../engine/Audio";
 import GameEvent from "../../../../engine/GameEvent";
 import GameState from "../../../../GameState";
 import State from "../../../../engine/State";
@@ -64,6 +65,7 @@ export default class TalkingState extends State {
   };
 
   onEditorSuccess = () => {
+    Audio.playEffect(Audio.EFFECTS.SECRET);
     this.subject.behavior.getDialog().setState(4);
     GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
   };

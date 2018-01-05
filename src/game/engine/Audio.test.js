@@ -38,6 +38,13 @@ describe("Audio", () => {
       expect(sound.connect).toHaveBeenCalledTimes(1);
       expect(sound.connect).toHaveBeenCalledWith(context.destination);
     });
+
+    it("allows a shorthand for sound effect loading", () => {
+      jest.spyOn(Audio, "play");
+      Audio.playEffect("test");
+      expect(Audio.play).toHaveBeenCalledWith("effects/test.ogg");
+      Audio.play.mockRestore();
+    });
   });
 
   describe("stop", () => {
@@ -45,9 +52,9 @@ describe("Audio", () => {
       await Audio.play("test1");
       await Audio.play("test2");
       // Should be 3 songs playing, these 2 plus the 1 from previous test
-      expect(Audio.getCurrentlyPlaying()).toBe(3);
+      expect(Audio.getCurrentlyPlaying()).toBe(4);
       Audio.stop("test1");
-      expect(Audio.getCurrentlyPlaying()).toBe(2);
+      expect(Audio.getCurrentlyPlaying()).toBe(3);
       Audio.stop();
       expect(Audio.getCurrentlyPlaying()).toBe(0);
     });
@@ -86,6 +93,13 @@ describe("Audio", () => {
       const sound = await Audio.load(mockUrl);
       expect(Audio.fetch).not.toHaveBeenCalled();
       expect(Audio.cache[mockUrl]).toEqual(sound.buffer);
+    });
+
+    it("allows a shorthand for sound effect loading", () => {
+      jest.spyOn(Audio, "load");
+      Audio.loadEffect("test");
+      expect(Audio.load).toHaveBeenCalledWith("effects/test.ogg");
+      Audio.load.mockRestore();
     });
   });
 

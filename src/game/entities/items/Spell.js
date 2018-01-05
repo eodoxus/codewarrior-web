@@ -148,7 +148,7 @@ export default class Spell {
     }
     this.cost += obj.getCost(functionName);
     if (GameState.getHero().magic < this.cost) {
-      Audio.play(Audio.EFFECTS.OUT_OF_MAGIC);
+      Audio.playEffect(Audio.EFFECTS.OUT_OF_MAGIC);
       throw new Error(OUT_OF_MAGIC);
     }
   }
