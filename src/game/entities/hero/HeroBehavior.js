@@ -135,7 +135,7 @@ export default class HeroBehavior extends BehaviorComponent {
     inventory.add(TatteredPage.NAME, tatteredPage);
     const spell = new Spell(spellCode);
     tatteredPage.addSpell(spell);
-    this.entity.magic = this.entity.totalMagic = tatteredPage.getTotalMagic();
+    this.entity.setMagic(tatteredPage.getTotalMagic());
     spell.edit();
     spell.onDoneEditing(() => {
       GameState.storeHero(this.entity);

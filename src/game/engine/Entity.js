@@ -1,9 +1,14 @@
 import ActorMixin from "../entities/components/mixins/ActorMixin";
 import Tile from "./map/Tile";
+import EnemyMixin from "../entities/components/mixins/EnemyMixin";
 
 export default class Entity {
   static makeActor(entity) {
     ActorMixin.applyTo(entity);
+  }
+
+  static makeEnemy(entity) {
+    EnemyMixin.applyTo(entity);
   }
 
   _isDead;
