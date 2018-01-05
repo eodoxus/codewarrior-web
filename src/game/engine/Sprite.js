@@ -29,6 +29,10 @@ export default class Sprite {
     return this.outline;
   }
 
+  getProperty(name) {
+    return this.properties[name];
+  }
+
   setProperties(properties) {
     this.properties = properties;
   }
@@ -48,14 +52,6 @@ export default class Sprite {
 
   setTexture(texture) {
     this.texture = texture;
-  }
-
-  intersects(position, spritePosition) {
-    // Find the texture's pixel at position. If it is
-    // not transparent, then we have an intersection.
-    const pixelPosition = Vector.subtract(position, spritePosition);
-    const pixel = getPixel(this.getTexture(), pixelPosition);
-    return !Graphics.isTransparent(pixel);
   }
 
   async init() {
@@ -79,12 +75,20 @@ export default class Sprite {
     await TextureCache.fetch(this.getTexture());
   }
 
+  intersects(position, spritePosition) {
+    // Find the texture's pixel at position. If it is
+    // not transparent, then we have an intersection.
+    const pixelPosition = Vector.subtract(position, spritePosition);
+    const pixel = getPixel(this.getTexture(), pixelPosition);
+    return !Graphics.isTransparent(pixel);
+  }
+
   render(position) {
+    const texture = this.getTexture();
     if (!this.outline) {
-      this.outline = generateOutline(this.getTexture());
+      this.outline = generateOutline(texture);
     }
 
-    const texture = this.getTexture();
     Graphics.drawTexture(
       texture.getImage(),
       texture.getSize(),
@@ -112,6 +116,12 @@ function generateOutline(texture) {
     texture.getPosition(),
     new Vector(0, 0)
   );
+  const outline = parseImageRows(size);
+  Graphics.closeBuffer();
+  return outline;
+}
+
+function parseImageRows(size) {
   const rows = [];
   // Iterate all the non-transparent pixels. When the first
   // non-transparent pixel is found (on the left side), mark it
@@ -121,33 +131,30 @@ function generateOutline(texture) {
   // non-transparent pixel positions for each row containing at
   // least 1 non-transparent pixel, i.e a data structure representing
   // the outline of the image.
-  let min = 0;
-  let max = 0;
+  let min;
+  let max;
   for (let y = 0; y < size.height; y++) {
     for (let x = 0; x < size.width; x++) {
       const pixel = Graphics.getPixel(new Vector(x, y));
       const isTransparent = Graphics.isTransparent(pixel);
-      if (!rows[y] && !isTransparent) {
-        rows[y] = {
-          start: x
-        };
-        if (!min || x < min) {
-          min = x;
+      if (!isTransparent) {
+        if (!rows[y]) {
+          rows[y] = { start: x };
+          min = typeof min === "undefined" || x < min ? x : min;
+        } else {
+          rows[y].end = x;
         }
-      } else if (rows[y] && !rows[y].end && isTransparent) {
-        rows[y].end = x;
-      }
-      if (!max || x > max) {
-        max = x;
       }
     }
     if (rows[y]) {
       if (!rows[y].end) {
         rows[y].end = rows[y].start;
       }
+      max = typeof max === "undefined" || rows[y].end > max ? rows[y].end : max;
     }
   }
-  Graphics.closeBuffer();
+  min = typeof min === "undefined" ? 0 : min;
+  max = typeof max === "undefined" ? 0 : max;
   return { min, max, rows };
 }
 

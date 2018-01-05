@@ -96,6 +96,12 @@ describe("Vector", () => {
       expect(v.x).toBe(1.78);
       expect(v.y).toBe(1.12);
     });
+
+    it("allows user to generate a new vector using static round operation", () => {
+      const v2 = Vector.divide(v, 2);
+      expect(v2.x).toBe(1);
+      expect(v2.y).toBe(1.5);
+    });
   });
 
   describe("limit", () => {
@@ -149,6 +155,39 @@ describe("Vector", () => {
       v = new Vector(1, 3).normalize();
       expect(v.x).toBe(0.32);
       expect(v.y).toBe(0.95);
+    });
+  });
+
+  describe("round", () => {
+    it("rounds components to nearest integer", () => {
+      v = new Vector(26.5, 30.5);
+      v.round();
+      expect(v.x).toBe(27);
+      expect(v.y).toBe(31);
+
+      v.x = 26.4;
+      v.y = 30.4;
+      v.round();
+      expect(v.x).toBe(26);
+      expect(v.y).toBe(30);
+    });
+
+    it("allows user to generate a new vector using static round operation", () => {
+      v = new Vector(26.5, 30.5);
+      const v2 = Vector.round(v);
+      expect(v2.x).toBe(27);
+      expect(v2.y).toBe(31);
+    });
+  });
+
+  describe("isEqual", () => {
+    it("returns true if 2 vectors are equivalent, false otherwise", () => {
+      v = new Vector(26.5, 30.5);
+      const v2 = new Vector(26.5, 30.5);
+      expect(v.isEqual(v2)).toBe(true);
+      v.x = 26.4;
+      v.y = 30.4;
+      expect(v.isEqual(v2)).toBe(false);
     });
   });
 });
