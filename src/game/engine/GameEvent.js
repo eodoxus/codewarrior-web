@@ -63,7 +63,7 @@ export default class GameEvent extends Event {
     return listener;
   }
 
-  static inputQueue(event) {
+  static inputQueue() {
     if (!inputQueue) {
       inputQueue = new InputQueue();
     }

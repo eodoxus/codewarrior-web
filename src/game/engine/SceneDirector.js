@@ -253,7 +253,7 @@ export default class SceneDirector extends Component {
   }
 
   shouldShowBorder() {
-    return this.props.canShowBorder && this.scene.shouldShowBorder();
+    return !!this.props.canShowBorder && this.scene.shouldShowBorder();
   }
 
   startGameLoop() {

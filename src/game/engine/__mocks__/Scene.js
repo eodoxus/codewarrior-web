@@ -9,6 +9,9 @@ export default class Scene {
   init() {
     return Promise.resolve();
   }
-  render() {}
-  update() {}
+  onClick = jest.fn();
+  render = jest.fn();
+  update = jest.fn();
+  unload = jest.fn();
+  shouldShowBorder = jest.fn();
 }
