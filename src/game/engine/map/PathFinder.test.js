@@ -32,7 +32,7 @@ describe("PathFinder", () => {
     const pathFinder = new PathFinder(map);
     const start = new Vector(40, 64);
     const end = new Vector(160, 136);
-    const expectedNumSteps = 15;
+    const expectedNumSteps = 24;
     pathFinder.findPath(start, end);
     expect(pathFinder.getPath().length).toBe(expectedNumSteps);
     for (let iDx = 0; iDx < expectedNumSteps; iDx++) {

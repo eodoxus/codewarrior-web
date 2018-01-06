@@ -26,9 +26,9 @@
                     {
                      "orientationX":"0",
                      "orientationY":"1",
-                     "spawnHeroX":"34",
-                     "spawnHeroY":"168",
-                     "to":"Home"
+                     "spawnHeroX":"121",
+                     "spawnHeroY":"77",
+                     "to":"Lake"
                     },
                  "rotation":0,
                  "type":"doorway",
@@ -53,14 +53,14 @@
                  "y":149.333
                 }, 
                 {
-                 "height":32,
+                 "height":24,
                  "id":3,
-                 "name":"crestfallenMage",
+                 "name":"witch",
                  "properties":
                     {
                      "animation":"npcs",
-                     "behavior":"CrestfallenMage",
-                     "dialog":"CrestfallenHome.CrestfallenMage",
+                     "behavior":"Npc",
+                     "dialog":"WitchesHome.Witch",
                      "endX":"150",
                      "endY":"82",
                      "fps":"10",
@@ -73,7 +73,7 @@
                  "rotation":0,
                  "type":"entity",
                  "visible":true,
-                 "width":24,
+                 "width":20,
                  "x":110,
                  "y":82
                 }, 
@@ -137,7 +137,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":9,
+ "nextobjectid":10,
  "orientation":"orthogonal",
  "properties":
     {

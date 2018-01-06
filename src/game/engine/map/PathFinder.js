@@ -192,6 +192,7 @@ function findWalkableAdjacentTileCoords(map, position) {
   if (adjTile && adjTile.isWalkable()) {
     coords.push(adjTile.getPosition());
   }
+  /*
   // top right
   adjTile = map.getTileAt(new Vector(pos.x + tileWidth, pos.y - tileHeight));
   if (adjTile && adjTile.isWalkable()) {
@@ -212,6 +213,7 @@ function findWalkableAdjacentTileCoords(map, position) {
   if (adjTile && adjTile.isWalkable()) {
     coords.push(adjTile.getPosition());
   }
+  */
   return coords;
 }
 

@@ -10,12 +10,13 @@ export default class AnimationGraphics extends GraphicsComponent {
       entity.getProperty(Tile.PROPERTIES.ANIMATION),
       entity.getProperty(Tile.PROPERTIES.FRAME_SET),
       new Size(
-        entity.getProperty(parseFloat(Tile.PROPERTIES.WIDTH)),
-        entity.getProperty(parseFloat(Tile.PROPERTIES.HEIGHT))
+        parseFloat(entity.getProperty(Tile.PROPERTIES.WIDTH)),
+        parseFloat(entity.getProperty(Tile.PROPERTIES.HEIGHT))
       ),
       entity.getProperty(Tile.PROPERTIES.FPS)
     );
   }
+
   textureName;
 
   constructor(entity, animationName, textureName, size, fps) {

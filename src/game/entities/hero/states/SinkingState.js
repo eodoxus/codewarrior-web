@@ -11,15 +11,21 @@ const FPS = 10;
 
 export default class SinkingState extends State {
   timer;
+  graphics;
 
   enter() {
     Audio.playEffect(Audio.EFFECTS.SPLASH);
     this.subject.getPosition().add(new Vector(0, 8));
     this.subject.setVelocity(new Vector());
-    const sprite = this.subject.getGraphics().getSprite();
+    this.graphics = this.subject.getGraphics();
+    const sprite = this.graphics.getSprite();
     sprite.setAnimation(this.pickAnimation());
     sprite.getAnimation().setFps(FPS);
     this.timer = Time.timer();
+  }
+
+  exit() {
+    this.subject.setGraphics(this.graphics);
   }
 
   pickAnimation() {

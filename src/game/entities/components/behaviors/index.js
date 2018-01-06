@@ -1,10 +1,14 @@
 import BehaviorComponent from "./BehaviorComponent";
+import CrestfallenMageBehavior from "../../npcs/crestfallenMage/CrestfallenMageBehavior";
 import AnimateSometimesBehavior from "./AnimateSometimesBehavior";
 import Tile from "../../../engine/map/Tile";
+import NpcBehavior from "../../npcs/behaviors/NpcBehavior";
 
 const behaviors = {
+  BaseBehavior: BehaviorComponent,
   AnimateSometimesBehavior,
-  BaseBehavior: BehaviorComponent
+  CrestfallenMageBehavior,
+  NpcBehavior
 };
 
 behaviors.create = entity => {

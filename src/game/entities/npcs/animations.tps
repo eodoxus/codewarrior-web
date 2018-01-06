@@ -209,6 +209,13 @@
             <key type="filename">animations/crestfallenMage/right/03.png</key>
             <key type="filename">animations/crestfallenMage/up/01.png</key>
             <key type="filename">animations/crestfallenMage/up/02.png</key>
+            <key type="filename">animations/witch/down/02.png</key>
+            <key type="filename">animations/witch/left/01.png</key>
+            <key type="filename">animations/witch/right/01.png</key>
+            <key type="filename">animations/witch/right/03.png</key>
+            <key type="filename">animations/witch/up/01.png</key>
+            <key type="filename">animations/witch/up/02.png</key>
+            <key type="filename">animations/witch/up/03.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -222,6 +229,8 @@
                 <false/>
             </struct>
             <key type="filename">animations/crestfallenMage/down/03.png</key>
+            <key type="filename">animations/witch/down/01.png</key>
+            <key type="filename">animations/witch/down/03.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -235,6 +244,9 @@
                 <false/>
             </struct>
             <key type="filename">animations/crestfallenMage/up/03.png</key>
+            <key type="filename">animations/witch/left/02.png</key>
+            <key type="filename">animations/witch/left/03.png</key>
+            <key type="filename">animations/witch/right/02.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

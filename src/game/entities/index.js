@@ -4,7 +4,6 @@ import movements from "../entities/components/movements";
 import Tile from "../engine/map/Tile";
 
 import Barrier from "./items/Barrier";
-import CrestfallenMage from "./npcs/crestfallenMage/CrestfallenMage";
 import Entity from "../engine/Entity";
 import Hero from "./hero/Hero";
 import TatteredPageHint from "./hints/TatteredPageHint";
@@ -12,7 +11,6 @@ import TatteredPageHint from "./hints/TatteredPageHint";
 const entities = {
   BaseEntity: Entity,
   Barrier,
-  CrestfallenMage,
   Hero,
   TatteredPageHint
 };

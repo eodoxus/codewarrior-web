@@ -3,7 +3,6 @@ import Scene from "./engine/Scene";
 import entities from "./entities";
 import Entity from "./engine/Entity";
 import Hero from "./entities/hero/Hero";
-import CrestfallenMage from "./entities/npcs/crestfallenMage/CrestfallenMage";
 import Vector from "./engine/Vector";
 import DataCollection from "../data/DataCollection";
 import GameSaveModel from "../data/GameSaveModel";
@@ -41,15 +40,19 @@ describe("GameState", () => {
     });
     scene.addEntity(entity);
     mage = entities.create(new Vector(0, 0), {
-      actor: "true",
+      animation: "npcs",
+      behavior: "Npc",
+      fps: "10",
+      graphics: "AnimatedSprite",
       dialog: "CrestfallenHome.CrestfallenMage",
       endX: "150",
       endY: "82",
-      entity: "CrestfallenMage",
       movement: "Pacing",
       npc: "true",
       velocityX: "10",
-      velocityY: "0"
+      velocityY: "0",
+      width: "24",
+      height: "32"
     });
     scene.addEntity(mage);
   });

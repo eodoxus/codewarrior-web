@@ -1,4 +1,3 @@
-import CrestfallenMage from "../npcs/crestfallenMage/CrestfallenMage";
 import Dialog from "../../engine/Dialog";
 import GameEvent from "../../engine/GameEvent";
 import Hero from "./Hero";
@@ -79,12 +78,23 @@ describe("Hero", () => {
     let scene;
 
     beforeEach(() => {
-      npc = new CrestfallenMage(null);
+      npc = entities.create(new Vector(110, 82), {
+        animation: "npcs",
+        behavior: "Npc",
+        fps: "10",
+        graphics: "AnimatedSprite",
+        movement: "Pacing",
+        npc: "true",
+        width: "24",
+        height: "32",
+        velocityX: "10",
+        velocityY: "0",
+        x: 80,
+        y: 66
+      });
       npc.getSprite().loadAnimations(npcPlist);
-      npc.setProperties({ npc: true });
 
       scene = new Scene("test", hero);
-      npc.setMovement(PacingMovement.create(npc, new Vector(80, 66)));
       scene.addEntity(npc);
 
       map = new TiledMap();

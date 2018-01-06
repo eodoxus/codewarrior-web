@@ -1,11 +1,8 @@
-import Audio from "../../../../engine/Audio";
-import GameEvent from "../../../../engine/GameEvent";
-import GameState from "../../../../GameState";
-import State from "../../../../engine/State";
-import StoppedState from "./StoppedState";
-import Time from "../../../../engine/Time";
+import Audio from "../../../engine/Audio";
+import GameEvent from "../../../engine/GameEvent";
+import GameState from "../../../GameState";
+import TalkingState from "../behaviors/states/TalkingState";
 
-const DIALOG_TIMEOUT = 2;
 const JUMP_CODE = `/**
 * Jump Command
 * To jump, pick a target where you want to
@@ -18,23 +15,14 @@ const JUMP_CODE = `/**
 var position = hero.pickTarget();
 hero.jump();`;
 
-export default class TalkingState extends State {
-  entity;
-  timer;
+export default class MageTalkingState extends TalkingState {
   dialogListener;
   tatteredPageListeners;
 
   enter(entity) {
-    this.subject.stop();
-    this.entity = entity;
-    this.timer = Time.timer();
+    super.enter(entity);
     this.startDialogListener();
     this.startTatteredPageListeners();
-    this.updateDialog();
-    GameEvent.fire(
-      GameEvent.DIALOG,
-      this.subject.behavior.getDialog().getMessage()
-    );
     return this;
   }
 
@@ -118,17 +106,6 @@ export default class TalkingState extends State {
         )
       ];
     }
-  }
-
-  update() {
-    if (this.subject.intersects(this.entity)) {
-      return this;
-    }
-
-    if (this.timer.elapsed() > Time.SECOND * DIALOG_TIMEOUT) {
-      return new StoppedState(this.subject);
-    }
-    return this;
   }
 
   updateDialog() {

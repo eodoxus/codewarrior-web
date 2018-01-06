@@ -80,8 +80,8 @@ export default class Scene {
         }
 
         const isOneMoving =
-          entity.getVelocity().magnitude() ||
-          otherEntity.getVelocity().magnitude();
+          entity.getVelocity().magnitude() > 0 ||
+          otherEntity.getVelocity().magnitude() > 0;
         const doesOneHaveIntent = entity.hasIntent() || otherEntity.hasIntent();
         const shouldHandleCollision = isOneMoving || doesOneHaveIntent;
         if (shouldHandleCollision && entity.intersects(otherEntity)) {

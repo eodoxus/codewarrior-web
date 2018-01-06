@@ -1,7 +1,21 @@
 import AnimatedSprite from "../../../engine/AnimatedSprite";
 import GraphicsComponent from "./GraphicsComponent";
+import Size from "../../../engine/Size";
+import Tile from "../../../engine/map/Tile";
 
 export default class AnimatedSpriteGraphics extends GraphicsComponent {
+  static create(entity) {
+    return new AnimatedSpriteGraphics(
+      entity,
+      entity.getProperty(Tile.PROPERTIES.ANIMATION),
+      new Size(
+        parseFloat(entity.getProperty(Tile.PROPERTIES.WIDTH)),
+        parseFloat(entity.getProperty(Tile.PROPERTIES.HEIGHT))
+      ),
+      entity.getProperty(Tile.PROPERTIES.FPS)
+    );
+  }
+
   constructor(entity, animation, size, fps) {
     super(entity);
     this.sprite = new AnimatedSprite(animation, size, fps);

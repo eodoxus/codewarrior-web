@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="9">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="10">
  <properties>
   <property name="name" value="crestfallenHome"/>
  </properties>
@@ -16,17 +16,17 @@
    <properties>
     <property name="orientationX" value="0"/>
     <property name="orientationY" value="1"/>
-    <property name="spawnHeroX" value="34"/>
-    <property name="spawnHeroY" value="168"/>
-    <property name="to" value="Home"/>
+    <property name="spawnHeroX" value="121"/>
+    <property name="spawnHeroY" value="77"/>
+    <property name="to" value="Lake"/>
    </properties>
   </object>
   <object id="2" name="spawnHero" type="spawnHero" x="128.333" y="149.333"/>
-  <object id="3" name="crestfallenMage" type="entity" x="110" y="82" width="24" height="32">
+  <object id="3" name="witch" type="entity" x="110" y="82" width="20" height="24">
    <properties>
     <property name="animation" value="npcs"/>
-    <property name="behavior" value="CrestfallenMage"/>
-    <property name="dialog" value="CrestfallenHome.CrestfallenMage"/>
+    <property name="behavior" value="Npc"/>
+    <property name="dialog" value="WitchesHome.Witch"/>
     <property name="endX" value="150"/>
     <property name="endY" value="82"/>
     <property name="fps" value="10"/>

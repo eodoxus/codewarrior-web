@@ -1,18 +1,17 @@
-import CrestfallenMage from "./CrestfallenMage";
+import Dialog from "../../../engine/Dialog";
 import entities from "../../../entities";
+import GameEvent from "../../../engine/GameEvent";
+import GameState from "../../../GameState";
 import PacingMovement from "../../components/movements/PacingMovement";
-import StoppedState from "./states/StoppedState";
-import TalkingState from "./states/TalkingState";
+import Sprite from "../../../engine/Sprite";
+import StoppedState from "../behaviors/states/StoppedState";
+import TalkingState from "./TalkingState";
 import Time from "../../../engine/Time";
 import Vector from "../../../engine/Vector";
-import WalkingState from "./states/WalkingState";
+import WalkingState from "../behaviors/states/WalkingState";
 
 import plist from "../../../../../public/animations/npcs.json";
 import dialog from "../../../../../public/dialog.json";
-import GameEvent from "../../../engine/GameEvent";
-import Sprite from "../../../engine/Sprite";
-import Dialog from "../../../engine/Dialog";
-import GameState from "../../../GameState";
 
 let mage;
 
@@ -43,13 +42,17 @@ afterAll(() => {
 beforeEach(async () => {
   fetch.mockResponse(JSON.stringify(plist));
   mage = entities.create(new Vector(0, 0), {
-    actor: "true",
+    animation: "npcs",
+    behavior: "CrestfallenMage",
     dialog: "CrestfallenHome.CrestfallenMage",
     endX: "40",
     endY: "0",
-    entity: "CrestfallenMage",
+    fps: "10",
+    graphics: "AnimatedSprite",
     movement: "Pacing",
     npc: "true",
+    width: "24",
+    height: "32",
     velocityX: "10",
     velocityY: "0"
   });

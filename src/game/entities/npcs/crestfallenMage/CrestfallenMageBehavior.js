@@ -1,58 +1,9 @@
-import BehaviorComponent from "../../components/behaviors/BehaviorComponent";
-import GameEvent from "../../../engine/GameEvent";
-import StoppedState from "./states/StoppedState";
-import TalkingState from "./states/TalkingState";
-import WalkingState from "./states/WalkingState";
+import NpcBehavior from "../behaviors/NpcBehavior";
+import TalkingState from "./TalkingState";
 
-const ANIMATIONS = {
-  DOWN: "down",
-  LEFT: "left",
-  RIGHT: "right",
-  UP: "up"
-};
-const STOPPED_ANIMATION = "down";
-
-export default class CrestfallenMageBehavior extends BehaviorComponent {
-  listeners;
-
+export default class CrestfallenMageBehavior extends NpcBehavior {
   constructor(entity) {
-    super(entity, WalkingState, StoppedState);
-  }
-
-  getStoppedAnimation() {
-    return STOPPED_ANIMATION;
-  }
-
-  handleCollision(entity) {
-    if (this.entity.isIntent(GameEvent.TALK)) {
-      this.entity.getMovement().faceEntity(entity);
-      this.fulfillIntent();
-      this.state = new TalkingState(this.entity, entity);
-    } else {
-      this.state = new StoppedState(this.entity);
-    }
-  }
-
-  handleEvent(event) {
-    if (event.getType() === GameEvent.COLLISION) {
-      const entity = event.getData();
-      this.handleCollision(entity);
-    }
-  }
-
-  pickAnimation() {
-    const orientation = this.entity.movement.getOrientation();
-    let animationName = ANIMATIONS.DOWN;
-    if (orientation.y < 0) {
-      animationName = ANIMATIONS.UP;
-    }
-    if (orientation.y === 0) {
-      if (orientation.x > 0) {
-        animationName = ANIMATIONS.RIGHT;
-      } else if (orientation.x < 0) {
-        animationName = ANIMATIONS.LEFT;
-      }
-    }
-    return "crestfallenMage_" + animationName;
+    super(entity);
+    this.talkingState = TalkingState;
   }
 }
