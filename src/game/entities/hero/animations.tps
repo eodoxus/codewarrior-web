@@ -263,6 +263,34 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">animations/plunging/01.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>10,5,19,9</rect>
+                <key>scale9Paddings</key>
+                <rect>10,5,19,9</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">animations/plunging/02.png</key>
+            <key type="filename">animations/plunging/03.png</key>
+            <key type="filename">animations/plunging/04.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>10,6,19,12</rect>
+                <key>scale9Paddings</key>
+                <rect>10,6,19,12</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">animations/walking/down/01.png</key>
             <key type="filename">animations/walking/down/02.png</key>
             <key type="filename">animations/walking/down/03.png</key>

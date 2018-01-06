@@ -17,6 +17,7 @@ export default class GameEvent extends Event {
   static DOORWAY = "doorway";
   static EDITOR_FAILURE = "editorFailure";
   static EDITOR_SUCCESS = "editorSuccess";
+  static HERO_DEATH = "heroDeath";
   static HIDE_BORDER = "hideBorder";
   static NPC_INTERACTION = "npcInteraction";
   static OPEN_CURTAIN = "openCurtain";

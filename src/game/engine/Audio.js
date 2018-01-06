@@ -11,7 +11,8 @@ export default class Audio {
     JUMP_COLLIDE: "jump-collide",
     OPEN_BOOK: "open-book",
     OUT_OF_MAGIC: "out-of-magic",
-    SECRET: "secret"
+    SECRET: "secret",
+    SPLASH: "splash"
   };
 
   static cache = [];

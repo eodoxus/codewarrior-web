@@ -184,6 +184,9 @@ export default class TiledMap {
     if (tile.isTransition()) {
       Graphics.colorize(tile.getRect(), "green");
     }
+    if (tile.isWater()) {
+      Graphics.colorize(tile.getRect(), "yellow");
+    }
   }
 
   toTileCoord(position) {
@@ -213,6 +216,7 @@ function parseTileLayers(tmxLayers) {
   const tileLayers = [];
   let objects = [];
   let collidableLayer = {};
+  let waterLayer;
 
   // Separate object layers and tile layers.
   tmxLayers.forEach(layer => {
@@ -252,9 +256,11 @@ function parseTileLayers(tmxLayers) {
       tmLayer.addTile(tile);
     });
 
-    // Save collidable layer for setting tile properties later
+    // Save collidable and water layers for setting tile properties later
     if (layer.name === TiledMapLayer.LAYER_TYPE_COLLIDABLE) {
       collidableLayer = tmLayer;
+    } else if (layer.name === TiledMapLayer.LAYER_TYPE_WATER) {
+      waterLayer = tmLayer;
     } else if (layer.visible) {
       layers.push(tmLayer);
     }
@@ -268,6 +274,7 @@ function parseTileLayers(tmxLayers) {
           this,
           tile,
           collidableLayer.getTiles(),
+          waterLayer && waterLayer.getTiles(),
           objects
         )
       );
@@ -305,7 +312,7 @@ function parseObjects(objects) {
   });
 }
 
-function parseTileProperties(tile, collidableTiles, objects) {
+function parseTileProperties(tile, collidableTiles, waterTiles, objects) {
   const properties = {};
 
   collidableTiles.forEach(collidable => {
@@ -313,6 +320,14 @@ function parseTileProperties(tile, collidableTiles, objects) {
       properties.isCollidable = true;
     }
   });
+
+  if (waterTiles) {
+    waterTiles.forEach(water => {
+      if (tile.intersects(water)) {
+        properties.isWater = true;
+      }
+    });
+  }
 
   objects.forEach(object => {
     let objectTile = new Tile(

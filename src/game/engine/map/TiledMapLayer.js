@@ -2,6 +2,7 @@ export default class TiledMapLayer {
   static LAYER_TYPE_COLLIDABLE = "collidable";
   static LAYER_TYPE_TILE = "tilelayer";
   static LAYER_TYPE_OBJECT = "objectgroup";
+  static LAYER_TYPE_WATER = "water";
 
   id;
   name;

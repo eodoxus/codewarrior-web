@@ -44,6 +44,10 @@ export default class Animation {
     return this.name;
   }
 
+  setFps(fps) {
+    this.fpsDelay = Time.SECOND / fps;
+  }
+
   start() {
     this.isRunning = true;
     return this;

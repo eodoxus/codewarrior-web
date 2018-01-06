@@ -6,7 +6,8 @@ export default class Tile {
     COLLECTABLE: "collectable",
     COLLIDABLE: "collidable",
     DOORWAY: "doorway",
-    TRANSITION: "transition"
+    TRANSITION: "transition",
+    WATER: "water"
   };
 
   static PROPERTIES = {
@@ -164,7 +165,7 @@ export default class Tile {
     if (this.hasEntity()) {
       return !!this.entity.getProperty(jumpable);
     }
-    return !!this.properties[jumpable];
+    return !!this.properties[jumpable] || this.properties.isWater;
   }
 
   isTransition() {
@@ -175,10 +176,17 @@ export default class Tile {
     if (this.properties.isCollidable) {
       return false;
     }
+    if (this.properties.isWater) {
+      return false;
+    }
     if (this.hasEntity()) {
       return this.entity.isWalkable();
     }
     return true;
+  }
+
+  isWater() {
+    return this.properties.isWater;
   }
 
   setProperties(properties) {

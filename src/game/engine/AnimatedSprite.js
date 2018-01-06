@@ -39,6 +39,10 @@ export default class AnimatedSprite extends Sprite {
     return this.curAnimation.getCurrentFrame();
   }
 
+  setFps(fps) {
+    this.getAnimation().setFps(this.fps);
+  }
+
   loadAnimations(plist, textureUrl = "") {
     this.animations = {};
     Object.keys(plist.frames).forEach(key => {

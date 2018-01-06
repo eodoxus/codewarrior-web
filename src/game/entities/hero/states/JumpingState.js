@@ -3,6 +3,7 @@ import BounceState from "./BounceState";
 import State from "../../../engine/State";
 import Vector from "../../../engine/Vector";
 import WalkingState from "./WalkingState";
+import SinkingState from "./SinkingState";
 
 const ANIMATIONS = {
   DOWN: "jumping_down",
@@ -76,6 +77,17 @@ export default class JumpingState extends State {
       return this.handleCollision(tile);
     }
     if (!this.subject.getMovement().isMoving()) {
+      const landingTile = this.subject
+        .getMap()
+        .getTileAt(
+          Vector.add(
+            this.subject.getOrigin(),
+            new Vector(0, this.subject.getSprite().getSize().height / 2)
+          )
+        );
+      if (landingTile.isWater()) {
+        return new SinkingState(this.subject);
+      }
       return new WalkingState(this.subject);
     }
     this.subject

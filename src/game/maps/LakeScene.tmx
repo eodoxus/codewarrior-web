@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="49">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="52">
  <properties>
-  <property name="backgroundMusic" value="overworld"/>
   <property name="name" value="Lake"/>
   <property name="showBorder" value="true"/>
  </properties>
@@ -10,12 +9,22 @@
  </tileset>
  <layer name="background" width="32" height="24">
   <data encoding="base64" compression="zlib">
-   eJztwzENAAAMA6D+81L/8ipkkNBLqqqqvjh9LasB
+   eJzT42Zg0BvFDMm89MXY7P/JTx9Mif2/cWB62A8CuOwnxQ3k2o/PblLcQCv7B9r/w91+auFR+0ftH7V/8Nk/kPX/KB7FA4EBWD74OA==
+  </data>
+ </layer>
+ <layer name="water" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFyICVxngg7SbkBnLdTaofSNVLKhi1nzL7cfHpZf9A+59cN9Ay/w10/h+1n3Tzh6r/SXUPueoHIgxGwSgYBQgAANyCBlo=
   </data>
  </layer>
  <layer name="map" width="32" height="24">
   <data encoding="base64" compression="zlib">
-   eJxbwsrAkMjGwJDARn96OSsELwFiJXYGhgNAsf1stKeV2RH2wuymN4C5QX4A7IYBOaDddQNofy37qP9H/T9w9o/6f9T/o/4fOPtH/T/qf1AbKAnYJktmo5+9KUC7UoH4CBuk/QdyQyPQLYuA9GJWymlcfgHZC1KTimTvQSQ2I5DNxEY5fQiH/Q3sEDVLoPaC/A8AF95MLg==
+   eJzFVktOwzAQnVQ0WdAUxAFAwIoN3KCFDYUzwAL6YQVHaAUH4SMolFsUCpyjLbdgA7yRY2Vq2U6havuk0TixJ2+e7bHTzhOdhkQn4ex9J6+sDduIiF7wrhtO329GKa/m3i8QVWC9mOgtnp4/AMdhIc1hDZ7xiHdPBZo6OuB4TnhWwd1K+N/j0XGrAXIL0ucQ/etFzFXR7fOxPdZ8/kjGNaNUv8nfxPhWkHI3YNuLRH3wDGBfK8qGaH8WVV89VjnIWBs0v01/H3ED2NDId2dRcXwvpdzafpZUH48xdfj4bfpLOaIqfE3M23/5dbw5Hz79HPMK3xNrIPlL4CqLHHbR3nPwNx1r4NNvWzves1w3zHENrhvY0TLRMewW7buEv2LUUD+D37f/Tei6OUd7Kxi1C3LXbxnruZsb3VdZ+1/Wi2x3POeT7+zgb/C+0rlk6ZdrINu22tAw+8xvSIxT/zZoDb4+1neC51OjX87jX9dfx66NMQ+MLuyFRs88OR9Z+nX9m7E6XmplaL0yL98ZmKVf178Jm25+p/Waeblg078Qp/eHC7bvj8upwXdJZNFfi9X9kXXHTer5Hjuz6J8HpP55oJn8A1XxT1YLZ8dbB1cD9h6q/z/O4Qq53MM/5Cf3Li3My2MagvdVtAO0c+Hkvufgv4zUmHbCy/p/AUoj4qs=
+  </data>
+ </layer>
+ <layer name="tent" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztzcsNgCAABNHVq9CBn84QChXtTKcFLhCTfcnsdSWzNu/CBGmiOfT/T3yelKkM+L/4rHTTM+B/jdJGOx2x/7+ZmZn92weN3Qa0
   </data>
  </layer>
  <objectgroup name="objects">
@@ -27,10 +36,17 @@
    </properties>
   </object>
   <object id="48" name="spawnHero" type="spawnHero" x="194" y="170"/>
+  <object id="49" name="witchesHouse" type="doorway" x="115" y="53" width="11" height="10">
+   <properties>
+    <property name="orientationX" value="0"/>
+    <property name="orientationY" value="-1"/>
+    <property name="to" value="WitchesHome"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="collidable" width="32" height="24">
   <data encoding="base64" compression="zlib">
-   eJxjZWBgYB3FdAcDaTe6G0btH7V/1P5R+0ftH7V/1P5R++lt/0C3v+jVnhzo9iw2dQApJAMr
+   eJxjZWBgYB3FdAcDaTe6G8jVR6n7h7L92NgjxX5qgVH7R+0ftX/U/lH7R7b9A93+old7cqDbs9jUAQBQqgNn
   </data>
  </layer>
 </map>
