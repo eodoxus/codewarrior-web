@@ -5,7 +5,7 @@ import GameState from "../../../GameState";
 import PacingMovement from "../../components/movements/PacingMovement";
 import Sprite from "../../../engine/Sprite";
 import StoppedState from "../behaviors/states/StoppedState";
-import TalkingState from "./TalkingState";
+import { MageTalkingState } from "./CrestfallenMage";
 import Time from "../../../engine/Time";
 import Vector from "../../../engine/Vector";
 import WalkingState from "../behaviors/states/WalkingState";
@@ -128,7 +128,7 @@ describe("CrestfallenMage", () => {
 
     it("starts talking on a collision event with an entity if it has TALK intent", () => {
       const state = mage.getBehavior().getState();
-      expect(state instanceof TalkingState).toBe(true);
+      expect(state instanceof MageTalkingState).toBe(true);
     });
 
     it("goes back to stopped after 2 seconds when not intersecting entity", () => {
@@ -138,18 +138,18 @@ describe("CrestfallenMage", () => {
       state.timer.elapsed.mockReturnValue(999);
       mage.update();
       state = mage.getBehavior().getState();
-      expect(state instanceof TalkingState).toBe(true);
+      expect(state instanceof MageTalkingState).toBe(true);
 
       state.timer.elapsed.mockReturnValue(2001);
       mage.update();
       state = mage.getBehavior().getState();
-      expect(state instanceof TalkingState).toBe(true);
+      expect(state instanceof MageTalkingState).toBe(true);
 
       entity.setPosition(new Vector(30, 0));
       state.timer.elapsed.mockReturnValue(999);
       mage.update();
       state = mage.getBehavior().getState();
-      expect(state instanceof TalkingState).toBe(true);
+      expect(state instanceof MageTalkingState).toBe(true);
 
       state.timer.elapsed.mockReturnValue(2001);
       mage.update();

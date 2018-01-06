@@ -1,5 +1,5 @@
 import BehaviorComponent from "./BehaviorComponent";
-import CrestfallenMageBehavior from "../../npcs/crestfallenMage/CrestfallenMageBehavior";
+import CrestfallenMageBehavior from "../../npcs/crestfallenMage/CrestfallenMage";
 import AnimateSometimesBehavior from "./AnimateSometimesBehavior";
 import Tile from "../../../engine/map/Tile";
 import NpcBehavior from "../../npcs/behaviors/NpcBehavior";
