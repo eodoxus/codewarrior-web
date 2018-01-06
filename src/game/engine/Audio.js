@@ -7,12 +7,15 @@ let _currentlyPlaying = {};
 export default class Audio {
   static EFFECTS = {
     CLOSE_BOOK: "close-book",
+    DIE: "die",
+    GAME_OVER: "game-over",
     JUMP: "jump",
     JUMP_COLLIDE: "jump-collide",
     OPEN_BOOK: "open-book",
     OUT_OF_MAGIC: "out-of-magic",
     SECRET: "secret",
-    SPLASH: "splash"
+    SPLASH: "splash",
+    TAKE_DAMAGE: "take-damage"
   };
 
   static cache = [];

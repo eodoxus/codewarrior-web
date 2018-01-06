@@ -17,6 +17,7 @@ import Time from "./Time";
 import Vector from "./Vector";
 
 const DEBUG = false;
+const DYING_DURATION = 1200;
 const STARTING_SCENE = "Home";
 const WIDTH = 640;
 const HEIGHT = 480;
@@ -42,6 +43,7 @@ export default class SceneDirector extends Component {
   // React Component lifecycle
   async componentDidMount() {
     GameEvent.on(GameEvent.SAVE_GAME, () => GameState.save(this.gameSaveSlot));
+    GameEvent.on(GameEvent.HERO_DEATH, this.onHeroDeath);
     window.addEventListener("resize", this.initCamera);
     document.addEventListener("keyup", this.onKeyUp);
     await GameState.load(this.gameSaveSlot);
@@ -146,6 +148,9 @@ export default class SceneDirector extends Component {
   }
 
   onClick = e => {
+    if (this.hero.isDead()) {
+      return;
+    }
     const position = toSceneCoordinateSpace(e, this.shouldShowBorder());
     const inputQueue = GameEvent.inputQueue();
     if (this.hero.intersects(position)) {
@@ -178,6 +183,12 @@ export default class SceneDirector extends Component {
         this.startGameLoop();
       }, Math.max(0, Time.SECOND - elapsed));
     });
+  };
+
+  onHeroDeath = () => {
+    setTimeout(() => {
+      this.setState({ isLoading: true });
+    }, DYING_DURATION);
   };
 
   onKeyUp = e => {

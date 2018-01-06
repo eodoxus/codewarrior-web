@@ -11,7 +11,7 @@ export default class Barrier extends Entity {
 
   update() {
     if (this.isFulfilled()) {
-      this.kill();
+      this.die();
     }
   }
 }

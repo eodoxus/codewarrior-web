@@ -11,7 +11,7 @@ export default class TatteredPageHint extends Hint {
     const entity = event.getData();
 
     if (this.isFulfilled(entity)) {
-      this.kill();
+      this.die();
       return;
     }
 

@@ -23,6 +23,10 @@ export default class Entity {
     this.properties = properties;
   }
 
+  die() {
+    this._isDead = true;
+  }
+
   getApi() {
     // Override this
   }
@@ -170,10 +174,6 @@ export default class Entity {
 
   render() {
     this.graphics.render();
-  }
-
-  kill() {
-    this._isDead = true;
   }
 
   start() {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from "./GameMenusComponent.scss";
 import Curtain from "./CurtainComponent";
+import DeathCurtain from "./DeathCurtainComponent";
 import Dialog from "./DialogComponent";
 import GameBorder from "./GameBorderComponent";
 import HeroMenu from "./heroMenu/HeroMenuComponent";
@@ -21,6 +22,7 @@ export default class GameMenusComponent extends Component {
         <TatteredPage ref={menu => this.addMenu(menu)} />
         <Dialog ref={menu => this.addMenu(menu)} />
         <Curtain />
+        <DeathCurtain />
         <GameBorder />
       </div>
     );

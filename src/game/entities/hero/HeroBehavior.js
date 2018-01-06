@@ -4,6 +4,7 @@ import GameState from "../../GameState";
 import JumpingState from "./states/JumpingState";
 import PickingState from "./states/PickingState";
 import ReadingState from "./states/ReadingState";
+import SinkingState from "./states/SinkingState";
 import Spell from "../items/Spell";
 import StoppedState from "./states/StoppedState";
 import TatteredPage from "../items/TatteredPage";
@@ -99,6 +100,9 @@ export default class HeroBehavior extends BehaviorComponent {
   }
 
   jump(tile) {
+    if (this.state instanceof SinkingState) {
+      return;
+    }
     this.state = new JumpingState(this.entity, tile);
   }
 
@@ -148,6 +152,9 @@ export default class HeroBehavior extends BehaviorComponent {
   }
 
   async pickTarget() {
+    if (this.state instanceof SinkingState) {
+      return;
+    }
     this.stop();
     this.state = new PickingState(this.entity);
     return await this.state.getTarget();
