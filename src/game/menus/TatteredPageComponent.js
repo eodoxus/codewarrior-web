@@ -2,6 +2,7 @@ import React from "react";
 import cx from "classnames";
 import styles from "./TatteredPageComponent.scss";
 import GameEvent from "../engine/GameEvent";
+import GameState from "../GameState";
 import MenuComponent from "./MenuComponent";
 import Url from "../../lib/Url";
 import TextureCache from "../engine/TextureCache";
@@ -28,6 +29,7 @@ export default class TatteredPageComponent extends MenuComponent {
     if (!this.isOpen()) {
       return;
     }
+    GameState.setIsReading(false);
     Audio.playEffect(Audio.EFFECTS.CLOSE_BOOK);
     GameEvent.fire(GameEvent.CLOSE_DIALOG);
     this.spell.setCode(this.editor.getCode());
@@ -39,6 +41,7 @@ export default class TatteredPageComponent extends MenuComponent {
     if (this.isOpen()) {
       return;
     }
+    GameState.setIsReading(true);
     Audio.playEffect(Audio.EFFECTS.OPEN_BOOK);
     GameEvent.fire(GameEvent.CLOSE_HERO_MENU);
     this.setState({

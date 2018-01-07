@@ -96,7 +96,7 @@ export default class HeroBehavior extends BehaviorComponent {
   }
 
   isReading() {
-    return this.state instanceof ReadingState;
+    return GameState.getIsReading();
   }
 
   jump(tile) {

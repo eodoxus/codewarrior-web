@@ -46,6 +46,14 @@ export default class GameState {
     }
   }
 
+  static getIsReading() {
+    return state.isReading;
+  }
+
+  static setIsReading(isReading) {
+    state.isReading = isReading;
+  }
+
   static getLastScene() {
     return state.lastScene;
   }

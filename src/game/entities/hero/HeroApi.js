@@ -72,7 +72,11 @@ export default class HeroApi {
       }
 
       const mapTile = this.hero.getMap().getTileAt(tile);
-      if (!mapTile.isWalkable() && !mapTile.isWater()) {
+      if (
+        !behavior.isReading() &&
+        !mapTile.isWalkable() &&
+        !mapTile.isWater()
+      ) {
         throw new Error("I can't jump there");
       }
 
