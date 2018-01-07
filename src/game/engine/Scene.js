@@ -1,4 +1,3 @@
-import Audio from "./Audio";
 import Entities from "../entities";
 import GameEvent from "./GameEvent";
 import Graphics from "./Graphics";
@@ -17,7 +16,6 @@ export default class Scene {
   map;
 
   constructor(mapName) {
-    Audio.stop();
     this.entities = [];
     this.map = new TiledMap(mapName);
   }
@@ -184,13 +182,6 @@ export default class Scene {
 
   shouldShowBorder() {
     return !!this.map.getProperty(Tile.PROPERTIES.SHOW_BORDER);
-  }
-
-  startBackgroundMusic() {
-    const music = this.getBackgroundMusic();
-    if (music) {
-      Audio.play(music);
-    }
   }
 
   update() {

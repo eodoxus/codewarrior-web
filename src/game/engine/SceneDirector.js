@@ -175,6 +175,7 @@ export default class SceneDirector extends Component {
   };
 
   onHeroDeath = () => {
+    Audio.stop();
     this.scene.removeEntity(this.hero);
     setTimeout(() => {
       this.setState({ isLoading: true });
@@ -199,6 +200,7 @@ export default class SceneDirector extends Component {
   };
 
   onRestart = async () => {
+    Audio.stop();
     this.hero = new Entities.Hero();
     await GameState.restoreHero(this.hero);
     await this.hero.init();

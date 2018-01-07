@@ -1,5 +1,6 @@
 export default class MockAudio {
   static EFFECTS = {};
+  static isCurrentlyPlaying = jest.fn();
   static play = jest.fn();
   static playEffect = jest.fn();
   static stop = jest.fn();

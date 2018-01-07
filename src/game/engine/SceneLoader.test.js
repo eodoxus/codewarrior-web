@@ -54,7 +54,7 @@ describe("SceneLoader", () => {
       expect(loader.scenes.length).toBe(5);
     });
 
-    it("stops audio from playing", async () => {
+    it("switches background music between scenes, not changing if its the same between scenes", async () => {
       expect(Audio.stop).toHaveBeenCalledTimes(4);
     });
 

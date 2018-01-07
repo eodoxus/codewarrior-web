@@ -130,6 +130,7 @@
  "orientation":"orthogonal",
  "properties":
     {
+     "backgroundMusic":"overworld",
      "name":"Lake",
      "showBorder":"true"
     },

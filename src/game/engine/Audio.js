@@ -21,25 +21,8 @@ export default class Audio {
 
   static cache = [];
 
-  static enqueue(url) {
-    const promise = new Promise((resolve, reject) => {
-      fetch(url)
-        .then(response => {
-          const iDx = _inFlight.findIndex(request => request.url === url);
-          _inFlight.splice(iDx, 1);
-          resolve(response.arrayBuffer());
-        })
-        .catch(e => reject(e));
-    });
-    _inFlight.push({ url, promise });
-    return promise;
-  }
-
-  static isInFlight(key) {
-    const request = _inFlight.find(request => request.key === key);
-    if (request) {
-      return request.promise;
-    }
+  static isCurrentlyPlaying(sound) {
+    return Object.keys(_currentlyPlaying).some(url => url.includes(sound));
   }
 
   static getCurrentlyPlaying() {
@@ -47,6 +30,9 @@ export default class Audio {
   }
 
   static async play(url) {
+    if (!url) {
+      return;
+    }
     const sound = await Audio.load(url);
     sound.connect(Audio.context().destination);
     sound.start(0);
@@ -104,8 +90,8 @@ export default class Audio {
 
   static async fetch(url) {
     try {
-      const request = Audio.isInFlight(url);
-      const response = request ? await request : await Audio.enqueue(url);
+      const request = isInFlight(url);
+      const response = request ? await request : await enqueue(url);
       return response;
     } catch (e) {
       console.error(`Audio failed to fetch`, url, e);
@@ -120,5 +106,26 @@ export default class Audio {
       _context = new (window.AudioContext || window.webkitAudioContext)();
     }
     return _context;
+  }
+}
+
+function enqueue(url) {
+  const promise = new Promise((resolve, reject) => {
+    fetch(url)
+      .then(response => {
+        const iDx = _inFlight.findIndex(request => request.url === url);
+        _inFlight.splice(iDx, 1);
+        resolve(response.arrayBuffer());
+      })
+      .catch(e => reject(e));
+  });
+  _inFlight.push({ url, promise });
+  return promise;
+}
+
+function isInFlight(key) {
+  const request = _inFlight.find(request => request.key === key);
+  if (request) {
+    return request.promise;
   }
 }

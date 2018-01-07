@@ -16,14 +16,20 @@ export default class SceneLoader {
     return this.scenes.find(scene => scene.getName() === name);
   }
 
+  getBackgroundMusic() {
+    if (this.currentScene) {
+      return this.currentScene.getBackgroundMusic();
+    }
+  }
+
   async load(sceneName) {
     this.unloadCurrentScene();
-    Audio.stop();
+    const previousMusic = this.getBackgroundMusic();
     this.currentScene = await this.loadScene(sceneName);
+    this.switchBackgroundMusic(previousMusic);
     this.currentScene.addEntity(this.hero);
     GameState.restoreScene(this.currentScene);
     GameState.setSceneApi(this.currentScene.getApi());
-    this.currentScene.startBackgroundMusic();
     await this.loadAdjacentScenes(this.currentScene);
     return this.currentScene;
   }
@@ -52,10 +58,30 @@ export default class SceneLoader {
     this.hero = hero;
   }
 
+  startBackgroundMusic() {
+    this.toggleBackgroundMusic("play");
+  }
+
+  stopBackgroundMusic() {
+    this.toggleBackgroundMusic("stop");
+  }
+
+  switchBackgroundMusic(prevMusic) {
+    if (!this.currentScene) {
+      return;
+    }
+    const newMusic = this.currentScene.getBackgroundMusic();
+    if (newMusic !== prevMusic || !Audio.isCurrentlyPlaying(newMusic)) {
+      Audio.stop(prevMusic);
+      Audio.play(newMusic);
+    }
+  }
+
   unloadCurrentScene() {
     if (!this.currentScene) {
       return;
     }
+    this.currentScene.removeEntity(this.hero);
     this.hero.stop();
     GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
     GameState.storeScene(this.currentScene);

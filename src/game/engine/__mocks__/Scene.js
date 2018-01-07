@@ -21,6 +21,7 @@ export default class Scene {
     }
   };
   getApi = jest.fn();
+  getBackgroundMusic = () => this.name;
   getName = () => this.name;
   getMap = jest.fn().mockReturnValue(map);
   onClick = jest.fn();
