@@ -143,10 +143,8 @@ describe("<SceneDirector />", () => {
       ctrl.onDoorwayTransition(doorway);
     });
 
-    it("closes menu components and curtain", () => {
+    it("closes curtain", () => {
       expect(isCurtainOpen).toBe(false);
-      expect(isHeroMenuOpen).toBe(false);
-      expect(isDialogOpen).toBe(false);
     });
 
     it("reopens curtain after scene loads and curtain animation completes", async () => {
@@ -262,10 +260,8 @@ describe("<SceneDirector />", () => {
       ctrl.onSceneTransition(transition);
     });
 
-    it("closes menu components but not curtain", () => {
+    it("doesn't close curtain", () => {
       expect(isCurtainOpen).toBe(true);
-      expect(isHeroMenuOpen).toBe(false);
-      expect(isDialogOpen).toBe(false);
     });
 
     it("proxies scene loading to SceneTransitioner", async () => {

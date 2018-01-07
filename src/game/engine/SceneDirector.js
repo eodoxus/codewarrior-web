@@ -135,6 +135,8 @@ export default class SceneDirector extends Component {
     this.sceneLoader.setHero(this.hero);
     this.scene = await this.sceneLoader.load(name);
     this.hero.setMap(this.scene.getMap());
+    closeHeroMenu();
+    closeDialog();
   }
 
   onClick = e => {
@@ -151,8 +153,6 @@ export default class SceneDirector extends Component {
   };
 
   onDoorwayTransition = doorway => {
-    closeHeroMenu();
-    closeDialog();
     closeCurtain();
     this.setState({ isLoading: true });
     this.stopEventListeners();
@@ -220,8 +220,6 @@ export default class SceneDirector extends Component {
   };
 
   onSceneTransition = transition => {
-    closeHeroMenu();
-    closeDialog();
     this.setState({ isLoading: true });
     this.stopEventListeners();
 
