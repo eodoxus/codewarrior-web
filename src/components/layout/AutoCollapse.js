@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-const TRANSITION_DELAY = 600;
+const TRANSITION_DELAY = 5000;
 
 export default class AutoCollapse extends Component {
   constructor(props) {

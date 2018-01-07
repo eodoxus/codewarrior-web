@@ -1,7 +1,6 @@
 import Audio from "./Audio";
 import Entities from "../entities";
 import GameEvent from "./GameEvent";
-import GameState from "../GameState";
 import Graphics from "./Graphics";
 import SceneDirector from "./SceneDirector";
 import Size from "./Size";
@@ -17,14 +16,17 @@ export default class Scene {
   hero;
   map;
 
-  constructor(mapName, hero) {
+  constructor(mapName) {
     Audio.stop();
-    this.hero = hero;
+    this.entities = [];
     this.map = new TiledMap(mapName);
-    this.entities = [hero];
   }
 
   addEntity(entity) {
+    if (entity.isHero()) {
+      this.hero = entity;
+      return this.entities.unshift(entity);
+    }
     this.entities.push(entity);
   }
 
@@ -94,10 +96,7 @@ export default class Scene {
 
   async init() {
     await this.initMap();
-    this.startBackgroundMusic();
     await this.initEntities();
-    GameState.restoreScene(this);
-    GameState.setSceneApi(this.getApi());
   }
 
   async initEntities() {
@@ -106,7 +105,6 @@ export default class Scene {
   }
 
   async initMap() {
-    this.hero.setMap(this.map);
     await this.map.init();
     this.map.getEntities().forEach(tile => {
       const entity = Entities.create(tile.getPosition(), tile.getProperties());
@@ -193,13 +191,6 @@ export default class Scene {
     if (music) {
       Audio.play(music);
     }
-  }
-
-  unload() {
-    this.hero.stop();
-    GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
-    GameState.storeScene(this);
-    GameState.storeHero(this.hero);
   }
 
   update() {

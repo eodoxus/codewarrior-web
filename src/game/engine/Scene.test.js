@@ -32,7 +32,8 @@ describe("Scene", () => {
   beforeEach(() => {
     mockHero.setPosition(new Vector());
     mockHero.setVelocity(new Vector());
-    scene = new Scene("test", mockHero);
+    scene = new Scene("test");
+    scene.addEntity(mockHero);
     entity1 = entities.create(new Vector(10, 1), {
       name: "e1",
       graphics: "No",
@@ -316,11 +317,6 @@ describe("Scene", () => {
       await scene.init();
     });
 
-    it("restores scene data from GameStates", async () => {
-      expect(GameState.restoreScene).toHaveBeenCalledTimes(1);
-      expect(GameState.setSceneApi).toHaveBeenCalledTimes(1);
-    });
-
     it("initializes the map and adds map entities to scene", async () => {
       const map = scene.getMap();
       map.addEntity(entity1);
@@ -328,12 +324,6 @@ describe("Scene", () => {
       await scene.init();
       expect(scene.getMap().getProperty("initialized")).toBe(true);
       expect(scene.getEntities().length).toBe(5);
-    });
-
-    it("starts background music", async () => {
-      backgroundMusic = "testSong";
-      await scene.init();
-      expect(Audio.play).toHaveBeenCalledWith("music/testSong.ogg");
     });
 
     it("initializes all entities", () => {
@@ -371,34 +361,6 @@ describe("Scene", () => {
         scene.onClick(new Vector(10, 10));
         expect(mockHero.handleEvent).not.toHaveBeenCalled();
       });
-    });
-  });
-
-  describe("unload", () => {
-    let isEditing;
-    beforeEach(() => {
-      isEditing = true;
-      mockHero.stop = jest.fn();
-      GameEvent.on(GameEvent.CLOSE_TATTERED_PAGE, () => (isEditing = false));
-      scene.unload();
-    });
-
-    it("stores the scene in GameState", async () => {
-      expect(GameState.storeScene).toHaveBeenCalledTimes(1);
-      expect(GameState.storeScene).toHaveBeenCalledWith(scene);
-    });
-
-    it("stores the hero in GameState", async () => {
-      expect(GameState.storeHero).toHaveBeenCalledTimes(2);
-      expect(GameState.storeHero).toHaveBeenCalledWith(mockHero);
-    });
-
-    it("stops the hero", async () => {
-      expect(mockHero.stop).toHaveBeenCalledTimes(1);
-    });
-
-    it("closes the spell editor", async () => {
-      expect(isEditing).toBe(false);
     });
   });
 

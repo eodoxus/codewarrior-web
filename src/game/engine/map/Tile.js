@@ -132,6 +132,10 @@ export default class Tile {
     this.tilesetPosition = position;
   }
 
+  getSceneName() {
+    return this.getProperty("to");
+  }
+
   hasEntity() {
     return !!this.entity && !this.entity.isHero() && !this.entity.isDead();
   }

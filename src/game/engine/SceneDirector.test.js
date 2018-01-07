@@ -1,30 +1,34 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import renderer from "react-test-renderer";
-import { setTimeout } from "timers";
+import { setTimeout, setInterval } from "timers";
 import Camera from "../Camera";
 import GameEvent from "./GameEvent";
 import GameState from "../GameState";
 import Graphics from "./Graphics";
+import Hero from "../entities/hero/Hero";
 import Time from "./Time";
 import Scene from "./Scene";
 import SceneDirector from "./SceneDirector";
+import SceneTransitioner from "./SceneTransitioner";
 import Size from "./Size";
+import Spell from "../entities/items/Spell";
+import TatteredPage from "../entities/items/TatteredPage";
 import TextureCache from "./TextureCache";
 import Tile from "./map/Tile";
 import Vector from "./Vector";
 
 import dialog from "../../../public/dialog.json";
-import TatteredPage from "../entities/items/TatteredPage";
-import Spell from "../entities/items/Spell";
-import SceneTransitioner from "./SceneTransitioner";
 
 jest.mock("./Audio");
 jest.mock("./Graphics");
 jest.mock("./Scene");
+jest.mock("./SceneLoader");
 jest.mock("../GameState");
 jest.useFakeTimers();
 fetch.mockResponse("{}");
+
+Hero.prototype.init = jest.fn();
 
 let div;
 let ctrl;
@@ -33,14 +37,15 @@ function waitForSceneLoad() {
   return new Promise(resolve => {
     (function wait() {
       jest.runTimersToTime(100);
-      ctrl.state.isLoading ? setTimeout(wait) : resolve();
+      ctrl.state.isLoading || !ctrl.scene ? setTimeout(wait) : resolve();
     })();
   });
 }
 
 beforeEach(async () => {
   div = document.createElement("div");
-  ctrl = await ReactDOM.render(<SceneDirector />, div);
+  ctrl = ReactDOM.render(<SceneDirector />, div);
+  return waitForSceneLoad();
 });
 
 afterEach(() => {
@@ -135,7 +140,6 @@ describe("<SceneDirector />", () => {
         spawnHeroY: "40",
         to: "Home"
       });
-      await waitForSceneLoad();
       ctrl.onDoorwayTransition(doorway);
     });
 
@@ -152,7 +156,7 @@ describe("<SceneDirector />", () => {
     });
 
     it("spawns hero at spawn point specified by map", async () => {
-      expect(ctrl.hero.getPosition()).toEqual(new Vector(-12, -16));
+      expect(ctrl.hero.getPosition()).toEqual(new Vector(86, 86));
       await waitForSceneLoad();
       expect(ctrl.hero.getPosition()).toEqual(new Vector(28, 24));
     });
@@ -240,11 +244,9 @@ describe("<SceneDirector />", () => {
       isCurtainOpen = true;
       isHeroMenuOpen = true;
       isDialogOpen = true;
-      isBorderVisible = false;
       GameEvent.on(GameEvent.CLOSE_CURTAIN, () => (isCurtainOpen = false));
       GameEvent.on(GameEvent.CLOSE_HERO_MENU, () => (isHeroMenuOpen = false));
       GameEvent.on(GameEvent.CLOSE_DIALOG, () => (isDialogOpen = false));
-      GameEvent.on(GameEvent.SHOW_BORDER, () => (isBorderVisible = true));
       const transition = new Tile(new Vector(), new Size());
       transition.setProperties({
         orientationY: "1",
@@ -254,8 +256,6 @@ describe("<SceneDirector />", () => {
         to: "Home"
       });
       ctrl = await ReactDOM.render(<SceneDirector canShowBorder={true} />, div);
-      ctrl.scene.shouldShowBorder.mockReturnValue(true);
-      await waitForSceneLoad();
       SceneTransitioner.prototype.animate = jest
         .fn()
         .mockImplementation(() => (ctrl.state.isLoading = false));
@@ -271,11 +271,6 @@ describe("<SceneDirector />", () => {
     it("proxies scene loading to SceneTransitioner", async () => {
       await waitForSceneLoad();
       expect(SceneTransitioner.prototype.animate).toHaveBeenCalledTimes(1);
-    });
-
-    it("shows border on new scene that allows border", async () => {
-      await waitForSceneLoad();
-      expect(isBorderVisible).toBe(true);
     });
 
     it("starts game loop", async () => {

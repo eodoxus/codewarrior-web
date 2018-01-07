@@ -34,7 +34,8 @@ let mage;
 describe("GameState", () => {
   beforeEach(() => {
     hero = new Hero();
-    scene = new Scene(SCENE_NAME, hero);
+    scene = new Scene(SCENE_NAME);
+    scene.addEntity(hero);
     entity = entities.create(new Vector(0, 0), {
       name: "entity"
     });

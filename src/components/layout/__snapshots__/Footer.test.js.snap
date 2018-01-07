@@ -2,7 +2,7 @@
 
 exports[`Collapsed after 600ms 1`] = `
 <footer
-  className="collapsible collapsed footer"
+  className="collapsible footer"
 >
   footy
 </footer>
@@ -34,7 +34,7 @@ exports[`Still open after 500ms 1`] = `
 
 exports[`Still sclosed after 500ms 1`] = `
 <footer
-  className="collapsible collapsed footer"
+  className="collapsible footer"
 >
   footy
 </footer>

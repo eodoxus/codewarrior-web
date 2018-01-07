@@ -8,7 +8,7 @@ import GameEvent from "./GameEvent";
 import GameState from "../GameState";
 import Graphics from "./Graphics";
 import Indicators from "../../components/indicators";
-import Scene from "./Scene";
+import SceneLoader from "./SceneLoader";
 import SceneTransitioner from "./SceneTransitioner";
 import Size from "./Size";
 import TatteredPage from "../entities/items/TatteredPage";
@@ -30,7 +30,7 @@ export default class SceneDirector extends Component {
   gameSaveSlot = 0;
   hero;
   lastTime;
-  scene;
+  sceneLoader;
 
   constructor(props) {
     super(props);
@@ -47,7 +47,12 @@ export default class SceneDirector extends Component {
     window.addEventListener("resize", this.initCamera);
     document.addEventListener("keyup", this.onKeyUp);
     await GameState.load(this.gameSaveSlot);
-    await this.loadSoundEffects();
+    await Audio.loadSoundEffects();
+    if (!this.hero) {
+      this.hero = new Entities.Hero();
+      await GameState.restoreHero(this.hero);
+      await this.hero.init();
+    }
     await this.loadScene(GameState.getLastScene() || STARTING_SCENE);
     this.hero.spawn();
     this.initCamera();
@@ -132,19 +137,11 @@ export default class SceneDirector extends Component {
       GameEvent.TRANSITION,
       this.onSceneTransition
     );
-    if (!this.hero) {
-      this.hero = new Entities.Hero();
-      await GameState.restoreHero(this.hero);
+    if (!this.sceneLoader) {
+      this.sceneLoader = new SceneLoader(this.hero);
     }
-    this.scene = createScene(name, this.hero);
-    await this.scene.init();
-  }
-
-  async loadSoundEffects() {
-    const effects = Object.keys(Audio.EFFECTS).map(
-      effect => Audio.EFFECTS[effect]
-    );
-    return Promise.all(effects.map(effect => Audio.loadEffect(effect)));
+    this.scene = await this.sceneLoader.load(name);
+    this.hero.setMap(this.scene.getMap());
   }
 
   onClick = e => {
@@ -166,13 +163,12 @@ export default class SceneDirector extends Component {
     closeCurtain();
     this.setState({ isLoading: true });
     this.stopEventListeners();
-    this.scene.unload();
 
     // Need to wait until current iteration of requestAnimationFrame
     // finishes before switching scenes
     setTimeout(async () => {
       const timer = Time.timestamp();
-      await this.loadScene(doorway.getProperty("to"));
+      await this.loadScene(doorway.getSceneName());
       this.hero.spawn(
         doorway.getProperty(Tile.PROPERTIES.SPAWN_HERO),
         doorway.getProperty(Tile.PROPERTIES.ORIENTATION)
@@ -213,13 +209,12 @@ export default class SceneDirector extends Component {
     closeDialog();
     this.setState({ isLoading: true });
     this.stopEventListeners();
-    this.scene.unload();
 
     // Need to wait until current iteration of requestAnimationFrame
     // finishes before switching scenes
     setTimeout(async () => {
       const prevScene = this.scene;
-      await this.loadScene(transition.getProperty("to"));
+      await this.loadScene(transition.getSceneName());
       await new SceneTransitioner(
         this.hero,
         prevScene,
@@ -310,11 +305,6 @@ function closeHeroMenu() {
 
 function closeTatteredPage() {
   GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
-}
-
-function createScene(name, hero) {
-  let sceneName = name + (name.includes("Scene") ? "" : "Scene");
-  return new Scene(sceneName, hero);
 }
 
 function openCurtain() {

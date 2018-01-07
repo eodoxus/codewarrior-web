@@ -43,14 +43,6 @@ describe("put", () => {
     });
   });
 
-  it("logs an error and throws when request fails", () => {
-    fetch.mockReject();
-    return client.put(url, putData).catch(e => {
-      expect(console.error.mock.calls.length).toBe(1);
-      expect(console.error.mock.calls[0][0]).toBe("REST POST failed");
-    });
-  });
-
   it("sets method to PUT and correct headers", () => {
     fetch.mockResponse(JSON.stringify(responseData));
     return client.put(url, putData).then(data => {
@@ -66,6 +58,14 @@ describe("put", () => {
       });
     });
   });
+
+  it("logs an error and throws when request fails", () => {
+    fetch.mockReject();
+    return client.put(url, putData).catch(e => {
+      expect(console.error.mock.calls.length).toBe(1);
+      expect(console.error.mock.calls[0][0]).toBe("REST POST failed");
+    });
+  });
 });
 
 describe("post", () => {
@@ -77,14 +77,6 @@ describe("post", () => {
     fetch.mockResponse(JSON.stringify(responseData));
     return client.post(url, postData).then(data => {
       expect(data).toEqual(responseData);
-    });
-  });
-
-  it("logs an error and throws when request fails", () => {
-    fetch.mockReject();
-    return client.post(url, postData).catch(e => {
-      expect(console.error.mock.calls.length).toBe(1);
-      expect(console.error.mock.calls[0][0]).toBe("REST POST failed");
     });
   });
 
@@ -103,6 +95,14 @@ describe("post", () => {
       });
     });
   });
+
+  it("logs an error and throws when request fails", () => {
+    fetch.mockReject();
+    return client.post(url, postData).catch(e => {
+      expect(console.error.mock.calls.length).toBe(1);
+      expect(console.error.mock.calls[0][0]).toBe("REST POST failed");
+    });
+  });
 });
 
 describe("delete", () => {
@@ -110,14 +110,6 @@ describe("delete", () => {
     fetch.mockResponse(JSON.stringify(responseData));
     return client.delete(url).then(data => {
       expect(data).toEqual(responseData);
-    });
-  });
-
-  it("logs an error and throws when request fails", () => {
-    fetch.mockReject();
-    return client.delete(url).catch(e => {
-      expect(console.error.mock.calls.length).toBe(1);
-      expect(console.error.mock.calls[0][0]).toBe("REST DELETE failed");
     });
   });
 
@@ -130,6 +122,14 @@ describe("delete", () => {
         method: "DELETE",
         credentials: "same-origin"
       });
+    });
+  });
+
+  it("logs an error and throws when request fails", () => {
+    fetch.mockReject();
+    return client.delete(url).catch(e => {
+      expect(console.error.mock.calls.length).toBe(1);
+      expect(console.error.mock.calls[0][0]).toBe("REST DELETE failed");
     });
   });
 });

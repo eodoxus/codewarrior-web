@@ -10,6 +10,10 @@ export default class Camera {
   }
 
   update() {
+    if (!this.sceneDirector.container) {
+      return;
+    }
+
     if (GameMenusComponent.hasOpenMenus()) {
       return;
     }

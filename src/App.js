@@ -96,7 +96,7 @@ export default class App extends Component {
       canShowBorder: false,
       centerHorizontally: false,
       centerVertically: false,
-      hideChrome: false
+      hideChrome: true
     };
     if (window.innerWidth > GAME_WIDTH) {
       stateChanges.canShowBorder = true;

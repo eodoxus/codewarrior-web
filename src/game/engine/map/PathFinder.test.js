@@ -7,10 +7,10 @@ import Tile from "./Tile";
 import Size from "../Size";
 
 let map;
-beforeEach(() => {
+beforeEach(async () => {
   fetch.mockResponse(JSON.stringify(tmxConfig));
   map = new TiledMap("test");
-  map.init();
+  await map.init();
 });
 afterEach(() => {
   map = undefined;

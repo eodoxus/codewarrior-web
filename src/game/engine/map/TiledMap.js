@@ -38,6 +38,23 @@ export default class TiledMap {
     }
   }
 
+  getAdjascentSceneNames() {
+    const sceneNames = [];
+    for (let iDx = this.layers.length - 1; iDx >= 0; iDx--) {
+      const tiles = this.layers[iDx].getTiles();
+      for (let jDx = 0; jDx < tiles.length; jDx++) {
+        const tile = tiles[jDx];
+        if (tile.isDoorway() || tile.isTransition()) {
+          const sceneName = tile.getSceneName();
+          if (!sceneNames.includes(sceneName)) {
+            sceneNames.push(sceneName);
+          }
+        }
+      }
+    }
+    return sceneNames;
+  }
+
   getEntities() {
     return this.entities;
   }

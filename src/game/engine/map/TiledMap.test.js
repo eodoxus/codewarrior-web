@@ -4,15 +4,16 @@ import TiledMap from "./TiledMap";
 import Vector from "../Vector";
 import TextureCache from "../../engine/TextureCache";
 
+import tmxConfig from "./__mocks__/map.json";
+
 jest.mock("../Graphics");
 
-import tmxConfig from "./__mocks__/map.json";
 let map;
-beforeEach(() => {
+beforeEach(async () => {
   Graphics.debug = false;
   fetch.mockResponse(JSON.stringify(tmxConfig));
   map = new TiledMap("test");
-  map.init();
+  await map.init();
 });
 afterEach(() => {
   map = undefined;

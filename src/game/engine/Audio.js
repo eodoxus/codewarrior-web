@@ -3,6 +3,7 @@ import Url from "../../lib/Url";
 
 let _context;
 let _currentlyPlaying = {};
+const _inFlight = [];
 
 export default class Audio {
   static EFFECTS = {
@@ -19,6 +20,27 @@ export default class Audio {
   };
 
   static cache = [];
+
+  static enqueue(url) {
+    const promise = new Promise((resolve, reject) => {
+      fetch(url)
+        .then(response => {
+          const iDx = _inFlight.findIndex(request => request.url === url);
+          _inFlight.splice(iDx, 1);
+          resolve(response.arrayBuffer());
+        })
+        .catch(e => reject(e));
+    });
+    _inFlight.push({ url, promise });
+    return promise;
+  }
+
+  static isInFlight(key) {
+    const request = _inFlight.find(request => request.key === key);
+    if (request) {
+      return request.promise;
+    }
+  }
 
   static getCurrentlyPlaying() {
     return Object.keys(_currentlyPlaying).length;
@@ -54,6 +76,13 @@ export default class Audio {
     }
   }
 
+  static async loadSoundEffects() {
+    const effects = Object.keys(Audio.EFFECTS).map(
+      effect => Audio.EFFECTS[effect]
+    );
+    return Promise.all(effects.map(effect => Audio.loadEffect(effect)));
+  }
+
   static async load(url) {
     const publicUrl = Url.SOUND + url;
     let buffer;
@@ -75,8 +104,9 @@ export default class Audio {
 
   static async fetch(url) {
     try {
-      const response = await fetch(url);
-      return response.arrayBuffer();
+      const request = Audio.isInFlight(url);
+      const response = request ? await request : await Audio.enqueue(url);
+      return response;
     } catch (e) {
       console.error(`Audio failed to fetch`, url, e);
       throw e;

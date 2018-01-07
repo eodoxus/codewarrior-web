@@ -7,4 +7,5 @@ export default class MockAudio {
   static stopTrack = jest.fn();
   static load = jest.fn();
   static loadEffect = jest.fn();
+  static loadSoundEffects = jest.fn();
 }

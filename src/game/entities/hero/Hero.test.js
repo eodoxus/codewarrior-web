@@ -94,12 +94,14 @@ describe("Hero", () => {
       });
       npc.getSprite().loadAnimations(npcPlist);
 
-      scene = new Scene("test", hero);
+      scene = new Scene("test");
+      scene.addEntity(hero);
       scene.addEntity(npc);
 
       map = new TiledMap();
       map.loadTMXConfig(tmxConfig);
       scene.setMap(map);
+      hero.setMap(map);
     });
 
     it("should route around NPCs", () => {

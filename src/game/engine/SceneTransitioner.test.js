@@ -26,8 +26,8 @@ function createTransitioner(orientation = { x: "0", y: "1" }) {
     orientationX: orientation.x,
     orientationY: orientation.y
   });
-  const fromScene = new Scene("fromScene", mockHero);
-  const toScene = new Scene("toScene", mockHero);
+  const fromScene = new Scene("fromScene");
+  const toScene = new Scene("toScene");
   return new SceneTransitioner(
     mockHero,
     fromScene,
