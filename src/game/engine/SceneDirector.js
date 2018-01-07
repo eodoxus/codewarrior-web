@@ -43,9 +43,12 @@ export default class SceneDirector extends Component {
   }
 
   // React Component lifecycle
-  async componentDidMount() {
+  componentDidMount() {
     window.addEventListener("resize", this.initCamera);
     document.addEventListener("keyup", this.onKeyUp);
+  }
+
+  async componentWillMount() {
     await GameState.load(this.gameSaveSlot);
     await Audio.loadSoundEffects();
     this.onRestart();
@@ -54,7 +57,8 @@ export default class SceneDirector extends Component {
   componentWillUnmount() {
     window.removeEventListener("resize", this.initCamera);
     document.removeEventListener("keyup", this.onKeyUp);
-    this.stopEventListeners();
+    this.stopSceneEventListeners();
+    this.gameEventListeners.forEach(listener => listener.remove());
   }
 
   shouldComponentUpdate() {
@@ -155,7 +159,7 @@ export default class SceneDirector extends Component {
   onDoorwayTransition = doorway => {
     closeCurtain();
     this.setState({ isLoading: true });
-    this.stopEventListeners();
+    this.stopSceneEventListeners();
 
     // Need to wait until current iteration of requestAnimationFrame
     // finishes before switching scenes
@@ -221,7 +225,7 @@ export default class SceneDirector extends Component {
 
   onSceneTransition = transition => {
     this.setState({ isLoading: true });
-    this.stopEventListeners();
+    this.stopSceneEventListeners();
 
     // Need to wait until current iteration of requestAnimationFrame
     // finishes before switching scenes
@@ -293,7 +297,7 @@ export default class SceneDirector extends Component {
     });
   }
 
-  stopEventListeners() {
+  stopSceneEventListeners() {
     GameEvent.removeAllListeners();
   }
 }
