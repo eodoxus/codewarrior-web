@@ -23,6 +23,7 @@ export default class GameEvent extends Event {
   static OPEN_CURTAIN = "openCurtain";
   static OPEN_HERO_MENU = "openHeroMenu";
   static OPEN_TATTERED_PAGE = "openTatteredPage";
+  static RESTART = "restart";
   static SAVE_GAME = "saveGame";
   static SHOW_BORDER = "showBorder";
   static SPELL_CAST = "spellCast";

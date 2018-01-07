@@ -13,4 +13,7 @@ export default class SceneLoader {
     this.currentScene.addEntity(this.hero);
     return this.currentScene;
   }
+  setHero(hero) {
+    this.hero = hero;
+  }
 }

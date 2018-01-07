@@ -15,7 +15,8 @@ let scene;
 
 describe("SceneLoader", () => {
   beforeEach(() => {
-    loader = new SceneLoader(new Hero());
+    loader = new SceneLoader();
+    loader.setHero(new Hero());
     jest.spyOn(loader, "loadScene");
   });
 

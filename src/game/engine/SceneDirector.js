@@ -30,6 +30,7 @@ export default class SceneDirector extends Component {
   gameSaveSlot = 0;
   hero;
   lastTime;
+  gameEventListeners;
   sceneLoader;
 
   constructor(props) {
@@ -38,25 +39,16 @@ export default class SceneDirector extends Component {
       debug: DEBUG,
       isLoading: true
     };
+    this.gameEventListeners = [];
   }
 
   // React Component lifecycle
   async componentDidMount() {
-    GameEvent.on(GameEvent.SAVE_GAME, () => GameState.save(this.gameSaveSlot));
-    GameEvent.on(GameEvent.HERO_DEATH, this.onHeroDeath);
     window.addEventListener("resize", this.initCamera);
     document.addEventListener("keyup", this.onKeyUp);
     await GameState.load(this.gameSaveSlot);
     await Audio.loadSoundEffects();
-    if (!this.hero) {
-      this.hero = new Entities.Hero();
-      await GameState.restoreHero(this.hero);
-      await this.hero.init();
-    }
-    await this.loadScene(GameState.getLastScene() || STARTING_SCENE);
-    this.hero.spawn();
-    this.initCamera();
-    this.startGameLoop();
+    this.onRestart();
   }
 
   componentWillUnmount() {
@@ -138,14 +130,15 @@ export default class SceneDirector extends Component {
       this.onSceneTransition
     );
     if (!this.sceneLoader) {
-      this.sceneLoader = new SceneLoader(this.hero);
+      this.sceneLoader = new SceneLoader();
     }
+    this.sceneLoader.setHero(this.hero);
     this.scene = await this.sceneLoader.load(name);
     this.hero.setMap(this.scene.getMap());
   }
 
   onClick = e => {
-    if (this.hero.isDead()) {
+    if (this.state.isLoading || this.hero.isDead()) {
       return;
     }
     const position = toSceneCoordinateSpace(e, this.shouldShowBorder());
@@ -182,6 +175,7 @@ export default class SceneDirector extends Component {
   };
 
   onHeroDeath = () => {
+    this.scene.removeEntity(this.hero);
     setTimeout(() => {
       this.setState({ isLoading: true });
     }, DYING_DURATION);
@@ -202,6 +196,25 @@ export default class SceneDirector extends Component {
           return this.onSpellKeyPressed(e.key);
         }
     }
+  };
+
+  onRestart = async () => {
+    this.hero = new Entities.Hero();
+    await GameState.restoreHero(this.hero);
+    await this.hero.init();
+    await this.loadScene(GameState.getLastScene() || STARTING_SCENE);
+    this.hero.spawn();
+    this.initCamera();
+    this.startGameLoop();
+
+    this.gameEventListeners.forEach(listener => listener.remove());
+    this.gameEventListeners = [
+      GameEvent.on(GameEvent.SAVE_GAME, () =>
+        GameState.save(this.gameSaveSlot)
+      ),
+      GameEvent.on(GameEvent.HERO_DEATH, this.onHeroDeath),
+      GameEvent.on(GameEvent.RESTART, this.onRestart)
+    ];
   };
 
   onSceneTransition = transition => {

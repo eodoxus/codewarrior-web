@@ -53,6 +53,21 @@ export default class HeroMenuComponent extends MenuComponent {
     if (!this.state.position) {
       return "";
     }
+    const topMenu = this.state.isOpen ? (
+      <div className={styles.topMenu}>{this.renderSpells()}</div>
+    ) : (
+      ""
+    );
+    const sideMenu = this.state.isOpen ? (
+      <div className={styles.sideMenu}>
+        {this.renderEditItem()}
+        <div className={cx(styles.item, "menu-item")} key={"help"}>
+          <HelpItem texture={MENU_TEXTURE} />
+        </div>
+      </div>
+    ) : (
+      ""
+    );
     return (
       <div
         className={cx(styles.menu, this.state.isOpen ? styles.open : "")}
@@ -61,13 +76,8 @@ export default class HeroMenuComponent extends MenuComponent {
           left: this.state.position.x
         }}
       >
-        <div className={styles.topMenu}>{this.renderSpells()}</div>
-        <div className={styles.sideMenu}>
-          {this.renderEditItem()}
-          <div className={cx(styles.item, "menu-item")} key={"help"}>
-            <HelpItem texture={MENU_TEXTURE} />
-          </div>
-        </div>
+        {topMenu}
+        {sideMenu}
       </div>
     );
   }

@@ -8,8 +8,7 @@ export default class SceneLoader {
   hero;
   scenes;
 
-  constructor(hero) {
-    this.hero = hero;
+  constructor() {
     this.scenes = [];
   }
 
@@ -47,6 +46,10 @@ export default class SceneLoader {
       await scene.init();
     }
     return scene;
+  }
+
+  setHero(hero) {
+    this.hero = hero;
   }
 
   unloadCurrentScene() {

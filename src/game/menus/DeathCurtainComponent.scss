@@ -14,9 +14,11 @@
     transition: opacity 2s;
     position: absolute;
     top: 50%;
-    left: 50%;
-    margin-left: -125px;
     margin-top: -40px;
+    left: 50%;
+    left: 0;
+    width: 640px;
+    text-align: center;
     font-size: 62px;
     font-family: cursive;
     color: rgb(204, 5, 5);
@@ -25,6 +27,17 @@
   .visible {
     opacity: 1;
     transition: opacity 2s;
+  }
+
+  .tryAgain {
+    cursor: pointer;
+    position: absolute;
+    top: 55%;
+    left: 0;
+    width: 640px;
+    text-align: center;
+    font-size: 22px;
+    color: #807f7f;
   }
 }
 

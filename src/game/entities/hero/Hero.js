@@ -1,5 +1,7 @@
 import AnimatedSpriteGraphics from "../components/graphics/AnimatedSpriteGraphics";
+import Audio from "../../engine/Audio";
 import Entity from "../../engine/Entity";
+import GameEvent from "../../engine/GameEvent";
 import HeroApi from "./HeroApi";
 import HeroHud from "./HeroHud";
 import HeroBehavior from "./HeroBehavior";
@@ -37,6 +39,14 @@ export default class Hero extends Entity {
     this.setHealth(STARTING_HEALTH);
     this.setMagic(STARTING_MAGIC);
     this.hud = new HeroHud(this);
+  }
+
+  die() {
+    super.die();
+    this.health = 0;
+    this.magic = 0;
+    Audio.playEffect(Audio.EFFECTS.DIE);
+    GameEvent.fire(GameEvent.HERO_DEATH);
   }
 
   fulfillExperience(experienceName) {

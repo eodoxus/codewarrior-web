@@ -24,11 +24,8 @@ exports[`<GameMenus /> Snapshots has dialog when a dialog is active 1`] = `
   <div
     className=""
   >
-    <h1
-      className=""
-    >
-      You Died
-    </h1>
+    
+    
   </div>
   
 </div>
@@ -91,11 +88,8 @@ exports[`<GameMenus /> Snapshots has hero menu when hero menu is opened snapshot
   <div
     className=""
   >
-    <h1
-      className=""
-    >
-      You Died
-    </h1>
+    
+    
   </div>
   
 </div>
@@ -177,11 +171,8 @@ exports[`<GameMenus /> Snapshots has spell icon in hero menu when hero menu is o
   <div
     className=""
   >
-    <h1
-      className=""
-    >
-      You Died
-    </h1>
+    
+    
   </div>
   
 </div>
@@ -200,11 +191,8 @@ exports[`<GameMenus /> Snapshots matches default snapshot 1`] = `
   <div
     className=""
   >
-    <h1
-      className=""
-    >
-      You Died
-    </h1>
+    
+    
   </div>
   
 </div>

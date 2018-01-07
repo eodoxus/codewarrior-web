@@ -4,14 +4,19 @@ import styles from "./DeathCurtainComponent.scss";
 import Audio from "../engine/Audio";
 import GameEvent from "../engine/GameEvent";
 
-const ANIMATION_DURATION = 1500;
+const CURTAIN_ANIMATION_DURATION = 1500;
+const DIED_TEXT_ANIMATION_DURATION = CURTAIN_ANIMATION_DURATION + 2000;
 
 export default class DeathCurtainComponent extends Component {
   listener;
 
   constructor(props) {
     super(props);
-    this.state = { isHeroDead: false, isAnimationDone: false };
+    this.state = {
+      isHeroDead: false,
+      isAnimationDone: false,
+      isSequenceOver: false
+    };
   }
 
   async componentDidMount() {
@@ -27,10 +32,41 @@ export default class DeathCurtainComponent extends Component {
     setTimeout(() => {
       Audio.playEffect(Audio.EFFECTS.GAME_OVER);
       this.setState({ isAnimationDone: true });
-    }, ANIMATION_DURATION);
+    }, CURTAIN_ANIMATION_DURATION);
+    setTimeout(() => {
+      this.setState({ isSequenceOver: true });
+    }, DIED_TEXT_ANIMATION_DURATION);
+  };
+
+  onTryAgainClicked = () => {
+    this.setState({
+      isHeroDead: false,
+      isAnimationDone: false,
+      isSequenceOver: false
+    });
+    GameEvent.fire(GameEvent.RESTART);
   };
 
   render() {
+    const youDied = this.state.isHeroDead ? (
+      <h1
+        className={cx(
+          styles.msg,
+          this.state.isAnimationDone ? styles.visible : ""
+        )}
+      >
+        You Died
+      </h1>
+    ) : (
+      ""
+    );
+    const tryAgain = this.state.isSequenceOver ? (
+      <div className={styles.tryAgain} onClick={this.onTryAgainClicked}>
+        try again?
+      </div>
+    ) : (
+      ""
+    );
     return (
       <div
         className={cx(
@@ -38,14 +74,8 @@ export default class DeathCurtainComponent extends Component {
           this.state.isHeroDead ? styles.closed : ""
         )}
       >
-        <h1
-          className={cx(
-            styles.msg,
-            this.state.isAnimationDone ? styles.visible : ""
-          )}
-        >
-          You Died
-        </h1>
+        {youDied}
+        {tryAgain}
       </div>
     );
   }

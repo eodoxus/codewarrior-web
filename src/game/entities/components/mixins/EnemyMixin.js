@@ -1,4 +1,3 @@
-import GameEvent from "../../../engine/GameEvent";
 import Time from "../../../engine/Time";
 import Audio from "../../../engine/Audio";
 
@@ -6,7 +5,6 @@ const MAGIC_REGENERATION_RATE = 512;
 
 export default class EnemyMixin {
   static applyTo(entity) {
-    entity.die = die;
     entity.getMagicRegenRate = getMagicRegenRate;
     entity.setMagicRegenRate = setMagicRegenRate;
     entity.getHealth = getHealth;
@@ -21,16 +19,6 @@ export default class EnemyMixin {
     entity.updateMagic = updateMagic;
 
     entity.setMagicRegenRate(MAGIC_REGENERATION_RATE);
-  }
-}
-
-function die() {
-  this._isDead = true;
-  this.health = 0;
-  this.magic = 0;
-  if (this.isHero()) {
-    Audio.playEffect(Audio.EFFECTS.DIE);
-    GameEvent.fire(GameEvent.HERO_DEATH);
   }
 }
 
