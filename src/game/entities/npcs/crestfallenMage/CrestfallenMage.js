@@ -3,6 +3,7 @@ import GameEvent from "../../../engine/GameEvent";
 import GameState from "../../../GameState";
 import NpcBehavior from "../behaviors/NpcBehavior";
 import TalkingState from "../behaviors/states/TalkingState";
+import TatteredPage from "../../items/TatteredPage";
 
 const JUMP_CODE = `/**
 * Jump Command
@@ -138,6 +139,10 @@ export class MageTalkingState extends TalkingState {
         dialog.next();
         break;
       case 5:
+        const hero = GameState.getHero();
+        if (!hero.getInventory().get(TatteredPage.NAME)) {
+          dialog.setState(2);
+        }
         break;
       default:
         dialog.setState(0);
