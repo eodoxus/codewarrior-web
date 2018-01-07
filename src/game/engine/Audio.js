@@ -21,44 +21,44 @@ export default class Audio {
 
   static cache = [];
 
-  static isCurrentlyPlaying(sound) {
-    return Object.keys(_currentlyPlaying).some(url => url.includes(sound));
+  static isCurrentlyPlaying(name) {
+    return !!_currentlyPlaying[name];
   }
 
   static getCurrentlyPlaying() {
     return Object.keys(_currentlyPlaying).length;
   }
 
-  static async play(url) {
+  static async play(name) {
+    const url = effectPath(name) || musicPath(name);
     if (!url) {
       return;
     }
     const sound = await Audio.load(url);
     sound.connect(Audio.context().destination);
     sound.start(0);
-    _currentlyPlaying[url] = sound;
+    sound.onended = () => {
+      delete _currentlyPlaying[name];
+    };
+    _currentlyPlaying[name] = sound;
     return sound;
   }
 
-  static async playEffect(effect) {
-    Audio.play("effects/" + effect + ".ogg");
-  }
-
-  static stop(url) {
-    return url ? Audio.stopTrack(url) : Audio.stopAll();
+  static stop(sound) {
+    return sound ? Audio.stopTrack(sound) : Audio.stopAll();
   }
 
   static stopAll() {
-    Object.keys(_currentlyPlaying).forEach(track => {
-      _currentlyPlaying[track].stop(0);
+    Object.keys(_currentlyPlaying).forEach(name => {
+      _currentlyPlaying[name].stop(0);
     });
     _currentlyPlaying = {};
   }
 
-  static stopTrack(url) {
-    if (_currentlyPlaying[url]) {
-      _currentlyPlaying[url].stop(0);
-      delete _currentlyPlaying[url];
+  static stopTrack(name) {
+    if (_currentlyPlaying[name]) {
+      _currentlyPlaying[name].stop(0);
+      delete _currentlyPlaying[name];
     }
   }
 
@@ -85,7 +85,11 @@ export default class Audio {
   }
 
   static async loadEffect(effect) {
-    Audio.load("effects/" + effect + ".ogg");
+    await Audio.load(effectPath(effect));
+  }
+
+  static async loadMusic(music) {
+    await Audio.load(musicPath(music));
   }
 
   static async fetch(url) {
@@ -128,4 +132,15 @@ function isInFlight(key) {
   if (request) {
     return request.promise;
   }
+}
+
+function effectPath(effect) {
+  if (!Object.keys(Audio.EFFECTS).some(key => Audio.EFFECTS[key] === effect)) {
+    return false;
+  }
+  return "effects/" + effect + ".ogg";
+}
+
+function musicPath(music) {
+  return music ? "music/" + music + ".ogg" : false;
 }

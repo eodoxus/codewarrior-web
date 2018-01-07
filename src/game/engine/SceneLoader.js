@@ -50,6 +50,10 @@ export default class SceneLoader {
       scene = new Scene(sceneName);
       this.scenes.push(scene);
       await scene.init();
+      const music = scene.getBackgroundMusic();
+      if (music) {
+        Audio.loadMusic(music);
+      }
     }
     return scene;
   }

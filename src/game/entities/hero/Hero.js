@@ -45,7 +45,7 @@ export default class Hero extends Entity {
     super.die();
     this.health = 0;
     this.magic = 0;
-    Audio.playEffect(Audio.EFFECTS.DIE);
+    Audio.play(Audio.EFFECTS.DIE);
     GameEvent.fire(GameEvent.HERO_DEATH);
   }
 

@@ -62,7 +62,7 @@ export class MageTalkingState extends TalkingState {
   };
 
   onEditorSuccess = () => {
-    Audio.playEffect(Audio.EFFECTS.SECRET);
+    Audio.play(Audio.EFFECTS.SECRET);
     this.subject.behavior.getDialog().setState(4);
     GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
   };

@@ -40,10 +40,7 @@ export default class Scene {
   }
 
   getBackgroundMusic() {
-    const song = this.map.getProperty(Tile.PROPERTIES.BACKGROUND_MUSIC);
-    if (song) {
-      return `music/${song}.ogg`;
-    }
+    return this.map.getProperty(Tile.PROPERTIES.BACKGROUND_MUSIC);
   }
 
   getEntities() {

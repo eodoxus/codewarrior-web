@@ -41,8 +41,8 @@ describe("Audio", () => {
 
     it("allows a shorthand for sound effect loading", () => {
       jest.spyOn(Audio, "play");
-      Audio.playEffect("test");
-      expect(Audio.play).toHaveBeenCalledWith("effects/test.ogg");
+      Audio.play("test");
+      expect(Audio.play).toHaveBeenCalledWith("test");
       Audio.play.mockRestore();
     });
   });
@@ -90,15 +90,15 @@ describe("Audio", () => {
     });
 
     it("uses song from cache if it exists alreadys", async () => {
-      const sound = await Audio.load(mockUrl);
+      const sound = await Audio.load("test3");
       expect(Audio.fetch).not.toHaveBeenCalled();
-      expect(Audio.cache[mockUrl]).toEqual(sound.buffer);
+      expect(Audio.cache["test3"]).toEqual(sound.buffer);
     });
 
-    it("allows a shorthand for sound effect loading", () => {
+    it("fallows a shorthand for sound effect loading", () => {
       jest.spyOn(Audio, "load");
-      Audio.loadEffect("test");
-      expect(Audio.load).toHaveBeenCalledWith("effects/test.ogg");
+      Audio.loadEffect(Audio.EFFECTS.SECRET);
+      expect(Audio.load).toHaveBeenCalledWith("effects/secret.ogg");
       Audio.load.mockRestore();
     });
   });

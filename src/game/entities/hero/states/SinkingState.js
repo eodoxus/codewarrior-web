@@ -15,7 +15,7 @@ export default class SinkingState extends State {
   timer;
 
   enter() {
-    Audio.playEffect(Audio.EFFECTS.SPLASH);
+    Audio.play(Audio.EFFECTS.SPLASH);
     this.subject.getPosition().add(new Vector(0, 8));
     this.subject.setVelocity(new Vector());
     const sprite = this.subject.getGraphics().getSprite();

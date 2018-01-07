@@ -61,7 +61,7 @@ function spendMagic(points) {
 
 function takeDamage(dmg) {
   if (this.isHero()) {
-    Audio.playEffect(Audio.EFFECTS.TAKE_DAMAGE);
+    Audio.play(Audio.EFFECTS.TAKE_DAMAGE);
   }
   this.health -= dmg;
   if (this.health <= 0) {

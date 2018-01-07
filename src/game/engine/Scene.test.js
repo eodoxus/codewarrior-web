@@ -242,7 +242,7 @@ describe("Scene", () => {
         const map = scene.getMap();
         expect(scene.getBackgroundMusic()).not.toBeDefined();
         map.setProperty(Tile.PROPERTIES.BACKGROUND_MUSIC, "song");
-        expect(scene.getBackgroundMusic()).toBe("music/song.ogg");
+        expect(scene.getBackgroundMusic()).toBe("song");
       });
     });
 

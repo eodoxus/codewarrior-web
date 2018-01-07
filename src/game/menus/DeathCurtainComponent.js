@@ -30,7 +30,7 @@ export default class DeathCurtainComponent extends Component {
   onHeroDeath = () => {
     this.setState({ isHeroDead: true });
     setTimeout(() => {
-      Audio.playEffect(Audio.EFFECTS.GAME_OVER);
+      Audio.play(Audio.EFFECTS.GAME_OVER);
       this.setState({ isAnimationDone: true });
     }, CURTAIN_ANIMATION_DURATION);
     setTimeout(() => {

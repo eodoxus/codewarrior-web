@@ -36,7 +36,7 @@ export default class JumpingState extends State {
   }
 
   enter(tile) {
-    Audio.playEffect(Audio.EFFECTS.JUMP);
+    Audio.play(Audio.EFFECTS.JUMP);
     this.subject.getGraphics().toggleShadow();
     this.subject.setVelocity(new Vector(VELOCITY, VELOCITY));
     this.subject.getMovement().moveTo(tileLandingPosition(this.subject, tile));
@@ -52,7 +52,7 @@ export default class JumpingState extends State {
     const movement = this.subject.getMovement();
     const facingDirection = getFaceTowardDirection(this.subject, tile);
     movement.setOrientation(facingDirection);
-    Audio.playEffect(Audio.EFFECTS.JUMP_COLLIDE);
+    Audio.play(Audio.EFFECTS.JUMP_COLLIDE);
     return new BounceState(this.subject);
   }
 
