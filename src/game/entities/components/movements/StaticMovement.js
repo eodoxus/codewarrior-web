@@ -12,6 +12,10 @@ export default class StaticMovement {
     this.velocity = new Vector();
   }
 
+  setMap(map) {
+    // Do nothing
+  }
+
   getPosition() {
     return this.position;
   }

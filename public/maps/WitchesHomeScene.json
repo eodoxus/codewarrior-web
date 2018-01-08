@@ -61,21 +61,20 @@
                      "animation":"npcs",
                      "behavior":"Npc",
                      "dialog":"WitchesHome.Witch",
-                     "endX":"150",
-                     "endY":"82",
                      "fps":"10",
                      "graphics":"AnimatedSprite",
-                     "movement":"Pacing",
+                     "movement":"Patrolling",
                      "npc":"true",
+                     "route":"witchRoute",
                      "velocityX":"10",
-                     "velocityY":"0"
+                     "velocityY":"10"
                     },
                  "rotation":0,
                  "type":"entity",
                  "visible":true,
                  "width":20,
-                 "x":110,
-                 "y":82
+                 "x":80,
+                 "y":104
                 }, 
                 {
                  "height":16,
@@ -116,6 +115,46 @@
                  "width":16,
                  "x":176,
                  "y":32
+                }, 
+                {
+                 "height":0,
+                 "id":33,
+                 "name":"witchRoute",
+                 "polyline":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-40
+                        }, 
+                        {
+                         "x":80,
+                         "y":-40
+                        }, 
+                        {
+                         "x":79.6666666666667,
+                         "y":12
+                        }, 
+                        {
+                         "x":-0.333333333333329,
+                         "y":11.6666666666667
+                        }, 
+                        {
+                         "x":0.666666666666671,
+                         "y":0.666666666666671
+                        }],
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"route",
+                 "visible":true,
+                 "width":0,
+                 "x":88,
+                 "y":104
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -137,7 +176,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":10,
+ "nextobjectid":34,
  "orientation":"orthogonal",
  "properties":
     {

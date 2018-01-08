@@ -154,7 +154,7 @@ describe("<SceneDirector />", () => {
     });
 
     it("spawns hero at spawn point specified by map", async () => {
-      expect(ctrl.hero.getPosition()).toEqual(new Vector(86, 86));
+      expect(ctrl.hero.getPosition()).toEqual(new Vector(-12, -16));
       await waitForSceneLoad();
       expect(ctrl.hero.getPosition()).toEqual(new Vector(28, 24));
     });

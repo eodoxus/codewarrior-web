@@ -15,6 +15,7 @@ export default class Tile {
     BACKGROUND_MUSIC: "backgroundMusic",
     BEHAVIOR: "behavior",
     DIALOG: "dialog",
+    END: "end",
     ENTITY: "entity",
     FPS: "fps",
     FRAME_SET: "frameSet",
@@ -24,13 +25,13 @@ export default class Tile {
     MOVEMENT: "movement",
     NAME: "name",
     NPC: "npc",
-    OFFSET_X: "offsetX",
-    OFFSET_Y: "offsetX",
     ORIENTATION: "orientation",
+    ROUTE: "route",
     SHOW_BORDER: "showBorder",
     SPAWN_HERO: "spawnHero",
     SPRITE_COLLECTION: "spriteCollection",
     TEXTURE: "texture",
+    VELOCITY: "velocity",
     WIDTH: "width"
   };
 
@@ -41,6 +42,24 @@ export default class Tile {
       size.width,
       size.height
     ).getOrigin();
+  }
+
+  static parseProperty(properties, name) {
+    const coordinateList = [
+      Tile.PROPERTIES.END,
+      Tile.PROPERTIES.ORIENTATION,
+      Tile.PROPERTIES.SPAWN_HERO,
+      Tile.PROPERTIES.VELOCITY
+    ];
+    if (coordinateList.includes(name)) {
+      if (properties[name + "X"] && properties[name + "Y"]) {
+        return new Vector(
+          parseInt(properties[name + "X"], 10),
+          parseInt(properties[name + "Y"], 10)
+        );
+      }
+    }
+    return properties[name];
   }
 
   gid;
@@ -88,26 +107,11 @@ export default class Tile {
   }
 
   getProperty(name) {
-    switch (name) {
-      case Tile.PROPERTIES.ORIENTATION:
-        if (this.properties[name + "X"] && this.properties[name + "Y"]) {
-          return new Vector(
-            parseInt(this.properties[name + "X"], 10),
-            parseInt(this.properties[name + "Y"], 10)
-          );
-        }
-        break;
-      case Tile.PROPERTIES.SPAWN_HERO:
-        if (this.properties[name + "X"] && this.properties[name + "Y"]) {
-          return new Vector(
-            parseInt(this.properties[name + "X"], 10),
-            parseInt(this.properties[name + "Y"], 10)
-          );
-        }
-        break;
-      default:
-        return this.properties[name];
-    }
+    return Tile.parseProperty(this.properties, name);
+  }
+
+  setProperty(name, value) {
+    this.properties[name] = value;
   }
 
   getProperties() {

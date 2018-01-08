@@ -96,7 +96,7 @@ export default class Entity {
   }
 
   getProperty(name) {
-    return this.properties[name];
+    return Tile.parseProperty(this.properties, name);
   }
 
   setProperty(name, value) {

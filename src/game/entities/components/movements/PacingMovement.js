@@ -1,26 +1,20 @@
 import MovementComponent from "./MovementComponent";
+import Tile from "../../../engine/map/Tile";
 import Vector from "../../../engine/Vector";
 
 export default class PacingMovement extends MovementComponent {
   static create(entity, position) {
-    const endPosition = new Vector(
-      parseFloat(entity.getProperty("endX")),
-      parseFloat(entity.getProperty("endY"))
-    );
-    const velocity = new Vector(
-      parseFloat(entity.getProperty("velocityX")),
-      parseFloat(entity.getProperty("velocityY"))
-    );
+    const endPosition = entity.getProperty(Tile.PROPERTIES.END);
+    const velocity = entity.getProperty(Tile.PROPERTIES.VELOCITY);
     return new PacingMovement(entity, position, endPosition, velocity);
   }
 
   travelDistance;
   endPosition;
+  maxDistance;
   startPosition;
   startingVelocity;
-  isReturning;
-  isStopped;
-  maxDistance;
+  travelDistance;
 
   constructor(entity, position, endPosition, velocity) {
     super(entity, velocity, position);

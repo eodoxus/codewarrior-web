@@ -138,7 +138,6 @@ export default class SceneDirector extends Component {
     }
     this.sceneLoader.setHero(this.hero);
     this.scene = await this.sceneLoader.load(name);
-    this.hero.setMap(this.scene.getMap());
     closeHeroMenu();
     closeDialog();
   }

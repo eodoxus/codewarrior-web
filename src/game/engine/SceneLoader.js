@@ -28,6 +28,9 @@ export default class SceneLoader {
     this.currentScene = await this.loadScene(sceneName);
     this.switchBackgroundMusic(previousMusic);
     this.currentScene.addEntity(this.hero);
+    this.currentScene.getEntities().forEach(entity => {
+      entity.setMap(this.currentScene.getMap());
+    });
     GameState.restoreScene(this.currentScene);
     GameState.setSceneApi(this.currentScene.getApi());
     await this.loadAdjacentScenes(this.currentScene);
@@ -86,6 +89,9 @@ export default class SceneLoader {
       return;
     }
     this.currentScene.removeEntity(this.hero);
+    this.currentScene.getEntities().forEach(entity => {
+      entity.setMap(undefined);
+    });
     this.hero.stop();
     GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
     GameState.storeScene(this.currentScene);

@@ -305,6 +305,7 @@ function parseTileLayers(tmxLayers) {
 }
 
 function parseObjects(objects) {
+  const routes = {};
   objects.forEach(object => {
     let tile = new Tile(
       new Vector(object.x, object.y),
@@ -323,10 +324,31 @@ function parseObjects(objects) {
         tile.setProperties(properties);
         this.addEntity(tile);
         break;
+      case Tile.PROPERTIES.ROUTE:
+        routes[object.name] = parseRoute(object);
+        break;
       default:
         break;
     }
   });
+
+  if (!Object.keys(routes).length) {
+    return;
+  }
+
+  // Assign routes to their proper entity
+  this.entities.forEach(entity => {
+    const routeName = entity.getProperty(Tile.PROPERTIES.ROUTE);
+    if (routeName) {
+      entity.setProperty(Tile.PROPERTIES.ROUTE, routes[routeName]);
+    }
+  });
+}
+
+function parseRoute(route) {
+  return route.polyline.map(
+    point => new Vector(point.x + route.x, point.y + route.y)
+  );
 }
 
 function parseTileProperties(tile, collidableTiles, waterTiles, objects) {

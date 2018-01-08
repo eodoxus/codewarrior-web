@@ -87,6 +87,8 @@ describe("Hero", () => {
         npc: "true",
         width: "24",
         height: "32",
+        endX: "0",
+        endY: "0",
         velocityX: "10",
         velocityY: "0",
         x: 80,

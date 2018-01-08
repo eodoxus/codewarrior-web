@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="10">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="34">
  <properties>
   <property name="name" value="crestfallenHome"/>
  </properties>
@@ -22,19 +22,18 @@
    </properties>
   </object>
   <object id="2" name="spawnHero" type="spawnHero" x="128.333" y="149.333"/>
-  <object id="3" name="witch" type="entity" x="110" y="82" width="20" height="24">
+  <object id="3" name="witch" type="entity" x="80" y="104" width="20" height="24">
    <properties>
     <property name="animation" value="npcs"/>
     <property name="behavior" value="Npc"/>
     <property name="dialog" value="WitchesHome.Witch"/>
-    <property name="endX" value="150"/>
-    <property name="endY" value="82"/>
     <property name="fps" value="10"/>
     <property name="graphics" value="AnimatedSprite"/>
-    <property name="movement" value="Pacing"/>
+    <property name="movement" value="Patrolling"/>
     <property name="npc" value="true"/>
+    <property name="route" value="witchRoute"/>
     <property name="velocityX" value="10"/>
-    <property name="velocityY" value="0"/>
+    <property name="velocityY" value="10"/>
    </properties>
   </object>
   <object id="5" name="firePit01" type="entity" x="64" y="32" width="16" height="16">
@@ -56,6 +55,9 @@
     <property name="graphics" value="Animation"/>
     <property name="movement" value="Static"/>
    </properties>
+  </object>
+  <object id="33" name="witchRoute" type="route" x="88" y="104">
+   <polyline points="0,0 0,-40 80,-40 79.6667,12 -0.333333,11.6667 0.666667,0.666667"/>
   </object>
  </objectgroup>
  <layer name="collidable" width="32" height="24">

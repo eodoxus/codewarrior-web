@@ -2,12 +2,14 @@ import Tile from "../../../engine/map/Tile";
 import MovementComponent from "./MovementComponent";
 import PacingMovement from "./PacingMovement";
 import PathfindingMovement from "./PathfindingMovement";
+import PatrollingMovement from "./PatrollingMovement";
 import StaticMovement from "./StaticMovement";
 
 const movements = {
   BaseMovement: MovementComponent,
   PacingMovement,
   PathfindingMovement,
+  PatrollingMovement,
   StaticMovement
 };
 
