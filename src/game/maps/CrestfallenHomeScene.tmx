@@ -44,7 +44,6 @@
     <property name="fps" value="20"/>
     <property name="frameSet" value="firePit"/>
     <property name="graphics" value="Animation"/>
-    <property name="movement" value="Static"/>
    </properties>
   </object>
   <object id="8" name="firePit02" type="entity" x="176" y="32" width="16" height="16">
@@ -54,7 +53,6 @@
     <property name="fps" value="20"/>
     <property name="frameSet" value="firePit"/>
     <property name="graphics" value="Animation"/>
-    <property name="movement" value="Static"/>
    </properties>
   </object>
  </objectgroup>

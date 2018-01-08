@@ -66,7 +66,6 @@
     <property name="entity" value="TatteredPageHint"/>
     <property name="fulfilledOn" value="transitioned"/>
     <property name="graphics" value="No"/>
-    <property name="movement" value="Static"/>
    </properties>
   </object>
   <object id="38" name="spellHint" type="entity" x="40" y="160" width="47.3333" height="16">
@@ -75,7 +74,6 @@
     <property name="entity" value="TatteredPageHint"/>
     <property name="fulfilledOn" value="castSpell"/>
     <property name="graphics" value="No"/>
-    <property name="movement" value="Static"/>
    </properties>
   </object>
   <object id="49" name="stump01" type="entity" x="168" y="8" width="16" height="16">
@@ -84,7 +82,6 @@
     <property name="fulfilledOn" value="secondSpell"/>
     <property name="graphics" value="Sprite"/>
     <property name="jumpable" value="true"/>
-    <property name="movement" value="Static"/>
     <property name="spriteCollection" value="items"/>
     <property name="texture" value="overworldStump.png"/>
    </properties>
@@ -95,7 +92,6 @@
     <property name="fulfilledOn" value="secondSpell"/>
     <property name="graphics" value="Sprite"/>
     <property name="jumpable" value="true"/>
-    <property name="movement" value="Static"/>
     <property name="spriteCollection" value="items"/>
     <property name="texture" value="overworldStump.png"/>
    </properties>
@@ -106,7 +102,6 @@
     <property name="fulfilledOn" value="secondSpell"/>
     <property name="graphics" value="Sprite"/>
     <property name="jumpable" value="true"/>
-    <property name="movement" value="Static"/>
     <property name="spriteCollection" value="items"/>
     <property name="texture" value="overworldStump.png"/>
    </properties>

@@ -260,8 +260,7 @@ describe("Hero", () => {
         const hint = entities.create(new Vector(100, 100), {
           dialog: "Home.JumpHint",
           entity: "TatteredPageHint",
-          graphics: "No",
-          movement: "Static"
+          graphics: "No"
         });
         return new Promise(resolve => {
           GameEvent.once(GameEvent.DIALOG, dialog => {
@@ -279,8 +278,7 @@ describe("Hero", () => {
         const hint = entities.create(new Vector(100, 100), {
           dialog: "Home.SpellHint",
           entity: "TatteredPageHint",
-          graphics: "No",
-          movement: "Static"
+          graphics: "No"
         });
 
         return new Promise(resolve => {

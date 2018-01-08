@@ -147,8 +147,7 @@
             "dialog": "Home.JumpHint",
             "entity": "TatteredPageHint",
             "fulfilledOn": "transitioned",
-            "graphics": "No",
-            "movement": "Static"
+            "graphics": "No"
           },
           "rotation": 0,
           "type": "entity",
@@ -165,8 +164,7 @@
             "dialog": "Home.SpellHint",
             "entity": "TatteredPageHint",
             "fulfilledOn": "castSpell",
-            "graphics": "No",
-            "movement": "Static"
+            "graphics": "No"
           },
           "rotation": 0,
           "type": "entity",
@@ -184,7 +182,6 @@
             "fulfilledOn": "secondSpell",
             "graphics": "Sprite",
             "jumpable": "true",
-            "movement": "Static",
             "spriteCollection": "items",
             "texture": "overworldStump.png"
           },
@@ -204,7 +201,6 @@
             "fulfilledOn": "secondSpell",
             "graphics": "Sprite",
             "jumpable": "true",
-            "movement": "Static",
             "spriteCollection": "items",
             "texture": "overworldStump.png"
           },
@@ -224,7 +220,6 @@
             "fulfilledOn": "secondSpell",
             "graphics": "Sprite",
             "jumpable": "true",
-            "movement": "Static",
             "spriteCollection": "items",
             "texture": "overworldStump.png"
           },

@@ -87,8 +87,7 @@
                      "behavior":"AnimateSometimes",
                      "fps":"20",
                      "frameSet":"firePit",
-                     "graphics":"Animation",
-                     "movement":"Static"
+                     "graphics":"Animation"
                     },
                  "rotation":0,
                  "type":"entity",
@@ -107,8 +106,7 @@
                      "behavior":"AnimateSometimes",
                      "fps":"20",
                      "frameSet":"firePit",
-                     "graphics":"Animation",
-                     "movement":"Static"
+                     "graphics":"Animation"
                     },
                  "rotation":0,
                  "type":"entity",
