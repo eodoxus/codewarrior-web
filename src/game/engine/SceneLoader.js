@@ -61,6 +61,13 @@ export default class SceneLoader {
     return scene;
   }
 
+  removeFromCache(scene) {
+    const iDx = this.scenes.findIndex(s => s.getName() === scene.getName());
+    if (iDx > -1) {
+      this.scenes.splice(iDx, 1);
+    }
+  }
+
   setHero(hero) {
     this.hero = hero;
   }
@@ -92,6 +99,7 @@ export default class SceneLoader {
     this.currentScene.getEntities().forEach(entity => {
       entity.setMap(undefined);
     });
+    this.removeFromCache(this.currentScene);
     this.hero.stop();
     GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
     GameState.storeScene(this.currentScene);
