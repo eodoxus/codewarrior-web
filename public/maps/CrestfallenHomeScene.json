@@ -59,7 +59,7 @@
                  "properties":
                     {
                      "animation":"npcs",
-                     "behavior":"CrestfallenMage",
+                     "behavior":"Npc",
                      "dialog":"CrestfallenHome.CrestfallenMage",
                      "endX":"150",
                      "endY":"82",

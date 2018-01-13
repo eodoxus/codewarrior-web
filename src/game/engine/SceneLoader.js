@@ -2,6 +2,7 @@ import Audio from "./Audio";
 import GameEvent from "./GameEvent";
 import GameState from "../GameState";
 import Scene from "./Scene";
+import Tile from "./map/Tile";
 
 export default class SceneLoader {
   currentScene;
@@ -14,6 +15,15 @@ export default class SceneLoader {
 
   find(name) {
     return this.scenes.find(scene => scene.getName() === name);
+  }
+
+  fulfillExperience() {
+    const experience = this.currentScene
+      .getMap()
+      .getProperty(Tile.PROPERTIES.EXPERIENCE);
+    if (experience) {
+      this.hero.fulfillExperience(experience);
+    }
   }
 
   getBackgroundMusic() {
@@ -31,6 +41,7 @@ export default class SceneLoader {
     this.currentScene.getEntities().forEach(entity => {
       entity.setMap(this.currentScene.getMap());
     });
+    this.fulfillExperience();
     GameState.restoreScene(this.currentScene);
     GameState.setSceneApi(this.currentScene.getApi());
     await this.loadAdjacentScenes(this.currentScene);

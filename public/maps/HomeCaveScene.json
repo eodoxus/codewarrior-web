@@ -141,6 +141,7 @@
  "properties":
     {
      "backgroundMusic":"cave",
+     "experience":"homeCave",
      "name":"HomeCave"
     },
  "renderorder":"right-down",
@@ -166,7 +167,7 @@
          "firstgid":2117,
          "image":"..\/sprites\/items.png",
          "imageheight":29,
-         "imagewidth":84,
+         "imagewidth":99,
          "margin":0,
          "name":"items",
          "properties":
@@ -174,7 +175,7 @@
 
             },
          "spacing":0,
-         "tilecount":30,
+         "tilecount":36,
          "tileheight":8,
          "tilewidth":8
         }],

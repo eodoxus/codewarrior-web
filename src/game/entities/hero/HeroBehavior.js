@@ -75,24 +75,6 @@ export default class HeroBehavior extends BehaviorComponent {
     if (event.getType() === GameEvent.COLLISION) {
       this.handleCollision(event.getData());
     }
-    if (event.getType() === GameEvent.NPC_INTERACTION) {
-      this.handleNpcInteraction(event.getData());
-    }
-  }
-
-  handleNpcInteraction(interaction) {
-    switch (interaction.getType()) {
-      case "CrestfallenMage.GivePage":
-        if (!this.entity.getInventory().get(TatteredPage.NAME)) {
-          this.receiveTatteredPage(interaction.getData());
-        } else {
-          const spellIdx = 0;
-          this.openTatteredPage(spellIdx);
-        }
-        break;
-      default:
-        return false;
-    }
   }
 
   isReading() {
@@ -107,18 +89,10 @@ export default class HeroBehavior extends BehaviorComponent {
   }
 
   initListeners() {
-    this.listeners = [];
-    let eventName = GameEvent.NPC_INTERACTION;
-    this.listeners.push(
-      GameEvent.on(eventName, data =>
-        this.handleEvent(GameEvent.generic(eventName, data))
-      ),
-      GameEvent.on(
-        GameEvent.OPEN_TATTERED_PAGE,
-        () => (this.state = new ReadingState(this.entity))
-      )
+    GameEvent.on(
+      GameEvent.OPEN_TATTERED_PAGE,
+      () => (this.state = new ReadingState(this.entity))
     );
-
     GameEvent.on(GameEvent.SPELL_CAST, spell => {
       this.entity.spendMagic(spell.getCost());
       this.entity.fulfillExperience("castSpell");

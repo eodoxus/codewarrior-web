@@ -1,17 +1,18 @@
-import Dialog from "../../../engine/Dialog";
-import entities from "../../../entities";
-import GameEvent from "../../../engine/GameEvent";
-import GameState from "../../../GameState";
-import PacingMovement from "../../components/movements/PacingMovement";
-import Sprite from "../../../engine/Sprite";
-import StoppedState from "../behaviors/states/StoppedState";
-import { MageTalkingState } from "./CrestfallenMage";
-import Time from "../../../engine/Time";
-import Vector from "../../../engine/Vector";
-import WalkingState from "../behaviors/states/WalkingState";
+import Dialog from "../../engine/Dialog";
+import entities from "../../entities";
+import GameEvent from "../../engine/GameEvent";
+import GameState from "../../GameState";
+import PacingMovement from "../components/movements/PacingMovement";
+import Sprite from "../../engine/Sprite";
+import StoppedState from "./behaviors/states/StoppedState";
+import TalkingState from "./behaviors/states/TalkingState";
+import Time from "../../engine/Time";
+import Vector from "../../engine/Vector";
+import WalkingState from "./behaviors/states/WalkingState";
 
-import plist from "../../../../../public/animations/npcs.json";
-import dialog from "../../../../../public/dialog.json";
+import plist from "../../../../public/animations/npcs.json";
+import dialog from "../../../../public/dialog.json";
+import Hero from "../hero/Hero";
 
 let mage;
 
@@ -43,7 +44,7 @@ beforeEach(async () => {
   fetch.mockResponse(JSON.stringify(plist));
   mage = entities.create(new Vector(0, 0), {
     animation: "npcs",
-    behavior: "CrestfallenMage",
+    behavior: "Npc",
     dialog: "CrestfallenHome.CrestfallenMage",
     endX: "40",
     endY: "0",
@@ -114,42 +115,52 @@ describe("CrestfallenMage", () => {
   });
 
   describe("talking state", () => {
-    let entity;
+    let hero;
+
+    function startTalking() {
+      hero.getBehavior().setIntent(GameEvent.talk(mage));
+      mage.getBehavior().setIntent(GameEvent.talk(hero));
+      mage.handleEvent(GameEvent.collision(hero));
+    }
+
+    function visitHomeCaveScene() {
+      hero.fulfillExperience("homeCave");
+    }
 
     beforeEach(() => {
-      entity = entities.create(new Vector(0, 0), {
-        name: "entity"
-      });
-      entity.getGraphics().setSprite(new Sprite());
-      mage.getBehavior().setIntent(GameEvent.talk(mage));
+      hero = new Hero();
+      GameState.setHero(hero);
+      startTalking();
+    });
+
+    afterEach(() => {
       mage.stop();
-      mage.handleEvent(GameEvent.collision(entity));
     });
 
-    it("starts talking on a collision event with an entity if it has TALK intent", () => {
+    it("starts talking on a collision event with hero if it has TALK intent", () => {
       const state = mage.getBehavior().getState();
-      expect(state instanceof MageTalkingState).toBe(true);
+      expect(state instanceof TalkingState).toBe(true);
     });
 
-    it("goes back to stopped after 2 seconds when not intersecting entity", () => {
+    it("goes back to stopped after 2 seconds when not intersecting hero", () => {
       let state = mage.getBehavior().getState();
       state.timer.elapsed = jest.fn();
 
       state.timer.elapsed.mockReturnValue(999);
       mage.update();
       state = mage.getBehavior().getState();
-      expect(state instanceof MageTalkingState).toBe(true);
+      expect(state instanceof TalkingState).toBe(true);
 
       state.timer.elapsed.mockReturnValue(2001);
       mage.update();
       state = mage.getBehavior().getState();
-      expect(state instanceof MageTalkingState).toBe(true);
+      expect(state instanceof TalkingState).toBe(true);
 
-      entity.setPosition(new Vector(30, 0));
+      hero.setPosition(new Vector(50, 0));
       state.timer.elapsed.mockReturnValue(999);
       mage.update();
       state = mage.getBehavior().getState();
-      expect(state instanceof MageTalkingState).toBe(true);
+      expect(state instanceof TalkingState).toBe(true);
 
       state.timer.elapsed.mockReturnValue(2001);
       mage.update();
@@ -157,7 +168,7 @@ describe("CrestfallenMage", () => {
       expect(state instanceof StoppedState).toBe(true);
     });
 
-    it("cycles through talking states as entity interacts with it", () => {
+    it("cycles through talking states as hero interacts with it", () => {
       const mageDialog = dialog["CrestfallenHome.CrestfallenMage"];
       let dialogStateExpectation = 0;
 
@@ -167,35 +178,18 @@ describe("CrestfallenMage", () => {
 
       // Trigger dialog handler defined above. If HomeCaveScene hasn't
       // been visited yet, dialog state shouldn't advance
-      mage.handleEvent(GameEvent.collision(entity));
-      mage.handleEvent(GameEvent.collision(entity));
-
+      startTalking();
       visitHomeCaveScene();
 
       dialogStateExpectation = 1;
-      mage.handleEvent(GameEvent.collision(entity));
+      startTalking();
 
       dialogStateExpectation = 2;
-      mage.handleEvent(GameEvent.collision(entity));
+      startTalking();
 
-      GameEvent.on(GameEvent.NPC_INTERACTION, event => {
-        expect(event.getType()).toEqual(
-          mageDialog[dialogStateExpectation].action
-        );
-      });
-      GameEvent.fire(GameEvent.CONFIRM, {
-        dialog: mageDialog[dialogStateExpectation]
-      });
+      GameEvent.fire(GameEvent.CONFIRM);
     });
   });
 
   describe("walking state", () => {});
 });
-
-function visitHomeCaveScene() {
-  const mockScene = {
-    getName: () => "HomeCaveScene",
-    getEntities: () => []
-  };
-  GameState.storeScene(mockScene);
-}

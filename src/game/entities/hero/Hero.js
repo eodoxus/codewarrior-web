@@ -49,10 +49,6 @@ export default class Hero extends Entity {
     GameEvent.fire(GameEvent.HERO_DEATH);
   }
 
-  fulfillExperience(experienceName) {
-    this.experiences[experienceName] = true;
-  }
-
   getApi() {
     return new HeroApi(this);
   }
@@ -71,6 +67,10 @@ export default class Hero extends Entity {
 
   getExperienceStatus(experienceName) {
     return this.experiences[experienceName];
+  }
+
+  fulfillExperience(experienceName) {
+    this.experiences[experienceName] = true;
   }
 
   getInventory() {

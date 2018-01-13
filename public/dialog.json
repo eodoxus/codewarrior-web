@@ -4,18 +4,32 @@
   ],
   "CrestfallenHome.CrestfallenMage": [
     "Hope...\nHope is forever lost...",
-    "The Great Book of ECMAScript has been captured.\nAll I have left is this tattered page...",
     {
-      "action": "CrestfallenMage.GivePage",
+      "requires": ["homeCave"],
+      "msg":
+        "The Great Book of ECMAScript has been captured.\nAll I have left is this tattered page..."
+    },
+    {
+      "action": "GiveTatteredPage",
       "cancel": "No thanks",
       "confirm": "OK",
       "msg":
         "It is said that a wizard in the north can release the book.\nIf only I could decipher these runes, I could reach her...\nPerhaps you can try?"
     },
-    "No, no that won't do. You'll have to try again.",
-    "Yes. Yes, that's it! I think you've done it!\nNow, go outside and give it a try.",
+    {
+      "next": 2,
+      "msg": "No, no that won't do. You'll have to try again."
+    },
+    {
+      "msg":
+        "Yes. Yes, that's it! I think you've done it!\nNow, go outside and give it a try."
+    },
     "Any luck getting past those stumps?",
-    "You've freed the Great Book!\nOh Hero, a great journey awaits you.\nIt is said the Great book can open many doors.\nGo east!"
+    {
+      "requires": ["greatBook"],
+      "msg":
+        "You've freed the Great Book!\nOh Hero, a great journey awaits you.\nIt is said the Great book can open many doors.\nGo east!"
+    }
   ],
   "Home.JumpHint": ["Hrm...maybe this is a good place to try that jump"],
   "Home.SpellHint": [

@@ -40,6 +40,10 @@ export default class GameState {
     return heroRef;
   }
 
+  static setHero(hero) {
+    heroRef = hero;
+  }
+
   static getHeroState() {
     if (state.hero) {
       return JSON.parse(JSON.stringify(state.hero));
@@ -185,7 +189,7 @@ export default class GameState {
   }
 
   static async restoreHero(hero) {
-    heroRef = hero;
+    GameState.setHero(hero);
 
     if (!state.hero) {
       return;

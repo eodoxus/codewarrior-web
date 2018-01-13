@@ -61,10 +61,10 @@ export default class DialogComponent extends Component {
     let error = false;
     if (typeof dialog === "string") {
       text = dialog;
-    } else if (dialog.confirm) {
+    } else {
       text = dialog.msg;
-    } else if (dialog.error) {
-      text = dialog.msg;
+    }
+    if (dialog.error) {
       error = true;
     }
 

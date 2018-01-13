@@ -19,7 +19,6 @@ export default class GameEvent extends Event {
   static EDITOR_SUCCESS = "editorSuccess";
   static HERO_DEATH = "heroDeath";
   static HIDE_BORDER = "hideBorder";
-  static NPC_INTERACTION = "npcInteraction";
   static OPEN_CURTAIN = "openCurtain";
   static OPEN_HERO_MENU = "openHeroMenu";
   static OPEN_TATTERED_PAGE = "openTatteredPage";

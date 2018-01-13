@@ -1,5 +1,4 @@
 import BehaviorComponent from "./BehaviorComponent";
-import CrestfallenMageBehavior from "../../npcs/crestfallenMage/CrestfallenMage";
 import AnimateSometimesBehavior from "./AnimateSometimesBehavior";
 import Tile from "../../../engine/map/Tile";
 import NpcBehavior from "../../npcs/behaviors/NpcBehavior";
@@ -7,7 +6,6 @@ import NpcBehavior from "../../npcs/behaviors/NpcBehavior";
 const behaviors = {
   BaseBehavior: BehaviorComponent,
   AnimateSometimesBehavior,
-  CrestfallenMageBehavior,
   NpcBehavior
 };
 
