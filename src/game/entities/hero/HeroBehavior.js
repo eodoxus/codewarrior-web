@@ -1,4 +1,5 @@
 import BehaviorComponent from "../components/behaviors/BehaviorComponent";
+import ChargingState from "./states/ChargingState";
 import GameEvent from "../../engine/GameEvent";
 import GameState from "../../GameState";
 import JumpingState from "./states/JumpingState";
@@ -47,6 +48,9 @@ export default class HeroBehavior extends BehaviorComponent {
       const npc = tile.getEntity();
       this.setIntent(GameEvent.talk(npc));
       npc.getBehavior().setIntent(GameEvent.talk(this.entity));
+      if (npc.intersects(this.entity)) {
+        return;
+      }
     } else if (!tile.isWalkable()) {
       return GameEvent.fire(GameEvent.DIALOG, {
         error: true,
@@ -81,13 +85,6 @@ export default class HeroBehavior extends BehaviorComponent {
     return GameState.getIsReading();
   }
 
-  jump(tile) {
-    if (this.state instanceof SinkingState) {
-      return;
-    }
-    this.state = new JumpingState(this.entity, tile);
-  }
-
   initListeners() {
     GameEvent.on(
       GameEvent.OPEN_TATTERED_PAGE,
@@ -107,18 +104,23 @@ export default class HeroBehavior extends BehaviorComponent {
     spell.edit();
   }
 
-  receiveTatteredPage(spellCode) {
-    const inventory = this.entity.getInventory();
-    const tatteredPage = new TatteredPage();
-    inventory.add(TatteredPage.NAME, tatteredPage);
+  receiveSpell(spellCode) {
     const spell = new Spell(spellCode);
+    const tatteredPage = this.entity.getInventory().get(TatteredPage.NAME);
     tatteredPage.addSpell(spell);
-    this.entity.setMagic(tatteredPage.getTotalMagic());
     spell.edit();
     spell.onDoneEditing(() => {
       GameState.storeHero(this.entity);
       GameEvent.fire(GameEvent.SAVE_GAME);
     });
+  }
+
+  receiveTatteredPage(spellCode) {
+    const inventory = this.entity.getInventory();
+    const tatteredPage = new TatteredPage();
+    inventory.add(TatteredPage.NAME, tatteredPage);
+    this.receiveSpell(spellCode);
+    this.entity.setMagic(tatteredPage.getTotalMagic());
   }
 
   pickAnimation() {
@@ -132,6 +134,17 @@ export default class HeroBehavior extends BehaviorComponent {
     this.stop();
     this.state = new PickingState(this.entity);
     return await this.state.getTarget();
+  }
+
+  jump(tile) {
+    if (this.state instanceof SinkingState) {
+      return;
+    }
+    this.state = new JumpingState(this.entity, tile);
+  }
+
+  charge(tile) {
+    this.state = new ChargingState(this.entity, tile);
   }
 
   update() {

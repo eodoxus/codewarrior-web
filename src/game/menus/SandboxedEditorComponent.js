@@ -64,6 +64,10 @@ export default class SandboxedEditorComponent extends Component {
     this.setState({ code });
   };
 
+  setCode(code) {
+    this.codemirror.getCodeMirror().setValue(code);
+  }
+
   render() {
     const config = {
       extraKeys: { "Alt-Space": "autocomplete" },

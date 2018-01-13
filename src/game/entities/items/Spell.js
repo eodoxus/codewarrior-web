@@ -53,6 +53,10 @@ export default class Spell {
     return this.cost;
   }
 
+  getScript() {
+    return this.script;
+  }
+
   setScript(script) {
     this.script = script;
   }

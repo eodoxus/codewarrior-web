@@ -26,6 +26,21 @@ exports[`<TatteredPageComponent /> Snapshots renders tattered page graphics cont
   </div>
   <div
     className={undefined}
+  >
+    <div
+      className={undefined}
+      onClick={[Function]}
+    >
+      <span>
+        1
+      </span>
+      <div
+        className=""
+      />
+    </div>
+  </div>
+  <div
+    className={undefined}
   />
 </div>
 `;

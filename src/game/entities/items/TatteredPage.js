@@ -11,10 +11,9 @@ export default class TatteredPage {
   }
 
   addSpell(spell) {
-    if (this.spells.length >= MAX_SPELLS) {
-      throw new Error("Tattered page can only hold 2 spells");
+    if (this.spells.length < MAX_SPELLS) {
+      this.spells.push(spell);
     }
-    this.spells.push(spell);
   }
 
   getId() {

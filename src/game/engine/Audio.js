@@ -8,12 +8,14 @@ const _inFlight = [];
 export default class Audio {
   static EFFECTS = {
     CLOSE_BOOK: "close-book",
+    CRASH: "crash",
     DIE: "die",
     GAME_OVER: "game-over",
     JUMP: "jump",
     JUMP_COLLIDE: "jump-collide",
     OPEN_BOOK: "open-book",
     OUT_OF_MAGIC: "out-of-magic",
+    RUNNING: "running",
     SECRET: "secret",
     SPLASH: "splash",
     TAKE_DAMAGE: "take-damage"

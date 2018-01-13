@@ -47,6 +47,11 @@ export default class Dialog {
     this.state = state;
   }
 
+  hasConfirm() {
+    const msg = this.getMessage();
+    return msg && msg.confirm;
+  }
+
   next() {
     const msg = this.getMessage();
     const next = (msg && msg.next) || this.state + 1;

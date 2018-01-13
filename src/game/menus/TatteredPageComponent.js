@@ -46,9 +46,14 @@ export default class TatteredPageComponent extends MenuComponent {
     GameEvent.fire(GameEvent.CLOSE_HERO_MENU);
     this.setState({
       isOpen: true,
-      code: spell.getCode(),
-      api: spell.getApi()
+      spell
     });
+  };
+
+  onSpellClick = spell => {
+    this.setState({ spell });
+    const code = spell.getCode();
+    this.editor.setCode(code);
   };
 
   render() {
@@ -70,14 +75,37 @@ export default class TatteredPageComponent extends MenuComponent {
         >
           <span>x</span>
         </div>
+        <div className={styles.buttons}>{this.renderButtons()}</div>
         <div className={styles.sandbox}>
           <SandboxedEditor
-            code={this.state.code}
-            api={this.state.api}
+            code={this.state.spell.getCode()}
+            api={this.state.spell.getApi()}
             ref={editor => (this.editor = editor)}
           />
         </div>
       </div>
     );
+  }
+
+  renderButtons() {
+    const tatteredPage = GameState.getHero().getSpellEditor();
+    return tatteredPage.getSpells().map((spell, iDx) => {
+      const isActive = this.state.spell.getScript().id === spell.getScript().id;
+      return (
+        <div
+          className={styles.spellButton}
+          onClick={() => this.onSpellClick(spell)}
+          key={iDx}
+        >
+          <span>{iDx + 1}</span>
+          <div
+            className={cx(
+              styles.spellButtonOverlay,
+              isActive ? styles.activeSpell : ""
+            )}
+          />
+        </div>
+      );
+    });
   }
 }

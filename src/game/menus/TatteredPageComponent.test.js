@@ -2,15 +2,21 @@ import React from "react";
 import ReactDOM from "react-dom";
 import renderer from "react-test-renderer";
 import GameEvent from "../engine/GameEvent";
+import GameState from "../GameState";
 import TatteredPageComponent from "./TatteredPageComponent";
 import SandboxedEditorComponent from "./SandboxedEditorComponent";
 import Spell from "../entities/items/Spell";
+import Hero from "../entities/hero/Hero";
 
 jest.mock("../engine/Audio");
 
 SandboxedEditorComponent.prototype.render = jest.fn();
 
 const spell = new Spell({}, "");
+fetch.mockResponse("{}");
+const hero = new Hero();
+hero.getBehavior().receiveTatteredPage("");
+GameState.setHero(hero);
 
 describe("<TatteredPageComponent />", () => {
   it("renders without crashing", () => {

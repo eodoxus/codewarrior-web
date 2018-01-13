@@ -9,6 +9,7 @@ import HeroInventory from "./HeroInventory";
 import PathfindingMovement from "../components/movements/PathfindingMovement";
 import Size from "../../engine/Size";
 import Vector from "../../engine/Vector";
+import TatteredPage from "../items/TatteredPage";
 
 const ANIMATION = "hero";
 const FPS = 15;
@@ -75,6 +76,10 @@ export default class Hero extends Entity {
 
   getInventory() {
     return this.inventory;
+  }
+
+  getSpellEditor() {
+    return this.getInventory().get(TatteredPage.NAME);
   }
 
   async init() {

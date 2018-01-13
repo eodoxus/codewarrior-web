@@ -37,6 +37,19 @@
   ],
   "WitchesHome.Witch": [
     "Hello young man.",
-    "Is there something I can do for you?"
+    {
+      "cancel": "No thanks",
+      "confirm": "I'm seeking the Great Book",
+      "msg": "Is there something I can do for you?"
+    },
+    "Oh dear!!\nIt will come at a high cost...",
+    {
+      "action": "GiveChargeSpell",
+      "cancel": "No thanks",
+      "confirm": "Take Spell",
+      "msg":
+        "I will require the Red Mage's Staff.\nIt is said he lives in the Cave of Fire.\nYou will need to decipher this spell to reach it."
+    },
+    "Good luck Hero.\nI do hope we meet again..."
   ]
 }

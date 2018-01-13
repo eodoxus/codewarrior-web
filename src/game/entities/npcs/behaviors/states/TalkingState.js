@@ -17,7 +17,9 @@ export default class TalkingState extends State {
     this.subject.stop();
     this.entity = entity;
     this.dialog = this.subject.behavior.getDialog();
-    this.dialog.next();
+    if (!this.dialog.hasConfirm()) {
+      this.dialog.next();
+    }
     this.speak();
     this.timer = Time.timer();
     this.dialogListener = GameEvent.on(
@@ -39,12 +41,18 @@ export default class TalkingState extends State {
   }
 
   onDialogConfirm = () => {
-    this.action = actions.create(this.subject, this.dialog.getAction());
-    this.action.execute();
+    const action = this.dialog.getAction();
+    if (action) {
+      this.action = actions.create(this.subject, action);
+      this.action.execute();
+    } else {
+      this.dialog.next();
+      this.speak();
+    }
   };
 
   speak() {
-    GameEvent.fire(
+    GameEvent.fireAfterClick(
       GameEvent.DIALOG,
       this.subject.behavior.getDialog().getMessage()
     );

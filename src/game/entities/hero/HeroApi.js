@@ -11,7 +11,8 @@ export default class HeroApi {
     this.hero = hero;
     this.functions = {
       "~pickTarget": 6, // "~" prefix denotes async
-      jump: 12
+      jump: 12,
+      charge: 12
     };
   }
 
@@ -102,5 +103,46 @@ export default class HeroApi {
 
   mockJump(tile) {
     Spell.log(`Hero will jump to the targeted position`);
+  }
+
+  charge(tile) {
+    const behavior = this.hero.getBehavior();
+    try {
+      if (!tile) {
+        throw new Error(
+          "You must pass a position (x, y) to Hero's charge command"
+        );
+      }
+
+      if (typeof tile.x === "undefined") {
+        throw new Error(
+          "The position passed to Hero's charge command requires an x coordinate"
+        );
+      }
+
+      if (typeof tile.y === "undefined") {
+        throw new Error(
+          "The position passed to Hero's charge command requires a y coordinate"
+        );
+      }
+
+      const mapTile = this.hero.getMap().getTileAt(tile);
+      if (
+        !behavior.isReading() &&
+        !mapTile.isWalkable() &&
+        !mapTile.isWater()
+      ) {
+        throw new Error("I can't charge there");
+      }
+
+      behavior.isReading() ? this.mockCharge(tile) : behavior.charge(tile);
+    } catch (e) {
+      behavior.stop();
+      throw e;
+    }
+  }
+
+  mockCharge(tile) {
+    Spell.log(`Hero will charge at the targeted position`);
   }
 }

@@ -1,8 +1,10 @@
 import Action from "./Action";
+import GiveChargeSpell from "./GiveChargeSpell";
 import GiveTatteredPage from "./GiveTatteredPageAction";
 
 const actions = {
   BaseAction: Action,
+  GiveChargeSpell,
   GiveTatteredPage
 };
 

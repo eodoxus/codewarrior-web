@@ -1,5 +1,7 @@
 @import "../../lib/lib.scss";
 
+$spell-icon-size: 20px;
+
 .container {
   width: 400px;
   height: 329px;
@@ -11,6 +13,52 @@
   z-index: 3;
   padding: 5px;
   display: flex;
+
+  .buttons {
+    position: absolute;
+    right: 20px;
+    display: flex;
+    z-index: 3;
+
+    .spellButton {
+      position: relative;
+      cursor: pointer;
+      color: $color-font-inverse;
+      font-size: 10px;
+      line-height: 1.8;
+      text-align: center;
+      background: url("/sprites/hero-menu.png") no-repeat -20px 0;
+      width: $spell-icon-size;
+      height: $spell-icon-size;
+      margin: 5px 5px 0 0;
+    }
+
+    .spellButtonOverlay {
+      $color-overlay: rgba(94, 92, 92, 0.4);
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: $color-overlay;
+      border: 2px solid transparent;
+      border-radius: 15px;
+      width: $spell-icon-size;
+      height: $spell-icon-size;
+    }
+
+    .activeSpell,
+    .spellButtonOverlay:hover {
+      $border-offset: -2px;
+      $icon-size-with-border: $spell-icon-size + 4;
+
+      background: transparent;
+      top: $border-offset;
+      left: $border-offset;
+      border-color: $color-font-inverse;
+      width: $icon-size-with-border;
+      height: $icon-size-with-border;
+    }
+  }
 
   .close {
     position: absolute;
