@@ -45,6 +45,10 @@ export default class BehaviorComponent {
     this.state = this.state.handleEvent(this.entity, event);
   }
 
+  pickAnimation() {
+    return this.state && this.state.pickAnimation(this.entity);
+  }
+
   start() {
     this.state = new this.startState(this.entity);
   }

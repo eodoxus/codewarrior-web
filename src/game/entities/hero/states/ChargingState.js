@@ -3,6 +3,7 @@ import BounceState from "./BounceState";
 import State from "../../../engine/State";
 import Vector from "../../../engine/Vector";
 import WalkingState from "./WalkingState";
+import GameEvent from "../../../engine/GameEvent";
 
 const SOUND_EFFECT_DURATION = 160;
 const VELOCITY = 160;
@@ -12,14 +13,12 @@ export default class ChargingState extends State {
 
   detectCollisions() {
     const graphics = this.subject.getGraphics();
-    const outline = graphics.getOutline();
     const layers = this.subject.getMap().getLayers();
     for (let iDx = 0; iDx < layers.length; iDx++) {
       const tiles = layers[iDx].getTiles();
       for (let jDx = 0; jDx < tiles.length; jDx++) {
         const tile = tiles[jDx];
         if (
-          tile.getPosition().y >= outline.rect.y &&
           graphics.outlinesIntersect(tile.getOutline()) &&
           !tile.isWalkable()
         ) {
@@ -48,6 +47,9 @@ export default class ChargingState extends State {
     const facingDirection = getFaceTowardDirection(this.subject, tile);
     movement.setOrientation(facingDirection);
     Audio.play(Audio.EFFECTS.CRASH);
+    if (tile.hasEntity()) {
+      tile.getEntity().handleEvent(new GameEvent.collision(this.subject));
+    }
     return new BounceState(this.subject);
   }
 

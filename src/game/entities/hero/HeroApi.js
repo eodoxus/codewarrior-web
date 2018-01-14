@@ -130,7 +130,8 @@ export default class HeroApi {
       if (
         !behavior.isReading() &&
         !mapTile.isWalkable() &&
-        !mapTile.isWater()
+        !mapTile.isWater() &&
+        !mapTile.isBreakable()
       ) {
         throw new Error("I can't charge there");
       }

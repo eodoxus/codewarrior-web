@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="52">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="54">
  <properties>
   <property name="backgroundMusic" value="overworld"/>
   <property name="name" value="Home"/>
@@ -16,14 +16,6 @@
  <layer name="map" width="32" height="24">
   <data encoding="base64" compression="zlib">
    eJy11slPE2EYx/GnM7SlC/+AwRZF/wg3MO4bHiRxxS4CV9eLRIuAHl2ubmAEBJd6dAO6CF5d8OiuBzWCetDEFfU7aZsObacdw/RNPnnb6fu+v/eZMi+dsIlMYsouckURuYpr2C0ie7AX+7AfB3CcsSdwEqfwEZ/w2ZaaF8V1FGqXlWzGB8ZPYB2v16PJIfKW9+/wHvcZ/wAP8QjjeCypOZO63A3MbcBGuFURD7xq4Xwn1yvhwlollZ3ZzzD5K+lXYTXWKPm1NijZ/WZyS9Vs1Aa434PoR41TZBb6WeMSBjBYICuqTP+OoiZqNmp26nVARQXayFdZowJ2ONT8LI/u/mVyZ9I6yOx0Gn9uZVah5iPbXyS/3C1CdrsF+QGXSBAhhLELzWhBq8t4nlX1x8iII4Ek7mIUY7hXJN+q+qvdIrPhgx81mIO5qHWnxszj+Z1vmz7PqvoPkXEYEbTjCDrQiS638Tyr6n9CxlM8w3O8wEu8wusi+bUzrP9N+n4u8IgsxCIsxhLUoR5LPcXXsKL+02ScwVmcw3l0owcXSuRr9Qc4W4Jqfh8yeeZ8I+M7fuAnfuE3pvDHRP0xcuJqfp8wmb/ZK7IFW7EN27EDTdjpLV1/I8/oX22fjLVB8aauhU3m32D8TdzCbdzBEIYxUiS/K/33r2UFGBdECOF0ftKiM38ZtS3HipzvIvP8a1kxMuNIIKmrv7HI+aVvhc6XTLtIbi/6cvIjuvqrqzjD4IO/Klv/l0pz+UfJPmaQb7RHny5fy9F8zek1Zu/B/+5Rq39I+3/F749mbHKlsjK9Pt+qPWithaxWjLBmHevXY5T3vfwW67OXvx9zZHO70YM2zmkb1xVH+fuD7mzuPxw9s4w=
-  </data>
- </layer>
- <layer name="skulls" width="32" height="24">
-  <properties>
-   <property name="collidable" value="true"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMAroA4oFGBhKBAbO/ktAuy8PoP0j3f+jYBSMgsEBAHfuBZk=
   </data>
  </layer>
  <objectgroup name="objects">
@@ -50,13 +42,9 @@
   </object>
   <object id="6" name="transitionRight" type="transition" x="248" y="96" width="8" height="30">
    <properties>
+    <property name="orientationX" value="1"/>
+    <property name="orientationY" value="0"/>
     <property name="to" value="BossScene"/>
-   </properties>
-  </object>
-  <object id="28" name="collisionSkulls" type="collidable" x="232" y="88" width="14" height="40">
-   <properties>
-    <property name="collidable" value="true"/>
-    <property name="layer" value="skulls"/>
    </properties>
   </object>
   <object id="36" name="spawnHero" type="spawnHero" x="98" y="102"/>
@@ -104,6 +92,24 @@
     <property name="jumpable" value="true"/>
     <property name="spriteCollection" value="items"/>
     <property name="texture" value="overworldStump.png"/>
+   </properties>
+  </object>
+  <object id="52" name="skull01" type="entity" x="233" y="94" width="17" height="17">
+   <properties>
+    <property name="breakable" value="true"/>
+    <property name="entity" value="Barrier"/>
+    <property name="graphics" value="Sprite"/>
+    <property name="spriteCollection" value="items"/>
+    <property name="texture" value="breakableSkull.png"/>
+   </properties>
+  </object>
+  <object id="53" name="skull02" type="entity" x="233" y="112" width="17" height="17">
+   <properties>
+    <property name="breakable" value="true"/>
+    <property name="entity" value="Barrier"/>
+    <property name="graphics" value="Sprite"/>
+    <property name="spriteCollection" value="items"/>
+    <property name="texture" value="breakableSkull.png"/>
    </properties>
   </object>
  </objectgroup>

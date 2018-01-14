@@ -65,7 +65,7 @@ function takeDamage(dmg) {
   }
   this.health -= dmg;
   if (this.health <= 0) {
-    this.die();
+    this.kill();
   }
 }
 

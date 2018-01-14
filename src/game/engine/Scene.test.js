@@ -80,7 +80,7 @@ describe("Scene", () => {
       });
 
       it("doesn't render dead entities", () => {
-        entity2.die();
+        entity2.kill();
         scene.render();
         expect(renderOrder).toEqual(["entity1", "hero"]);
       });
@@ -150,7 +150,7 @@ describe("Scene", () => {
     describe("detectCollisions", () => {
       beforeEach(() => {
         entity1.setPosition(new Vector(30, 0));
-        entity2.die();
+        entity2.kill();
         mockHero.handleEvent = jest.fn();
         entity1.handleEvent = jest.fn();
       });
@@ -161,11 +161,11 @@ describe("Scene", () => {
       });
 
       it("doesn't detect collision on dead entities", () => {
-        entity2.die();
+        entity2.kill();
         entity2.getVelocity = jest.fn();
         scene.detectCollisions();
         expect(entity2.getVelocity).not.toHaveBeenCalled();
-        entity1.die();
+        entity1.kill();
         entity1.getVelocity = jest.fn();
         scene.detectCollisions();
         expect(entity1.getVelocity).not.toHaveBeenCalled();

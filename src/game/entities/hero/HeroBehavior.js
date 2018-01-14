@@ -81,6 +81,10 @@ export default class HeroBehavior extends BehaviorComponent {
     }
   }
 
+  isCharging() {
+    return this.state instanceof ChargingState;
+  }
+
   isReading() {
     return GameState.getIsReading();
   }
@@ -121,10 +125,6 @@ export default class HeroBehavior extends BehaviorComponent {
     inventory.add(TatteredPage.NAME, tatteredPage);
     this.receiveSpell(spellCode);
     this.entity.setMagic(tatteredPage.getTotalMagic());
-  }
-
-  pickAnimation() {
-    return this.state && this.state.pickAnimation(this.entity);
   }
 
   async pickTarget() {

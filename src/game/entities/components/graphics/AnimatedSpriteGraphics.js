@@ -60,8 +60,4 @@ export default class AnimatedSpriteGraphics extends GraphicsComponent {
     const animationName = this.entity.getBehavior().pickAnimation();
     this.sprite.changeAnimationTo(animationName);
   }
-
-  pickAnimation() {
-    // Override this
-  }
 }

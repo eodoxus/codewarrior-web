@@ -23,6 +23,9 @@ export default class GraphicsComponent {
 
   getOutline() {
     const outline = this.sprite.getOutline();
+    if (!outline) {
+      return;
+    }
     const translatedRows = [];
     const rowIndexes = Object.keys(outline.rows);
     const top = parseInt(rowIndexes[0], 10);

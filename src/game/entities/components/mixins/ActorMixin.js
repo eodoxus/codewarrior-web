@@ -80,5 +80,9 @@ function intersectsEntity(entity) {
   if (this.entity.isNpc() || entity.isNpc()) {
     return true;
   }
-  return this.outlinesIntersect(entity.graphics.getOutline());
+  const outline = entity.graphics.getOutline();
+  if (!outline) {
+    return false;
+  }
+  return this.outlinesIntersect(outline);
 }

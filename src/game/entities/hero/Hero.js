@@ -42,8 +42,8 @@ export default class Hero extends Entity {
     this.hud = new HeroHud(this);
   }
 
-  die() {
-    super.die();
+  kill() {
+    super.kill();
     this.health = 0;
     this.magic = 0;
     Audio.play(Audio.EFFECTS.DIE);

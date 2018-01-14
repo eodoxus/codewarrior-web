@@ -105,6 +105,44 @@
                  "width":11,
                  "x":115,
                  "y":53
+                }, 
+                {
+                 "height":17,
+                 "id":52,
+                 "name":"skull01",
+                 "properties":
+                    {
+                     "breakable":"true",
+                     "entity":"Barrier",
+                     "graphics":"Sprite",
+                     "spriteCollection":"items",
+                     "texture":"breakableSkull.png"
+                    },
+                 "rotation":0,
+                 "type":"entity",
+                 "visible":true,
+                 "width":17,
+                 "x":118,
+                 "y":146
+                }, 
+                {
+                 "height":17,
+                 "id":53,
+                 "name":"skull02",
+                 "properties":
+                    {
+                     "breakable":"true",
+                     "entity":"Barrier",
+                     "graphics":"Sprite",
+                     "spriteCollection":"items",
+                     "texture":"breakableSkull.png"
+                    },
+                 "rotation":0,
+                 "type":"entity",
+                 "visible":true,
+                 "width":17,
+                 "x":118,
+                 "y":163
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -126,7 +164,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":52,
+ "nextobjectid":54,
  "orientation":"orthogonal",
  "properties":
     {

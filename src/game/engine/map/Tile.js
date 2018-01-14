@@ -14,6 +14,7 @@ export default class Tile {
     ANIMATION: "animation",
     BACKGROUND_MUSIC: "backgroundMusic",
     BEHAVIOR: "behavior",
+    BREAKABLE: "breakable",
     DIALOG: "dialog",
     END: "end",
     ENTITY: "entity",
@@ -159,6 +160,14 @@ export default class Tile {
 
   intersectsRect(rect) {
     return this.getRect().intersects(rect);
+  }
+
+  isBreakable() {
+    const breakable = Tile.PROPERTIES.BREAKABLE;
+    if (this.hasEntity()) {
+      return !!this.entity.getProperty(breakable);
+    }
+    return !!this.properties[breakable];
   }
 
   isCollectable() {

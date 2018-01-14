@@ -4,6 +4,8 @@ import Sprite from "./Sprite";
 import TextureCache from "./TextureCache";
 import Url from "../../lib/Url";
 
+const SPRITES = ["items"];
+
 export default class AnimatedSprite extends Sprite {
   animations;
   curAnimation;
@@ -56,9 +58,10 @@ export default class AnimatedSprite extends Sprite {
   }
 
   async init() {
-    const plistFile = Url.ANIMATIONS + this.name + ".json";
+    const baseUrl = SPRITES.includes(this.name) ? Url.SPRITES : Url.ANIMATIONS;
+    const plistFile = baseUrl + this.name + ".json";
     const plist = await new RestClient().get(plistFile);
-    const textureUrl = Url.ANIMATIONS + plist.meta.image;
+    const textureUrl = baseUrl + plist.meta.image;
     this.loadAnimations(plist, textureUrl);
     await TextureCache.fetch(textureUrl);
   }
