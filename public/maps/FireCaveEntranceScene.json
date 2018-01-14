@@ -2,7 +2,7 @@
  "layers":[
         {
          "compression":"zlib",
-         "data":"eJzT42Zg0BvFDMm89MXY7P\/JTx9Mif2\/cWB62A8CuOwnxQ3k2o\/PblLcQCv7B9r\/w91+auFR+0ftH7V\/8Nk\/kPX\/KB7FA4EBWD74OA==",
+         "data":"eJztljkKwDAMBFfgLuQr\/lT+\/wcTXEVY0YFJmi2mMWhmS\/cD6ATX+aRhot+zWJ5VXzBpCiliebL9yoY3B\/vss89+pp\/Z4N1X+5ENkVuv73kqSLK\/c4P2Rvs7NqycVv9L\/v7vEHIzALHQaJE=",
          "encoding":"base64",
          "height":24,
          "name":"background",
@@ -15,7 +15,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJxjYBgFyICVxngg7SbkBnLdTaofSNVLKhi1nzL7cfHpZf9A+59cN9Ay\/w10\/h+1n3Tzh6r\/SXUPueoHIgxGwSgYBQgAANyCBlo=",
+         "data":"eJxjYBgFgw2womF6mzNq\/6j9o\/aP2k+JG9D1UWo\/ufqpaT8xZlCil1hzyMHkgIG0m1puGAWjYBTgBgDnigMX",
          "encoding":"base64",
          "height":24,
          "name":"water",
@@ -28,7 +28,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJzFVktOwzAQnVQ0WdAUxAFAwIoN3KCFDYUzwAL6YQVHaAUH4SMolFsUCpyjLbdgA7yRY2Vq2U6havuk0TixJ2+e7bHTzhOdhkQn4ex9J6+sDduIiF7wrhtO329GKa\/m3i8QVWC9mOgtnp4\/AMdhIc1hDZ7xiHdPBZo6OuB4TnhWwd1K+N\/j0XGrAXIL0ucQ\/etFzFXR7fOxPdZ8\/kjGNaNUv8nfxPhWkHI3YNuLRH3wDGBfK8qGaH8WVV89VjnIWBs0v01\/H3ED2NDId2dRcXwvpdzafpZUH48xdfj4bfpLOaIqfE3M23\/5dbw5Hz79HPMK3xNrIPlL4CqLHHbR3nPwNx1r4NNvWzves1w3zHENrhvY0TLRMewW7buEv2LUUD+D37f\/Tei6OUd7Kxi1C3LXbxnruZsb3VdZ+1\/Wi2x3POeT7+zgb\/C+0rlk6ZdrINu22tAw+8xvSIxT\/zZoDb4+1neC51OjX87jX9dfx66NMQ+MLuyFRs88OR9Z+nX9m7E6XmplaL0yL98ZmKVf178Jm25+p\/Waeblg078Qp\/eHC7bvj8upwXdJZNFfi9X9kXXHTer5Hjuz6J8HpP55oJn8A1XxT1YLZ8dbB1cD9h6q\/z\/O4Qq53MM\/5Cf3Li3My2MagvdVtAO0c+Hkvufgv4zUmHbCy\/p\/AUoj4qs=",
+         "data":"eJy9VllSwkAQ7VAm+TGB8gBa4jFUwB+XM+gHCHgLVPQcLqUo3gLcbqEFeAt\/1NeVTNlMJgta4VV19dSkp1+\/6ckkPZuo4RDVnfn7vh1YD1Z2iYaYGzj5+zX3l1dxK2wvEu3AnjyiZ9guxnuwU5+o61MqzhBz7sfnkeAaVtzpuTvE3Iu4PsYPsBFyjjPwTxDz4cfnkVgG97HG\/+JFc75i7qtI9LmUzs8x38Ugz5tF9G5N55HouFH9cev+wr9eINooxPPH6TetU\/xJNajnil9HVv2mdZLfVIN8lpU\/qf+yB\/\/h1\/Nk1S97wOsqyFnVajBZDTFbxfg8WfVL8LqLYnoNivt6hv6XM\/LzFnINl7D9EtFBKeqvQm4rIY+uXwevGyHBGDYJ+8Z3h7q\/eCrJ1L2n7p46rEHBGTDpN\/FX0K8qrCbewSw16NyMAWxIwRnIop9ha3HqDKs7NI5f3rn6HjqGfpj0Mxa86RrkGe6Lb4rupW65h8ztGvhZ\/4mhhiZiW150HxQ2w1qqmjdBcR\/F6Nfffwl9H2ZFEjfD9P5LqH1Yxfe07M\/u2wncjDT9eSNNf97ohP9hh\/gnazrz422Bqw17cYL\/P66hi1pu4G\/t\/H1b8D6KsYVxwcnf90Je1v8DlEne1A==",
          "encoding":"base64",
          "height":24,
          "name":"map",
@@ -41,10 +41,10 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJztzcsNgCAABNHVq9CBn84QChXtTKcFLhCTfcnsdSWzNu\/CBGmiOfT\/T3yelKkM+L\/4rHTTM+B\/jdJGOx2x\/7+ZmZn92weN3Qa0",
+         "data":"eJztzcWRQlEURdEbAHyBKHAiwYkCGosCd4kCJ4qmG4kEZ8xOAaj\/Ru9UrenZIu+ta4j00McAQ4wwxsR48+yDnWicccEVN9zxwFNBP2aKxJFAEimkkUHWdL4\/pTHDHAssscIaGwV9lyXihgETFmx44LWc7+do5PGDAooooYyKgv4vjS3+8I8d9jjgqKDvs0X8CCCIEMKIIGo736\/SqKGOBppooY2Ogr6enp6enp7e93sBI9wovQ==",
          "encoding":"base64",
          "height":24,
-         "name":"tent",
+         "name":"entrance",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -58,53 +58,56 @@
          "name":"objects",
          "objects":[
                 {
-                 "height":16,
-                 "id":5,
-                 "name":"transitionDown",
-                 "properties":
-                    {
-                     "orientationX":"0",
-                     "orientationY":"1",
-                     "to":"HomeScene"
-                    },
-                 "rotation":0,
-                 "type":"transition",
-                 "visible":true,
-                 "width":40,
-                 "x":176,
-                 "y":176
-                }, 
-                {
                  "height":0,
-                 "id":48,
+                 "id":52,
                  "name":"spawnHero",
                  "properties":
                     {
-
+                     "orientationX":"1",
+                     "orientationY":"0"
                     },
                  "rotation":0,
                  "type":"spawnHero",
                  "visible":true,
                  "width":0,
-                 "x":194,
-                 "y":170
+                 "x":16,
+                 "y":112
                 }, 
                 {
-                 "height":10,
-                 "id":49,
-                 "name":"witchesHouse",
+                 "height":17,
+                 "id":53,
+                 "name":"skull02",
+                 "properties":
+                    {
+                     "breakable":"true",
+                     "entity":"Barrier",
+                     "graphics":"Sprite",
+                     "spriteCollection":"items",
+                     "texture":"breakableSkull.png"
+                    },
+                 "rotation":0,
+                 "type":"entity",
+                 "visible":true,
+                 "width":17,
+                 "x":119.5,
+                 "y":70.5
+                }, 
+                {
+                 "height":9.99998,
+                 "id":54,
+                 "name":"fireCave",
                  "properties":
                     {
                      "orientationX":"0",
                      "orientationY":"-1",
-                     "to":"WitchesHome"
+                     "to":"FireCave01"
                     },
                  "rotation":0,
                  "type":"doorway",
                  "visible":true,
-                 "width":11,
-                 "x":115,
-                 "y":53
+                 "width":14,
+                 "x":121,
+                 "y":45
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -115,7 +118,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJxjZWBgYB3FdAcDaTe6G8jVR6n7h7L92NgjxX5qgVH7R+0ftX\/U\/lH7R7b9A93+old7cqDbs9jUAQBQqgNn",
+         "data":"eJxjZWBgYB3FRANamEMKoJb9yGaN2k+e\/fjEaGU\/Nn3UModUvdjY9LKfGmDU\/oEFo\/YPvP0Dnf5G7R+1fyDcMNDtzcGCAQ4UBCU=",
          "encoding":"base64",
          "height":24,
          "name":"collidable",
@@ -126,11 +129,11 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":52,
+ "nextobjectid":55,
  "orientation":"orthogonal",
  "properties":
     {
-     "name":"Lake",
+     "name":"FireCaveEntrance",
      "showBorder":"true"
     },
  "renderorder":"right-down",

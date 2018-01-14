@@ -44,7 +44,7 @@
    <properties>
     <property name="orientationX" value="1"/>
     <property name="orientationY" value="0"/>
-    <property name="to" value="BossScene"/>
+    <property name="to" value="FireCaveEntranceScene"/>
    </properties>
   </object>
   <object id="36" name="spawnHero" type="spawnHero" x="98" y="102"/>

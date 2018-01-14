@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="55">
+ <properties>
+  <property name="name" value="FireCaveEntrance"/>
+  <property name="showBorder" value="true"/>
+ </properties>
+ <tileset firstgid="1" name="overworld" tilewidth="8" tileheight="8" tilecount="8645">
+  <image source="../../../public/maps/overworld.png" width="760" height="728"/>
+ </tileset>
+ <layer name="background" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztljkKwDAMBFfgLuQr/lT+/wcTXEVY0YFJmi2mMWhmS/cD6ATX+aRhot+zWJ5VXzBpCiliebL9yoY3B/vss89+pp/Z4N1X+5ENkVuv73kqSLK/c4P2Rvs7NqycVv9L/v7vEHIzALHQaJE=
+  </data>
+ </layer>
+ <layer name="water" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFgw2womF6mzNq/6j9o/aP2k+JG9D1UWo/ufqpaT8xZlCil1hzyMHkgIG0m1puGAWjYBTgBgDnigMX
+  </data>
+ </layer>
+ <layer name="map" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJy9VllSwkAQ7VAm+TGB8gBa4jFUwB+XM+gHCHgLVPQcLqUo3gLcbqEFeAt/1NeVTNlMJgta4VV19dSkp1+/6ckkPZuo4RDVnfn7vh1YD1Z2iYaYGzj5+zX3l1dxK2wvEu3AnjyiZ9guxnuwU5+o61MqzhBz7sfnkeAaVtzpuTvE3Iu4PsYPsBFyjjPwTxDz4cfnkVgG97HG/+JFc75i7qtI9LmUzs8x38Ugz5tF9G5N55HouFH9cev+wr9eINooxPPH6TetU/xJNajnil9HVv2mdZLfVIN8lpU/qf+yB//h1/Nk1S97wOsqyFnVajBZDTFbxfg8WfVL8LqLYnoNivt6hv6XM/LzFnINl7D9EtFBKeqvQm4rIY+uXwevGyHBGDYJ+8Z3h7q/eCrJ1L2n7p46rEHBGTDpN/FX0K8qrCbewSw16NyMAWxIwRnIop9ha3HqDKs7NI5f3rn6HjqGfpj0Mxa86RrkGe6Lb4rupW65h8ztGvhZ/4mhhiZiW150HxQ2w1qqmjdBcR/F6Nfffwl9H2ZFEjfD9P5LqH1Yxfe07M/u2wncjDT9eSNNf97ohP9hh/gnazrz422Bqw17cYL/P66hi1pu4G/t/H1b8D6KsYVxwcnf90Je1v8DlEne1A==
+  </data>
+ </layer>
+ <layer name="entrance" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztzcWRQlEURdEbAHyBKHAiwYkCGosCd4kCJ4qmG4kEZ8xOAaj/Ru9UrenZIu+ta4j00McAQ4wwxsR48+yDnWicccEVN9zxwFNBP2aKxJFAEimkkUHWdL4/pTHDHAssscIaGwV9lyXihgETFmx44LWc7+do5PGDAooooYyKgv4vjS3+8I8d9jjgqKDvs0X8CCCIEMKIIGo736/SqKGOBppooY2Ogr6enp6enp7e93sBI9wovQ==
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="52" name="spawnHero" type="spawnHero" x="16" y="112">
+   <properties>
+    <property name="orientationX" value="1"/>
+    <property name="orientationY" value="0"/>
+   </properties>
+  </object>
+  <object id="53" name="skull02" type="entity" x="119.5" y="70.5" width="17" height="17">
+   <properties>
+    <property name="breakable" value="true"/>
+    <property name="entity" value="Barrier"/>
+    <property name="graphics" value="Sprite"/>
+    <property name="spriteCollection" value="items"/>
+    <property name="texture" value="breakableSkull.png"/>
+   </properties>
+  </object>
+  <object id="54" name="fireCave" type="doorway" x="121" y="45" width="14" height="9.99998">
+   <properties>
+    <property name="orientationX" value="0"/>
+    <property name="orientationY" value="-1"/>
+    <property name="to" value="FireCave01"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="collidable" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjZWBgYB3FRANamEMKoJb9yGaN2k+e/fjEaGU/Nn3UModUvdjY9LKfGmDU/oEFo/YPvP0Dnf5G7R+1fyDcMNDtzcGCAQ4UBCU=
+  </data>
+ </layer>
+</map>

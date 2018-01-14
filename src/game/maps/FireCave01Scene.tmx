@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="8" tileheight="8" nextobjectid="9">
+ <properties>
+  <property name="name" value="fireCave01"/>
+ </properties>
+ <tileset firstgid="1" name="underworld" tilewidth="8" tileheight="8" tilecount="2116">
+  <image source="../../../public/maps/underworld.png" width="368" height="368"/>
+ </tileset>
+ <layer name="map" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztz09OAjEUx/HCbEgERDcKG0HFG7BQFNz4Z4MicgcBgQ3KTcBEvI2QqLdBQWHHd+KQdLoZKolA0iafvDZ97S9PiOVbawgihLBU1xHxOKt3tg1sauQf4ghpHEv1BBmPs3pny+JUI/8OJZRRkeo9qh5n9c5WQ10jv4U2npAK/Br79UzfPfNHBy8rlP+KLnpCP1f1xh/v+Pjj/PPmm/nN/GZ+M7+Zf3XmX3R+H5/4wsAxVPZblhDbiCJmuXvk+o0fjDTyd3xCxJHArmNP2Z+ReY4LXFruHrnuI4kD3+z5OXqvcI2840bZN8h8wCOalrtHrgXcoqiR/59rAin6Y10=
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="1" name="door" type="doorway" x="113.667" y="160.333" width="27.3333" height="17.6667">
+   <properties>
+    <property name="orientationX" value="0"/>
+    <property name="orientationY" value="1"/>
+    <property name="spawnHeroX" value="128"/>
+    <property name="spawnHeroY" value="64"/>
+    <property name="to" value="FireCaveEntrance"/>
+   </properties>
+  </object>
+  <object id="2" name="spawnHero" type="spawnHero" x="128.333" y="149.333"/>
+  <object id="5" name="firePit01" type="entity" x="64" y="32" width="16" height="16">
+   <properties>
+    <property name="animation" value="underworld"/>
+    <property name="behavior" value="AnimateSometimes"/>
+    <property name="fps" value="20"/>
+    <property name="frameSet" value="firePit"/>
+    <property name="graphics" value="Animation"/>
+   </properties>
+  </object>
+  <object id="8" name="firePit02" type="entity" x="176" y="32" width="16" height="16">
+   <properties>
+    <property name="animation" value="underworld"/>
+    <property name="behavior" value="AnimateSometimes"/>
+    <property name="fps" value="20"/>
+    <property name="frameSet" value="firePit"/>
+    <property name="graphics" value="Animation"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="collidable" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYBh8wJGDNnjUfvLtJxUMF/spBaP2j9o/av+o/aP2j9o/FO0nti1B6/bHSLKfngAAGag/4Q==
+  </data>
+ </layer>
+</map>

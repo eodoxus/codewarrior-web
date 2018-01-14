@@ -90,7 +90,7 @@
                     {
                      "orientationX":"1",
                      "orientationY":"0",
-                     "to":"BossScene"
+                     "to":"FireCaveEntranceScene"
                     },
                  "rotation":0,
                  "type":"transition",
