@@ -26,6 +26,10 @@
     },
     "Any luck getting past those stumps?",
     {
+      "requires": ["lake"],
+      "msg": "I sure hope she’ll be able to help us..."
+    },
+    {
       "requires": ["greatBook"],
       "msg":
         "You've freed the Great Book!\nOh Hero, a great journey awaits you.\nIt is said the Great book can open many doors.\nGo east!"
@@ -50,6 +54,10 @@
       "msg":
         "I will require the Red Mage's Staff.\nIt is said he lives in the Cave of Fire.\nYou will need to decipher this spell to reach it."
     },
-    "Good luck Hero.\nI do hope we meet again..."
+    "Good luck Hero.\nI do hope we meet again...",
+    {
+      "requires": ["fireCaveEntrance"],
+      "msg": "I cannot help you without the Mage's Staff."
+    }
   ]
 }

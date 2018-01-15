@@ -242,6 +242,7 @@
  "properties":
     {
      "backgroundMusic":"overworld",
+     "experience":"fireCaveEntrance",
      "fairyChance":".8",
      "name":"FireCaveEntrance",
      "showBorder":"true"

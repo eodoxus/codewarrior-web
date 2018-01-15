@@ -169,6 +169,7 @@
  "properties":
     {
      "backgroundMusic":"overworld",
+     "experience":"lake",
      "name":"Lake",
      "showBorder":"true"
     },
