@@ -114,6 +114,7 @@
  "orientation":"orthogonal",
  "properties":
     {
+     "fairyChance":".8",
      "name":"fireCave01"
     },
  "renderorder":"right-down",

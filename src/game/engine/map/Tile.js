@@ -20,6 +20,7 @@ export default class Tile {
     ENTITY: "entity",
     ENEMY: "enemy",
     EXPERIENCE: "experience",
+    FAIRY_CHANCE: "fairyChance",
     FPS: "fps",
     FRAME_SET: "frameSet",
     GRAPHICS: "graphics",

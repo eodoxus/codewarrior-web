@@ -11,6 +11,7 @@ export default class Audio {
     CRASH: "crash",
     DIE: "die",
     GAME_OVER: "game-over",
+    HEART: "heart",
     JUMP: "jump",
     JUMP_COLLIDE: "jump-collide",
     OPEN_BOOK: "open-book",

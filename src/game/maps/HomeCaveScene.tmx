@@ -8,8 +8,8 @@
  <tileset firstgid="1" name="underworld" tilewidth="8" tileheight="8" tilecount="2116">
   <image source="../../../public/maps/underworld.png" width="368" height="368"/>
  </tileset>
- <tileset firstgid="2117" name="items" tilewidth="8" tileheight="8" tilecount="36">
-  <image source="../../../public/sprites/items.png" width="99" height="29"/>
+ <tileset firstgid="2117" name="items" tilewidth="8" tileheight="8" tilecount="165">
+  <image source="../../../public/sprites/items.png" width="123" height="90"/>
  </tileset>
  <layer name="map" width="32" height="24">
   <data encoding="base64" compression="zlib">
@@ -42,7 +42,7 @@
     <property name="layer" value="skull"/>
    </properties>
   </object>
-  <object id="6" name="BookOfEcmaScript" type="entity" x="113" y="62" width="30" height="20">
+  <object id="6" name="BookOfEcmaScript" type="entity" x="112" y="62" width="30" height="20">
    <properties>
     <property name="endX" value="112"/>
     <property name="endY" value="60"/>

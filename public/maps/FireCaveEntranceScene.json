@@ -237,11 +237,12 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":65,
+ "nextobjectid":67,
  "orientation":"orthogonal",
  "properties":
     {
      "backgroundMusic":"overworld",
+     "fairyChance":".8",
      "name":"FireCaveEntrance",
      "showBorder":"true"
     },

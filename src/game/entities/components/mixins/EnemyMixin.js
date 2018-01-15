@@ -1,6 +1,7 @@
 import Time from "../../../engine/Time";
 import Audio from "../../../engine/Audio";
 
+const HEART_SOUND_DURATION = 120;
 const MAGIC_REGENERATION_RATE = 512;
 
 export default class EnemyMixin {
@@ -9,10 +10,11 @@ export default class EnemyMixin {
     entity.setMagicRegenRate = setMagicRegenRate;
     entity.getHealth = getHealth;
     entity.setHealth = setHealth;
+    entity.heal = heal;
+    entity.takeDamage = takeDamage;
     entity.getMagic = getMagic;
     entity.setMagic = setMagic;
     entity.hasMagic = hasMagic;
-    entity.takeDamage = takeDamage;
     entity.spendMagic = spendMagic;
     entity.origUpdate = entity.update;
     entity.update = update;
@@ -59,6 +61,16 @@ function spendMagic(points) {
   }
 }
 
+function heal(points) {
+  if (this.isHero()) {
+    playHeal(points);
+  }
+  this.health += points;
+  if (this.health > this.totalHealth) {
+    this.health = this.totalHealth;
+  }
+}
+
 function takeDamage(dmg) {
   if (this.isHero()) {
     Audio.play(Audio.EFFECTS.TAKE_DAMAGE);
@@ -85,4 +97,17 @@ function updateMagic() {
     }
     this._magicTimer.reset();
   }
+}
+
+function playHeal(points) {
+  const totalHearts = Math.ceil(points / 4);
+  let count = 1;
+  Audio.play(Audio.EFFECTS.HEART);
+  let interval = setInterval(() => {
+    count++;
+    Audio.play(Audio.EFFECTS.HEART);
+    if (count >= totalHearts) {
+      clearInterval(interval);
+    }
+  }, HEART_SOUND_DURATION);
 }

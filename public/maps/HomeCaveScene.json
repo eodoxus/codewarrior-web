@@ -113,7 +113,7 @@
                  "type":"entity",
                  "visible":true,
                  "width":30,
-                 "x":113,
+                 "x":112,
                  "y":62
                 }],
          "opacity":1,
@@ -166,8 +166,8 @@
         {
          "firstgid":2117,
          "image":"..\/sprites\/items.png",
-         "imageheight":29,
-         "imagewidth":99,
+         "imageheight":90,
+         "imagewidth":123,
          "margin":0,
          "name":"items",
          "properties":
@@ -175,7 +175,7 @@
 
             },
          "spacing":0,
-         "tilecount":36,
+         "tilecount":165,
          "tileheight":8,
          "tilewidth":8
         }],

@@ -95,7 +95,7 @@ describe("Sprite", () => {
       const texture = sprite.getTexture();
       expect(texture.getUrl()).toBe("/sprites/items.png");
       expect(TextureCache.fetch).toHaveBeenCalledWith(texture);
-      expect(sprite.getSize()).toEqual(new Size(31, 21));
+      expect(sprite.getSize()).toEqual(new Size(32, 22));
     });
   });
 

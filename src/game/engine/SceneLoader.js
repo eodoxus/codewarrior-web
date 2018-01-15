@@ -3,19 +3,11 @@ import GameEvent from "./GameEvent";
 import GameState from "../GameState";
 import Scene from "./Scene";
 import Tile from "./map/Tile";
+import FairyFactory from "../entities/items/FairyFactory";
 
 export default class SceneLoader {
   currentScene;
   hero;
-  scenes;
-
-  constructor() {
-    this.scenes = [];
-  }
-
-  find(name) {
-    return this.scenes.find(scene => scene.getName() === name);
-  }
 
   fulfillExperience() {
     const experience = this.currentScene
@@ -41,10 +33,10 @@ export default class SceneLoader {
     this.currentScene.getEntities().forEach(entity => {
       entity.setMap(this.currentScene.getMap());
     });
+    FairyFactory.spawnFairy();
     this.fulfillExperience();
     GameState.restoreScene(this.currentScene);
     GameState.setSceneApi(this.currentScene.getApi());
-    //await this.loadAdjacentScenes(this.currentScene);
     return this.currentScene;
   }
 
@@ -59,36 +51,17 @@ export default class SceneLoader {
 
   async loadScene(name) {
     const sceneName = name + (name.includes("Scene") ? "" : "Scene");
-    let scene = this.find(sceneName);
-    if (!scene) {
-      scene = new Scene(sceneName);
-      this.scenes.push(scene);
-      await scene.init();
-      const music = scene.getBackgroundMusic();
-      if (music) {
-        Audio.loadMusic(music);
-      }
+    const scene = new Scene(sceneName);
+    await scene.init();
+    const music = scene.getBackgroundMusic();
+    if (music) {
+      Audio.loadMusic(music);
     }
     return scene;
   }
 
-  removeFromCache(scene) {
-    const iDx = this.scenes.findIndex(s => s.getName() === scene.getName());
-    if (iDx > -1) {
-      this.scenes.splice(iDx, 1);
-    }
-  }
-
   setHero(hero) {
     this.hero = hero;
-  }
-
-  startBackgroundMusic() {
-    this.toggleBackgroundMusic("play");
-  }
-
-  stopBackgroundMusic() {
-    this.toggleBackgroundMusic("stop");
   }
 
   switchBackgroundMusic(prevMusic) {
@@ -110,7 +83,6 @@ export default class SceneLoader {
     this.currentScene.getEntities().forEach(entity => {
       entity.setMap(undefined);
     });
-    this.removeFromCache(this.currentScene);
     this.hero.stop();
     GameEvent.removeAllListeners();
     GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);

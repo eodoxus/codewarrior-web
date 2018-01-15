@@ -42,25 +42,13 @@ describe("SceneLoader", () => {
   });
 
   describe("load", () => {
-    it("loads a scene's adjacent scenes", async () => {
-      await loader.load("test");
-      expect(loader.loadScene).toHaveBeenCalledTimes(5);
-    });
-
-    it("caches scenes it's already loaded so they are only initialized once", async () => {
-      await loader.load("test");
-      expect(loader.scenes.length).toBe(5);
-      await loader.load("test");
-      expect(loader.scenes.length).toBe(5);
-    });
-
     it("switches background music between scenes, not changing if its the same between scenes", async () => {
-      expect(Audio.stop).toHaveBeenCalledTimes(4);
+      expect(Audio.stop).toHaveBeenCalledTimes(1);
     });
 
-    it("restores scene data from GameStates", async () => {
-      expect(GameState.restoreScene).toHaveBeenCalledTimes(4);
-      expect(GameState.setSceneApi).toHaveBeenCalledTimes(4);
+    it("restores scene data from GameState", async () => {
+      expect(GameState.restoreScene).toHaveBeenCalledTimes(1);
+      expect(GameState.setSceneApi).toHaveBeenCalledTimes(1);
     });
   });
 });

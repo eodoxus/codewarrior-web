@@ -2,13 +2,13 @@ import Entities from "../entities";
 import GameEvent from "./GameEvent";
 import Graphics from "./Graphics";
 import SceneDirector from "./SceneDirector";
+import ShatterFactory from "../entities/items/ShatterFactory";
 import Size from "./Size";
 import Tile from "./map/Tile";
 import TiledMap from "./map/TiledMap";
 import Texture from "./Texture";
 import TextureCache from "./TextureCache";
 import Vector from "./Vector";
-import ShatterFactory from "../entities/items/ShatterFactory";
 
 export default class Scene {
   clickedTile;

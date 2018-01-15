@@ -35,7 +35,7 @@ export default class ProjectileFactory {
     return projectile;
   }
 
-  static async destroy(entity) {
+  static destroy(entity) {
     entity.kill();
     ShatterFactory.create(entity);
     ProjectileFactory.remove(entity);
