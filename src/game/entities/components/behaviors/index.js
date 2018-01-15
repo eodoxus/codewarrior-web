@@ -1,12 +1,18 @@
 import BehaviorComponent from "./BehaviorComponent";
 import AnimateSometimesBehavior from "./AnimateSometimesBehavior";
+import EnemyBehavior from "../../enemies/behaviors/EnemyBehavior";
 import Tile from "../../../engine/map/Tile";
 import NpcBehavior from "../../npcs/behaviors/NpcBehavior";
+import OctorokBehavior from "../../enemies/behaviors/OctorokBehavior";
+import ProjectileBehavior from "../../enemies/behaviors/ProjectileBehavior";
 
 const behaviors = {
   BaseBehavior: BehaviorComponent,
   AnimateSometimesBehavior,
-  NpcBehavior
+  EnemyBehavior,
+  NpcBehavior,
+  OctorokBehavior,
+  ProjectileBehavior
 };
 
 behaviors.create = entity => {

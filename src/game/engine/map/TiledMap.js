@@ -150,6 +150,9 @@ export default class TiledMap {
     this.size = new Size(tileset.imagewidth, tileset.imageheight);
     this.tileSize = new Size(tileset.tilewidth, tileset.tileheight);
     this.layers = parseTileLayers.call(this, tmxConfig.layers);
+    this.size = new Size(tmxConfig.width, tmxConfig.height).scale(
+      this.tileSize
+    );
   }
 
   render() {

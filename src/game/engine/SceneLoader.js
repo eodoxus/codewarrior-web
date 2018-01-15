@@ -44,7 +44,7 @@ export default class SceneLoader {
     this.fulfillExperience();
     GameState.restoreScene(this.currentScene);
     GameState.setSceneApi(this.currentScene.getApi());
-    await this.loadAdjacentScenes(this.currentScene);
+    //await this.loadAdjacentScenes(this.currentScene);
     return this.currentScene;
   }
 
@@ -112,6 +112,7 @@ export default class SceneLoader {
     });
     this.removeFromCache(this.currentScene);
     this.hero.stop();
+    GameEvent.removeAllListeners();
     GameEvent.fire(GameEvent.CLOSE_TATTERED_PAGE);
     GameState.storeScene(this.currentScene);
     GameState.storeHero(this.hero);

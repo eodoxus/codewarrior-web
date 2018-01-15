@@ -33,7 +33,6 @@ export default class Scene {
       new Texture("testTexture", new Vector(), new Size(10, 10))
     );
   shouldShowBorder = jest.fn();
-  startBackgroundMusic = jest.fn();
   update = jest.fn();
   unload = jest.fn();
 }

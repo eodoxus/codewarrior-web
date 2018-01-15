@@ -320,137 +320,6 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">textures/images/breaking_01.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>38,0,76,1</rect>
-                <key>scale9Paddings</key>
-                <rect>38,0,76,1</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">textures/images/breaking_03.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>1,8,1,15</rect>
-                <key>scale9Paddings</key>
-                <rect>1,8,1,15</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">textures/images/breaking_05.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>3,7,6,15</rect>
-                <key>scale9Paddings</key>
-                <rect>3,7,6,15</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">textures/images/breaking_07.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>2,7,4,15</rect>
-                <key>scale9Paddings</key>
-                <rect>2,7,4,15</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">textures/images/breaking_09.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>1,7,3,15</rect>
-                <key>scale9Paddings</key>
-                <rect>1,7,3,15</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">textures/images/breaking_11.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>1,7,2,15</rect>
-                <key>scale9Paddings</key>
-                <rect>1,7,2,15</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">textures/images/breaking_13.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>0,7,1,15</rect>
-                <key>scale9Paddings</key>
-                <rect>0,7,1,15</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">textures/images/breaking_14.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>5,0,11,1</rect>
-                <key>scale9Paddings</key>
-                <rect>5,0,11,1</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">textures/images/breaking_15.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>7,0,13,1</rect>
-                <key>scale9Paddings</key>
-                <rect>7,0,13,1</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">textures/images/breaking_16.png</key>
-            <key type="filename">textures/images/breaking_17.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>7,0,15,1</rect>
-                <key>scale9Paddings</key>
-                <rect>7,0,15,1</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
             <key type="filename">textures/magicBars/current.png</key>
             <key type="filename">textures/magicBars/total.png</key>
             <struct type="IndividualSpriteSettings">
@@ -462,6 +331,21 @@
                 <rect>21,1,42,2</rect>
                 <key>scale9Paddings</key>
                 <rect>21,1,42,2</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">textures/octorokBullet/01.png</key>
+            <key type="filename">textures/octorokBullet/02.png</key>
+            <key type="filename">textures/octorokBullet/03.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>3,4,5,8</rect>
+                <key>scale9Paddings</key>
+                <rect>3,4,5,8</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

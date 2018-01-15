@@ -8,6 +8,7 @@ import TiledMap from "./map/TiledMap";
 import Texture from "./Texture";
 import TextureCache from "./TextureCache";
 import Vector from "./Vector";
+import ShatterFactory from "../entities/items/ShatterFactory";
 
 export default class Scene {
   clickedTile;
@@ -66,13 +67,13 @@ export default class Scene {
     let len = this.entities.length;
     for (let iDx = 0; iDx < len - 1; iDx++) {
       const entity = this.entities[iDx];
-      if (entity.isDead()) {
+      if (!entity || entity.isDead()) {
         continue;
       }
 
       for (let jDx = iDx + 1; jDx < len; jDx++) {
         const otherEntity = this.entities[jDx];
-        if (otherEntity.isDead()) {
+        if (!otherEntity || otherEntity.isDead()) {
           continue;
         }
 
@@ -92,11 +93,26 @@ export default class Scene {
   async init() {
     await this.initMap();
     await this.initEntities();
+    this.initEventListeners();
   }
 
   async initEntities() {
     const promises = this.getEntities().map(entity => entity.init());
     await Promise.all(promises);
+  }
+
+  initEventListeners() {
+    GameEvent.on(GameEvent.ADD_ENTITY, entity => this.addEntity(entity), true);
+    GameEvent.on(
+      GameEvent.REMOVE_ENTITY,
+      entity => this.removeEntity(entity),
+      true
+    );
+    GameEvent.on(
+      GameEvent.SHATTER,
+      entity => ShatterFactory.create(entity),
+      true
+    );
   }
 
   async initMap() {

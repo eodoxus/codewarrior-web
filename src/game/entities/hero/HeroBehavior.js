@@ -1,14 +1,15 @@
 import BehaviorComponent from "../components/behaviors/BehaviorComponent";
+import BounceState from "./states/BounceState";
 import ChargingState from "./states/ChargingState";
 import GameEvent from "../../engine/GameEvent";
 import GameState from "../../GameState";
 import JumpingState from "./states/JumpingState";
-import PickingState from "./states/PickingState";
 import ReadingState from "./states/ReadingState";
 import SinkingState from "./states/SinkingState";
 import Spell from "../items/Spell";
 import StoppedState from "./states/StoppedState";
 import TatteredPage from "../items/TatteredPage";
+import TargetPickingState from "./states/TargetPickingState";
 import TransitioningState from "./states/TransitioningState";
 import WalkingState from "./states/WalkingState";
 
@@ -39,7 +40,7 @@ export default class HeroBehavior extends BehaviorComponent {
   }
 
   handleClick(tile) {
-    if (this.state instanceof PickingState) {
+    if (this.state instanceof TargetPickingState) {
       this.state.setTarget(tile.getPosition());
       this.state = new WalkingState(this.entity);
       return;
@@ -70,6 +71,11 @@ export default class HeroBehavior extends BehaviorComponent {
       }
       movement.reroute();
     }
+    if (entity.isEnemy() && !this.isBouncing()) {
+      this.entity.stop();
+      this.entity.takeDamage(1);
+      this.state = new BounceState(this.entity);
+    }
   }
 
   handleEvent(event) {
@@ -79,6 +85,10 @@ export default class HeroBehavior extends BehaviorComponent {
     if (event.getType() === GameEvent.COLLISION) {
       this.handleCollision(event.getData());
     }
+  }
+
+  isBouncing() {
+    return this.state instanceof BounceState;
   }
 
   isCharging() {
@@ -132,7 +142,7 @@ export default class HeroBehavior extends BehaviorComponent {
       return;
     }
     this.stop();
-    this.state = new PickingState(this.entity);
+    this.state = new TargetPickingState(this.entity);
     return await this.state.getTarget();
   }
 

@@ -35,6 +35,12 @@ export default class Vector {
     this.y = y || 0;
   }
 
+  abs(v) {
+    this.x = Math.abs(this.x);
+    this.y = Math.abs(this.y);
+    return this;
+  }
+
   add(v) {
     if (typeof v === "number") {
       this.x += v;
@@ -101,8 +107,6 @@ export default class Vector {
     const magnitude = this.magnitude();
     if (magnitude !== 0) {
       this.divide(magnitude);
-      this.x = Math.abs(this.x);
-      this.y = Math.abs(this.y);
     }
     return this.toFixed();
   }

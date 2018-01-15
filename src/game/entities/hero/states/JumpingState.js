@@ -1,40 +1,14 @@
 import Audio from "../../../engine/Audio";
+import BehaviorHelper from "../../components/behaviors/BehaviorHelper";
 import BounceState from "./BounceState";
+import HeroBehaviorHelper from "../HeroBehaviorHelper";
 import State from "../../../engine/State";
 import Vector from "../../../engine/Vector";
-import WalkingState from "./WalkingState";
-import SinkingState from "./SinkingState";
 
-const ANIMATIONS = {
-  DOWN: "jumping_down",
-  LEFT: "jumping_left",
-  RIGHT: "jumping_right",
-  UP: "jumping_up"
-};
 const JUMP_HEIGHT = 8;
 const VELOCITY = 80;
 
 export default class JumpingState extends State {
-  detectCollisions() {
-    const graphics = this.subject.getGraphics();
-    const outline = graphics.getOutline();
-    const layers = this.subject.getMap().getLayers();
-    for (let iDx = 0; iDx < layers.length; iDx++) {
-      const tiles = layers[iDx].getTiles();
-      for (let jDx = 0; jDx < tiles.length; jDx++) {
-        const tile = tiles[jDx];
-        if (
-          tile.getPosition().y >= outline.rect.y &&
-          graphics.outlinesIntersect(tile.getOutline()) &&
-          !tile.isWalkable() &&
-          !tile.isJumpable()
-        ) {
-          return tile;
-        }
-      }
-    }
-  }
-
   enter(tile) {
     Audio.play(Audio.EFFECTS.JUMP);
     this.subject.getGraphics().toggleShadow();
@@ -49,46 +23,30 @@ export default class JumpingState extends State {
   }
 
   handleCollision(tile) {
-    const movement = this.subject.getMovement();
-    const facingDirection = getFaceTowardDirection(this.subject, tile);
-    movement.setOrientation(facingDirection);
+    BehaviorHelper.faceToward(this.subject, tile);
     Audio.play(Audio.EFFECTS.JUMP_COLLIDE);
+    if (tile.hasEntity() && tile.getEntity().isEnemy()) {
+      const behavior = this.subject.getBehavior();
+      behavior.handleCollision(tile.getEntity());
+      return behavior.getState();
+    }
     return new BounceState(this.subject);
   }
 
   pickAnimation() {
-    let animation = ANIMATIONS.DOWN;
-    const orientation = this.subject.getMovement().getOrientation();
-    if (orientation.y < 0) {
-      animation = ANIMATIONS.UP;
-    } else if (orientation.y === 0) {
-      if (orientation.x > 0) {
-        animation = ANIMATIONS.RIGHT;
-      } else if (orientation.x < 0) {
-        animation = ANIMATIONS.LEFT;
-      }
-    }
-    return animation;
+    return BehaviorHelper.getDirectionAnimation(this.subject, "jumping_");
   }
 
   update() {
-    const tile = this.detectCollisions();
+    const tile = BehaviorHelper.detectCollisions(
+      this.subject,
+      collisionCondition
+    );
     if (tile) {
       return this.handleCollision(tile);
     }
     if (!this.subject.getMovement().isMoving()) {
-      const landingTile = this.subject
-        .getMap()
-        .getTileAt(
-          Vector.add(
-            this.subject.getOrigin(),
-            new Vector(0, this.subject.getSprite().getSize().height / 2)
-          )
-        );
-      if (landingTile.isWater()) {
-        return new SinkingState(this.subject);
-      }
-      return new WalkingState(this.subject);
+      return HeroBehaviorHelper.land(this.subject);
     }
     this.subject
       .getGraphics()
@@ -104,25 +62,12 @@ function tileLandingPosition(hero, tile) {
   return position;
 }
 
-function getFaceTowardDirection(hero, tile) {
-  const distance = hero.getOrigin().distanceTo(tile.getOrigin());
-
-  // If the y distance is greater than x distance
-  // it's either above or below, otherwise it's
-  // either left or right
-  if (Math.abs(distance.y) >= Math.abs(distance.x)) {
-    // If it's above, face up
-    if (distance.y > 0) {
-      return new Vector(0, -1);
-    }
-    // Otherwise, it's below, face down
-    return new Vector(0, 1);
-  } else {
-    // If it's to the right, face right
-    if (distance.x < 0) {
-      return new Vector(1, 0);
-    }
-    // Otherwise, it's to the left, face left
-    return new Vector(-1, 0);
-  }
+function collisionCondition(subject, tile) {
+  const graphics = subject.getGraphics();
+  return (
+    tile.getPosition().y >= graphics.getOutline().rect.y &&
+    graphics.outlinesIntersect(tile.getOutline()) &&
+    !tile.isWalkable() &&
+    !tile.isJumpable()
+  );
 }

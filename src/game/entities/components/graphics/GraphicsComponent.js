@@ -94,7 +94,7 @@ export default class GraphicsComponent {
 
   outlinesIntersect(outline) {
     const thisOutline = this.getOutline();
-    if (!thisOutline.rect.intersects(outline.rect)) {
+    if (!thisOutline || !thisOutline.rect.intersects(outline.rect)) {
       return false;
     }
 

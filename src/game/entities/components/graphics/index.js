@@ -11,8 +11,8 @@ const graphics = {
   AnimatedSpriteGraphics,
   AnimationGraphics,
   NoGraphics,
-  SpriteGraphics,
-  ShadowedSpriteGraphics
+  ShadowedSpriteGraphics,
+  SpriteGraphics
 };
 
 graphics.create = (entity, position) => {

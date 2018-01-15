@@ -1,13 +1,8 @@
+import BehaviorHelper from "../../components/behaviors/BehaviorHelper";
+import HeroBehaviorHelper from "../HeroBehaviorHelper";
 import State from "../../../engine/State";
 import Vector from "../../../engine/Vector";
-import WalkingState from "./WalkingState";
 
-const ANIMATIONS = {
-  DOWN: "bouncing_down",
-  LEFT: "bouncing_left",
-  RIGHT: "bouncing_right",
-  UP: "bouncing_up"
-};
 const BOUNCE_DISTANCE = 8;
 const VELOCITY = 40;
 
@@ -33,23 +28,12 @@ export default class BounceState extends State {
   }
 
   pickAnimation() {
-    let animation = ANIMATIONS.DOWN;
-    const orientation = this.subject.getMovement().getOrientation();
-    if (orientation.y < 0) {
-      animation = ANIMATIONS.UP;
-    } else if (orientation.y === 0) {
-      if (orientation.x > 0) {
-        animation = ANIMATIONS.RIGHT;
-      } else if (orientation.x < 0) {
-        animation = ANIMATIONS.LEFT;
-      }
-    }
-    return animation;
+    return BehaviorHelper.getDirectionAnimation(this.subject, "bouncing_");
   }
 
   update() {
     if (!this.subject.getMovement().isMoving()) {
-      return new WalkingState(this.subject);
+      return HeroBehaviorHelper.land(this.subject);
     }
     this.subject
       .getGraphics()

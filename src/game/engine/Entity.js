@@ -1,6 +1,7 @@
 import ActorMixin from "../entities/components/mixins/ActorMixin";
-import Tile from "./map/Tile";
 import EnemyMixin from "../entities/components/mixins/EnemyMixin";
+import GameEvent from "./GameEvent";
+import Tile from "./map/Tile";
 
 export default class Entity {
   static makeActor(entity) {
@@ -21,6 +22,16 @@ export default class Entity {
   constructor(id, properties = {}) {
     this.id = id;
     this.properties = properties;
+  }
+
+  destroy() {
+    this.kill();
+    if (this.isBreakable()) {
+      // Using ShatterFactory.create() here directly causes a circular
+      // import issue with Jest, so working around that with GameEvent
+      // so we don't have to import ShatterFactory.
+      GameEvent.fire(GameEvent.SHATTER, this);
+    }
   }
 
   getApi() {
@@ -148,8 +159,16 @@ export default class Entity {
     return this.graphics.intersects(obj);
   }
 
+  isBreakable() {
+    return !!this.getProperty(Tile.PROPERTIES.BREAKABLE);
+  }
+
   isDead() {
     return this._isDead;
+  }
+
+  isEnemy() {
+    return !!this.getProperty(Tile.PROPERTIES.ENEMY);
   }
 
   isHero(entity) {

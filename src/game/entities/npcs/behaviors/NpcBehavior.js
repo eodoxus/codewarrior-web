@@ -3,13 +3,8 @@ import GameEvent from "../../../engine/GameEvent";
 import StoppedState from "./states/StoppedState";
 import TalkingState from "./states/TalkingState";
 import WalkingState from "./states/WalkingState";
+import BehaviorHelper from "../../components/behaviors/BehaviorHelper";
 
-const ANIMATIONS = {
-  DOWN: "down",
-  LEFT: "left",
-  RIGHT: "right",
-  UP: "up"
-};
 const STOPPED_ANIMATION = "down";
 
 export default class NpcBehavior extends BehaviorComponent {
@@ -43,18 +38,9 @@ export default class NpcBehavior extends BehaviorComponent {
   }
 
   pickAnimation() {
-    const orientation = this.entity.movement.getOrientation();
-    let animationName = ANIMATIONS.DOWN;
-    if (orientation.y < 0) {
-      animationName = ANIMATIONS.UP;
-    }
-    if (orientation.y === 0) {
-      if (orientation.x > 0) {
-        animationName = ANIMATIONS.RIGHT;
-      } else if (orientation.x < 0) {
-        animationName = ANIMATIONS.LEFT;
-      }
-    }
-    return this.entity.getId() + "_" + animationName;
+    return BehaviorHelper.getDirectionAnimation(
+      this.entity,
+      this.entity.getId() + "_"
+    );
   }
 }

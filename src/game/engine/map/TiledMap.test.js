@@ -50,8 +50,7 @@ describe("TiledMap", () => {
 
     it("returns undefined if there is not a tile at position", () => {
       const tile = map.getClosestWalkableTile(new Vector(600, 0));
-      expect(tile).toBeDefined();
-      expect(tile.getPosition()).toEqual(new Vector(240, 32));
+      expect(tile).toBeUndefined();
     });
   });
 

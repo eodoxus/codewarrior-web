@@ -5,7 +5,7 @@ const MENU_ITEM_SELECTOR = "menu-item";
 const POINTER_CURSOR = "pointer";
 const TARGET_CURSOR = "crosshair";
 
-export default class PickingState extends State {
+export default class TargetPickingState extends State {
   target;
 
   enter() {

@@ -151,6 +151,6 @@ export default class MovementComponent {
 }
 
 function normalizeVelocity(velocity) {
-  const normalized = Vector.normalize(velocity);
+  const normalized = Vector.normalize(velocity).abs();
   return Vector.multiply(velocity, Time.FRAME_STEP_SEC).multiply(normalized);
 }

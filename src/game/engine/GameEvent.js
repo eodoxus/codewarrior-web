@@ -1,9 +1,10 @@
 import Event from "../../lib/Event";
 
-const listeners = [];
+let listeners = [];
 let inputQueue;
 
 export default class GameEvent extends Event {
+  static ADD_ENTITY = "addEntity";
   static CANCEL = "cancel";
   static CLICK = "click";
   static CLICK_HERO = "clickHero";
@@ -23,7 +24,9 @@ export default class GameEvent extends Event {
   static OPEN_HERO_MENU = "openHeroMenu";
   static OPEN_TATTERED_PAGE = "openTatteredPage";
   static RESTART = "restart";
+  static REMOVE_ENTITY = "removeEntity";
   static SAVE_GAME = "saveGame";
+  static SHATTER = "shatter";
   static SHOW_BORDER = "showBorder";
   static SPELL_CAST = "spellCast";
   static STOP = "stop";
@@ -54,6 +57,7 @@ export default class GameEvent extends Event {
     listeners.forEach(listener => {
       listener.remove();
     });
+    listeners = [];
   }
 
   static on(event, handler, enqueue = false) {

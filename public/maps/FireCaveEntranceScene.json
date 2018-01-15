@@ -15,7 +15,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJxjYBgFgw2womF6mzNq\/6j9o\/aP2k+JG9D1UWo\/ufqpaT8xZlCil1hzyMHkgIG0m1puGAWjYBTgBgDnigMX",
+         "data":"eJztjjEKADAIA136\/y+7BwoSpXW4g4zJJQKUI3m9gx8\/fvxb\/M4H7XX9bn\/SX9nodKs7Thx+uqc+AMCdBJX4Az8=",
          "encoding":"base64",
          "height":24,
          "name":"water",
@@ -28,7 +28,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJy9VllSwkAQ7VAm+TGB8gBa4jFUwB+XM+gHCHgLVPQcLqUo3gLcbqEFeAt\/1NeVTNlMJgta4VV19dSkp1+\/6ckkPZuo4RDVnfn7vh1YD1Z2iYaYGzj5+zX3l1dxK2wvEu3AnjyiZ9guxnuwU5+o61MqzhBz7sfnkeAaVtzpuTvE3Iu4PsYPsBFyjjPwTxDz4cfnkVgG97HG\/+JFc75i7qtI9LmUzs8x38Ugz5tF9G5N55HouFH9cev+wr9eINooxPPH6TetU\/xJNajnil9HVv2mdZLfVIN8lpU\/qf+yB\/\/h1\/Nk1S97wOsqyFnVajBZDTFbxfg8WfVL8LqLYnoNivt6hv6XM\/LzFnINl7D9EtFBKeqvQm4rIY+uXwevGyHBGDYJ+8Z3h7q\/eCrJ1L2n7p46rEHBGTDpN\/FX0K8qrCbewSw16NyMAWxIwRnIop9ha3HqDKs7NI5f3rn6HjqGfpj0Mxa86RrkGe6Lb4rupW65h8ztGvhZ\/4mhhiZiW150HxQ2w1qqmjdBcR\/F6Nfffwl9H2ZFEjfD9P5LqH1Yxfe07M\/u2wncjDT9eSNNf97ohP9hh\/gnazrz422Bqw17cYL\/P66hi1pu4G\/t\/H1b8D6KsYVxwcnf90Je1v8DlEne1A==",
+         "data":"eJy9Vl1OwkAQHhrbvkghHkAjHkMFfPHnDPoAAt4CFT2HP1EUbwEq3kIDeAtf1G\/TThyWbbtqypdMZrOdnW++\/et2XaK6R1Tz5u97bmhdWMknGqCv72Xv1\/wfXuZmbC8S7cCe8kTPsF2092CnAVEnoFScIeY8iM8joWpY8af77hBzL+J6aD\/ARsg5tuCfIOY9iM8jsQzuY41\/mJ\/N+YK+zwLRx1I6v4r5KoR5XnNEb7npPBJtf1Z\/3Li\/8K87RBtOPH+cftM45k+qgb8zv0TFsdevQ+c31SC\/mfg5j0TS+ss1+A+\/nsdWv1wDNa6MnBWtBpNVEbNViM9jq19CjbsopNfA3NeW86\/0lyz51RSqGi5h+0Wig+Ksv4q4cwl5dP061LgREoxhk2jd1N3B95fqSjK+9\/juqcHqFO4Bk34Tf9kJz0tVnEGbGnRuhT5sQOEesNG\/gBhXi+M9zHdoHL+8c\/U59JDTt9BvqkHu4Z74p+he6pZzaOJm\/SeGGhqIbRrmgbEZ1VLRvAnMfWTIZTr\/Eqa1+A2SuBVM51+C52EV\/9NS8HvfSuBWSNOfNdL0Z4129A47xJus4c2PtwmuFmzohe8\/VUMHtdzA37rZ+5bgfRTtHNqOl73vRrxK\/zdyct86",
          "encoding":"base64",
          "height":24,
          "name":"map",
@@ -76,7 +76,7 @@
                 {
                  "height":17,
                  "id":53,
-                 "name":"skull02",
+                 "name":"skull",
                  "properties":
                     {
                      "breakable":"true",
@@ -108,6 +108,114 @@
                  "width":14,
                  "x":121,
                  "y":45
+                }, 
+                {
+                 "height":19,
+                 "id":56,
+                 "name":"octorok",
+                 "properties":
+                    {
+                     "animation":"enemies",
+                     "behavior":"Octorok",
+                     "enemy":"true",
+                     "fps":"10",
+                     "graphics":"AnimatedSprite",
+                     "movement":"Patrolling",
+                     "route":"octorokRoute",
+                     "velocityX":"20",
+                     "velocityY":"20"
+                    },
+                 "rotation":0,
+                 "type":"entity",
+                 "visible":true,
+                 "width":18,
+                 "x":86,
+                 "y":94
+                }, 
+                {
+                 "height":30,
+                 "id":58,
+                 "name":"transitionLeft",
+                 "properties":
+                    {
+                     "orientationX":"-1",
+                     "orientationY":"0",
+                     "to":"HomeScene"
+                    },
+                 "rotation":0,
+                 "type":"transition",
+                 "visible":true,
+                 "width":8,
+                 "x":-1,
+                 "y":97
+                }, 
+                {
+                 "height":0,
+                 "id":64,
+                 "name":"octorokRoute",
+                 "polyline":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-10,
+                         "y":-9.66666666666667
+                        }, 
+                        {
+                         "x":-10.6666666666667,
+                         "y":-34.6666666666667
+                        }, 
+                        {
+                         "x":6,
+                         "y":-34.3333333333333
+                        }, 
+                        {
+                         "x":6,
+                         "y":-2
+                        }, 
+                        {
+                         "x":54.6666666666667,
+                         "y":-1.66666666666667
+                        }, 
+                        {
+                         "x":54.6666666666667,
+                         "y":-26
+                        }, 
+                        {
+                         "x":77.6666666666667,
+                         "y":-26
+                        }, 
+                        {
+                         "x":78,
+                         "y":-10.6666666666667
+                        }, 
+                        {
+                         "x":62.3333333333333,
+                         "y":-11
+                        }, 
+                        {
+                         "x":62.3333333333333,
+                         "y":5.33333333333333
+                        }, 
+                        {
+                         "x":0,
+                         "y":5.33333333333333
+                        }, 
+                        {
+                         "x":0.333333333333329,
+                         "y":0.666666666666671
+                        }],
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"route",
+                 "visible":true,
+                 "width":0,
+                 "x":94,
+                 "y":105.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -129,10 +237,11 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":55,
+ "nextobjectid":65,
  "orientation":"orthogonal",
  "properties":
     {
+     "backgroundMusic":"overworld",
      "name":"FireCaveEntrance",
      "showBorder":"true"
     },

@@ -18,6 +18,7 @@ export default class Tile {
     DIALOG: "dialog",
     END: "end",
     ENTITY: "entity",
+    ENEMY: "enemy",
     EXPERIENCE: "experience",
     FPS: "fps",
     FRAME_SET: "frameSet",

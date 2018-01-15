@@ -17,6 +17,7 @@ export default class Audio {
     OUT_OF_MAGIC: "out-of-magic",
     RUNNING: "running",
     SECRET: "secret",
+    SHATTER: "shatter",
     SPLASH: "splash",
     TAKE_DAMAGE: "take-damage"
   };

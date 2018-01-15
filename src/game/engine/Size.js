@@ -1,6 +1,6 @@
 export default class Size {
   static scale(size, factor) {
-    return new Size(size.width * factor, size.height * factor);
+    return new Size(size.width, size.height).scale(factor);
   }
 
   width;
@@ -12,8 +12,13 @@ export default class Size {
   }
 
   scale(factor) {
-    this.width *= factor;
-    this.height *= factor;
+    if (typeof factor === "number") {
+      this.width *= factor;
+      this.height *= factor;
+    } else {
+      this.width *= factor.width;
+      this.height *= factor.height;
+    }
     return this;
   }
 }
