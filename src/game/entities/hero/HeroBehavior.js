@@ -24,7 +24,6 @@ export default class HeroBehavior extends BehaviorComponent {
   }
 
   beginTransition(velocity, orientation) {
-    this.entity.fulfillExperience("transitioned");
     this.state = new TransitioningState(this.entity, velocity, orientation);
   }
 
@@ -72,6 +71,7 @@ export default class HeroBehavior extends BehaviorComponent {
       movement.reroute();
     }
     if (entity.isEnemy() && !this.isBouncing()) {
+      GameEvent.fire(GameEvent.CANCEL_SPELL);
       this.entity.stop();
       this.entity.takeDamage(1);
       this.state = new BounceState(this.entity);

@@ -20,12 +20,13 @@ export default class ProjectileBehavior extends BehaviorComponent {
 
   update() {
     super.update();
-    if (BehaviorHelper.detectCollisions(this.entity, collisionCondition)) {
-      Audio.play(Audio.EFFECTS.SHATTER);
-      return ProjectileFactory.destroy(this.entity);
-    }
-    if (BehaviorHelper.isOffScreen(this.entity)) {
+    if (BehaviorHelper.isOffScreen(this.entity) || !!!this.entity.getMap()) {
       ProjectileFactory.remove(this.entity);
+    } else if (
+      BehaviorHelper.detectCollisions(this.entity, collisionCondition)
+    ) {
+      Audio.play(Audio.EFFECTS.SHATTER);
+      ProjectileFactory.destroy(this.entity);
     }
   }
 }

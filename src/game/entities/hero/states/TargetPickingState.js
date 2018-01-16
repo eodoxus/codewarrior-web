@@ -13,6 +13,10 @@ export default class TargetPickingState extends State {
     return this;
   }
 
+  exit() {
+    changeCursorTo(POINTER_CURSOR);
+  }
+
   async getTarget() {
     return new Promise(resolve => {
       const interval = setInterval(() => {

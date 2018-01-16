@@ -3,7 +3,7 @@ import SceneTransitioner from "../../../engine/SceneTransitioner";
 import WalkingState from "./WalkingState";
 import Vector from "../../../engine/Vector";
 
-const PADDING = 16;
+const PADDING = 24;
 
 export default class TransitioningState extends State {
   enter(velocity, orientation) {

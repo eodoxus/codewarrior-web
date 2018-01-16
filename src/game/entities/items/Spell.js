@@ -194,15 +194,19 @@ export default class Spell {
   };
 }
 
+let cancelSpell = false;
+GameEvent.on(GameEvent.CANCEL_SPELL, () => (cancelSpell = true));
+
 function executeCode(interpreter) {
   return new Promise((resolve, reject) => {
     let numSteps = 0;
     (function step() {
       try {
         executionSanityChecks(interpreter, numSteps++);
-        if (interpreter.step()) {
+        if (!cancelSpell && interpreter.step()) {
           setTimeout(step);
         } else {
+          cancelSpell = false;
           resolve();
         }
       } catch (e) {

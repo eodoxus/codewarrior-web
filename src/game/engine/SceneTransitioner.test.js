@@ -57,7 +57,7 @@ describe("SceneTransitioner", () => {
       finishTransition(transitioner);
       expect(transitioner.to.position).toEqual(new Vector(0, -1));
       expect(transitioner.from.position).toEqual(new Vector(0, -225));
-      expect(mockHero.getPosition()).toEqual(new Vector(88, 12.88));
+      expect(mockHero.getPosition()).toEqual(new Vector(88, 23.04));
     });
 
     it("transitions scenes down", async () => {
@@ -66,7 +66,7 @@ describe("SceneTransitioner", () => {
       finishTransition(transitioner);
       expect(transitioner.to.position).toEqual(new Vector(0, 1));
       expect(transitioner.from.position).toEqual(new Vector(0, 225));
-      expect(mockHero.getPosition()).toEqual(new Vector(88, 180.52));
+      expect(mockHero.getPosition()).toEqual(new Vector(88, 170.36));
     });
 
     it("transitions scenes left", async () => {
@@ -75,7 +75,7 @@ describe("SceneTransitioner", () => {
       finishTransition(transitioner);
       expect(transitioner.to.position).toEqual(new Vector(1, 0));
       expect(transitioner.from.position).toEqual(new Vector(225, 0));
-      expect(mockHero.getPosition()).toEqual(new Vector(189.6, 84));
+      expect(mockHero.getPosition()).toEqual(new Vector(179.44, 84));
     });
 
     it("transitions scenes right", async () => {
@@ -84,7 +84,7 @@ describe("SceneTransitioner", () => {
       finishTransition(transitioner);
       expect(transitioner.to.position).toEqual(new Vector(-1, 0));
       expect(transitioner.from.position).toEqual(new Vector(-225, 0));
-      expect(mockHero.getPosition()).toEqual(new Vector(11.8, 84));
+      expect(mockHero.getPosition()).toEqual(new Vector(21.96, 84));
     });
   });
 });

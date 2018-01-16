@@ -6,6 +6,7 @@ let inputQueue;
 export default class GameEvent extends Event {
   static ADD_ENTITY = "addEntity";
   static CANCEL = "cancel";
+  static CANCEL_SPELL = "cancelSpell";
   static CLICK = "click";
   static CLICK_HERO = "clickHero";
   static CLOSE_CURTAIN = "closeCurtain";

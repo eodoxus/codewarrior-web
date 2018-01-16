@@ -52,7 +52,7 @@
    <properties>
     <property name="dialog" value="Home.JumpHint"/>
     <property name="entity" value="TatteredPageHint"/>
-    <property name="fulfilledOn" value="transitioned"/>
+    <property name="fulfilledOn" value="lake"/>
     <property name="graphics" value="No"/>
    </properties>
   </object>
