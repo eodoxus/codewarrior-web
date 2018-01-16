@@ -30,6 +30,11 @@ exports[`<TatteredPageComponent /> Snapshots renders tattered page graphics cont
     <div
       className={undefined}
       onClick={[Function]}
+      style={
+        Object {
+          "backgroundImage": "url(\\"/sprites/hero-menu.png\\")",
+        }
+      }
     >
       <span>
         1

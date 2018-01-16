@@ -95,6 +95,9 @@ export default class TatteredPageComponent extends MenuComponent {
         <div
           className={styles.spellButton}
           onClick={() => this.onSpellClick(spell)}
+          style={{
+            backgroundImage: `url("${Url.PUBLIC}/sprites/hero-menu.png")`
+          }}
           key={iDx}
         >
           <span>{iDx + 1}</span>
