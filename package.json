@@ -2,6 +2,22 @@
   "name": "codewarrior",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "commitmsg": "validate-commit-msg",
+    "deploy": "./scripts/deploy.sh",
+    "precommit": "lint-staged",
+    "start": "node scripts/start.js",
+    "test": "node scripts/test.js --env=jsdom"
+  },
+  "lint-staged": {
+    "lint-staged": {
+      "*.{js,json,css}": [
+        "prettier --write",
+        "git add"
+      ]
+    }
+  },
   "dependencies": {
     "codemirror": "^5.33.0",
     "fbemitter": "^2.1.1",
@@ -16,21 +32,6 @@
     "react-dom": "^16.0.0",
     "universal-cookie": "^2.1.2",
     "whatwg-fetch": "2.0.3"
-  },
-  "scripts": {
-    "build": "node scripts/build.js",
-    "commitmsg": "validate-commit-msg",
-    "precommit": "lint-staged",
-    "start": "node scripts/start.js",
-    "test": "node scripts/test.js --env=jsdom"
-  },
-  "lint-staged": {
-    "lint-staged": {
-      "*.{js,json,css}": [
-        "prettier --write",
-        "git add"
-      ]
-    }
   },
   "devDependencies": {
     "autoprefixer": "7.1.2",
