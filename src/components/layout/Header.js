@@ -5,6 +5,12 @@ import styles from "./Header.scss";
 import cx from "classnames";
 
 export default class Header extends AutoCollapse {
+
+
+  handleToggleBtnClick() {
+    this.setState({isAuto: false, collapsed: !this.state.collapsed});
+  }
+
   render() {
     super.render();
     return (
@@ -58,7 +64,16 @@ export default class Header extends AutoCollapse {
           {this.props.email} <br />
           {this.props.phone}
         </p>
+        {this.renderToggleButton()}
       </header>
+    );
+  }
+
+  renderToggleButton() {
+    return (
+      <div className={styles.toggleButton} onClick={() => this.handleToggleBtnClick()}>
+        <i className="fa fa-chevron-up" />
+      </div>
     );
   }
 }

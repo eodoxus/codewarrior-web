@@ -5,6 +5,7 @@ import Layout from "./components/layout";
 import styles from "./App.scss";
 import { AppModel } from "./data";
 import Game from "./game";
+import GameMovie from "./game/GameMovie";
 
 const GAME_WIDTH = 640;
 const GAME_HEIGHT = 480;
@@ -79,6 +80,10 @@ export default class App extends Component {
       return <Indicators.Loader />;
     }
 
+    if (!this.state.canShowGame) {
+      return <GameMovie />;
+    }
+
     return (
       <div className={styles.game}>
         <Game.SceneDirector
@@ -96,17 +101,21 @@ export default class App extends Component {
       canShowBorder: false,
       centerHorizontally: false,
       centerVertically: false,
-      hideChrome: true
+      hideChrome: false,
+      canShowGame: true
     };
     if (window.innerWidth > GAME_WIDTH) {
       stateChanges.canShowBorder = true;
       stateChanges.centerHorizontally = true;
+    } else {
+      stateChanges.canShowGame = false;
     }
     if (window.innerHeight > GAME_HEIGHT) {
       stateChanges.centerVertically = true;
     }
     if (window.innerHeight <= GAME_HEIGHT + CHROME_HEIGHT) {
       stateChanges.hideChrome = true;
+      stateChanges.canShowGame = false;
     }
     if (Object.keys(stateChanges).length) {
       this.setState(stateChanges);
