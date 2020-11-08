@@ -22,7 +22,7 @@
     "codemirror": "^5.33.0",
     "fbemitter": "^2.1.1",
     "js-interpreter": "^1.4.6",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "object-assign": "4.1.1",
     "pako": "^1.0.6",
     "promise": "8.0.1",
