@@ -152,6 +152,11 @@ function copyPublicFolder() {
 }
 
 function copyIndexToDrupalTheme() {
+  if (!process.env.REACT_APP_THEME_DESTINATION) {
+    console.log("REACT_APP_THEME_DESTINATION not set, skipping Drupal theme file copy");
+    return;
+  }
+
   let buildHtml = `${paths.appBuild}/index.html`;
   fs.copySync(buildHtml, process.env.REACT_APP_THEME_DESTINATION, {
     overwrite: true

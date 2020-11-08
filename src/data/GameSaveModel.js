@@ -5,7 +5,7 @@ const SAVE_TOKEN = "codewarrior-token";
 const cookies = new Cookies();
 
 export default class GameSaveModel extends DataModel {
-  static ENDPOINT = "game_saves";
+  static ENDPOINT = "game_save";
 
   // Taken from https://stackoverflow.com/a/2117523
   static generateSaveToken() {
@@ -27,5 +27,6 @@ export default class GameSaveModel extends DataModel {
 
   constructor(data) {
     super(data, GameSaveModel.ENDPOINT);
+    this.id = GameSaveModel.getToken();
   }
 }
