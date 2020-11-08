@@ -1,12 +1,12 @@
 import * as _ from "lodash";
-import RestClient from "../lib/RestClient";
+//import RestClient from "../lib/RestClient";
+import LocalStorageClient from "../lib/LocalStorageClient";
 import Url from "../lib/Url";
-
-const client = new RestClient();
 
 export default class DataModel {
   static API_URL = "api";
-  static client = client;
+  //static client = new RestClient();
+  static client = new LocalStorageClient();
 
   constructor(data, endpoint) {
     this.$url = Url.BASE + DataModel.API_URL + "/" + endpoint;
@@ -15,7 +15,7 @@ export default class DataModel {
 
   async load() {
     if (this.id) {
-      let data = await client.get(`${this.$url}/${this.id}`);
+      let data = await DataModel.client.get(`${this.$url}/${this.id}`);
       return this.absorbData(data);
     }
     return this;
@@ -23,14 +23,14 @@ export default class DataModel {
 
   async delete() {
     if (this.id) {
-      await client.delete(`${this.$url}/${this.id}`);
+      await DataModel.client.delete(`${this.$url}/${this.id}`);
     }
     return this;
   }
 
   async save() {
     let method = this.id ? "put" : "post",
-      data = await client[method](this.$url, this.toJson());
+      data = await DataModel.client[method](this.$url, this.toJson());
     this.absorbData(data);
     return this;
   }

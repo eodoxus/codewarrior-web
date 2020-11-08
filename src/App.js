@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import cx from "classnames";
 import Indicators from "./components/indicators";
-import Layout from "./components/layout";
+//import Layout from "./components/layout";
 import styles from "./App.scss";
 import { AppModel } from "./data";
 import Game from "./game";
@@ -15,6 +15,7 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
+      hasError: false,
       isLoading: true,
       name: "..."
     };
@@ -32,7 +33,8 @@ export default class App extends Component {
   }
 
   async componentWillMount() {
-    let model = await new AppModel().load();
+    let model = new AppModel();
+    await model.load();
     this.setState(model.toPojo());
     if (!this.state.hasError) {
       this.setState({ isLoading: false });
@@ -56,17 +58,7 @@ export default class App extends Component {
           styles.app
         )}
       >
-        <Layout.Header
-          email={this.state.email}
-          name={this.state.name}
-          phone={this.state.phone}
-          portrait={this.state.avatar}
-          slogan={this.state.slogan}
-          url={this.state.home}
-          hide={this.state.hideChrome}
-        />
         <div className={styles.content}>{content}</div>
-        <Layout.Footer copy={this.state.footer} hide={this.state.hideChrome} />
       </div>
     );
   }
@@ -102,7 +94,7 @@ export default class App extends Component {
       centerHorizontally: false,
       centerVertically: false,
       hideChrome: false,
-      canShowGame: true
+      canShowGame: true,
     };
     if (window.innerWidth > GAME_WIDTH) {
       stateChanges.canShowBorder = true;

@@ -6,7 +6,6 @@ import Spell from "./entities/items/Spell";
 import TatteredPage from "./entities/items/TatteredPage";
 
 let gameSave;
-let gameSaveSlot = 0;
 let heroRef;
 let sceneApi;
 let state = {
@@ -15,15 +14,8 @@ let state = {
 
 export default class GameState {
   static async getGameSave() {
-    const slot = gameSaveSlot + "";
-    if (!gameSave || gameSave.slot !== slot) {
-      const token = GameSaveModel.getToken();
-      let saves = await DataCollection.create(GameSaveModel).list({ token });
-      if (saves.length) {
-        gameSave = saves[slot];
-      } else {
-        gameSave = new GameSaveModel({ token, slot });
-      }
+    if (!gameSave) {
+      gameSave = await new GameSaveModel().load();
     }
     return gameSave;
   }
@@ -80,14 +72,12 @@ export default class GameState {
     }
   }
 
-  static async load(slot) {
-    gameSaveSlot = slot;
+  static async load() {
     const save = await GameState.getGameSave();
     state = save && save.data ? save.data : (state = { scenes: {} });
   }
 
-  static async save(slot) {
-    gameSaveSlot = slot;
+  static async save() {
     const save = await GameState.getGameSave();
     save.data = state;
     return save.save();
