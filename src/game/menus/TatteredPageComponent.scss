@@ -3,8 +3,8 @@
 $spell-icon-size: 20px;
 
 .container {
-  width: 400px;
-  height: 329px;
+  width: 392px;
+  height: 320px;
   position: absolute;
   top: 10px;
   left: 120px;
@@ -55,8 +55,8 @@ $spell-icon-size: 20px;
       top: $border-offset;
       left: $border-offset;
       border-color: $color-font-inverse;
-      width: $icon-size-with-border;
-      height: $icon-size-with-border;
+      width: $spell-icon-size;
+      height: $spell-icon-size;
     }
   }
 

@@ -15,7 +15,7 @@ let state = {
 export default class GameState {
   static async getGameSave() {
     if (!gameSave) {
-      gameSave = await new GameSaveModel().load();
+      gameSave = await new GameSaveModel();//.load();
     }
     return gameSave;
   }
