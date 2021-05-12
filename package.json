@@ -19,7 +19,7 @@
     }
   },
   "dependencies": {
-    "codemirror": "^5.33.0",
+    "codemirror": "^5.58.2",
     "fbemitter": "^2.1.1",
     "js-interpreter": "^1.4.6",
     "lodash": "^4.17.4",
